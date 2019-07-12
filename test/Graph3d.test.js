@@ -3,7 +3,7 @@ var Graph3d = require('../lib/graph3d/Graph3d');
 var jsdom_global = require('jsdom-global');
 var canvasMockify = require('./canvas-mock');
 var stdout = require('test-console').stdout;
-var Validator = require("./../lib/shared/Validator").default;
+var Validator = require("./../lib/shared/Validator").Validator;
 //var {printStyle} = require('./../lib/shared/Validator');
 var {allOptions, configureOptions} = require('./../lib/graph3d/options.js');
 
