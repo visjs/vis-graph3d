@@ -7,17 +7,6 @@ http://www.tipue.com/search
 */
 
 var tipuesearch_pages = [
-"../network/layout.html",
-"../network/configure.html",
-"../network/edges.html",
-"../network/groups.html",
-"../network/index.html",
-"../network/interaction.html",
-"../network/manipulation.html",
-"../network/nodes.html",
-"../network/physics.html",
-"../timeline/index.html",
-"../graph2d/index.html",
 "../graph3d/index.html"
 ];
 

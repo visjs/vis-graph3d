@@ -1,15 +1,17 @@
 {
-  "name": "vis",
+  "name": "vis-graph3d",
   "version": "5.0.0",
-  "description": "A dynamic, browser-based visualization library.",
+  "description": "Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.",
+  "main": "dist/vis-graph3d.min.js",
+  "module": "dist/esm.js",
   "homepage": "http://visjs.org/",
   "license": "(Apache-2.0 OR MIT)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/almende/vis.git"
+    "url": "git://github.com/visjs/vis-graph3d.git"
   },
   "bugs": {
-    "url": "https://github.com/almende/vis/issues"
+    "url": "https://github.com/visjs/vis-graph3d/issues"
   },
   "keywords": [
     "vis",
@@ -18,38 +20,15 @@
     "browser based",
     "javascript",
     "chart",
-    "linechart",
-    "timeline",
     "graph",
-    "network",
     "browser"
   ],
-  "main": "./dist/vis.js",
   "scripts": {
     "test": "mocha --exit --require @babel/register",
     "test-cov": "nyc --reporter=lcov mocha --exit --require @babel/register",
-    "rollup": "rollup",
-    "build:data": "rollup --config rollup.config.data.js",
-    "js:network": "rollup --config rollup.config.network.js",
-    "css:network": "concat-glob-cli -f 'lib/{network,shared}/**/*.css' -o dist/vis-network.css",
-    "uglify:css:network": "uglifycss dist/vis-network.css > dist/vis-network.min.css",
-    "images:network": "cpy lib/network/img/* dist/img/network/",
-    "build:network": "npm run js:network && npm run css:network && npm run uglify:css:network && npm run images:network",
-    "js:graph2d": "rollup --config rollup.config.timeline-graph2d.js",
-    "css:graph2d": "concat-glob-cli -f 'lib/{timeline,shared}/**/*.css' -o dist/vis-timeline-graph2d.css",
-    "uglify:css:graph2d": "uglifycss dist/vis-timeline-graph2d.css > dist/vis-timeline-graph2d.min.css",
-    "build:graph2d": "npm run js:graph2d && npm run css:graph2d && npm run uglify:css:graph2d",
-    "js:graph3d": "rollup --config rollup.config.graph3d.js",
-    "css:graph3d": "concat-glob-cli -f 'lib/{graph3d,shared}/**/*.css' -o dist/vis-graph3d.css",
-    "uglify:css:graph3d": "uglifycss dist/vis-graph3d.css > dist/vis-graph3d.min.css",
-    "build:graph3d": "npm run js:graph3d && npm run css:graph3d && npm run uglify:css:graph3d",
-    "js:all": "rollup --config rollup.config.all.js",
-    "uglify:js:all": "uglifyjs --comments --compress --mangle --output dist/vis.min.js dist/vis.js",
-    "css:all": "concat-glob-cli -f 'lib/**/*.css' -o dist/vis.css",
-    "uglify:css:all": "uglifycss dist/vis.css > dist/vis.min.css",
-    "build:all": "npm run js:all && npm run uglify:js:all && npm run css:all && npm run uglify:css:all",
-    "build": "npm run build:all && npm run build:data && npm run build:network && npm run build:graph2d && npm run build:graph3d",
-    "watch": "npm run css:all && npm run uglify:css:all && rollup --watch --config rollup.config.all.js",
+    "js:graph3d": "rollup --config rollup.config.js",
+    "build": "npm run js:graph3d",
+    "watch": "rollup --watch --config rollup.config.js",
     "watch-dev": "npm run watch-dev",
     "lint": "eslint '{src,test}/**/*.{m,}{j,t}s{x,}'",
     "clean": "rimraf 'dist/*'",
@@ -62,8 +41,8 @@
     "moment": "^2.20.1",
     "propagating-hammerjs": "^1.4.6",
     "timsort": "^0.3.0",
-    "vis-data": "^5.0.0",
-    "vis-util": "^1.0.2"
+    "vis-data": "^6.0.0",
+    "vis-util": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
@@ -90,10 +69,7 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-uglify": "^6.0.2",
     "sinon": "^4.0.1",
-    "test-console": "^1.0.0",
-    "uglify-js": "^3.6.0",
-    "uglifycss": "0.0.29",
-    "uuid": "^3.1.0"
+    "test-console": "^1.0.0"
   },
   "collective": {
     "type": "opencollective",
