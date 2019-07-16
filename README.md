@@ -1,5 +1,7 @@
 # vis-graph3d
 
+![example chart](docs/img/graph3d.png)
+
 Graph3d is an interactive visualization chart to draw data in a three dimensional graph. You can freely move and zoom in the graph by dragging and scrolling in the window. Graph3d also supports animation of a graph.
 
 Graph3d uses HTML canvas to render graphs, and can render up to a few thousands of data points smoothly.
@@ -28,7 +30,7 @@ of the project.
 <html>
 <head>
   <title>Graph 3D demo</title>
-  <script type="text/javascript" src="vis-graph3d.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
   <script type="text/javascript">
     var data = null;
     var graph = null;
