@@ -1,6 +1,32 @@
-# vis.js history
+# vis-graph3d
+
 http://visjs.org
 
+## 2019-07-19, version 5.0.0
+
+In version 5.0.0 the original [vis library](https://github.com/almende/vis) was split up and the whole build process changed.
+
+- fix: fix postinstall script; #3
+- feat: generate a unminified vis.js file also
+- use rollup instead of gulp/webpack (#1)
+- Fix link in 'how to help' [#4131](https://github.com/almende/vis/pull/4131)
+- Link we_need_help to Open Collective [#4218](https://github.com/almende/vis/pull/4218)
+- Fixed typo in CONTRIBUTING.md [#4210](https://github.com/almende/vis/pull/4210)
+- Replace babel-preset-es2015 with babel-preset-env [#3978](https://github.com/almende/vis/pull/3978)
+- update moment to last version [#3819](https://github.com/almende/vis/pull/3819)
+- [Graph3d] zoomable and ctrlToZoom options [#3800](https://github.com/almende/vis/pull/3800)
+- Opencollective [#3681](https://github.com/almende/vis/pull/3681)
+- Fixes issue 3321 by ensuring labels are drawn as part of initial cons… [#3646](https://github.com/almende/vis/pull/3646)
+- Adding unit tests for lib/shared [#3600](https://github.com/almende/vis/pull/3600)
+- Adds code-cov to develop and updates readme. [#3629](https://github.com/almende/vis/pull/3629)
+- Docs : fixes and enhancements for the documentation template. [#3596](https://github.com/almende/vis/pull/3596)
+- Unit tests: upgrade jsdom to v11 to fix breaking unit tests for Network [#3603](https://github.com/almende/vis/pull/3603)
+- Moved navbar elements in all html documentation files to partial [#3604](https://github.com/almende/vis/pull/3604)
+- Docs: Moved end block in all html documentation files to partial [#3597](https://github.com/almende/vis/pull/3597)
+- Network: force array order when sorting hierarchical levels [#3576](https://github.com/almende/vis/pull/3576)
+- Add template for document generation with 'jsdoc'. [#3497](https://github.com/almende/vis/pull/3497)
+- Adds code coverage report the output of `npm test` and adds detailed … [#3575](https://github.com/almende/vis/pull/3575)
+- Use mock canvas object replacing `canvas` [#3518](https://github.com/almende/vis/pull/3518)
 
 ## 2017-10-12, version 4.21.0
 
