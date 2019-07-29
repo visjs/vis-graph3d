@@ -19,8 +19,9 @@ Steps to reproduce the behavior:
 **Expected behavior**
 _A clear and concise description of what you expected to happen._
 
-**Screenshots**
-_If possible, add screenshots to help explain your problem._
+**example code**
+_It helps a lot to have a minimal code example that demonstrates the bug._
+_Please use [jsbin](https://jsbin.com) or a similar site for this._
 
 **Versions:**
  - OS: [e.g. windows 10]
