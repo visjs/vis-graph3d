@@ -13,6 +13,8 @@ staleLabel: wontfix
 markComment: >
   This issue has been automatically marked as stale because it has not had
   recent activity. It will be closed if no further activity occurs. 
-  Thank you for your contributions!
 # Comment to post when closing a stale issue. Set to `false` to disable
-closeComment: false
+closeComment: >
+  This issue was closed due to inactivity. Please feel free to still 
+  comment or give :+1: :-1:. We might reopen it due to broad interest.
+  Thank you for your contributions!
