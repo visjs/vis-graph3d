@@ -1,6 +1,6 @@
 {
   "name": "vis-graph3d",
-  "version": "5.0.0",
+  "version": "0.0.0-no-version",
   "description": "Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.",
   "main": "dist/vis-graph3d.min.js",
   "module": "dist/esm.js",
@@ -8,7 +8,7 @@
   "license": "(Apache-2.0 OR MIT)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/visjs/vis-graph3d.git"
+    "url": "https://github.com/visjs/vis-graph3d.git"
   },
   "bugs": {
     "url": "https://github.com/visjs/vis-graph3d/issues"
@@ -32,7 +32,16 @@
     "watch-dev": "npm run watch-dev",
     "lint": "eslint '{src,test}/**/*.{m,}{j,t}s{x,}'",
     "clean": "rimraf 'dist/*'",
-    "postinstall": "opencollective postinstall || exit 0"
+    "postinstall": "opencollective postinstall || exit 0",
+    "prepublishOnly": "npm run contributors:update && npm run build",
+    "contributors:update": "git-authors-cli"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
   },
   "dependencies": {
     "emitter-component": "^1.1.1",
@@ -48,13 +57,18 @@
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
     "@babel/register": "^7.4.4",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "clean-css": "^4.1.7",
     "concat-glob-cli": "^0.1.0",
     "cpy-cli": "^2.0.0",
     "eslint": "^4.3.0",
+    "git-authors-cli": "^1.0.18",
+    "husky": "^3.0.3",
     "jsdoc": "^3.5.5",
     "jsdom": "11.3.0",
     "jsdom-global": "^3.0.2",
+    "lint-staged": "^9.2.1",
     "merge-stream": "^1.0.1",
     "mocha": "^5.2.0",
     "nyc": "^11.2.1",
@@ -68,6 +82,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-uglify": "^6.0.2",
+    "semantic-release": "^15.13.21",
     "sinon": "^4.0.1",
     "test-console": "^1.0.0"
   },
