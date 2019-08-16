@@ -9,6 +9,11 @@ var jsdom_global = require('jsdom-global');
 var canvasMock;  // Use one canvas instance for all calls to createElement('canvas');
 
 
+/**
+ * Create fake context on given element.
+ *
+ * @param {Element} el - The element that will receive the new context.
+ */
 function replaceCanvasContext (el) {
   el.getContext = function() {
     return {
@@ -126,10 +131,6 @@ function overrideCreateElementNS(window) {
  * @returns {function}  function to call in after(), to clean up for `jsdom_global`
  */
 function mockify(html = '') {
-  // Start of message that we want to suppress.
-  let msg = 'Error: Not implemented: HTMLCanvasElement.prototype.getContext'
-    + ' (without installing the canvas npm package)';
-
   // Override default virtual console of jsdom
   const virtualConsole = new jsdom.VirtualConsole();
 
