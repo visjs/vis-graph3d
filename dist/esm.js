@@ -1,11 +1,11 @@
-/** 
+/**
  * vis-graph3d - data
  * http://visjs.org/
  * 
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  * 
  * @version 5.0.0
- * @date    2019-07-16T14:14:19Z
+ * @date    2019-08-13T18:33:45Z
  * 
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2018-2019 visjs contributors, https://github.com/visjs
@@ -23,19 +23,6 @@
  * 
  * vis.js may be distributed under either license.
  */
-function _typeof(obj) {
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function (obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function (obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -52,59 +39,37 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    keys.push.apply(keys, Object.getOwnPropertySymbols(object));
-  }
-
-  if (enumerableOnly) keys = keys.filter(function (sym) {
-    return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-  });
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(source).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
-}
+var defineProperty = _defineProperty;
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
 
     return arr2;
   }
 }
 
+var arrayWithoutHoles = _arrayWithoutHoles;
+
 function _iterableToArray(iter) {
   if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
 }
+
+var iterableToArray = _iterableToArray;
 
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
+var nonIterableSpread = _nonIterableSpread;
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || nonIterableSpread();
+}
+
+var toConsumableArray = _toConsumableArray;
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 function commonjsRequire() {
@@ -116,6 +81,38 @@ function createCommonjsModule(fn, module) {
     exports: {}
   }, fn(module, module.exports), module.exports;
 }
+
+var _typeof_1 = createCommonjsModule(function (module) {
+  function _typeof2(obj) {
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof2 = function _typeof2(obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof2 = function _typeof2(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof2(obj);
+  }
+
+  function _typeof(obj) {
+    if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
+      module.exports = _typeof = function _typeof(obj) {
+        return _typeof2(obj);
+      };
+    } else {
+      module.exports = _typeof = function _typeof(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  module.exports = _typeof;
+});
 
 var moment = createCommonjsModule(function (module, exports) {
   (function (global, factory) {
@@ -4820,7 +4817,40 @@ function uuid4() {
 
   return buf || stringifyUUID(rnds);
 } // Rollup will complain about mixing default and named exports in UMD build,
-// for example '/Date(1198908717056)/' or '/Date(1198908717056-0700)/'
+
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    keys.push.apply(keys, Object.getOwnPropertySymbols(object));
+  }
+
+  if (enumerableOnly) keys = keys.filter(function (sym) {
+    return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+  });
+  return keys;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+} // for example '/Date(1198908717056)/' or '/Date(1198908717056-0700)/'
 // code from http://momentjs.com/
 
 
@@ -4884,7 +4914,7 @@ function isString(value) {
 
 
 function isObject(value) {
-  return _typeof(value) === 'object' && value !== null;
+  return _typeof_1(value) === 'object' && value !== null;
 }
 /**
  * Test whether given object is a Date, or a String containing a Date
@@ -4968,7 +4998,7 @@ function fillIfDefined(a, b) {
 
   for (var prop in a) {
     if (b[prop] !== undefined) {
-      if (b[prop] === null || _typeof(b[prop]) !== 'object') {
+      if (b[prop] === null || _typeof_1(b[prop]) !== 'object') {
         // Note: typeof null === 'object'
         copyOrDelete(a, b, prop, allowDeletion);
       } else {
@@ -5006,13 +5036,16 @@ var extend = Object.assign;
  */
 
 function selectiveExtend(props, a) {
-  // @TODO: better solution?
   if (!Array.isArray(props)) {
     throw new Error('Array with property names expected as first argument');
   }
 
-  for (var i = 2; i < (arguments.length <= 2 ? 0 : arguments.length - 2); i++) {
-    var other = i + 2 < 2 || arguments.length <= i + 2 ? undefined : arguments[i + 2];
+  for (var _len = arguments.length, others = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    others[_key - 2] = arguments[_key];
+  }
+
+  for (var _i = 0, _others = others; _i < _others.length; _i++) {
+    var other = _others[_i];
 
     for (var p = 0; p < props.length; p++) {
       var prop = props[p];
@@ -5321,7 +5354,7 @@ function convert(object, type) {
     case 'ASPDate':
       if (isNumber(object)) {
         return '/Date(' + object + ')/';
-      } else if (object instanceof Date) {
+      } else if (object instanceof Date || isMoment(object)) {
         return '/Date(' + object.valueOf() + ')/';
       } else if (isString(object)) {
         match = ASPDateRegex.exec(object);
@@ -5355,7 +5388,7 @@ function convert(object, type) {
 
 
 function getType(object) {
-  var type = _typeof(object);
+  var type = _typeof_1(object);
 
   if (type === 'object') {
     if (object === null) {
@@ -5414,7 +5447,7 @@ function getType(object) {
 
 
 function copyAndExtendArray(arr, newValue) {
-  return [].concat(_toConsumableArray(arr), [newValue]);
+  return [].concat(toConsumableArray(arr), [newValue]);
 }
 /**
  * Used to extend an array and copy it. This is used to propagate paths recursively.
@@ -5516,9 +5549,9 @@ function forEach(object, callback) {
     }
   } else {
     // object
-    for (var _key in object) {
-      if (Object.prototype.hasOwnProperty.call(object, _key)) {
-        callback(object[_key], _key, object);
+    for (var _key2 in object) {
+      if (Object.prototype.hasOwnProperty.call(object, _key2)) {
+        callback(object[_key2], _key2, object);
       }
     }
   }
@@ -6029,11 +6062,11 @@ var cssUtil = {
       if (style.trim() != '') {
         var parts = style.split(':');
 
-        var _key2 = parts[0].trim();
+        var _key3 = parts[0].trim();
 
         var _value2 = parts[1].trim();
 
-        styles[_key2] = _value2;
+        styles[_key3] = _value2;
       }
     });
     return styles;
@@ -6056,7 +6089,7 @@ function addCssText(element, cssText) {
   var currentStyles = cssUtil.split(element.style.cssText);
   var newStyles = cssUtil.split(cssText);
 
-  var styles = _objectSpread2({}, currentStyles, {}, newStyles);
+  var styles = _objectSpread({}, currentStyles, {}, newStyles);
 
   element.style.cssText = cssUtil.join(styles);
 }
@@ -6072,9 +6105,9 @@ function removeCssText(element, cssText) {
   var styles = cssUtil.split(element.style.cssText);
   var removeStyles = cssUtil.split(cssText);
 
-  for (var _key3 in removeStyles) {
-    if (Object.prototype.hasOwnProperty.call(removeStyles, _key3)) {
-      delete styles[_key3];
+  for (var _key4 in removeStyles) {
+    if (Object.prototype.hasOwnProperty.call(removeStyles, _key4)) {
+      delete styles[_key4];
     }
   }
 
@@ -6220,13 +6253,13 @@ function isValidRGBA(rgba) {
 
 
 function selectiveBridgeObject(fields, referenceObject) {
-  if (referenceObject !== null && _typeof(referenceObject) === 'object') {
+  if (referenceObject !== null && _typeof_1(referenceObject) === 'object') {
     // !!! typeof null === 'object'
     var objectTo = Object.create(referenceObject);
 
     for (var i = 0; i < fields.length; i++) {
       if (Object.prototype.hasOwnProperty.call(referenceObject, fields[i])) {
-        if (_typeof(referenceObject[fields[i]]) == 'object') {
+        if (_typeof_1(referenceObject[fields[i]]) == 'object') {
           objectTo[fields[i]] = bridgeObject(referenceObject[fields[i]]);
         }
       }
@@ -6248,7 +6281,7 @@ function selectiveBridgeObject(fields, referenceObject) {
 
 
 function bridgeObject(referenceObject) {
-  if (referenceObject === null || _typeof(referenceObject) !== 'object') {
+  if (referenceObject === null || _typeof_1(referenceObject) !== 'object') {
     return null;
   }
 
@@ -6261,7 +6294,7 @@ function bridgeObject(referenceObject) {
 
   for (var i in referenceObject) {
     if (Object.prototype.hasOwnProperty.call(referenceObject, i)) {
-      if (_typeof(referenceObject[i]) == 'object') {
+      if (_typeof_1(referenceObject[i]) == 'object') {
         objectTo[i] = bridgeObject(referenceObject[i]);
       }
     }
@@ -6316,7 +6349,7 @@ function mergeOptions(mergeTarget, options, option) {
   };
 
   var isObject = function isObject(obj) {
-    return obj !== null && _typeof(obj) === 'object';
+    return obj !== null && _typeof_1(obj) === 'object';
   }; // https://stackoverflow.com/a/34491287/1223531
 
 
@@ -7097,8 +7130,8 @@ var DOMutil_7 = DOMutil.drawBar;
  * 
  * Manage unstructured data using DataSet. Add, update, and remove data, and listen for changes in the data.
  * 
- * @version 6.0.0
- * @date    2019-07-12T21:27:54Z
+ * @version 6.1.0
+ * @date    2019-07-16T13:37:00Z
  * 
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2018-2019 visjs contributors, https://github.com/visjs
@@ -7116,18 +7149,282 @@ var DOMutil_7 = DOMutil.drawBar;
  * 
  * vis.js may be distributed under either license.
  */
-function _typeof$1(obj) {
+function _defineProperty$1(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+var defineProperty$1 = _defineProperty$1;
+
+function createCommonjsModule$2(fn, module) {
+  return module = {
+    exports: {}
+  }, fn(module, module.exports), module.exports;
+}
+
+var _typeof_1$1 = createCommonjsModule$2(function (module) {
+  function _typeof2(obj) {
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof2 = function _typeof2(obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof2 = function _typeof2(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof2(obj);
+  }
+
+  function _typeof(obj) {
+    if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
+      module.exports = _typeof = function _typeof(obj) {
+        return _typeof2(obj);
+      };
+    } else {
+      module.exports = _typeof = function _typeof(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  module.exports = _typeof;
+});
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+var classCallCheck = _classCallCheck;
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+var createClass = _createClass;
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+var assertThisInitialized = _assertThisInitialized;
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof_1$1(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return assertThisInitialized(self);
+}
+
+var possibleConstructorReturn = _possibleConstructorReturn;
+var getPrototypeOf = createCommonjsModule$2(function (module) {
+  function _getPrototypeOf(o) {
+    module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+      return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _getPrototypeOf(o);
+  }
+
+  module.exports = _getPrototypeOf;
+});
+var setPrototypeOf = createCommonjsModule$2(function (module) {
+  function _setPrototypeOf(o, p) {
+    module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+
+    return _setPrototypeOf(o, p);
+  }
+
+  module.exports = _setPrototypeOf;
+});
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) setPrototypeOf(subClass, superClass);
+}
+
+var inherits = _inherits; // Maps for number <-> hex string conversion
+
+var byteToHex$2 = [];
+
+for (var i$2 = 0; i$2 < 256; i$2++) {
+  byteToHex$2[i$2] = (i$2 + 0x100).toString(16).substr(1);
+}
+/**
+ * Represent binary UUID into it's string representation.
+ *
+ * @param buf - Buffer containing UUID bytes.
+ * @param offset - Offset from the start of the buffer where the UUID is saved (not needed if the buffer starts with the UUID).
+ *
+ * @returns String representation of the UUID.
+ */
+
+
+function stringifyUUID$1(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex$2;
+  return bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]];
+}
+/**
+ * Generate 16 random bytes to be used as a base for UUID.
+ *
+ * @ignore
+ */
+
+
+var random$1 = function () {
+  if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+    // WHATWG crypto-based RNG - http://wiki.whatwg.org/wiki/Crypto
+    // Moderately fast, high quality
+    var _rnds8 = new Uint8Array(16);
+
+    return function whatwgRNG() {
+      crypto.getRandomValues(_rnds8);
+      return _rnds8;
+    };
+  } // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().
+  // It's fast, but is of unspecified quality.
+
+
+  var _rnds = new Array(16);
+
+  return function () {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) {
+        r = Math.random() * 0x100000000;
+      }
+
+      _rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return _rnds;
+  }; //     uuid.js
+  //
+  //     Copyright (c) 2010-2012 Robert Kieffer
+  //     MIT License - http://opensource.org/licenses/mit-license.php
+  // Unique ID creation requires a high quality random # generator.  We feature
+  // detect to determine the best RNG source, normalizing to a function that
+  // returns 128-bits of randomness, since that's what's usually required
+  // return require('./rng');
+}();
+
+var byteToHex$1$1 = [];
+
+for (var i$1$1 = 0; i$1$1 < 256; i$1$1++) {
+  byteToHex$1$1[i$1$1] = (i$1$1 + 0x100).toString(16).substr(1);
+} // **`v1()` - Generate time-based UUID**
+//
+// Inspired by https://github.com/LiosK/UUID.js
+// and http://docs.python.org/library/uuid.html
+// random #'s we need to init node and clockseq
+
+
+var seedBytes$1 = random$1(); // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+
+var defaultNodeId$1 = [seedBytes$1[0] | 0x01, seedBytes$1[1], seedBytes$1[2], seedBytes$1[3], seedBytes$1[4], seedBytes$1[5]]; // Per 4.2.2, randomize (14 bit) clockseq
+
+var defaultClockseq$1 = (seedBytes$1[6] << 8 | seedBytes$1[7]) & 0x3fff; // Previous uuid creation time
+
+/**
+ * UUIDv4 options.
+ */
+
+/**
+ * Generate UUIDv4
+ *
+ * @param options - Options to be used instead of default generated values.
+ * String 'binary' is a shorthand for uuid4({}, new Array(16)).
+ * @param buf - If present the buffer will be filled with the generated UUID.
+ * @param offset - Offset of the UUID from the start of the buffer.
+ *
+ * @returns UUIDv4
+ */
+
+function uuid4$1() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var buf = arguments.length > 1 ? arguments[1] : undefined;
+  var offset = arguments.length > 2 ? arguments[2] : undefined; // Deprecated - 'format' argument, as supported in v1.2
+
+  var i = buf && offset || 0;
+
+  if (typeof options === 'string') {
+    buf = options === 'binary' ? new Array(16) : undefined;
+    options = {};
+  }
+
+  var rnds = options.random || (options.rng || random$1)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+
+  rnds[6] = rnds[6] & 0x0f | 0x40;
+  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
+
+  if (buf) {
+    for (var ii = 0; ii < 16; ii++) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || stringifyUUID$1(rnds);
+} // Rollup will complain about mixing default and named exports in UMD build,
+
+
+function _typeof(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof$1 = function (obj) {
+    _typeof = function (obj) {
       return typeof obj;
     };
   } else {
-    _typeof$1 = function (obj) {
+    _typeof = function (obj) {
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
   }
 
-  return _typeof$1(obj);
+  return _typeof(obj);
 }
 
 var commonjsGlobal$2 = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -7136,13 +7433,13 @@ function commonjsRequire$2() {
   throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
 }
 
-function createCommonjsModule$2(fn, module) {
+function createCommonjsModule$1$1(fn, module) {
   return module = {
     exports: {}
   }, fn(module, module.exports), module.exports;
 }
 
-var moment$1 = createCommonjsModule$2(function (module, exports) {
+var moment$1 = createCommonjsModule$1$1(function (module, exports) {
   (function (global, factory) {
     module.exports = factory();
   })(commonjsGlobal$2, function () {
@@ -11723,58 +12020,10 @@ var moment$1 = createCommonjsModule$2(function (module, exports) {
   });
 }); // Maps for number <-> hex string conversion
 
-var byteToHex$2 = [];
-var hexToByte = {};
+var byteToHex$2$1 = [];
 
-for (var i$2 = 0; i$2 < 256; i$2++) {
-  byteToHex$2[i$2] = (i$2 + 0x100).toString(16).substr(1);
-  hexToByte[byteToHex$2[i$2]] = i$2;
-}
-/**
- * Parse a string UUID representation into it's component bytes.
- *
- * @param str - String UUID.
- * @param buf - Buffer to be filled with the bytes.
- * @param offset - Offset from the start of the buffer where the UUID bytes will be saved.
- *
- * @returns An array (or Uint8Array if supplied) of bytes.
- */
-
-
-function parseUUID(str) {
-  var buf = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  var offset = arguments.length > 2 ? arguments[2] : undefined;
-  var i = buf && offset || 0;
-  var ii = 0;
-  str.toLowerCase().replace(/[0-9a-f]{2}/g, function (oct) {
-    if (ii < 16) {
-      // Don't overflow!
-      buf[i + ii++] = hexToByte[oct];
-    }
-
-    return '';
-  }); // Zero out remaining bytes if string was short
-
-  while (ii < 16) {
-    buf[i + ii++] = 0;
-  }
-
-  return buf;
-}
-/**
- * Represent binary UUID into it's string representation.
- *
- * @param buf - Buffer containing UUID bytes.
- * @param offset - Offset from the start of the buffer where the UUID is saved (not needed if the buffer starts with the UUID).
- *
- * @returns String representation of the UUID.
- */
-
-
-function stringifyUUID$1(buf, offset) {
-  var i = offset || 0;
-  var bth = byteToHex$2;
-  return bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + '-' + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]];
+for (var i$2$1 = 0; i$2$1 < 256; i$2$1++) {
+  byteToHex$2$1[i$2$1] = (i$2$1 + 0x100).toString(16).substr(1);
 }
 /**
  * Generate 16 random bytes to be used as a base for UUID.
@@ -11783,7 +12032,7 @@ function stringifyUUID$1(buf, offset) {
  */
 
 
-var random$1 = function () {
+var random$1$1 = function () {
   if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
     // WHATWG crypto-based RNG - http://wiki.whatwg.org/wiki/Crypto
     // Moderately fast, high quality
@@ -11821,10 +12070,10 @@ var random$1 = function () {
   // return require('./rng');
 }();
 
-var byteToHex$1$1 = [];
+var byteToHex$1$1$1 = [];
 
-for (var i$1$1 = 0; i$1$1 < 256; i$1$1++) {
-  byteToHex$1$1[i$1$1] = (i$1$1 + 0x100).toString(16).substr(1);
+for (var i$1$1$1 = 0; i$1$1$1 < 256; i$1$1$1++) {
+  byteToHex$1$1$1[i$1$1$1] = (i$1$1$1 + 0x100).toString(16).substr(1);
 } // **`v1()` - Generate time-based UUID**
 //
 // Inspired by https://github.com/LiosK/UUID.js
@@ -11832,3566 +12081,2046 @@ for (var i$1$1 = 0; i$1$1 < 256; i$1$1++) {
 // random #'s we need to init node and clockseq
 
 
-var seedBytes$1 = random$1(); // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+var seedBytes$1$1 = random$1$1(); // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
 
-var defaultNodeId$1 = [seedBytes$1[0] | 0x01, seedBytes$1[1], seedBytes$1[2], seedBytes$1[3], seedBytes$1[4], seedBytes$1[5]]; // Per 4.2.2, randomize (14 bit) clockseq
+var defaultNodeId$1$1 = [seedBytes$1$1[0] | 0x01, seedBytes$1$1[1], seedBytes$1$1[2], seedBytes$1$1[3], seedBytes$1$1[4], seedBytes$1$1[5]]; // Per 4.2.2, randomize (14 bit) clockseq
 
-var defaultClockseq$1 = (seedBytes$1[6] << 8 | seedBytes$1[7]) & 0x3fff; // Previous uuid creation time
+var defaultClockseq$1$1 = (seedBytes$1$1[6] << 8 | seedBytes$1$1[7]) & 0x3fff; // Previous uuid creation time
+// for example '/Date(1198908717056)/' or '/Date(1198908717056-0700)/'
+// code from http://momentjs.com/
 
-var lastMSecs = 0;
-var lastNSecs = 0;
+var ASPDateRegex$1 = /^\/?Date\((-?\d+)/i; // Hex color
+
 /**
- * UUIDv1 options.
+ * Hue, Saturation, Value.
  */
 
 /**
- * Generate UUIDv1
+ * Test whether given object is a number
  *
- * @param options - Options to be used instead of default values.
- * @param buf - If present the buffer will be filled with the generated UUID.
- * @param offset - Offset of the UUID from the start of the buffer.
+ * @param value - Input value of unknown type.
  *
- * @returns UUIDv1
+ * @returns True if number, false otherwise.
  */
 
-function uuid1() {
-  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var buf = arguments.length > 1 ? arguments[1] : undefined;
-  var offset = arguments.length > 2 ? arguments[2] : undefined;
-  var i = buf && offset || 0;
-  var b = buf || [];
-  var clockseq = options.clockseq !== undefined ? options.clockseq : defaultClockseq$1; // UUID timestamps are 100 nano-second units since the Gregorian epoch,
-  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
-  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
-  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
-
-  var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime(); // Per 4.2.1.2, use count of uuid's generated during the current clock
-  // cycle to simulate higher resolution clock
-
-  var nsecs = options.nsecs !== undefined ? options.nsecs : lastNSecs + 1; // Time since last uuid creation (in msecs)
-
-  var dt = msecs - lastMSecs + (nsecs - lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
-
-  if (dt < 0 && options.clockseq === undefined) {
-    clockseq = clockseq + 1 & 0x3fff;
-  } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
-  // time interval
-
-
-  if ((dt < 0 || msecs > lastMSecs) && options.nsecs === undefined) {
-    nsecs = 0;
-  } // Per 4.2.1.2 Throw error if too many uuids are requested
-
-
-  if (nsecs >= 10000) {
-    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
-  }
-
-  lastMSecs = msecs;
-  lastNSecs = nsecs;
-  defaultClockseq$1 = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
-
-  msecs += 12219292800000; // `time_low`
-
-  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
-  b[i++] = tl >>> 24 & 0xff;
-  b[i++] = tl >>> 16 & 0xff;
-  b[i++] = tl >>> 8 & 0xff;
-  b[i++] = tl & 0xff; // `time_mid`
-
-  var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
-  b[i++] = tmh >>> 8 & 0xff;
-  b[i++] = tmh & 0xff; // `time_high_and_version`
-
-  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
-
-  b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
-
-  b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
-
-  b[i++] = clockseq & 0xff; // `node`
-
-  var node = options.node || defaultNodeId$1;
-
-  for (var n = 0; n < 6; n++) {
-    b[i + n] = node[n];
-  }
-
-  return buf ? buf : stringifyUUID$1(b);
+function isNumber$1(value) {
+  return value instanceof Number || typeof value === 'number';
 }
 /**
- * UUIDv4 options.
- */
-
-/**
- * Generate UUIDv4
+ * Test whether given object is a string
  *
- * @param options - Options to be used instead of default generated values.
- * String 'binary' is a shorthand for uuid4({}, new Array(16)).
- * @param buf - If present the buffer will be filled with the generated UUID.
- * @param offset - Offset of the UUID from the start of the buffer.
+ * @param value - Input value of unknown type.
  *
- * @returns UUIDv4
+ * @returns True if string, false otherwise.
  */
 
 
-function uuid4$1() {
-  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var buf = arguments.length > 1 ? arguments[1] : undefined;
-  var offset = arguments.length > 2 ? arguments[2] : undefined; // Deprecated - 'format' argument, as supported in v1.2
-
-  var i = buf && offset || 0;
-
-  if (typeof options === 'string') {
-    buf = options === 'binary' ? new Array(16) : undefined;
-    options = {};
-  }
-
-  var rnds = options.random || (options.rng || random$1)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
-  rnds[6] = rnds[6] & 0x0f | 0x40;
-  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
-
-  if (buf) {
-    for (var ii = 0; ii < 16; ii++) {
-      buf[i + ii] = rnds[ii];
-    }
-  }
-
-  return buf || stringifyUUID$1(rnds);
-} // Rollup will complain about mixing default and named exports in UMD build,
-// but since they both implement the same interface, there won't be any problems.
-
-/**
- * API properties as used before ES2015 modules and TypeScript.
- */
-
-
-var oldAPI = function oldAPI() {
-  return uuid4$1.apply(void 0, arguments);
-};
-
-oldAPI.v1 = uuid1;
-oldAPI.v4 = uuid4$1;
-oldAPI.parse = parseUUID;
-oldAPI.unparse = stringifyUUID$1;
-var esm = createCommonjsModule$2(function (module, exports) {
-  function _typeof(obj) {
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function (obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof = function (obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
-
-    return _typeof(obj);
-  } // utility functions
-  // first check if moment.js is already loaded in the browser window, if so,
-  // use this instance. Else, load via commonjs.
-
-  /**
-   * Test whether given object is a number
-   * @param {*} object
-   * @return {Boolean} isNumber
-   */
-
-
-  exports.isNumber = function (object) {
-    return object instanceof Number || typeof object == 'number';
-  };
-  /**
-   * Remove everything in the DOM object
-   * @param {Element} DOMobject
-   */
-
-
-  exports.recursiveDOMDelete = function (DOMobject) {
-    if (DOMobject) {
-      while (DOMobject.hasChildNodes() === true) {
-        exports.recursiveDOMDelete(DOMobject.firstChild);
-        DOMobject.removeChild(DOMobject.firstChild);
-      }
-    }
-  };
-  /**
-   * Test whether given object is a string
-   * @param {*} object
-   * @return {Boolean} isString
-   */
-
-
-  exports.isString = function (object) {
-    return object instanceof String || typeof object == 'string';
-  };
-  /**
-   * Test whether given object is a Date, or a String containing a Date
-   * @param {Date | String} object
-   * @return {Boolean} isDate
-   */
-
-
-  exports.isDate = function (object) {
-    if (object instanceof Date) {
-      return true;
-    } else if (exports.isString(object)) {
-      // test whether this string contains a date
-      var match = ASPDateRegex.exec(object);
-
-      if (match) {
-        return true;
-      } else if (!isNaN(Date.parse(object))) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-  /**
-   * Create a UUID
-   * @return {string} uuid
-   */
-
-
-  exports.randomUUID = function () {
-    return oldAPI.v4();
-  };
-  /**
-   * Copy property from b to a if property present in a.
-   * If property in b explicitly set to null, delete it if `allowDeletion` set.
-   *
-   * Internal helper routine, should not be exported. Not added to `exports` for that reason.
-   *
-   * @param {object} a  target object
-   * @param {object} b  source object
-   * @param {string} prop  name of property to copy to a
-   * @param {boolean} allowDeletion  if true, delete property in a if explicitly set to null in b 
-   * @private
-   */
-
-
-  function copyOrDelete(a, b, prop, allowDeletion) {
-    var doDeletion = false;
-
-    if (allowDeletion === true) {
-      doDeletion = b[prop] === null && a[prop] !== undefined;
-    }
-
-    if (doDeletion) {
-      delete a[prop];
-    } else {
-      a[prop] = b[prop]; // Remember, this is a reference copy!
-    }
-  }
-  /**
-   * Fill an object with a possibly partially defined other object.
-   *
-   * Only copies values for the properties already present in a.
-   * That means an object is not created on a property if only the b object has it.
-   *
-   * @param {object} a
-   * @param {object} b
-   * @param {boolean} [allowDeletion=false]  if true, delete properties in a that are explicitly set to null in b 
-   */
-
-
-  exports.fillIfDefined = function (a, b) {
-    var allowDeletion = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false; // NOTE: iteration of properties of a
-    // NOTE: prototype properties iterated over as well
-
-    for (var prop in a) {
-      if (b[prop] !== undefined) {
-        if (b[prop] === null || _typeof(b[prop]) !== 'object') {
-          // Note: typeof null === 'object'
-          copyOrDelete(a, b, prop, allowDeletion);
-        } else {
-          if (_typeof(a[prop]) === 'object') {
-            exports.fillIfDefined(a[prop], b[prop], allowDeletion);
-          }
-        }
-      }
-    }
-  };
-  /**
-   * Extend object a with the properties of object b or a series of objects
-   * Only properties with defined values are copied
-   * @param {Object} a
-   * @param {...Object} b
-   * @return {Object} a
-   */
-
-
-  exports.extend = function (a, b) {
-    // eslint-disable-line no-unused-vars
-    for (var i = 1; i < arguments.length; i++) {
-      var other = arguments[i];
-
-      for (var prop in other) {
-        if (other.hasOwnProperty(prop)) {
-          a[prop] = other[prop];
-        }
-      }
-    }
-
-    return a;
-  };
-  /**
-   * Extend object a with selected properties of object b or a series of objects
-   * Only properties with defined values are copied
-   * @param {Array.<string>} props
-   * @param {Object} a
-   * @param {Object} b
-   * @return {Object} a
-   */
-
-
-  exports.selectiveExtend = function (props, a, b) {
-    // eslint-disable-line no-unused-vars
-    if (!Array.isArray(props)) {
-      throw new Error('Array with property names expected as first argument');
-    }
-
-    for (var i = 2; i < arguments.length; i++) {
-      var other = arguments[i];
-
-      for (var p = 0; p < props.length; p++) {
-        var prop = props[p];
-
-        if (other && other.hasOwnProperty(prop)) {
-          a[prop] = other[prop];
-        }
-      }
-    }
-
-    return a;
-  };
-  /**
-   * Extend object a with selected properties of object b.
-   * Only properties with defined values are copied.
-   *
-   * **Note:** Previous version of this routine implied that multiple source objects
-   *           could be used; however, the implementation was **wrong**.
-   *           Since multiple (>1) sources weren't used anywhere in the `vis.js` code,
-   *           this has been removed
-   *
-   * @param {Array.<string>} props names of first-level properties to copy over
-   * @param {object} a  target object
-   * @param {object} b  source object
-   * @param {boolean} [allowDeletion=false]  if true, delete property in a if explicitly set to null in b 
-   * @returns {Object} a
-   */
-
-
-  exports.selectiveDeepExtend = function (props, a, b) {
-    var allowDeletion = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false; // TODO: add support for Arrays to deepExtend
-
-    if (Array.isArray(b)) {
-      throw new TypeError('Arrays are not supported by deepExtend');
-    }
-
-    for (var p = 0; p < props.length; p++) {
-      var prop = props[p];
-
-      if (b.hasOwnProperty(prop)) {
-        if (b[prop] && b[prop].constructor === Object) {
-          if (a[prop] === undefined) {
-            a[prop] = {};
-          }
-
-          if (a[prop].constructor === Object) {
-            exports.deepExtend(a[prop], b[prop], false, allowDeletion);
-          } else {
-            copyOrDelete(a, b, prop, allowDeletion);
-          }
-        } else if (Array.isArray(b[prop])) {
-          throw new TypeError('Arrays are not supported by deepExtend');
-        } else {
-          copyOrDelete(a, b, prop, allowDeletion);
-        }
-      }
-    }
-
-    return a;
-  };
-  /**
-   * Extend object `a` with properties of object `b`, ignoring properties which are explicitly 
-   * specified to be excluded.
-   * 
-   * The properties of `b` are considered for copying.
-   * Properties which are themselves objects are are also extended.
-   * Only properties with defined values are copied
-   *
-   * @param {Array.<string>} propsToExclude  names of properties which should *not* be copied
-   * @param {Object}                      a  object to extend
-   * @param {Object}                      b  object to take properties from for extension
-   * @param {boolean} [allowDeletion=false]  if true, delete properties in a that are explicitly set to null in b 
-   * @return {Object} a
-   */
-
-
-  exports.selectiveNotDeepExtend = function (propsToExclude, a, b) {
-    var allowDeletion = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false; // TODO: add support for Arrays to deepExtend
-    // NOTE: array properties have an else-below; apparently, there is a problem here. 
-
-    if (Array.isArray(b)) {
-      throw new TypeError('Arrays are not supported by deepExtend');
-    }
-
-    for (var prop in b) {
-      if (!b.hasOwnProperty(prop)) continue; // Handle local properties only 
-
-      if (propsToExclude.indexOf(prop) !== -1) continue; // In exclusion list, skip
-
-      if (b[prop] && b[prop].constructor === Object) {
-        if (a[prop] === undefined) {
-          a[prop] = {};
-        }
-
-        if (a[prop].constructor === Object) {
-          exports.deepExtend(a[prop], b[prop]); // NOTE: allowDeletion not propagated!
-        } else {
-          copyOrDelete(a, b, prop, allowDeletion);
-        }
-      } else if (Array.isArray(b[prop])) {
-        a[prop] = [];
-
-        for (var i = 0; i < b[prop].length; i++) {
-          a[prop].push(b[prop][i]);
-        }
-      } else {
-        copyOrDelete(a, b, prop, allowDeletion);
-      }
-    }
-
-    return a;
-  };
-  /**
-   * Deep extend an object a with the properties of object b
-   *
-   * @param {Object} a
-   * @param {Object} b
-   * @param {boolean} [protoExtend=false]  If true, the prototype values will also be extended.
-   *                          (ie. the options objects that inherit from others will also get the inherited options)
-   * @param {boolean} [allowDeletion=false] If true, the values of fields that are null will be deleted
-   * @returns {Object}
-   */
-
-
-  exports.deepExtend = function (a, b) {
-    var protoExtend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    var allowDeletion = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-
-    for (var prop in b) {
-      if (b.hasOwnProperty(prop) || protoExtend === true) {
-        if (b[prop] && b[prop].constructor === Object) {
-          if (a[prop] === undefined) {
-            a[prop] = {};
-          }
-
-          if (a[prop].constructor === Object) {
-            exports.deepExtend(a[prop], b[prop], protoExtend); // NOTE: allowDeletion not propagated!
-          } else {
-            copyOrDelete(a, b, prop, allowDeletion);
-          }
-        } else if (Array.isArray(b[prop])) {
-          a[prop] = [];
-
-          for (var i = 0; i < b[prop].length; i++) {
-            a[prop].push(b[prop][i]);
-          }
-        } else {
-          copyOrDelete(a, b, prop, allowDeletion);
-        }
-      }
-    }
-
-    return a;
-  };
-  /**
-   * Test whether all elements in two arrays are equal.
-   * @param {Array} a
-   * @param {Array} b
-   * @return {boolean} Returns true if both arrays have the same length and same
-   *                   elements.
-   */
-
-
-  exports.equalArray = function (a, b) {
-    if (a.length != b.length) return false;
-
-    for (var i = 0, len = a.length; i < len; i++) {
-      if (a[i] != b[i]) return false;
-    }
-
-    return true;
-  };
-  /**
-   * Convert an object to another type
-   * @param {boolean | number | string | Date | Moment | Null | undefined} object
-   * @param {string | undefined} type   Name of the type. Available types:
-   *                                    'Boolean', 'Number', 'String',
-   *                                    'Date', 'Moment', ISODate', 'ASPDate'.
-   * @return {*} object
-   * @throws Error
-   */
-
-
-  exports.convert = function (object, type) {
-    var match;
-
-    if (object === undefined) {
-      return undefined;
-    }
-
-    if (object === null) {
-      return null;
-    }
-
-    if (!type) {
-      return object;
-    }
-
-    if (!(typeof type === 'string') && !(type instanceof String)) {
-      throw new Error('Type must be a string');
-    } //noinspection FallthroughInSwitchStatementJS
-
-
-    switch (type) {
-      case 'boolean':
-      case 'Boolean':
-        return Boolean(object);
-
-      case 'number':
-      case 'Number':
-        if (exports.isString(object) && !isNaN(Date.parse(object))) {
-          return moment$1(object).valueOf();
-        } else {
-          return Number(object.valueOf());
-        }
-
-      case 'string':
-      case 'String':
-        return String(object);
-
-      case 'Date':
-        if (exports.isNumber(object)) {
-          return new Date(object);
-        }
-
-        if (object instanceof Date) {
-          return new Date(object.valueOf());
-        } else if (moment$1.isMoment(object)) {
-          return new Date(object.valueOf());
-        }
-
-        if (exports.isString(object)) {
-          match = ASPDateRegex.exec(object);
-
-          if (match) {
-            // object is an ASP date
-            return new Date(Number(match[1])); // parse number
-          } else {
-            return moment$1(new Date(object)).toDate(); // parse string
-          }
-        } else {
-          throw new Error('Cannot convert object of type ' + exports.getType(object) + ' to type Date');
-        }
-
-      case 'Moment':
-        if (exports.isNumber(object)) {
-          return moment$1(object);
-        }
-
-        if (object instanceof Date) {
-          return moment$1(object.valueOf());
-        } else if (moment$1.isMoment(object)) {
-          return moment$1(object);
-        }
-
-        if (exports.isString(object)) {
-          match = ASPDateRegex.exec(object);
-
-          if (match) {
-            // object is an ASP date
-            return moment$1(Number(match[1])); // parse number
-          } else {
-            return moment$1(object); // parse string
-          }
-        } else {
-          throw new Error('Cannot convert object of type ' + exports.getType(object) + ' to type Date');
-        }
-
-      case 'ISODate':
-        if (exports.isNumber(object)) {
-          return new Date(object);
-        } else if (object instanceof Date) {
-          return object.toISOString();
-        } else if (moment$1.isMoment(object)) {
-          return object.toDate().toISOString();
-        } else if (exports.isString(object)) {
-          match = ASPDateRegex.exec(object);
-
-          if (match) {
-            // object is an ASP date
-            return new Date(Number(match[1])).toISOString(); // parse number
-          } else {
-            return moment$1(object).format(); // ISO 8601
-          }
-        } else {
-          throw new Error('Cannot convert object of type ' + exports.getType(object) + ' to type ISODate');
-        }
-
-      case 'ASPDate':
-        if (exports.isNumber(object)) {
-          return '/Date(' + object + ')/';
-        } else if (object instanceof Date) {
-          return '/Date(' + object.valueOf() + ')/';
-        } else if (exports.isString(object)) {
-          match = ASPDateRegex.exec(object);
-          var value;
-
-          if (match) {
-            // object is an ASP date
-            value = new Date(Number(match[1])).valueOf(); // parse number
-          } else {
-            value = new Date(object).valueOf(); // parse string
-          }
-
-          return '/Date(' + value + ')/';
-        } else {
-          throw new Error('Cannot convert object of type ' + exports.getType(object) + ' to type ASPDate');
-        }
-
-      default:
-        throw new Error('Unknown type "' + type + '"');
-    }
-  }; // parse ASP.Net Date pattern,
-  // for example '/Date(1198908717056)/' or '/Date(1198908717056-0700)/'
-  // code from http://momentjs.com/
-
-
-  var ASPDateRegex = /^\/?Date\((\-?\d+)/i;
-  /**
-   * Get the type of an object, for example exports.getType([]) returns 'Array'
-   * @param {*} object
-   * @return {string} type
-   */
-
-  exports.getType = function (object) {
-    var type = _typeof(object);
-
-    if (type == 'object') {
-      if (object === null) {
-        return 'null';
-      }
-
-      if (object instanceof Boolean) {
-        return 'Boolean';
-      }
-
-      if (object instanceof Number) {
-        return 'Number';
-      }
-
-      if (object instanceof String) {
-        return 'String';
-      }
-
-      if (Array.isArray(object)) {
-        return 'Array';
-      }
-
-      if (object instanceof Date) {
-        return 'Date';
-      }
-
-      return 'Object';
-    } else if (type == 'number') {
-      return 'Number';
-    } else if (type == 'boolean') {
-      return 'Boolean';
-    } else if (type == 'string') {
-      return 'String';
-    } else if (type === undefined) {
-      return 'undefined';
-    }
-
-    return type;
-  };
-  /**
-   * Used to extend an array and copy it. This is used to propagate paths recursively.
-   *
-   * @param {Array} arr
-   * @param {*} newValue
-   * @returns {Array}
-   */
-
-
-  exports.copyAndExtendArray = function (arr, newValue) {
-    var newArr = [];
-
-    for (var i = 0; i < arr.length; i++) {
-      newArr.push(arr[i]);
-    }
-
-    newArr.push(newValue);
-    return newArr;
-  };
-  /**
-   * Used to extend an array and copy it. This is used to propagate paths recursively.
-   *
-   * @param {Array} arr
-   * @returns {Array}
-   */
-
-
-  exports.copyArray = function (arr) {
-    var newArr = [];
-
-    for (var i = 0; i < arr.length; i++) {
-      newArr.push(arr[i]);
-    }
-
-    return newArr;
-  };
-  /**
-   * Retrieve the absolute left value of a DOM element
-   * @param {Element} elem        A dom element, for example a div
-   * @return {number} left        The absolute left position of this element
-   *                              in the browser page.
-   */
-
-
-  exports.getAbsoluteLeft = function (elem) {
-    return elem.getBoundingClientRect().left;
-  };
-
-  exports.getAbsoluteRight = function (elem) {
-    return elem.getBoundingClientRect().right;
-  };
-  /**
-   * Retrieve the absolute top value of a DOM element
-   * @param {Element} elem        A dom element, for example a div
-   * @return {number} top        The absolute top position of this element
-   *                              in the browser page.
-   */
-
-
-  exports.getAbsoluteTop = function (elem) {
-    return elem.getBoundingClientRect().top;
-  };
-  /**
-   * add a className to the given elements style
-   * @param {Element} elem
-   * @param {string} classNames
-   */
-
-
-  exports.addClassName = function (elem, classNames) {
-    var classes = elem.className.split(' ');
-    var newClasses = classNames.split(' ');
-    classes = classes.concat(newClasses.filter(function (className) {
-      return classes.indexOf(className) < 0;
-    }));
-    elem.className = classes.join(' ');
-  };
-  /**
-   * add a className to the given elements style
-   * @param {Element} elem
-   * @param {string} classNames
-   */
-
-
-  exports.removeClassName = function (elem, classNames) {
-    var classes = elem.className.split(' ');
-    var oldClasses = classNames.split(' ');
-    classes = classes.filter(function (className) {
-      return oldClasses.indexOf(className) < 0;
-    });
-    elem.className = classes.join(' ');
-  };
-  /**
-   * For each method for both arrays and objects.
-   * In case of an array, the built-in Array.forEach() is applied. (**No, it's not!**)
-   * In case of an Object, the method loops over all properties of the object.
-   * @param {Object | Array} object   An Object or Array
-   * @param {function} callback       Callback method, called for each item in
-   *                                  the object or array with three parameters:
-   *                                  callback(value, index, object)
-   */
-
-
-  exports.forEach = function (object, callback) {
-    var i, len;
-
-    if (Array.isArray(object)) {
-      // array
-      for (i = 0, len = object.length; i < len; i++) {
-        callback(object[i], i, object);
-      }
-    } else {
-      // object
-      for (i in object) {
-        if (object.hasOwnProperty(i)) {
-          callback(object[i], i, object);
-        }
-      }
-    }
-  };
-  /**
-   * Convert an object into an array: all objects properties are put into the
-   * array. The resulting array is unordered.
-   * @param {Object} object
-   * @returns {Array} array
-   */
-
-
-  exports.toArray = function (object) {
-    var array = [];
-
-    for (var prop in object) {
-      if (object.hasOwnProperty(prop)) array.push(object[prop]);
-    }
-
-    return array;
-  };
-  /**
-   * Update a property in an object
-   * @param {Object} object
-   * @param {string} key
-   * @param {*} value
-   * @return {Boolean} changed
-   */
-
-
-  exports.updateProperty = function (object, key, value) {
-    if (object[key] !== value) {
-      object[key] = value;
-      return true;
-    } else {
-      return false;
-    }
-  };
-  /**
-   * Throttle the given function to be only executed once per animation frame
-   * @param {function} fn
-   * @returns {function} Returns the throttled function
-   */
-
-
-  exports.throttle = function (fn) {
-    var scheduled = false;
-    return function throttled() {
-      if (!scheduled) {
-        scheduled = true;
-        requestAnimationFrame(function () {
-          scheduled = false;
-          fn();
-        });
-      }
-    };
-  };
-  /**
-   * Add and event listener. Works for all browsers
-   * @param {Element}     element    An html element
-   * @param {string}      action     The action, for example "click",
-   *                                 without the prefix "on"
-   * @param {function}    listener   The callback function to be executed
-   * @param {boolean}     [useCapture]
-   */
-
-
-  exports.addEventListener = function (element, action, listener, useCapture) {
-    if (element.addEventListener) {
-      if (useCapture === undefined) useCapture = false;
-
-      if (action === "mousewheel" && navigator.userAgent.indexOf("Firefox") >= 0) {
-        action = "DOMMouseScroll"; // For Firefox
-      }
-
-      element.addEventListener(action, listener, useCapture);
-    } else {
-      element.attachEvent("on" + action, listener); // IE browsers
-    }
-  };
-  /**
-   * Remove an event listener from an element
-   * @param {Element}     element         An html dom element
-   * @param {string}      action          The name of the event, for example "mousedown"
-   * @param {function}    listener        The listener function
-   * @param {boolean}     [useCapture]
-   */
-
-
-  exports.removeEventListener = function (element, action, listener, useCapture) {
-    if (element.removeEventListener) {
-      // non-IE browsers
-      if (useCapture === undefined) useCapture = false;
-
-      if (action === "mousewheel" && navigator.userAgent.indexOf("Firefox") >= 0) {
-        action = "DOMMouseScroll"; // For Firefox
-      }
-
-      element.removeEventListener(action, listener, useCapture);
-    } else {
-      // IE browsers
-      element.detachEvent("on" + action, listener);
-    }
-  };
-  /**
-   * Cancels the event if it is cancelable, without stopping further propagation of the event.
-   * @param {Event} event
-   */
-
-
-  exports.preventDefault = function (event) {
-    if (!event) event = window.event;
-
-    if (event.preventDefault) {
-      event.preventDefault(); // non-IE browsers
-    } else {
-      event.returnValue = false; // IE browsers
-    }
-  };
-  /**
-   * Get HTML element which is the target of the event
-   * @param {Event} event
-   * @return {Element} target element
-   */
-
-
-  exports.getTarget = function (event) {
-    // code from http://www.quirksmode.org/js/events_properties.html
-    if (!event) {
-      event = window.event;
-    }
-
-    var target;
-
-    if (event.target) {
-      target = event.target;
-    } else if (event.srcElement) {
-      target = event.srcElement;
-    }
-
-    if (target.nodeType != undefined && target.nodeType == 3) {
-      // defeat Safari bug
-      target = target.parentNode;
-    }
-
-    return target;
-  };
-  /**
-   * Check if given element contains given parent somewhere in the DOM tree
-   * @param {Element} element
-   * @param {Element} parent
-   * @returns {boolean}
-   */
-
-
-  exports.hasParent = function (element, parent) {
-    var e = element;
-
-    while (e) {
-      if (e === parent) {
-        return true;
-      }
-
-      e = e.parentNode;
-    }
-
-    return false;
-  };
-
-  exports.option = {};
-  /**
-   * Convert a value into a boolean
-   * @param {Boolean | function | undefined} value
-   * @param {boolean} [defaultValue]
-   * @returns {Boolean} bool
-   */
-
-  exports.option.asBoolean = function (value, defaultValue) {
-    if (typeof value == 'function') {
-      value = value();
-    }
-
-    if (value != null) {
-      return value != false;
-    }
-
-    return defaultValue || null;
-  };
-  /**
-   * Convert a value into a number
-   * @param {Boolean | function | undefined} value
-   * @param {number} [defaultValue]
-   * @returns {number} number
-   */
-
-
-  exports.option.asNumber = function (value, defaultValue) {
-    if (typeof value == 'function') {
-      value = value();
-    }
-
-    if (value != null) {
-      return Number(value) || defaultValue || null;
-    }
-
-    return defaultValue || null;
-  };
-  /**
-   * Convert a value into a string
-   * @param {string | function | undefined} value
-   * @param {string} [defaultValue]
-   * @returns {String} str
-   */
-
-
-  exports.option.asString = function (value, defaultValue) {
-    if (typeof value == 'function') {
-      value = value();
-    }
-
-    if (value != null) {
-      return String(value);
-    }
-
-    return defaultValue || null;
-  };
-  /**
-   * Convert a size or location into a string with pixels or a percentage
-   * @param {string | number | function | undefined} value
-   * @param {string} [defaultValue]
-   * @returns {String} size
-   */
-
-
-  exports.option.asSize = function (value, defaultValue) {
-    if (typeof value == 'function') {
-      value = value();
-    }
-
-    if (exports.isString(value)) {
-      return value;
-    } else if (exports.isNumber(value)) {
-      return value + 'px';
-    } else {
-      return defaultValue || null;
-    }
-  };
-  /**
-   * Convert a value into a DOM element
-   * @param {HTMLElement | function | undefined} value
-   * @param {HTMLElement} [defaultValue]
-   * @returns {HTMLElement | null} dom
-   */
-
-
-  exports.option.asElement = function (value, defaultValue) {
-    if (typeof value == 'function') {
-      value = value();
-    }
-
-    return value || defaultValue || null;
-  };
-  /**
-   * http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-   *
-   * @param {string} hex
-   * @returns {{r: *, g: *, b: *}} | 255 range
-   */
-
-
-  exports.hexToRGB = function (hex) {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-      return r + r + g + g + b + b;
-    });
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
-  };
-  /**
-   * This function takes color in hex format or rgb() or rgba() format and overrides the opacity. Returns rgba() string.
-   * @param {string} color
-   * @param {number} opacity
-   * @returns {String}
-   */
-
-
-  exports.overrideOpacity = function (color, opacity) {
-    var rgb;
-
-    if (color.indexOf("rgba") != -1) {
-      return color;
-    } else if (color.indexOf("rgb") != -1) {
-      rgb = color.substr(color.indexOf("(") + 1).replace(")", "").split(",");
-      return "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + opacity + ")";
-    } else {
-      rgb = exports.hexToRGB(color);
-
-      if (rgb == null) {
-        return color;
-      } else {
-        return "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + opacity + ")";
-      }
-    }
-  };
-  /**
-   *
-   * @param {number} red     0 -- 255
-   * @param {number} green   0 -- 255
-   * @param {number} blue    0 -- 255
-   * @returns {String}
-   * @constructor
-   */
-
-
-  exports.RGBToHex = function (red, green, blue) {
-    return "#" + ((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1);
-  };
-  /**
-   * Parse a color property into an object with border, background, and
-   * highlight colors
-   * @param {Object | String} color
-   * @return {Object} colorObject
-   */
-
-
-  exports.parseColor = function (color) {
-    var c;
-
-    if (exports.isString(color) === true) {
-      if (exports.isValidRGB(color) === true) {
-        var rgb = color.substr(4).substr(0, color.length - 5).split(',').map(function (value) {
-          return parseInt(value);
-        });
-        color = exports.RGBToHex(rgb[0], rgb[1], rgb[2]);
-      }
-
-      if (exports.isValidHex(color) === true) {
-        var hsv = exports.hexToHSV(color);
-        var lighterColorHSV = {
-          h: hsv.h,
-          s: hsv.s * 0.8,
-          v: Math.min(1, hsv.v * 1.02)
-        };
-        var darkerColorHSV = {
-          h: hsv.h,
-          s: Math.min(1, hsv.s * 1.25),
-          v: hsv.v * 0.8
-        };
-        var darkerColorHex = exports.HSVToHex(darkerColorHSV.h, darkerColorHSV.s, darkerColorHSV.v);
-        var lighterColorHex = exports.HSVToHex(lighterColorHSV.h, lighterColorHSV.s, lighterColorHSV.v);
-        c = {
-          background: color,
-          border: darkerColorHex,
-          highlight: {
-            background: lighterColorHex,
-            border: darkerColorHex
-          },
-          hover: {
-            background: lighterColorHex,
-            border: darkerColorHex
-          }
-        };
-      } else {
-        c = {
-          background: color,
-          border: color,
-          highlight: {
-            background: color,
-            border: color
-          },
-          hover: {
-            background: color,
-            border: color
-          }
-        };
-      }
-    } else {
-      c = {};
-      c.background = color.background || undefined;
-      c.border = color.border || undefined;
-
-      if (exports.isString(color.highlight)) {
-        c.highlight = {
-          border: color.highlight,
-          background: color.highlight
-        };
-      } else {
-        c.highlight = {};
-        c.highlight.background = color.highlight && color.highlight.background || undefined;
-        c.highlight.border = color.highlight && color.highlight.border || undefined;
-      }
-
-      if (exports.isString(color.hover)) {
-        c.hover = {
-          border: color.hover,
-          background: color.hover
-        };
-      } else {
-        c.hover = {};
-        c.hover.background = color.hover && color.hover.background || undefined;
-        c.hover.border = color.hover && color.hover.border || undefined;
-      }
-    }
-
-    return c;
-  };
-  /**
-   * http://www.javascripter.net/faq/rgb2hsv.htm
-   *
-   * @param {number} red
-   * @param {number} green
-   * @param {number} blue
-   * @returns {{h: number, s: number, v: number}}
-   * @constructor
-   */
-
-
-  exports.RGBToHSV = function (red, green, blue) {
-    red = red / 255;
-    green = green / 255;
-    blue = blue / 255;
-    var minRGB = Math.min(red, Math.min(green, blue));
-    var maxRGB = Math.max(red, Math.max(green, blue)); // Black-gray-white
-
-    if (minRGB == maxRGB) {
-      return {
-        h: 0,
-        s: 0,
-        v: minRGB
-      };
-    } // Colors other than black-gray-white:
-
-
-    var d = red == minRGB ? green - blue : blue == minRGB ? red - green : blue - red;
-    var h = red == minRGB ? 3 : blue == minRGB ? 1 : 5;
-    var hue = 60 * (h - d / (maxRGB - minRGB)) / 360;
-    var saturation = (maxRGB - minRGB) / maxRGB;
-    var value = maxRGB;
-    return {
-      h: hue,
-      s: saturation,
-      v: value
-    };
-  };
-
-  var cssUtil = {
-    // split a string with css styles into an object with key/values
-    split: function split(cssText) {
-      var styles = {};
-      cssText.split(';').forEach(function (style) {
-        if (style.trim() != '') {
-          var parts = style.split(':');
-          var key = parts[0].trim();
-          var value = parts[1].trim();
-          styles[key] = value;
-        }
-      });
-      return styles;
-    },
-    // build a css text string from an object with key/values
-    join: function join(styles) {
-      return Object.keys(styles).map(function (key) {
-        return key + ': ' + styles[key];
-      }).join('; ');
-    }
-  };
-  /**
-   * Append a string with css styles to an element
-   * @param {Element} element
-   * @param {string} cssText
-   */
-
-  exports.addCssText = function (element, cssText) {
-    var currentStyles = cssUtil.split(element.style.cssText);
-    var newStyles = cssUtil.split(cssText);
-    var styles = exports.extend(currentStyles, newStyles);
-    element.style.cssText = cssUtil.join(styles);
-  };
-  /**
-   * Remove a string with css styles from an element
-   * @param {Element} element
-   * @param {string} cssText
-   */
-
-
-  exports.removeCssText = function (element, cssText) {
-    var styles = cssUtil.split(element.style.cssText);
-    var removeStyles = cssUtil.split(cssText);
-
-    for (var key in removeStyles) {
-      if (removeStyles.hasOwnProperty(key)) {
-        delete styles[key];
-      }
-    }
-
-    element.style.cssText = cssUtil.join(styles);
-  };
-  /**
-   * https://gist.github.com/mjijackson/5311256
-   * @param {number} h
-   * @param {number} s
-   * @param {number} v
-   * @returns {{r: number, g: number, b: number}}
-   * @constructor
-   */
-
-
-  exports.HSVToRGB = function (h, s, v) {
-    var r, g, b;
-    var i = Math.floor(h * 6);
-    var f = h * 6 - i;
-    var p = v * (1 - s);
-    var q = v * (1 - f * s);
-    var t = v * (1 - (1 - f) * s);
-
-    switch (i % 6) {
-      case 0:
-        r = v, g = t, b = p;
-        break;
-
-      case 1:
-        r = q, g = v, b = p;
-        break;
-
-      case 2:
-        r = p, g = v, b = t;
-        break;
-
-      case 3:
-        r = p, g = q, b = v;
-        break;
-
-      case 4:
-        r = t, g = p, b = v;
-        break;
-
-      case 5:
-        r = v, g = p, b = q;
-        break;
-    }
-
-    return {
-      r: Math.floor(r * 255),
-      g: Math.floor(g * 255),
-      b: Math.floor(b * 255)
-    };
-  };
-
-  exports.HSVToHex = function (h, s, v) {
-    var rgb = exports.HSVToRGB(h, s, v);
-    return exports.RGBToHex(rgb.r, rgb.g, rgb.b);
-  };
-
-  exports.hexToHSV = function (hex) {
-    var rgb = exports.hexToRGB(hex);
-    return exports.RGBToHSV(rgb.r, rgb.g, rgb.b);
-  };
-
-  exports.isValidHex = function (hex) {
-    var isOk = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(hex);
-    return isOk;
-  };
-
-  exports.isValidRGB = function (rgb) {
-    rgb = rgb.replace(" ", "");
-    var isOk = /rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)/i.test(rgb);
-    return isOk;
-  };
-
-  exports.isValidRGBA = function (rgba) {
-    rgba = rgba.replace(" ", "");
-    var isOk = /rgba\((\d{1,3}),(\d{1,3}),(\d{1,3}),(.{1,3})\)/i.test(rgba);
-    return isOk;
-  };
-  /**
-   * This recursively redirects the prototype of JSON objects to the referenceObject
-   * This is used for default options.
-   *
-   * @param {Array.<string>} fields
-   * @param {Object} referenceObject
-   * @returns {*}
-   */
-
-
-  exports.selectiveBridgeObject = function (fields, referenceObject) {
-    if (referenceObject !== null && _typeof(referenceObject) === "object") {
-      // !!! typeof null === 'object'
-      var objectTo = Object.create(referenceObject);
-
-      for (var i = 0; i < fields.length; i++) {
-        if (referenceObject.hasOwnProperty(fields[i])) {
-          if (_typeof(referenceObject[fields[i]]) == "object") {
-            objectTo[fields[i]] = exports.bridgeObject(referenceObject[fields[i]]);
-          }
-        }
-      }
-
-      return objectTo;
-    } else {
-      return null;
-    }
-  };
-  /**
-   * This recursively redirects the prototype of JSON objects to the referenceObject
-   * This is used for default options.
-   *
-   * @param {Object} referenceObject
-   * @returns {*}
-   */
-
-
-  exports.bridgeObject = function (referenceObject) {
-    if (referenceObject !== null && _typeof(referenceObject) === "object") {
-      // !!! typeof null === 'object'
-      var objectTo = Object.create(referenceObject);
-
-      if (referenceObject instanceof Element) {
-        // Avoid bridging DOM objects
-        objectTo = referenceObject;
-      } else {
-        objectTo = Object.create(referenceObject);
-
-        for (var i in referenceObject) {
-          if (referenceObject.hasOwnProperty(i)) {
-            if (_typeof(referenceObject[i]) == "object") {
-              objectTo[i] = exports.bridgeObject(referenceObject[i]);
-            }
-          }
-        }
-      }
-
-      return objectTo;
-    } else {
-      return null;
-    }
-  };
-  /**
-   * This method provides a stable sort implementation, very fast for presorted data
-   *
-   * @param {Array} a the array
-   * @param {function} compare an order comparator
-   * @returns {Array}
-   */
-
-
-  exports.insertSort = function (a, compare) {
-    for (var i = 0; i < a.length; i++) {
-      var k = a[i];
-
-      for (var j = i; j > 0 && compare(k, a[j - 1]) < 0; j--) {
-        a[j] = a[j - 1];
-      }
-
-      a[j] = k;
-    }
-
-    return a;
-  };
-  /**
-   * This is used to set the options of subobjects in the options object.
-   *
-   * A requirement of these subobjects is that they have an 'enabled' element
-   * which is optional for the user but mandatory for the program.
-   *
-   * The added value here of the merge is that option 'enabled' is set as required.
-   *
-   *
-   * @param {object} mergeTarget   | either this.options or the options used for the groups.
-   * @param {object} options       | options
-   * @param {string} option        | option key in the options argument
-   * @param {object} globalOptions | global options, passed in to determine value of option 'enabled'
-   */
-
-
-  exports.mergeOptions = function (mergeTarget, options, option) {
-    var globalOptions = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {}; // Local helpers
-
-    var isPresent = function isPresent(obj) {
-      return obj !== null && obj !== undefined;
-    };
-
-    var isObject = function isObject(obj) {
-      return obj !== null && _typeof(obj) === 'object';
-    }; // https://stackoverflow.com/a/34491287/1223531
-
-
-    var isEmpty = function isEmpty(obj) {
-      for (var x in obj) {
-        if (obj.hasOwnProperty(x)) return false;
-      }
-
-      return true;
-    }; // Guards
-
-
-    if (!isObject(mergeTarget)) {
-      throw new Error('Parameter mergeTarget must be an object');
-    }
-
-    if (!isObject(options)) {
-      throw new Error('Parameter options must be an object');
-    }
-
-    if (!isPresent(option)) {
-      throw new Error('Parameter option must have a value');
-    }
-
-    if (!isObject(globalOptions)) {
-      throw new Error('Parameter globalOptions must be an object');
-    } //
-    // Actual merge routine, separated from main logic
-    // Only a single level of options is merged. Deeper levels are ref'd. This may actually be an issue.
-    //
-
-
-    var doMerge = function doMerge(target, options, option) {
-      if (!isObject(target[option])) {
-        target[option] = {};
-      }
-
-      var src = options[option];
-      var dst = target[option];
-
-      for (var prop in src) {
-        if (src.hasOwnProperty(prop)) {
-          dst[prop] = src[prop];
-        }
-      }
-    }; // Local initialization
-
-
-    var srcOption = options[option];
-    var globalPassed = isObject(globalOptions) && !isEmpty(globalOptions);
-    var globalOption = globalPassed ? globalOptions[option] : undefined;
-    var globalEnabled = globalOption ? globalOption.enabled : undefined; /////////////////////////////////////////
-    // Main routine
-    /////////////////////////////////////////
-
-    if (srcOption === undefined) {
-      return; // Nothing to do
-    }
-
-    if (typeof srcOption === 'boolean') {
-      if (!isObject(mergeTarget[option])) {
-        mergeTarget[option] = {};
-      }
-
-      mergeTarget[option].enabled = srcOption;
-      return;
-    }
-
-    if (srcOption === null && !isObject(mergeTarget[option])) {
-      // If possible, explicit copy from globals
-      if (isPresent(globalOption)) {
-        mergeTarget[option] = Object.create(globalOption);
-      } else {
-        return; // Nothing to do
-      }
-    }
-
-    if (!isObject(srcOption)) {
-      return;
-    } //
-    // Ensure that 'enabled' is properly set. It is required internally
-    // Note that the value from options will always overwrite the existing value
-    //
-
-
-    var enabled = true; // default value
-
-    if (srcOption.enabled !== undefined) {
-      enabled = srcOption.enabled;
-    } else {
-      // Take from globals, if present
-      if (globalEnabled !== undefined) {
-        enabled = globalOption.enabled;
-      }
-    }
-
-    doMerge(mergeTarget, options, option);
-    mergeTarget[option].enabled = enabled;
-  };
-  /**
-   * This function does a binary search for a visible item in a sorted list. If we find a visible item, the code that uses
-   * this function will then iterate in both directions over this sorted list to find all visible items.
-   *
-   * @param {Item[]} orderedItems       | Items ordered by start
-   * @param {function} comparator       | -1 is lower, 0 is equal, 1 is higher
-   * @param {string} field
-   * @param {string} field2
-   * @returns {number}
-   * @private
-   */
-
-
-  exports.binarySearchCustom = function (orderedItems, comparator, field, field2) {
-    var maxIterations = 10000;
-    var iteration = 0;
-    var low = 0;
-    var high = orderedItems.length - 1;
-
-    while (low <= high && iteration < maxIterations) {
-      var middle = Math.floor((low + high) / 2);
-      var item = orderedItems[middle];
-      var value = field2 === undefined ? item[field] : item[field][field2];
-      var searchResult = comparator(value);
-
-      if (searchResult == 0) {
-        // jihaa, found a visible item!
-        return middle;
-      } else if (searchResult == -1) {
-        // it is too small --> increase low
-        low = middle + 1;
-      } else {
-        // it is too big --> decrease high
-        high = middle - 1;
-      }
-
-      iteration++;
-    }
-
-    return -1;
-  };
-  /**
-   * This function does a binary search for a specific value in a sorted array. If it does not exist but is in between of
-   * two values, we return either the one before or the one after, depending on user input
-   * If it is found, we return the index, else -1.
-   *
-   * @param {Array} orderedItems
-   * @param {{start: number, end: number}} target
-   * @param {string} field
-   * @param {string} sidePreference   'before' or 'after'
-   * @param {function} comparator an optional comparator, returning -1,0,1 for <,==,>.
-   * @returns {number}
-   * @private
-   */
-
-
-  exports.binarySearchValue = function (orderedItems, target, field, sidePreference, comparator) {
-    var maxIterations = 10000;
-    var iteration = 0;
-    var low = 0;
-    var high = orderedItems.length - 1;
-    var prevValue, value, nextValue, middle;
-    comparator = comparator != undefined ? comparator : function (a, b) {
-      return a == b ? 0 : a < b ? -1 : 1;
-    };
-
-    while (low <= high && iteration < maxIterations) {
-      // get a new guess
-      middle = Math.floor(0.5 * (high + low));
-      prevValue = orderedItems[Math.max(0, middle - 1)][field];
-      value = orderedItems[middle][field];
-      nextValue = orderedItems[Math.min(orderedItems.length - 1, middle + 1)][field];
-
-      if (comparator(value, target) == 0) {
-        // we found the target
-        return middle;
-      } else if (comparator(prevValue, target) < 0 && comparator(value, target) > 0) {
-        // target is in between of the previous and the current
-        return sidePreference == 'before' ? Math.max(0, middle - 1) : middle;
-      } else if (comparator(value, target) < 0 && comparator(nextValue, target) > 0) {
-        // target is in between of the current and the next
-        return sidePreference == 'before' ? middle : Math.min(orderedItems.length - 1, middle + 1);
-      } else {
-        // didnt find the target, we need to change our boundaries.
-        if (comparator(value, target) < 0) {
-          // it is too small --> increase low
-          low = middle + 1;
-        } else {
-          // it is too big --> decrease high
-          high = middle - 1;
-        }
-      }
-
-      iteration++;
-    } // didnt find anything. Return -1.
-
-
-    return -1;
-  };
-  /*
-   * Easing Functions - inspired from http://gizma.com/easing/
-   * only considering the t value for the range [0, 1] => [0, 1]
-   * https://gist.github.com/gre/1650294
-   */
-
-
-  exports.easingFunctions = {
-    // no easing, no acceleration
-    linear: function linear(t) {
-      return t;
-    },
-    // accelerating from zero velocity
-    easeInQuad: function easeInQuad(t) {
-      return t * t;
-    },
-    // decelerating to zero velocity
-    easeOutQuad: function easeOutQuad(t) {
-      return t * (2 - t);
-    },
-    // acceleration until halfway, then deceleration
-    easeInOutQuad: function easeInOutQuad(t) {
-      return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    },
-    // accelerating from zero velocity
-    easeInCubic: function easeInCubic(t) {
-      return t * t * t;
-    },
-    // decelerating to zero velocity
-    easeOutCubic: function easeOutCubic(t) {
-      return --t * t * t + 1;
-    },
-    // acceleration until halfway, then deceleration
-    easeInOutCubic: function easeInOutCubic(t) {
-      return t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-    },
-    // accelerating from zero velocity
-    easeInQuart: function easeInQuart(t) {
-      return t * t * t * t;
-    },
-    // decelerating to zero velocity
-    easeOutQuart: function easeOutQuart(t) {
-      return 1 - --t * t * t * t;
-    },
-    // acceleration until halfway, then deceleration
-    easeInOutQuart: function easeInOutQuart(t) {
-      return t < .5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t;
-    },
-    // accelerating from zero velocity
-    easeInQuint: function easeInQuint(t) {
-      return t * t * t * t * t;
-    },
-    // decelerating to zero velocity
-    easeOutQuint: function easeOutQuint(t) {
-      return 1 + --t * t * t * t * t;
-    },
-    // acceleration until halfway, then deceleration
-    easeInOutQuint: function easeInOutQuint(t) {
-      return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * --t * t * t * t * t;
-    }
-  };
-
-  exports.getScrollBarWidth = function () {
-    var inner = document.createElement('p');
-    inner.style.width = "100%";
-    inner.style.height = "200px";
-    var outer = document.createElement('div');
-    outer.style.position = "absolute";
-    outer.style.top = "0px";
-    outer.style.left = "0px";
-    outer.style.visibility = "hidden";
-    outer.style.width = "200px";
-    outer.style.height = "150px";
-    outer.style.overflow = "hidden";
-    outer.appendChild(inner);
-    document.body.appendChild(outer);
-    var w1 = inner.offsetWidth;
-    outer.style.overflow = 'scroll';
-    var w2 = inner.offsetWidth;
-    if (w1 == w2) w2 = outer.clientWidth;
-    document.body.removeChild(outer);
-    return w1 - w2;
-  };
-
-  exports.topMost = function (pile, accessors) {
-    var candidate;
-
-    if (!Array.isArray(accessors)) {
-      accessors = [accessors];
-    }
-
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = pile[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var member = _step.value;
-
-        if (member) {
-          candidate = member[accessors[0]];
-
-          for (var i = 1; i < accessors.length; i++) {
-            if (candidate) {
-              candidate = candidate[accessors[i]];
-            }
-          }
-
-          if (typeof candidate != 'undefined') {
-            break;
-          }
-        }
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return != null) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-
-    return candidate;
-  };
-});
-var esm_1 = esm.isNumber;
-var esm_2 = esm.recursiveDOMDelete;
-var esm_3 = esm.isString;
-var esm_4 = esm.isDate;
-var esm_5 = esm.randomUUID;
-var esm_6 = esm.fillIfDefined;
-var esm_7 = esm.extend;
-var esm_8 = esm.selectiveExtend;
-var esm_9 = esm.selectiveDeepExtend;
-var esm_10 = esm.selectiveNotDeepExtend;
-var esm_11 = esm.deepExtend;
-var esm_12 = esm.equalArray;
-var esm_13 = esm.convert;
-var esm_14 = esm.getType;
-var esm_15 = esm.copyAndExtendArray;
-var esm_16 = esm.copyArray;
-var esm_17 = esm.getAbsoluteLeft;
-var esm_18 = esm.getAbsoluteRight;
-var esm_19 = esm.getAbsoluteTop;
-var esm_20 = esm.addClassName;
-var esm_21 = esm.removeClassName;
-var esm_22 = esm.forEach;
-var esm_23 = esm.toArray;
-var esm_24 = esm.updateProperty;
-var esm_25 = esm.throttle;
-var esm_26 = esm.addEventListener;
-var esm_27 = esm.removeEventListener;
-var esm_28 = esm.preventDefault;
-var esm_29 = esm.getTarget;
-var esm_30 = esm.hasParent;
-var esm_31 = esm.option;
-var esm_32 = esm.hexToRGB;
-var esm_33 = esm.overrideOpacity;
-var esm_34 = esm.RGBToHex;
-var esm_35 = esm.parseColor;
-var esm_36 = esm.RGBToHSV;
-var esm_37 = esm.addCssText;
-var esm_38 = esm.removeCssText;
-var esm_39 = esm.HSVToRGB;
-var esm_40 = esm.HSVToHex;
-var esm_41 = esm.hexToHSV;
-var esm_42 = esm.isValidHex;
-var esm_43 = esm.isValidRGB;
-var esm_44 = esm.isValidRGBA;
-var esm_45 = esm.selectiveBridgeObject;
-var esm_46 = esm.bridgeObject;
-var esm_47 = esm.insertSort;
-var esm_48 = esm.mergeOptions;
-var esm_49 = esm.binarySearchCustom;
-var esm_50 = esm.binarySearchValue;
-var esm_51 = esm.easingFunctions;
-var esm_52 = esm.getScrollBarWidth;
-var esm_53 = esm.topMost;
-/**
- * A queue
- * @param {Object} options
- *            Available options:
- *            - delay: number    When provided, the queue will be flushed
- *                               automatically after an inactivity of this delay
- *                               in milliseconds.
- *                               Default value is null.
- *            - max: number      When the queue exceeds the given maximum number
- *                               of entries, the queue is flushed automatically.
- *                               Default value of max is Infinity.
- * @constructor Queue
- */
-
-function Queue(options) {
-  // options
-  this.delay = null;
-  this.max = Infinity; // properties
-
-  this._queue = [];
-  this._timeout = null;
-  this._extended = null;
-  this.setOptions(options);
+function isString$1(value) {
+  return value instanceof String || typeof value === 'string';
 }
 /**
- * Update the configuration of the queue
- * @param {Object} options
- *            Available options:
- *            - delay: number    When provided, the queue will be flushed
- *                               automatically after an inactivity of this delay
- *                               in milliseconds.
- *                               Default value is null.
- *            - max: number      When the queue exceeds the given maximum number
- *                               of entries, the queue is flushed automatically.
- *                               Default value of max is Infinity.
- */
-
-
-Queue.prototype.setOptions = function (options) {
-  if (options && typeof options.delay !== 'undefined') {
-    this.delay = options.delay;
-  }
-
-  if (options && typeof options.max !== 'undefined') {
-    this.max = options.max;
-  }
-
-  this._flushIfNeeded();
-};
-/**
- * Extend an object with queuing functionality.
- * The object will be extended with a function flush, and the methods provided
- * in options.replace will be replaced with queued ones.
- * @param {Object} object
- * @param {Object} options
- *            Available options:
- *            - replace: Array.<string>
- *                               A list with method names of the methods
- *                               on the object to be replaced with queued ones.
- *            - delay: number    When provided, the queue will be flushed
- *                               automatically after an inactivity of this delay
- *                               in milliseconds.
- *                               Default value is null.
- *            - max: number      When the queue exceeds the given maximum number
- *                               of entries, the queue is flushed automatically.
- *                               Default value of max is Infinity.
- * @return {Queue} Returns the created queue
- */
-
-
-Queue.extend = function (object, options) {
-  var queue = new Queue(options);
-
-  if (object.flush !== undefined) {
-    throw new Error('Target object already has a property flush');
-  }
-
-  object.flush = function () {
-    queue.flush();
-  };
-
-  var methods = [{
-    name: 'flush',
-    original: undefined
-  }];
-
-  if (options && options.replace) {
-    for (var i = 0; i < options.replace.length; i++) {
-      var name = options.replace[i];
-      methods.push({
-        name: name,
-        original: object[name]
-      });
-      queue.replace(object, name);
-    }
-  }
-
-  queue._extended = {
-    object: object,
-    methods: methods
-  };
-  return queue;
-};
-/**
- * Destroy the queue. The queue will first flush all queued actions, and in
- * case it has extended an object, will restore the original object.
- */
-
-
-Queue.prototype.destroy = function () {
-  this.flush();
-
-  if (this._extended) {
-    var object = this._extended.object;
-    var methods = this._extended.methods;
-
-    for (var i = 0; i < methods.length; i++) {
-      var method = methods[i];
-
-      if (method.original) {
-        object[method.name] = method.original;
-      } else {
-        delete object[method.name];
-      }
-    }
-
-    this._extended = null;
-  }
-};
-/**
- * Replace a method on an object with a queued version
- * @param {Object} object   Object having the method
- * @param {string} method   The method name
- */
-
-
-Queue.prototype.replace = function (object, method) {
-  var me = this;
-  var original = object[method];
-
-  if (!original) {
-    throw new Error('Method ' + method + ' undefined');
-  }
-
-  object[method] = function () {
-    // create an Array with the arguments
-    var args = [];
-
-    for (var i = 0; i < arguments.length; i++) {
-      args[i] = arguments[i];
-    } // add this call to the queue
-
-
-    me.queue({
-      args: args,
-      fn: original,
-      context: this
-    });
-  };
-};
-/**
- * Queue a call
- * @param {function | {fn: function, args: Array} | {fn: function, args: Array, context: Object}} entry
- */
-
-
-Queue.prototype.queue = function (entry) {
-  if (typeof entry === 'function') {
-    this._queue.push({
-      fn: entry
-    });
-  } else {
-    this._queue.push(entry);
-  }
-
-  this._flushIfNeeded();
-};
-/**
- * Check whether the queue needs to be flushed
- * @private
- */
-
-
-Queue.prototype._flushIfNeeded = function () {
-  // flush when the maximum is exceeded.
-  if (this._queue.length > this.max) {
-    this.flush();
-  } // flush after a period of inactivity when a delay is configured
-
-
-  clearTimeout(this._timeout);
-
-  if (this.queue.length > 0 && typeof this.delay === 'number') {
-    var me = this;
-    this._timeout = setTimeout(function () {
-      me.flush();
-    }, this.delay);
-  }
-};
-/**
- * Flush all queued calls
- */
-
-
-Queue.prototype.flush = function () {
-  while (this._queue.length > 0) {
-    var entry = this._queue.shift();
-
-    entry.fn.apply(entry.context || entry.fn, entry.args || []);
-  }
-};
-
-var Queue_1 = Queue;
-/**
- * DataSet
- * // TODO: add a DataSet constructor DataSet(data, options)
+ * Test whether given object is a Moment date.
+ * @TODO: This is basically a workaround, if Moment was imported property it wouldn't necessary as moment.isMoment is a TS type guard.
  *
- * Usage:
- *     var dataSet = new DataSet({
- *         fieldId: '_id',
- *         type: {
- *             // ...
- *         }
- *     });
+ * @param value - Input value of unknown type.
  *
- *     dataSet.add(item);
- *     dataSet.add(data);
- *     dataSet.update(item);
- *     dataSet.update(data);
- *     dataSet.remove(id);
- *     dataSet.remove(ids);
- *     var data = dataSet.get();
- *     var data = dataSet.get(id);
- *     var data = dataSet.get(ids);
- *     var data = dataSet.get(ids, options, data);
- *     dataSet.clear();
- *
- * A data set can:
- * - add/remove/update data
- * - gives triggers upon changes in the data
- * - can  import/export data in various data formats
- *
- * @param {Array} [data]    Optional array with initial data
- * @param {Object} [options]   Available options:
- *                             {string} fieldId Field name of the id in the
- *                                              items, 'id' by default.
- *                             {Object.<string, string} type
- *                                              A map with field names as key,
- *                                              and the field type as value.
- *                             {Object} queue   Queue changes to the DataSet,
- *                                              flush them all at once.
- *                                              Queue options:
- *                                              - {number} delay  Delay in ms, null by default
- *                                              - {number} max    Maximum number of entries in the queue, Infinity by default
- * @constructor DataSet
+ * @returns True if Moment instance, false otherwise.
  */
 
-function DataSet(data, options) {
-  // correctly read optional arguments
-  if (data && !Array.isArray(data)) {
-    options = data;
-    data = null;
-  }
 
-  this._options = options || {};
-  this._data = {}; // map with data indexed by id
-
-  this.length = 0; // number of items in the DataSet
-
-  this._fieldId = this._options.fieldId || 'id'; // name of the field containing id
-
-  this._type = {}; // internal field types (NOTE: this can differ from this._options.type)
-  // all variants of a Date are internally stored as Date, so we can convert
-  // from everything to everything (also from ISODate to Number for example)
-
-  if (this._options.type) {
-    var fields = Object.keys(this._options.type);
-
-    for (var i = 0, len = fields.length; i < len; i++) {
-      var field = fields[i];
-      var value = this._options.type[field];
-
-      if (value == 'Date' || value == 'ISODate' || value == 'ASPDate') {
-        this._type[field] = 'Date';
-      } else {
-        this._type[field] = value;
-      }
-    }
-  }
-
-  this._subscribers = {}; // event subscribers
-  // add initial data when provided
-
-  if (data) {
-    this.add(data);
-  }
-
-  this.setOptions(options);
+function isMoment$1(value) {
+  return moment$1.isMoment(value);
 }
 /**
- * @param {Object} options   Available options:
- *                             {Object} queue   Queue changes to the DataSet,
- *                                              flush them all at once.
- *                                              Queue options:
- *                                              - {number} delay  Delay in ms, null by default
- *                                              - {number} max    Maximum number of entries in the queue, Infinity by default
- */
-
-
-DataSet.prototype.setOptions = function (options) {
-  if (options && options.queue !== undefined) {
-    if (options.queue === false) {
-      // delete queue if loaded
-      if (this._queue) {
-        this._queue.destroy();
-
-        delete this._queue;
-      }
-    } else {
-      // create queue and update its options
-      if (!this._queue) {
-        this._queue = Queue_1.extend(this, {
-          replace: ['add', 'update', 'remove']
-        });
-      }
-
-      if (_typeof$1(options.queue) === 'object') {
-        this._queue.setOptions(options.queue);
-      }
-    }
-  }
-};
-/**
- * Subscribe to an event, add an event listener
- * @param {string} event        Event name. Available events: 'add', 'update',
- *                              'remove'
- * @param {function} callback   Callback method. Called with three parameters:
- *                                  {string} event
- *                                  {Object | null} params
- *                                  {string | number} senderId
- */
-
-
-DataSet.prototype.on = function (event, callback) {
-  var subscribers = this._subscribers[event];
-
-  if (!subscribers) {
-    subscribers = [];
-    this._subscribers[event] = subscribers;
-  }
-
-  subscribers.push({
-    callback: callback
-  });
-};
-/**
- * Unsubscribe from an event, remove an event listener
- * @param {string} event
- * @param {function} callback
- */
-
-
-DataSet.prototype.off = function (event, callback) {
-  var subscribers = this._subscribers[event];
-
-  if (subscribers) {
-    this._subscribers[event] = subscribers.filter(function (listener) {
-      return listener.callback != callback;
-    });
-  }
-};
-/**
- * Trigger an event
- * @param {string} event
- * @param {Object | null} params
- * @param {string} [senderId]       Optional id of the sender.
- * @private
- */
-
-
-DataSet.prototype._trigger = function (event, params, senderId) {
-  if (event == '*') {
-    throw new Error('Cannot trigger event *');
-  }
-
-  var subscribers = [];
-
-  if (event in this._subscribers) {
-    subscribers = subscribers.concat(this._subscribers[event]);
-  }
-
-  if ('*' in this._subscribers) {
-    subscribers = subscribers.concat(this._subscribers['*']);
-  }
-
-  for (var i = 0, len = subscribers.length; i < len; i++) {
-    var subscriber = subscribers[i];
-
-    if (subscriber.callback) {
-      subscriber.callback(event, params, senderId || null);
-    }
-  }
-};
-/**
- * Add data.
- * Adding an item will fail when there already is an item with the same id.
- * @param {Object | Array} data
- * @param {string} [senderId] Optional sender id
- * @return {Array.<string|number>} addedIds      Array with the ids of the added items
- */
-
-
-DataSet.prototype.add = function (data, senderId) {
-  var addedIds = [],
-      id,
-      me = this;
-
-  if (Array.isArray(data)) {
-    // Array
-    for (var i = 0, len = data.length; i < len; i++) {
-      id = me._addItem(data[i]);
-      addedIds.push(id);
-    }
-  } else if (data && _typeof$1(data) === 'object') {
-    // Single item
-    id = me._addItem(data);
-    addedIds.push(id);
-  } else {
-    throw new Error('Unknown dataType');
-  }
-
-  if (addedIds.length) {
-    this._trigger('add', {
-      items: addedIds
-    }, senderId);
-  }
-
-  return addedIds;
-};
-/**
- * Update existing items. When an item does not exist, it will be created
- * @param {Object | Array} data
- * @param {string} [senderId] Optional sender id
- * @return {Array.<string|number>} updatedIds     The ids of the added or updated items
- * @throws {Error} Unknown Datatype
- */
-
-
-DataSet.prototype.update = function (data, senderId) {
-  var addedIds = [];
-  var updatedIds = [];
-  var oldData = [];
-  var updatedData = [];
-  var me = this;
-  var fieldId = me._fieldId;
-
-  var addOrUpdate = function addOrUpdate(item) {
-    var id = item[fieldId];
-
-    if (me._data[id]) {
-      var oldItem = esm.extend({}, me._data[id]); // update item
-
-      id = me._updateItem(item);
-      updatedIds.push(id);
-      updatedData.push(item);
-      oldData.push(oldItem);
-    } else {
-      // add new item
-      id = me._addItem(item);
-      addedIds.push(id);
-    }
-  };
-
-  if (Array.isArray(data)) {
-    // Array
-    for (var i = 0, len = data.length; i < len; i++) {
-      if (data[i] && _typeof$1(data[i]) === 'object') {
-        addOrUpdate(data[i]);
-      } else {
-        console.warn('Ignoring input item, which is not an object at index ' + i);
-      }
-    }
-  } else if (data && _typeof$1(data) === 'object') {
-    // Single item
-    addOrUpdate(data);
-  } else {
-    throw new Error('Unknown dataType');
-  }
-
-  if (addedIds.length) {
-    this._trigger('add', {
-      items: addedIds
-    }, senderId);
-  }
-
-  if (updatedIds.length) {
-    var props = {
-      items: updatedIds,
-      oldData: oldData,
-      data: updatedData
-    }; // TODO: remove deprecated property 'data' some day
-    //Object.defineProperty(props, 'data', {
-    //  'get': (function() {
-    //    console.warn('Property data is deprecated. Use DataSet.get(ids) to retrieve the new data, use the oldData property on this object to get the old data');
-    //    return updatedData;
-    //  }).bind(this)
-    //});
-
-    this._trigger('update', props, senderId);
-  }
-
-  return addedIds.concat(updatedIds);
-};
-/**
- * Get a data item or multiple items.
+ * Convert an object into another type
  *
- * Usage:
+ * @param object - Value of unknown type.
+ * @param type - Name of the desired type.
  *
- *     get()
- *     get(options: Object)
- *
- *     get(id: number | string)
- *     get(id: number | string, options: Object)
- *
- *     get(ids: number[] | string[])
- *     get(ids: number[] | string[], options: Object)
- *
- * Where:
- *
- * {number | string} id         The id of an item
- * {number[] | string{}} ids    An array with ids of items
- * {Object} options             An Object with options. Available options:
- * {string} [returnType]        Type of data to be returned.
- *                              Can be 'Array' (default) or 'Object'.
- * {Object.<string, string>} [type]
- * {string[]} [fields]          field names to be returned
- * {function} [filter]          filter items
- * {string | function} [order]  Order the items by a field name or custom sort function.
- * @param {Array} args
- * @returns {DataSet}
+ * @returns Object in the desired type.
  * @throws Error
  */
 
 
-DataSet.prototype.get = function (args) {
-  // eslint-disable-line no-unused-vars
-  var me = this; // parse the arguments
+function convert$1(object, type) {
+  var match;
 
-  var id, ids, options;
-  var firstType = esm.getType(arguments[0]);
-
-  if (firstType == 'String' || firstType == 'Number') {
-    // get(id [, options])
-    id = arguments[0];
-    options = arguments[1];
-  } else if (firstType == 'Array') {
-    // get(ids [, options])
-    ids = arguments[0];
-    options = arguments[1];
-  } else {
-    // get([, options])
-    options = arguments[0];
-  } // determine the return type
-
-
-  var returnType;
-
-  if (options && options.returnType) {
-    var allowedValues = ['Array', 'Object'];
-    returnType = allowedValues.indexOf(options.returnType) == -1 ? 'Array' : options.returnType;
-  } else {
-    returnType = 'Array';
-  } // build options
-
-
-  var type = options && options.type || this._options.type;
-  var filter = options && options.filter;
-  var items = [],
-      item,
-      itemIds,
-      itemId,
-      i,
-      len; // convert items
-
-  if (id != undefined) {
-    // return a single item
-    item = me._getItem(id, type);
-
-    if (item && filter && !filter(item)) {
-      item = null;
-    }
-  } else if (ids != undefined) {
-    // return a subset of items
-    for (i = 0, len = ids.length; i < len; i++) {
-      item = me._getItem(ids[i], type);
-
-      if (!filter || filter(item)) {
-        items.push(item);
-      }
-    }
-  } else {
-    // return all items
-    itemIds = Object.keys(this._data);
-
-    for (i = 0, len = itemIds.length; i < len; i++) {
-      itemId = itemIds[i];
-      item = me._getItem(itemId, type);
-
-      if (!filter || filter(item)) {
-        items.push(item);
-      }
-    }
-  } // order the results
-
-
-  if (options && options.order && id == undefined) {
-    this._sort(items, options.order);
-  } // filter fields of the items
-
-
-  if (options && options.fields) {
-    var fields = options.fields;
-
-    if (id != undefined) {
-      item = this._filterFields(item, fields);
-    } else {
-      for (i = 0, len = items.length; i < len; i++) {
-        items[i] = this._filterFields(items[i], fields);
-      }
-    }
-  } // return the results
-
-
-  if (returnType == 'Object') {
-    var result = {},
-        resultant;
-
-    for (i = 0, len = items.length; i < len; i++) {
-      resultant = items[i];
-      result[resultant.id] = resultant;
-    }
-
-    return result;
-  } else {
-    if (id != undefined) {
-      // a single item
-      return item;
-    } else {
-      // just return our array
-      return items;
-    }
-  }
-};
-/**
- * Get ids of all items or from a filtered set of items.
- * @param {Object} [options]    An Object with options. Available options:
- *                              {function} [filter] filter items
- *                              {string | function} [order] Order the items by
- *                                  a field name or custom sort function.
- * @return {Array.<string|number>} ids
- */
-
-
-DataSet.prototype.getIds = function (options) {
-  var data = this._data,
-      filter = options && options.filter,
-      order = options && options.order,
-      type = options && options.type || this._options.type,
-      itemIds = Object.keys(data),
-      i,
-      len,
-      id,
-      item,
-      items,
-      ids = [];
-
-  if (filter) {
-    // get filtered items
-    if (order) {
-      // create ordered list
-      items = [];
-
-      for (i = 0, len = itemIds.length; i < len; i++) {
-        id = itemIds[i];
-        item = this._getItem(id, type);
-
-        if (filter(item)) {
-          items.push(item);
-        }
-      }
-
-      this._sort(items, order);
-
-      for (i = 0, len = items.length; i < len; i++) {
-        ids.push(items[i][this._fieldId]);
-      }
-    } else {
-      // create unordered list
-      for (i = 0, len = itemIds.length; i < len; i++) {
-        id = itemIds[i];
-        item = this._getItem(id, type);
-
-        if (filter(item)) {
-          ids.push(item[this._fieldId]);
-        }
-      }
-    }
-  } else {
-    // get all items
-    if (order) {
-      // create an ordered list
-      items = [];
-
-      for (i = 0, len = itemIds.length; i < len; i++) {
-        id = itemIds[i];
-        items.push(data[id]);
-      }
-
-      this._sort(items, order);
-
-      for (i = 0, len = items.length; i < len; i++) {
-        ids.push(items[i][this._fieldId]);
-      }
-    } else {
-      // create unordered list
-      for (i = 0, len = itemIds.length; i < len; i++) {
-        id = itemIds[i];
-        item = data[id];
-        ids.push(item[this._fieldId]);
-      }
-    }
+  if (object === undefined) {
+    return undefined;
   }
 
-  return ids;
-};
-/**
- * Returns the DataSet itself. Is overwritten for example by the DataView,
- * which returns the DataSet it is connected to instead.
- * @returns {DataSet}
- */
-
-
-DataSet.prototype.getDataSet = function () {
-  return this;
-};
-/**
- * Execute a callback function for every item in the dataset.
- * @param {function} callback
- * @param {Object} [options]    Available options:
- *                              {Object.<string, string>} [type]
- *                              {string[]} [fields] filter fields
- *                              {function} [filter] filter items
- *                              {string | function} [order] Order the items by
- *                                  a field name or custom sort function.
- */
-
-
-DataSet.prototype.forEach = function (callback, options) {
-  var filter = options && options.filter,
-      type = options && options.type || this._options.type,
-      data = this._data,
-      itemIds = Object.keys(data),
-      i,
-      len,
-      item,
-      id;
-
-  if (options && options.order) {
-    // execute forEach on ordered list
-    var items = this.get(options);
-
-    for (i = 0, len = items.length; i < len; i++) {
-      item = items[i];
-      id = item[this._fieldId];
-      callback(item, id);
-    }
-  } else {
-    // unordered
-    for (i = 0, len = itemIds.length; i < len; i++) {
-      id = itemIds[i];
-      item = this._getItem(id, type);
-
-      if (!filter || filter(item)) {
-        callback(item, id);
-      }
-    }
-  }
-};
-/**
- * Map every item in the dataset.
- * @param {function} callback
- * @param {Object} [options]    Available options:
- *                              {Object.<string, string>} [type]
- *                              {string[]} [fields] filter fields
- *                              {function} [filter] filter items
- *                              {string | function} [order] Order the items by
- *                                  a field name or custom sort function.
- * @return {Object[]} mappedItems
- */
-
-
-DataSet.prototype.map = function (callback, options) {
-  var filter = options && options.filter,
-      type = options && options.type || this._options.type,
-      mappedItems = [],
-      data = this._data,
-      itemIds = Object.keys(data),
-      i,
-      len,
-      id,
-      item; // convert and filter items
-
-  for (i = 0, len = itemIds.length; i < len; i++) {
-    id = itemIds[i];
-    item = this._getItem(id, type);
-
-    if (!filter || filter(item)) {
-      mappedItems.push(callback(item, id));
-    }
-  } // order items
-
-
-  if (options && options.order) {
-    this._sort(mappedItems, options.order);
-  }
-
-  return mappedItems;
-};
-/**
- * Filter the fields of an item
- * @param {Object | null} item
- * @param {string[]} fields     Field names
- * @return {Object | null} filteredItem or null if no item is provided
- * @private
- */
-
-
-DataSet.prototype._filterFields = function (item, fields) {
-  if (!item) {
-    // item is null
-    return item;
-  }
-
-  var filteredItem = {},
-      itemFields = Object.keys(item),
-      len = itemFields.length,
-      i,
-      field;
-
-  if (Array.isArray(fields)) {
-    for (i = 0; i < len; i++) {
-      field = itemFields[i];
-
-      if (fields.indexOf(field) != -1) {
-        filteredItem[field] = item[field];
-      }
-    }
-  } else {
-    for (i = 0; i < len; i++) {
-      field = itemFields[i];
-
-      if (fields.hasOwnProperty(field)) {
-        filteredItem[fields[field]] = item[field];
-      }
-    }
-  }
-
-  return filteredItem;
-};
-/**
- * Sort the provided array with items
- * @param {Object[]} items
- * @param {string | function} order      A field name or custom sort function.
- * @private
- */
-
-
-DataSet.prototype._sort = function (items, order) {
-  if (esm.isString(order)) {
-    // order by provided field name
-    var name = order; // field name
-
-    items.sort(function (a, b) {
-      var av = a[name];
-      var bv = b[name];
-      return av > bv ? 1 : av < bv ? -1 : 0;
-    });
-  } else if (typeof order === 'function') {
-    // order by sort function
-    items.sort(order);
-  } // TODO: extend order by an Object {field:string, direction:string}
-  //       where direction can be 'asc' or 'desc'
-  else {
-      throw new TypeError('Order must be a function or a string');
-    }
-};
-/**
- * Remove an object by pointer or by id
- * @param {string | number | Object | Array.<string|number>} id Object or id, or an array with
- *                                              objects or ids to be removed
- * @param {string} [senderId] Optional sender id
- * @return {Array.<string|number>} removedIds
- */
-
-
-DataSet.prototype.remove = function (id, senderId) {
-  var removedIds = [],
-      removedItems = [],
-      ids = [],
-      i,
-      len,
-      itemId,
-      item; // force everything to be an array for simplicity
-
-  ids = Array.isArray(id) ? id : [id];
-
-  for (i = 0, len = ids.length; i < len; i++) {
-    item = this._remove(ids[i]);
-
-    if (item) {
-      itemId = item[this._fieldId];
-
-      if (itemId != undefined) {
-        removedIds.push(itemId);
-        removedItems.push(item);
-      }
-    }
-  }
-
-  if (removedIds.length) {
-    this._trigger('remove', {
-      items: removedIds,
-      oldData: removedItems
-    }, senderId);
-  }
-
-  return removedIds;
-};
-/**
- * Remove an item by its id
- * @param {number | string | Object} id   id or item
- * @returns {number | string | null} id
- * @private
- */
-
-
-DataSet.prototype._remove = function (id) {
-  var item, ident; // confirm the id to use based on the args type
-
-  if (esm.isNumber(id) || esm.isString(id)) {
-    ident = id;
-  } else if (id && _typeof$1(id) === 'object') {
-    ident = id[this._fieldId]; // look for the identifier field using _fieldId
-  } // do the remove if the item is found
-
-
-  if (ident !== undefined && this._data[ident]) {
-    item = this._data[ident];
-    delete this._data[ident];
-    this.length--;
-    return item;
-  }
-
-  return null;
-};
-/**
- * Clear the data
- * @param {string} [senderId] Optional sender id
- * @return {Array.<string|number>} removedIds    The ids of all removed items
- */
-
-
-DataSet.prototype.clear = function (senderId) {
-  var i, len;
-  var ids = Object.keys(this._data);
-  var items = [];
-
-  for (i = 0, len = ids.length; i < len; i++) {
-    items.push(this._data[ids[i]]);
-  }
-
-  this._data = {};
-  this.length = 0;
-
-  this._trigger('remove', {
-    items: ids,
-    oldData: items
-  }, senderId);
-
-  return ids;
-};
-/**
- * Find the item with maximum value of a specified field
- * @param {string} field
- * @return {Object | null} item  Item containing max value, or null if no items
- */
-
-
-DataSet.prototype.max = function (field) {
-  var data = this._data,
-      itemIds = Object.keys(data),
-      max = null,
-      maxField = null,
-      i,
-      len;
-
-  for (i = 0, len = itemIds.length; i < len; i++) {
-    var id = itemIds[i];
-    var item = data[id];
-    var itemField = item[field];
-
-    if (itemField != null && (!max || itemField > maxField)) {
-      max = item;
-      maxField = itemField;
-    }
-  }
-
-  return max;
-};
-/**
- * Find the item with minimum value of a specified field
- * @param {string} field
- * @return {Object | null} item  Item containing max value, or null if no items
- */
-
-
-DataSet.prototype.min = function (field) {
-  var data = this._data,
-      itemIds = Object.keys(data),
-      min = null,
-      minField = null,
-      i,
-      len;
-
-  for (i = 0, len = itemIds.length; i < len; i++) {
-    var id = itemIds[i];
-    var item = data[id];
-    var itemField = item[field];
-
-    if (itemField != null && (!min || itemField < minField)) {
-      min = item;
-      minField = itemField;
-    }
-  }
-
-  return min;
-};
-/**
- * Find all distinct values of a specified field
- * @param {string} field
- * @return {Array} values  Array containing all distinct values. If data items
- *                         do not contain the specified field are ignored.
- *                         The returned array is unordered.
- */
-
-
-DataSet.prototype.distinct = function (field) {
-  var data = this._data;
-  var itemIds = Object.keys(data);
-  var values = [];
-  var fieldType = this._options.type && this._options.type[field] || null;
-  var count = 0;
-  var i, j, len;
-
-  for (i = 0, len = itemIds.length; i < len; i++) {
-    var id = itemIds[i];
-    var item = data[id];
-    var value = item[field];
-    var exists = false;
-
-    for (j = 0; j < count; j++) {
-      if (values[j] == value) {
-        exists = true;
-        break;
-      }
-    }
-
-    if (!exists && value !== undefined) {
-      values[count] = value;
-      count++;
-    }
-  }
-
-  if (fieldType) {
-    for (i = 0, len = values.length; i < len; i++) {
-      values[i] = esm.convert(values[i], fieldType);
-    }
-  }
-
-  return values;
-};
-/**
- * Add a single item. Will fail when an item with the same id already exists.
- * @param {Object} item
- * @return {string} id
- * @private
- */
-
-
-DataSet.prototype._addItem = function (item) {
-  var id = item[this._fieldId];
-
-  if (id != undefined) {
-    // check whether this id is already taken
-    if (this._data[id]) {
-      // item already exists
-      throw new Error('Cannot add item: item with id ' + id + ' already exists');
-    }
-  } else {
-    // generate an id
-    id = esm.randomUUID();
-    item[this._fieldId] = id;
-  }
-
-  var d = {},
-      fields = Object.keys(item),
-      i,
-      len;
-
-  for (i = 0, len = fields.length; i < len; i++) {
-    var field = fields[i];
-    var fieldType = this._type[field]; // type may be undefined
-
-    d[field] = esm.convert(item[field], fieldType);
-  }
-
-  this._data[id] = d;
-  this.length++;
-  return id;
-};
-/**
- * Get an item. Fields can be converted to a specific type
- * @param {string} id
- * @param {Object.<string, string>} [types]  field types to convert
- * @return {Object | null} item
- * @private
- */
-
-
-DataSet.prototype._getItem = function (id, types) {
-  var field, value, i, len; // get the item from the dataset
-
-  var raw = this._data[id];
-
-  if (!raw) {
+  if (object === null) {
     return null;
-  } // convert the items field types
-
-
-  var converted = {},
-      fields = Object.keys(raw);
-
-  if (types) {
-    for (i = 0, len = fields.length; i < len; i++) {
-      field = fields[i];
-      value = raw[field];
-      converted[field] = esm.convert(value, types[field]);
-    }
-  } else {
-    // no field types specified, no converting needed
-    for (i = 0, len = fields.length; i < len; i++) {
-      field = fields[i];
-      value = raw[field];
-      converted[field] = value;
-    }
   }
 
-  if (!converted[this._fieldId]) {
-    converted[this._fieldId] = raw.id;
+  if (!type) {
+    return object;
   }
 
-  return converted;
-};
+  if (!(typeof type === 'string') && !(type instanceof String)) {
+    throw new Error('Type must be a string');
+  } //noinspection FallthroughInSwitchStatementJS
+
+
+  switch (type) {
+    case 'boolean':
+    case 'Boolean':
+      return Boolean(object);
+
+    case 'number':
+    case 'Number':
+      if (isString$1(object) && !isNaN(Date.parse(object))) {
+        return moment$1(object).valueOf();
+      } else {
+        // @TODO: I don't think that Number and String constructors are a good idea.
+        // This could also fail if the object doesn't have valueOf method or if it's redefined.
+        // For example: Object.create(null) or { valueOf: 7 }.
+        return Number(object.valueOf());
+      }
+
+    case 'string':
+    case 'String':
+      return String(object);
+
+    case 'Date':
+      if (isNumber$1(object)) {
+        return new Date(object);
+      }
+
+      if (object instanceof Date) {
+        return new Date(object.valueOf());
+      } else if (isMoment$1(object)) {
+        return new Date(object.valueOf());
+      }
+
+      if (isString$1(object)) {
+        match = ASPDateRegex$1.exec(object);
+
+        if (match) {
+          // object is an ASP date
+          return new Date(Number(match[1])); // parse number
+        } else {
+          return moment$1(new Date(object)).toDate(); // parse string
+        }
+      } else {
+        throw new Error('Cannot convert object of type ' + getType$1(object) + ' to type Date');
+      }
+
+    case 'Moment':
+      if (isNumber$1(object)) {
+        return moment$1(object);
+      }
+
+      if (object instanceof Date) {
+        return moment$1(object.valueOf());
+      } else if (isMoment$1(object)) {
+        return moment$1(object);
+      }
+
+      if (isString$1(object)) {
+        match = ASPDateRegex$1.exec(object);
+
+        if (match) {
+          // object is an ASP date
+          return moment$1(Number(match[1])); // parse number
+        } else {
+          return moment$1(object); // parse string
+        }
+      } else {
+        throw new Error('Cannot convert object of type ' + getType$1(object) + ' to type Date');
+      }
+
+    case 'ISODate':
+      if (isNumber$1(object)) {
+        return new Date(object);
+      } else if (object instanceof Date) {
+        return object.toISOString();
+      } else if (isMoment$1(object)) {
+        return object.toDate().toISOString();
+      } else if (isString$1(object)) {
+        match = ASPDateRegex$1.exec(object);
+
+        if (match) {
+          // object is an ASP date
+          return new Date(Number(match[1])).toISOString(); // parse number
+        } else {
+          return moment$1(object).format(); // ISO 8601
+        }
+      } else {
+        throw new Error('Cannot convert object of type ' + getType$1(object) + ' to type ISODate');
+      }
+
+    case 'ASPDate':
+      if (isNumber$1(object)) {
+        return '/Date(' + object + ')/';
+      } else if (object instanceof Date) {
+        return '/Date(' + object.valueOf() + ')/';
+      } else if (isString$1(object)) {
+        match = ASPDateRegex$1.exec(object);
+
+        var _value;
+
+        if (match) {
+          // object is an ASP date
+          _value = new Date(Number(match[1])).valueOf(); // parse number
+        } else {
+          _value = new Date(object).valueOf(); // parse string
+        }
+
+        return '/Date(' + _value + ')/';
+      } else {
+        throw new Error('Cannot convert object of type ' + getType$1(object) + ' to type ASPDate');
+      }
+
+    default:
+      var never = type;
+      throw new Error("Unknown type ".concat(never));
+  }
+}
 /**
- * Update a single item: merge with existing item.
- * Will fail when the item has no id, or when there does not exist an item
- * with the same id.
- * @param {Object} item
- * @return {string} id
- * @private
+ * Get the type of an object, for example exports.getType([]) returns 'Array'
+ *
+ * @param object - Input value of unknown type.
+ *
+ * @returns Detected type.
  */
 
 
-DataSet.prototype._updateItem = function (item) {
-  var id = item[this._fieldId];
+function getType$1(object) {
+  var type = _typeof(object);
 
-  if (id == undefined) {
-    throw new Error('Cannot update item: item has no id (item: ' + JSON.stringify(item) + ')');
+  if (type === 'object') {
+    if (object === null) {
+      return 'null';
+    }
+
+    if (object instanceof Boolean) {
+      return 'Boolean';
+    }
+
+    if (object instanceof Number) {
+      return 'Number';
+    }
+
+    if (object instanceof String) {
+      return 'String';
+    }
+
+    if (Array.isArray(object)) {
+      return 'Array';
+    }
+
+    if (object instanceof Date) {
+      return 'Date';
+    }
+
+    return 'Object';
   }
 
-  var d = this._data[id];
-
-  if (!d) {
-    // item doesn't exist
-    throw new Error('Cannot update item: no item with id ' + id + ' found');
-  } // merge with current item
-
-
-  var fields = Object.keys(item);
-
-  for (var i = 0, len = fields.length; i < len; i++) {
-    var field = fields[i];
-    var fieldType = this._type[field]; // type may be undefined
-
-    d[field] = esm.convert(item[field], fieldType);
+  if (type === 'number') {
+    return 'Number';
   }
 
-  return id;
-};
+  if (type === 'boolean') {
+    return 'Boolean';
+  }
 
-var DataSet_1 = DataSet;
+  if (type === 'string') {
+    return 'String';
+  }
+
+  if (type === undefined) {
+    return 'undefined';
+  }
+
+  return type;
+}
+/**
+ * Determine whether a value can be used as an id.
+ *
+ * @param value - Input value of unknown type.
+ *
+ * @returns True if the value is valid id, false otherwise.
+ */
+
+
+function isId(value) {
+  return typeof value === 'string' || typeof value === 'number';
+}
+/**
+ * A queue.
+ *
+ * @typeParam T - The type of method names to be replaced by queued versions.
+ */
+
+
+var Queue =
+/*#__PURE__*/
+function () {
+  /**
+   * Construct a new Queue.
+   *
+   * @param options - Queue configuration.
+   */
+  function Queue(options) {
+    classCallCheck(this, Queue);
+    this._queue = [];
+    this._timeout = null;
+    this._extended = null; // options
+
+    this.delay = null;
+    this.max = Infinity;
+    this.setOptions(options);
+  }
+  /**
+   * Update the configuration of the queue.
+   *
+   * @param options - Queue configuration.
+   */
+
+
+  createClass(Queue, [{
+    key: "setOptions",
+    value: function setOptions(options) {
+      if (options && typeof options.delay !== 'undefined') {
+        this.delay = options.delay;
+      }
+
+      if (options && typeof options.max !== 'undefined') {
+        this.max = options.max;
+      }
+
+      this._flushIfNeeded();
+    }
+    /**
+     * Extend an object with queuing functionality.
+     * The object will be extended with a function flush, and the methods provided in options.replace will be replaced with queued ones.
+     *
+     * @param object - The object to be extended.
+     * @param options - Additional options.
+     *
+     * @returns The created queue.
+     */
+
+  }, {
+    key: "destroy",
+
+    /**
+     * Destroy the queue. The queue will first flush all queued actions, and in case it has extended an object, will restore the original object.
+     */
+    value: function destroy() {
+      this.flush();
+
+      if (this._extended) {
+        var object = this._extended.object;
+        var methods = this._extended.methods;
+
+        for (var i = 0; i < methods.length; i++) {
+          var method = methods[i];
+
+          if (method.original) {
+            object[method.name] = method.original;
+          } else {
+            // @TODO: better solution?
+            delete object[method.name];
+          }
+        }
+
+        this._extended = null;
+      }
+    }
+    /**
+     * Replace a method on an object with a queued version.
+     *
+     * @param object - Object having the method.
+     * @param method - The method name.
+     */
+
+  }, {
+    key: "replace",
+    value: function replace(object, method) {
+      var me = this;
+      var original = object[method];
+
+      if (!original) {
+        throw new Error('Method ' + method + ' undefined');
+      }
+
+      object[method] = function () {
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        } // add this call to the queue
+
+
+        me.queue({
+          args: args,
+          fn: original,
+          context: this
+        });
+      };
+    }
+    /**
+     * Queue a call.
+     *
+     * @param entry - The function or entry to be queued.
+     */
+
+  }, {
+    key: "queue",
+    value: function queue(entry) {
+      if (typeof entry === 'function') {
+        this._queue.push({
+          fn: entry
+        });
+      } else {
+        this._queue.push(entry);
+      }
+
+      this._flushIfNeeded();
+    }
+    /**
+     * Check whether the queue needs to be flushed.
+     */
+
+  }, {
+    key: "_flushIfNeeded",
+    value: function _flushIfNeeded() {
+      var _this = this; // flush when the maximum is exceeded.
+
+
+      if (this._queue.length > this.max) {
+        this.flush();
+      } // flush after a period of inactivity when a delay is configured
+
+
+      if (this._timeout != null) {
+        clearTimeout(this._timeout);
+        this._timeout = null;
+      }
+
+      if (this.queue.length > 0 && typeof this.delay === 'number') {
+        this._timeout = setTimeout(function () {
+          _this.flush();
+        }, this.delay);
+      }
+    }
+    /**
+     * Flush all queued calls
+     */
+
+  }, {
+    key: "flush",
+    value: function flush() {
+      this._queue.splice(0).forEach(function (entry) {
+        entry.fn.apply(entry.context || entry.fn, entry.args || []);
+      });
+    }
+  }], [{
+    key: "extend",
+    value: function extend(object, options) {
+      var queue = new Queue(options);
+
+      if (object.flush !== undefined) {
+        throw new Error('Target object already has a property flush');
+      }
+
+      object.flush = function () {
+        queue.flush();
+      };
+
+      var methods = [{
+        name: 'flush',
+        original: undefined
+      }];
+
+      if (options && options.replace) {
+        for (var i = 0; i < options.replace.length; i++) {
+          var name = options.replace[i];
+          methods.push({
+            name: name,
+            // @TODO: better solution?
+            original: object[name]
+          }); // @TODO: better solution?
+
+          queue.replace(object, name);
+        }
+      }
+
+      queue._extended = {
+        object: object,
+        methods: methods
+      };
+      return queue;
+    }
+  }]);
+  return Queue;
+}();
+
+function _arrayWithoutHoles$1(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  }
+}
+
+var arrayWithoutHoles$1 = _arrayWithoutHoles$1;
+
+function _iterableToArray$1(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+var iterableToArray$1 = _iterableToArray$1;
+
+function _nonIterableSpread$1() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+var nonIterableSpread$1 = _nonIterableSpread$1;
+
+function _toConsumableArray$1(arr) {
+  return arrayWithoutHoles$1(arr) || iterableToArray$1(arr) || nonIterableSpread$1();
+}
+
+var toConsumableArray$1 = _toConsumableArray$1;
+/**
+ * [[DataSet]] code that can be reused in [[DataView]] or other similar implementations of [[DataInterface]].
+ *
+ * @typeParam Item - Item type that may or may not have an id.
+ * @typeParam IdProp - Name of the property that contains the id.
+ */
+
+var DataSetPart =
+/*#__PURE__*/
+function () {
+  function DataSetPart() {
+    classCallCheck(this, DataSetPart);
+    this._subscribers = {
+      '*': [],
+      add: [],
+      remove: [],
+      update: []
+    };
+    /**
+     * @deprecated Use on instead (PS: DataView.subscribe === DataView.on).
+     */
+
+    this.subscribe = DataSetPart.prototype.on;
+    /**
+     * @deprecated Use off instead (PS: DataView.unsubscribe === DataView.off).
+     */
+
+    this.unsubscribe = DataSetPart.prototype.off;
+  }
+  /**
+   * Trigger an event
+   *
+   * @param event - Event name.
+   * @param payload - Event payload.
+   * @param senderId - Id of the sender.
+   */
+
+
+  createClass(DataSetPart, [{
+    key: "_trigger",
+    value: function _trigger(event, payload, senderId) {
+      if (event === '*') {
+        throw new Error('Cannot trigger event *');
+      }
+
+      var subscribers = [].concat(toConsumableArray$1(this._subscribers[event]), toConsumableArray$1(this._subscribers['*']));
+
+      for (var i = 0, len = subscribers.length; i < len; i++) {
+        var subscriber = subscribers[i];
+
+        if (subscriber.callback) {
+          subscriber.callback(event, payload, senderId != null ? senderId : null);
+        }
+      }
+    }
+    /**
+     * Subscribe to an event, add an event listener.
+     *
+     * @param event - Event name.
+     * @param callback - Callback method.
+     */
+
+  }, {
+    key: "on",
+    value: function on(event, callback) {
+      this._subscribers[event].push({
+        callback: callback
+      });
+    }
+    /**
+     * Unsubscribe from an event, remove an event listener.
+     *
+     * @remarks If the same callback was subscribed more than once **all** occurences will be removed.
+     *
+     * @param event - Event name.
+     * @param callback - Callback method.
+     */
+
+  }, {
+    key: "off",
+    value: function off(event, callback) {
+      this._subscribers[event] = this._subscribers[event].filter(function (listener) {
+        return listener.callback !== callback;
+      });
+    }
+  }]);
+  return DataSetPart;
+}();
+
+function ownKeys$1(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    keys.push.apply(keys, Object.getOwnPropertySymbols(object));
+  }
+
+  if (enumerableOnly) keys = keys.filter(function (sym) {
+    return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+  });
+  return keys;
+}
+
+function _objectSpread$1(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys$1(source, true).forEach(function (key) {
+        defineProperty$1(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$1(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+/**
+ * # DataSet
+ *
+ * Vis.js comes with a flexible DataSet, which can be used to hold and manipulate unstructured data and listen for changes in the data. The DataSet is key/value based. Data items can be added, updated and removed from the DataSet, and one can subscribe to changes in the DataSet. The data in the DataSet can be filtered and ordered, and fields (like dates) can be converted to a specific type. Data can be normalized when appending it to the DataSet as well.
+ *
+ * ## Example
+ *
+ * The following example shows how to use a DataSet.
+ *
+ * ```javascript
+ * // create a DataSet
+ * var options = {};
+ * var data = new vis.DataSet(options);
+ *
+ * // add items
+ * // note that the data items can contain different properties and data formats
+ * data.add([
+ *   {id: 1, text: 'item 1', date: new Date(2013, 6, 20), group: 1, first: true},
+ *   {id: 2, text: 'item 2', date: '2013-06-23', group: 2},
+ *   {id: 3, text: 'item 3', date: '2013-06-25', group: 2},
+ *   {id: 4, text: 'item 4'}
+ * ]);
+ *
+ * // subscribe to any change in the DataSet
+ * data.on('*', function (event, properties, senderId) {
+ *   console.log('event', event, properties);
+ * });
+ *
+ * // update an existing item
+ * data.update({id: 2, group: 1});
+ *
+ * // remove an item
+ * data.remove(4);
+ *
+ * // get all ids
+ * var ids = data.getIds();
+ * console.log('ids', ids);
+ *
+ * // get a specific item
+ * var item1 = data.get(1);
+ * console.log('item1', item1);
+ *
+ * // retrieve a filtered subset of the data
+ * var items = data.get({
+ *   filter: function (item) {
+ *     return item.group == 1;
+ *   }
+ * });
+ * console.log('filtered items', items);
+ *
+ * // retrieve formatted items
+ * var items = data.get({
+ *   fields: ['id', 'date'],
+ *   type: {
+ *     date: 'ISODate'
+ *   }
+ * });
+ * console.log('formatted items', items);
+ * ```
+ *
+ * @typeParam Item - Item type that may or may not have an id.
+ * @typeParam IdProp - Name of the property that contains the id.
+ */
+
+
+var DataSet =
+/*#__PURE__*/
+function (_DataSetPart) {
+  inherits(DataSet, _DataSetPart);
+  /**
+   * Construct a new DataSet.
+   *
+   * @param data - Initial data or options.
+   * @param options - Options (type error if data is also options).
+   */
+
+  function DataSet(data, options) {
+    var _this;
+
+    classCallCheck(this, DataSet);
+    _this = possibleConstructorReturn(this, getPrototypeOf(DataSet).call(this)); // correctly read optional arguments
+
+    if (data && !Array.isArray(data)) {
+      options = data;
+      data = [];
+    }
+
+    _this._options = options || {};
+    _this._data = Object.create({}); // map with data indexed by id
+
+    _this.length = 0; // number of items in the DataSet
+
+    _this._idProp = _this._options.fieldId || 'id'; // name of the field containing id
+
+    _this._type = {}; // internal field types (NOTE: this can differ from this._options.type)
+    // all variants of a Date are internally stored as Date, so we can convert
+    // from everything to everything (also from ISODate to Number for example)
+
+    if (_this._options.type) {
+      var fields = Object.keys(_this._options.type);
+
+      for (var i = 0, len = fields.length; i < len; i++) {
+        var field = fields[i];
+        var value = _this._options.type[field];
+
+        if (value == 'Date' || value == 'ISODate' || value == 'ASPDate') {
+          _this._type[field] = 'Date';
+        } else {
+          _this._type[field] = value;
+        }
+      }
+    } // add initial data when provided
+
+
+    if (data && data.length) {
+      _this.add(data);
+    }
+
+    _this.setOptions(options);
+
+    return _this;
+  }
+  /**
+   * Set new options.
+   *
+   * @param options - The new options.
+   */
+
+
+  createClass(DataSet, [{
+    key: "setOptions",
+    value: function setOptions(options) {
+      if (options && options.queue !== undefined) {
+        if (options.queue === false) {
+          // delete queue if loaded
+          if (this._queue) {
+            this._queue.destroy();
+
+            delete this._queue;
+          }
+        } else {
+          // create queue and update its options
+          if (!this._queue) {
+            this._queue = Queue.extend(this, {
+              replace: ['add', 'update', 'remove']
+            });
+          }
+
+          if (options.queue && _typeof_1$1(options.queue) === 'object') {
+            this._queue.setOptions(options.queue);
+          }
+        }
+      }
+    }
+    /**
+     * Add a data item or an array with items.
+     *
+     * After the items are added to the DataSet, the DataSet will trigger an event `add`. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+     *
+     * ## Example
+     *
+     * ```javascript
+     * // create a DataSet
+     * const data = new vis.DataSet()
+     *
+     * // add items
+     * const ids = data.add([
+     *   { id: 1, text: 'item 1' },
+     *   { id: 2, text: 'item 2' },
+     *   { text: 'item without an id' }
+     * ])
+     *
+     * console.log(ids) // [1, 2, '<UUIDv4>']
+     * ```
+     *
+     * @param data - Items to be added (ids will be generated if missing).
+     * @param senderId - Sender id.
+     *
+     * @returns addedIds - Array with the ids (generated if not present) of the added items.
+     *
+     * @throws When an item with the same id as any of the added items already exists.
+     */
+
+  }, {
+    key: "add",
+    value: function add(data, senderId) {
+      var addedIds = [];
+      var id;
+
+      if (Array.isArray(data)) {
+        // Array
+        for (var i = 0, len = data.length; i < len; i++) {
+          id = this._addItem(data[i]);
+          addedIds.push(id);
+        }
+      } else if (data && _typeof_1$1(data) === 'object') {
+        // Single item
+        id = this._addItem(data);
+        addedIds.push(id);
+      } else {
+        throw new Error('Unknown dataType');
+      }
+
+      if (addedIds.length) {
+        this._trigger('add', {
+          items: addedIds
+        }, senderId);
+      }
+
+      return addedIds;
+    }
+    /**
+     * Update existing items. When an item does not exist, it will be created
+     *
+     * The provided properties will be merged in the existing item. When an item does not exist, it will be created.
+     *
+     * After the items are updated, the DataSet will trigger an event `add` for the added items, and an event `update`. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+     *
+     * ## Example
+     *
+     * ```javascript
+     * // create a DataSet
+     * const data = new vis.DataSet([
+     *   { id: 1, text: 'item 1' },
+     *   { id: 2, text: 'item 2' },
+     *   { id: 3, text: 'item 3' }
+     * ])
+     *
+     * // update items
+     * const ids = data.update([
+     *   { id: 2, text: 'item 2 (updated)' },
+     *   { id: 4, text: 'item 4 (new)' }
+     * ])
+     *
+     * console.log(ids) // [2, 4]
+     * ```
+     *
+     * @param data - Items to be updated (if the id is already present) or added (if the id is missing).
+     * @param senderId - Sender id.
+     *
+     * @returns updatedIds - The ids of the added (these may be newly generated if there was no id in the item from the data) or updated items.
+     *
+     * @throws When the supplied data is neither an item nor an array of items.
+     */
+
+  }, {
+    key: "update",
+    value: function update(data, senderId) {
+      var _this2 = this;
+
+      var addedIds = [];
+      var updatedIds = [];
+      var oldData = [];
+      var updatedData = [];
+      var idProp = this._idProp;
+
+      var addOrUpdate = function addOrUpdate(item) {
+        var origId = item[idProp];
+
+        if (origId != null && _this2._data[origId]) {
+          var fullItem = item; // it has an id, therefore it is a fullitem
+
+          var oldItem = Object.assign({}, _this2._data[origId]); // update item
+
+          var id = _this2._updateItem(fullItem);
+
+          updatedIds.push(id);
+          updatedData.push(fullItem);
+          oldData.push(oldItem);
+        } else {
+          // add new item
+          var _id = _this2._addItem(item);
+
+          addedIds.push(_id);
+        }
+      };
+
+      if (Array.isArray(data)) {
+        // Array
+        for (var i = 0, len = data.length; i < len; i++) {
+          if (data[i] && _typeof_1$1(data[i]) === 'object') {
+            addOrUpdate(data[i]);
+          } else {
+            console.warn('Ignoring input item, which is not an object at index ' + i);
+          }
+        }
+      } else if (data && _typeof_1$1(data) === 'object') {
+        // Single item
+        addOrUpdate(data);
+      } else {
+        throw new Error('Unknown dataType');
+      }
+
+      if (addedIds.length) {
+        this._trigger('add', {
+          items: addedIds
+        }, senderId);
+      }
+
+      if (updatedIds.length) {
+        var props = {
+          items: updatedIds,
+          oldData: oldData,
+          data: updatedData
+        }; // TODO: remove deprecated property 'data' some day
+        //Object.defineProperty(props, 'data', {
+        //  'get': (function() {
+        //    console.warn('Property data is deprecated. Use DataSet.get(ids) to retrieve the new data, use the oldData property on this object to get the old data');
+        //    return updatedData;
+        //  }).bind(this)
+        //});
+
+        this._trigger('update', props, senderId);
+      }
+
+      return addedIds.concat(updatedIds);
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "get",
+    value: function get(first, second) {
+      // @TODO: Woudn't it be better to split this into multiple methods?
+      // parse the arguments
+      var id = undefined;
+      var ids = undefined;
+      var options = undefined;
+
+      if (isId(first)) {
+        // get(id [, options])
+        id = first;
+        options = second;
+      } else if (Array.isArray(first)) {
+        // get(ids [, options])
+        ids = first;
+        options = second;
+      } else {
+        // get([, options])
+        options = first;
+      } // determine the return type
+
+
+      var returnType = options && options.returnType === 'Object' ? 'Object' : 'Array'; // @TODO: WTF is this? Or am I missing something?
+      // var returnType
+      // if (options && options.returnType) {
+      //   var allowedValues = ['Array', 'Object']
+      //   returnType =
+      //     allowedValues.indexOf(options.returnType) == -1
+      //       ? 'Array'
+      //       : options.returnType
+      // } else {
+      //   returnType = 'Array'
+      // }
+      // build options
+
+      var type = options && options.type || this._options.type;
+      var filter = options && options.filter;
+      var items = [];
+      var item = null;
+      var itemIds = null;
+      var itemId = null; // convert items
+
+      if (id != null) {
+        // return a single item
+        item = this._getItem(id, type);
+
+        if (item && filter && !filter(item)) {
+          item = null;
+        }
+      } else if (ids != null) {
+        // return a subset of items
+        for (var i = 0, len = ids.length; i < len; i++) {
+          item = this._getItem(ids[i], type);
+
+          if (item != null && (!filter || filter(item))) {
+            items.push(item);
+          }
+        }
+      } else {
+        // return all items
+        itemIds = Object.keys(this._data);
+
+        for (var _i = 0, _len = itemIds.length; _i < _len; _i++) {
+          itemId = itemIds[_i];
+          item = this._getItem(itemId, type);
+
+          if (item != null && (!filter || filter(item))) {
+            items.push(item);
+          }
+        }
+      } // order the results
+
+
+      if (options && options.order && id == undefined) {
+        this._sort(items, options.order);
+      } // filter fields of the items
+
+
+      if (options && options.fields) {
+        var fields = options.fields;
+
+        if (id != undefined && item != null) {
+          item = this._filterFields(item, fields);
+        } else {
+          for (var _i2 = 0, _len2 = items.length; _i2 < _len2; _i2++) {
+            items[_i2] = this._filterFields(items[_i2], fields);
+          }
+        }
+      } // return the results
+
+
+      if (returnType == 'Object') {
+        var result = {};
+
+        for (var _i3 = 0, _len3 = items.length; _i3 < _len3; _i3++) {
+          var resultant = items[_i3]; // @TODO: Shoudn't this be this._fieldId?
+          // result[resultant.id] = resultant
+
+          var _id2 = resultant[this._idProp];
+          result[_id2] = resultant;
+        }
+
+        return result;
+      } else {
+        if (id != null) {
+          // a single item
+          return item;
+        } else {
+          // just return our array
+          return items;
+        }
+      }
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "getIds",
+    value: function getIds(options) {
+      var data = this._data;
+      var filter = options && options.filter;
+      var order = options && options.order;
+      var type = options && options.type || this._options.type;
+      var itemIds = Object.keys(data);
+      var ids = [];
+      var item;
+      var items;
+
+      if (filter) {
+        // get filtered items
+        if (order) {
+          // create ordered list
+          items = [];
+
+          for (var i = 0, len = itemIds.length; i < len; i++) {
+            var id = itemIds[i];
+            item = this._getItem(id, type);
+
+            if (filter(item)) {
+              items.push(item);
+            }
+          }
+
+          this._sort(items, order);
+
+          for (var _i4 = 0, _len4 = items.length; _i4 < _len4; _i4++) {
+            ids.push(items[_i4][this._idProp]);
+          }
+        } else {
+          // create unordered list
+          for (var _i5 = 0, _len5 = itemIds.length; _i5 < _len5; _i5++) {
+            var _id3 = itemIds[_i5];
+            item = this._getItem(_id3, type);
+
+            if (filter(item)) {
+              ids.push(item[this._idProp]);
+            }
+          }
+        }
+      } else {
+        // get all items
+        if (order) {
+          // create an ordered list
+          items = [];
+
+          for (var _i6 = 0, _len6 = itemIds.length; _i6 < _len6; _i6++) {
+            var _id4 = itemIds[_i6];
+            items.push(data[_id4]);
+          }
+
+          this._sort(items, order);
+
+          for (var _i7 = 0, _len7 = items.length; _i7 < _len7; _i7++) {
+            ids.push(items[_i7][this._idProp]);
+          }
+        } else {
+          // create unordered list
+          for (var _i8 = 0, _len8 = itemIds.length; _i8 < _len8; _i8++) {
+            var _id5 = itemIds[_i8];
+            item = data[_id5];
+            ids.push(item[this._idProp]);
+          }
+        }
+      }
+
+      return ids;
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "getDataSet",
+    value: function getDataSet() {
+      return this;
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "forEach",
+    value: function forEach(callback, options) {
+      var filter = options && options.filter;
+      var type = options && options.type || this._options.type;
+      var data = this._data;
+      var itemIds = Object.keys(data);
+
+      if (options && options.order) {
+        // execute forEach on ordered list
+        var items = this.get(options);
+
+        for (var i = 0, len = items.length; i < len; i++) {
+          var item = items[i];
+          var id = item[this._idProp];
+          callback(item, id);
+        }
+      } else {
+        // unordered
+        for (var _i9 = 0, _len9 = itemIds.length; _i9 < _len9; _i9++) {
+          var _id6 = itemIds[_i9];
+
+          var _item = this._getItem(_id6, type);
+
+          if (!filter || filter(_item)) {
+            callback(_item, _id6);
+          }
+        }
+      }
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "map",
+    value: function map(callback, options) {
+      var filter = options && options.filter;
+      var type = options && options.type || this._options.type;
+      var mappedItems = [];
+      var data = this._data;
+      var itemIds = Object.keys(data); // convert and filter items
+
+      for (var i = 0, len = itemIds.length; i < len; i++) {
+        var id = itemIds[i];
+
+        var item = this._getItem(id, type);
+
+        if (!filter || filter(item)) {
+          mappedItems.push(callback(item, id));
+        }
+      } // order items
+
+
+      if (options && options.order) {
+        this._sort(mappedItems, options.order);
+      }
+
+      return mappedItems;
+    }
+    /**
+     * Filter the fields of an item.
+     *
+     * @param item - The item whose fields should be filtered.
+     * @param fields - The names of the fields that will be kept.
+     *
+     * @typeParam K - Field name type.
+     *
+     * @returns The item without any additional fields.
+     */
+
+  }, {
+    key: "_filterFields",
+    value: function _filterFields(item, fields) {
+      if (!item) {
+        // item is null
+        return item;
+      }
+
+      return (Array.isArray(fields) ? // Use the supplied array
+      fields : // Use the keys of the supplied object
+      Object.keys(fields)).reduce(function (filteredItem, field) {
+        filteredItem[field] = item[field];
+        return filteredItem;
+      }, {});
+    }
+    /**
+     * Sort the provided array with items.
+     *
+     * @param items - Items to be sorted in place.
+     * @param order - A field name or custom sort function.
+     *
+     * @typeParam T - The type of the items in the items array.
+     */
+
+  }, {
+    key: "_sort",
+    value: function _sort(items, order) {
+      if (typeof order === 'string') {
+        // order by provided field name
+        var name = order; // field name
+
+        items.sort(function (a, b) {
+          // @TODO: How to treat missing properties?
+          var av = a[name];
+          var bv = b[name];
+          return av > bv ? 1 : av < bv ? -1 : 0;
+        });
+      } else if (typeof order === 'function') {
+        // order by sort function
+        items.sort(order);
+      } else {
+        // TODO: extend order by an Object {field:string, direction:string}
+        //       where direction can be 'asc' or 'desc'
+        throw new TypeError('Order must be a function or a string');
+      }
+    }
+    /**
+     * Remove an item or multiple items by “reference” (only the id is used) or by id.
+     *
+     * The method ignores removal of non-existing items, and returns an array containing the ids of the items which are actually removed from the DataSet.
+     *
+     * After the items are removed, the DataSet will trigger an event `remove` for the removed items. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+     *
+     * ## Example
+     * ```javascript
+     * // create a DataSet
+     * const data = new vis.DataSet([
+     *   { id: 1, text: 'item 1' },
+     *   { id: 2, text: 'item 2' },
+     *   { id: 3, text: 'item 3' }
+     * ])
+     *
+     * // remove items
+     * const ids = data.remove([2, { id: 3 }, 4])
+     *
+     * console.log(ids) // [2, 3]
+     * ```
+     *
+     * @param id - One or more items or ids of items to be removed.
+     * @param senderId - Sender id.
+     *
+     * @returns The ids of the removed items.
+     */
+
+  }, {
+    key: "remove",
+    value: function remove(id, senderId) {
+      var removedIds = [];
+      var removedItems = []; // force everything to be an array for simplicity
+
+      var ids = Array.isArray(id) ? id : [id];
+
+      for (var i = 0, len = ids.length; i < len; i++) {
+        var item = this._remove(ids[i]);
+
+        if (item) {
+          var itemId = item[this._idProp];
+
+          if (itemId != null) {
+            removedIds.push(itemId);
+            removedItems.push(item);
+          }
+        }
+      }
+
+      if (removedIds.length) {
+        this._trigger('remove', {
+          items: removedIds,
+          oldData: removedItems
+        }, senderId);
+      }
+
+      return removedIds;
+    }
+    /**
+     * Remove an item by its id or reference.
+     *
+     * @param id - Id of an item or the item itself.
+     *
+     * @returns The removed item if removed, null otherwise.
+     */
+
+  }, {
+    key: "_remove",
+    value: function _remove(id) {
+      // @TODO: It origianlly returned the item although the docs say id.
+      // The code expects the item, so probably an error in the docs.
+      var ident; // confirm the id to use based on the args type
+
+      if (isId(id)) {
+        ident = id;
+      } else if (id && _typeof_1$1(id) === 'object') {
+        ident = id[this._idProp]; // look for the identifier field using ._idProp
+      } // do the removing if the item is found
+
+
+      if (ident != null && this._data[ident]) {
+        var item = this._data[ident];
+        delete this._data[ident];
+        --this.length;
+        return item;
+      }
+
+      return null;
+    }
+    /**
+     * Clear the entire data set.
+     *
+     * After the items are removed, the [[DataSet]] will trigger an event `remove` for all removed items. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+     *
+     * @param senderId - Sender id.
+     *
+     * @returns removedIds - The ids of all removed items.
+     */
+
+  }, {
+    key: "clear",
+    value: function clear(senderId) {
+      var ids = Object.keys(this._data);
+      var items = [];
+
+      for (var i = 0, len = ids.length; i < len; i++) {
+        items.push(this._data[ids[i]]);
+      }
+
+      this._data = {};
+      this.length = 0;
+
+      this._trigger('remove', {
+        items: ids,
+        oldData: items
+      }, senderId);
+
+      return ids;
+    }
+    /**
+     * Find the item with maximum value of a specified field.
+     *
+     * @param field - Name of the property that should be searched for max value.
+     *
+     * @returns Item containing max value, or null if no items.
+     */
+
+  }, {
+    key: "max",
+    value: function max(field) {
+      var data = this._data;
+      var itemIds = Object.keys(data);
+      var max = null;
+      var maxField = null;
+
+      for (var i = 0, len = itemIds.length; i < len; i++) {
+        var id = itemIds[i];
+        var item = data[id];
+        var itemField = item[field];
+
+        if (itemField != null && (maxField == null || itemField > maxField)) {
+          max = item;
+          maxField = itemField;
+        }
+      }
+
+      return max;
+    }
+    /**
+     * Find the item with minimum value of a specified field.
+     *
+     * @param field - Name of the property that should be searched for min value.
+     *
+     * @returns Item containing min value, or null if no items.
+     */
+
+  }, {
+    key: "min",
+    value: function min(field) {
+      var data = this._data;
+      var itemIds = Object.keys(data);
+      var min = null;
+      var minField = null;
+
+      for (var i = 0, len = itemIds.length; i < len; i++) {
+        var id = itemIds[i];
+        var item = data[id];
+        var itemField = item[field];
+
+        if (itemField != null && (minField == null || itemField < minField)) {
+          min = item;
+          minField = itemField;
+        }
+      }
+
+      return min;
+    }
+    /**
+     * Find all distinct values of a specified field
+     *
+     * @param prop - The property name whose distinct values should be returned.
+     *
+     * @returns Unordered array containing all distinct values. Items without specified property are ignored.
+     */
+
+  }, {
+    key: "distinct",
+    value: function distinct(prop) {
+      var data = this._data;
+      var itemIds = Object.keys(data);
+      var values = [];
+      var fieldType = this._options.type && this._options.type[prop] || null;
+      var count = 0;
+
+      for (var i = 0, len = itemIds.length; i < len; i++) {
+        var id = itemIds[i];
+        var item = data[id];
+        var value = item[prop];
+        var exists = false;
+
+        for (var j = 0; j < count; j++) {
+          if (values[j] == value) {
+            exists = true;
+            break;
+          }
+        }
+
+        if (!exists && value !== undefined) {
+          values[count] = value;
+          count++;
+        }
+      }
+
+      if (fieldType) {
+        for (var _i10 = 0, _len10 = values.length; _i10 < _len10; _i10++) {
+          values[_i10] = convert$1(values[_i10], fieldType);
+        }
+      }
+
+      return values;
+    }
+    /**
+     * Add a single item. Will fail when an item with the same id already exists.
+     *
+     * @param item - A new item to be added.
+     *
+     * @returns Added item's id. An id is generated when it is not present in the item.
+     */
+
+  }, {
+    key: "_addItem",
+    value: function _addItem(item) {
+      var id = item[this._idProp];
+
+      if (id != null) {
+        // check whether this id is already taken
+        if (this._data[id]) {
+          // item already exists
+          throw new Error('Cannot add item: item with id ' + id + ' already exists');
+        }
+      } else {
+        // generate an id
+        id = uuid4$1();
+        item[this._idProp] = id;
+      }
+
+      var d = {};
+      var fields = Object.keys(item);
+
+      for (var i = 0, len = fields.length; i < len; i++) {
+        var field = fields[i];
+        var fieldType = this._type[field]; // type may be undefined
+
+        d[field] = convert$1(item[field], fieldType);
+      }
+
+      this._data[id] = d;
+      this.length++;
+      return id;
+    }
+    /**
+     * Get an item. Fields can be converted to a specific type
+     *
+     * @param id - Id of the requested item.
+     * @param types - Property name to type name object map of type converstions.
+     *
+     * @returns The item, optionally after type conversion.
+     */
+
+  }, {
+    key: "_getItem",
+    value: function _getItem(id, types) {
+      // @TODO: I have no idea how to type this.
+      // get the item from the dataset
+      var raw = this._data[id];
+
+      if (!raw) {
+        return null;
+      } // convert the items field types
+
+
+      var converted;
+      var fields = Object.keys(raw);
+
+      if (types) {
+        converted = {};
+
+        for (var i = 0, len = fields.length; i < len; i++) {
+          var field = fields[i];
+          var value = raw[field];
+          converted[field] = convert$1(value, types[field]);
+        }
+      } else {
+        // no field types specified, no converting needed
+        converted = _objectSpread$1({}, raw);
+      }
+
+      if (converted[this._idProp] == null) {
+        converted[this._idProp] = raw.id;
+      }
+
+      return converted;
+    }
+    /**
+     * Update a single item: merge with existing item.
+     * Will fail when the item has no id, or when there does not exist an item with the same id.
+     *
+     * @param item - The new item
+     *
+     * @returns The id of the updated item.
+     */
+
+  }, {
+    key: "_updateItem",
+    value: function _updateItem(item) {
+      var id = item[this._idProp];
+
+      if (id == null) {
+        throw new Error('Cannot update item: item has no id (item: ' + JSON.stringify(item) + ')');
+      }
+
+      var d = this._data[id];
+
+      if (!d) {
+        // item doesn't exist
+        throw new Error('Cannot update item: no item with id ' + id + ' found');
+      } // merge with current item
+
+
+      var fields = Object.keys(item);
+
+      for (var i = 0, len = fields.length; i < len; i++) {
+        var field = fields[i];
+        var fieldType = this._type[field] // type may be undefined
+        ;
+        d[field] = convert$1(item[field], fieldType);
+      }
+
+      return id;
+    }
+  }]);
+  return DataSet;
+}(DataSetPart);
 /**
  * DataView
  *
- * a dataview offers a filtered view on a dataset or an other dataview.
+ * A DataView offers a filtered and/or formatted view on a DataSet. One can subscribe to changes in a DataView, and easily get filtered or formatted data without having to specify filters and field types all the time.
  *
- * @param {DataSet | DataView} data
- * @param {Object} [options]   Available options: see method get
+ * ## Example
+ * ```javascript
+ * // create a DataSet
+ * var data = new vis.DataSet();
+ * data.add([
+ *   {id: 1, text: 'item 1', date: new Date(2013, 6, 20), group: 1, first: true},
+ *   {id: 2, text: 'item 2', date: '2013-06-23', group: 2},
+ *   {id: 3, text: 'item 3', date: '2013-06-25', group: 2},
+ *   {id: 4, text: 'item 4'}
+ * ]);
  *
- * @constructor DataView
- */
-
-function DataView(data, options) {
-  this._data = null;
-  this._ids = {}; // ids of the items currently in memory (just contains a boolean true)
-
-  this.length = 0; // number of items in the DataView
-
-  this._options = options || {};
-  this._fieldId = 'id'; // name of the field containing id
-
-  this._subscribers = {}; // event subscribers
-
-  var me = this;
-
-  this.listener = function () {
-    me._onEvent.apply(me, arguments);
-  };
-
-  this.setData(data);
-} // TODO: implement a function .config() to dynamically update things like configured filter
-// and trigger changes accordingly
-
-/**
- * Set a data source for the view
- * @param {DataSet | DataView} data
- */
-
-
-DataView.prototype.setData = function (data) {
-  var ids, id, i, len, items;
-
-  if (this._data) {
-    // unsubscribe from current dataset
-    if (this._data.off) {
-      this._data.off('*', this.listener);
-    } // trigger a remove of all items in memory
-
-
-    ids = this._data.getIds({
-      filter: this._options && this._options.filter
-    });
-    items = [];
-
-    for (i = 0, len = ids.length; i < len; i++) {
-      items.push(this._data._data[ids[i]]);
-    }
-
-    this._ids = {};
-    this.length = 0;
-
-    this._trigger('remove', {
-      items: ids,
-      oldData: items
-    });
-  }
-
-  this._data = data;
-
-  if (this._data) {
-    // update fieldId
-    this._fieldId = this._options.fieldId || this._data && this._data.options && this._data.options.fieldId || 'id'; // trigger an add of all added items
-
-    ids = this._data.getIds({
-      filter: this._options && this._options.filter
-    });
-
-    for (i = 0, len = ids.length; i < len; i++) {
-      id = ids[i];
-      this._ids[id] = true;
-    }
-
-    this.length = ids.length;
-
-    this._trigger('add', {
-      items: ids
-    }); // subscribe to new dataset
-
-
-    if (this._data.on) {
-      this._data.on('*', this.listener);
-    }
-  }
-};
-/**
- * Refresh the DataView. Useful when the DataView has a filter function
- * containing a variable parameter.
+ * // create a DataView
+ * // the view will only contain items having a property group with value 1,
+ * // and will only output fields id, text, and date.
+ * var view = new vis.DataView(data, {
+ *   filter: function (item) {
+ *     return (item.group == 1);
+ *   },
+ *   fields: ['id', 'text', 'date']
+ * });
+ *
+ * // subscribe to any change in the DataView
+ * view.on('*', function (event, properties, senderId) {
+ *   console.log('event', event, properties);
+ * });
+ *
+ * // update an item in the data set
+ * data.update({id: 2, group: 1});
+ *
+ * // get all ids in the view
+ * var ids = view.getIds();
+ * console.log('ids', ids); // will output [1, 2]
+ *
+ * // get all items in the view
+ * var items = view.get();
+ * ```
+ *
+ * @typeParam Item - Item type that may or may not have an id.
+ * @typeParam IdProp - Name of the property that contains the id.
  */
 
 
-DataView.prototype.refresh = function () {
-  var id, i, len;
+var DataView =
+/*#__PURE__*/
+function (_DataSetPart) {
+  inherits(DataView, _DataSetPart);
+  /**
+   * Create a DataView.
+   *
+   * @param data - The instance containing data (directly or indirectly).
+   * @param options - Options to configure this data view.
+   */
 
-  var ids = this._data.getIds({
-    filter: this._options && this._options.filter
-  }),
-      oldIds = Object.keys(this._ids),
-      newIds = {},
-      addedIds = [],
-      removedIds = [],
-      removedItems = []; // check for additions
+  function DataView(data, options) {
+    var _this;
 
+    classCallCheck(this, DataView);
+    _this = possibleConstructorReturn(this, getPrototypeOf(DataView).call(this));
+    /** @inheritdoc */
 
-  for (i = 0, len = ids.length; i < len; i++) {
-    id = ids[i];
-    newIds[id] = true;
+    _this.length = 0;
+    _this._ids = {}; // ids of the items currently in memory (just contains a boolean true)
 
-    if (!this._ids[id]) {
-      addedIds.push(id);
-      this._ids[id] = true;
-    }
-  } // check for removals
+    _this._options = options || {};
+    _this.listener = _this._onEvent.bind(assertThisInitialized(_this));
 
+    _this.setData(data);
 
-  for (i = 0, len = oldIds.length; i < len; i++) {
-    id = oldIds[i];
+    return _this;
+  } // TODO: implement a function .config() to dynamically update things like configured filter
+  // and trigger changes accordingly
 
-    if (!newIds[id]) {
-      removedIds.push(id);
-      removedItems.push(this._data._data[id]);
-      delete this._ids[id];
-    }
-  }
-
-  this.length += addedIds.length - removedIds.length; // trigger events
-
-  if (addedIds.length) {
-    this._trigger('add', {
-      items: addedIds
-    });
-  }
-
-  if (removedIds.length) {
-    this._trigger('remove', {
-      items: removedIds,
-      oldData: removedItems
-    });
-  }
-};
-/**
- * Get data from the data view
- *
- * Usage:
- *
- *     get()
- *     get(options: Object)
- *     get(options: Object, data: Array | DataTable)
- *
- *     get(id: Number)
- *     get(id: Number, options: Object)
- *     get(id: Number, options: Object, data: Array | DataTable)
- *
- *     get(ids: Number[])
- *     get(ids: Number[], options: Object)
- *     get(ids: Number[], options: Object, data: Array | DataTable)
- *
- * Where:
- *
- * {number | string} id         The id of an item
- * {number[] | string{}} ids    An array with ids of items
- * {Object} options             An Object with options. Available options:
- *                              {string} [type] Type of data to be returned. Can
- *                                              be 'DataTable' or 'Array' (default)
- *                              {Object.<string, string>} [convert]
- *                              {string[]} [fields] field names to be returned
- *                              {function} [filter] filter items
- *                              {string | function} [order] Order the items by
- *                                  a field name or custom sort function.
- * {Array | DataTable} [data]   If provided, items will be appended to this
- *                              array or table. Required in case of Google
- *                              DataTable.
- * @param {Array} args
- * @return {DataSet|DataView}
- */
+  /**
+   * Set a data source for the view.
+   *
+   * @param data - The instance containing data (directly or indirectly).
+   */
 
 
-DataView.prototype.get = function (args) {
-  // eslint-disable-line no-unused-vars
-  var me = this; // parse the arguments
-
-  var ids, options, data;
-  var firstType = esm.getType(arguments[0]);
-
-  if (firstType == 'String' || firstType == 'Number' || firstType == 'Array') {
-    // get(id(s) [, options] [, data])
-    ids = arguments[0]; // can be a single id or an array with ids
-
-    options = arguments[1];
-    data = arguments[2];
-  } else {
-    // get([, options] [, data])
-    options = arguments[0];
-    data = arguments[1];
-  } // extend the options with the default options and provided options
+  createClass(DataView, [{
+    key: "setData",
+    value: function setData(data) {
+      if (this._data) {
+        // unsubscribe from current dataset
+        if (this._data.off) {
+          this._data.off('*', this.listener);
+        } // trigger a remove of all items in memory
 
 
-  var viewOptions = esm.extend({}, this._options, options); // create a combined filter method when needed
+        var ids = this._data.getIds({
+          filter: this._options.filter
+        });
 
-  if (this._options.filter && options && options.filter) {
-    viewOptions.filter = function (item) {
-      return me._options.filter(item) && options.filter(item);
-    };
-  } // build up the call to the linked data set
+        var items = this._data.get(ids);
 
+        this._ids = {};
+        this.length = 0;
 
-  var getArguments = [];
-
-  if (ids != undefined) {
-    getArguments.push(ids);
-  }
-
-  getArguments.push(viewOptions);
-  getArguments.push(data);
-  return this._data && this._data.get.apply(this._data, getArguments);
-};
-/**
- * Get ids of all items or from a filtered set of items.
- * @param {Object} [options]    An Object with options. Available options:
- *                              {function} [filter] filter items
- *                              {string | function} [order] Order the items by
- *                                  a field name or custom sort function.
- * @return {Array.<string|number>} ids
- */
-
-
-DataView.prototype.getIds = function (options) {
-  var ids;
-
-  if (this._data) {
-    var defaultFilter = this._options.filter;
-    var filter;
-
-    if (options && options.filter) {
-      if (defaultFilter) {
-        filter = function filter(item) {
-          return defaultFilter(item) && options.filter(item);
-        };
-      } else {
-        filter = options.filter;
+        this._trigger('remove', {
+          items: ids,
+          oldData: items
+        });
       }
-    } else {
-      filter = defaultFilter;
-    }
 
-    ids = this._data.getIds({
-      filter: filter,
-      order: options && options.order
-    });
-  } else {
-    ids = [];
-  }
+      if (data != null) {
+        this._data = data; // trigger an add of all added items
 
-  return ids;
-};
-/**
- * Execute a callback function for every item in the dataview.
- * @param {function} callback
- * @param {Object} [options]    Available options:
- *                              {Object.<string, string>} [type]
- *                              {string[]} [fields] filter fields
- *                              {function} [filter] filter items
- *                              {string | function} [order] Order the items by
- *                                  a field name or custom sort function.
- */
+        var _ids = this._data.getIds({
+          filter: this._options.filter
+        });
 
-
-DataView.prototype.forEach = function (callback, options) {
-  if (this._data) {
-    var defaultFilter = this._options.filter;
-    var filter;
-
-    if (options && options.filter) {
-      if (defaultFilter) {
-        filter = function filter(item) {
-          return defaultFilter(item) && options.filter(item);
-        };
-      } else {
-        filter = options.filter;
-      }
-    } else {
-      filter = defaultFilter;
-    }
-
-    this._data.forEach(callback, {
-      filter: filter,
-      order: options && options.order
-    });
-  }
-};
-/**
- * Map every item in the dataview.
- * @param {function} callback
- * @param {Object} [options]    Available options:
- *                              {Object.<string, string>} [type]
- *                              {string[]} [fields] filter fields
- *                              {function} [filter] filter items
- *                              {string | function} [order] Order the items by
- *                                  a field name or custom sort function.
- * @return {Object[]} mappedItems
- */
-
-
-DataView.prototype.map = function (callback, options) {
-  var mappedItems = [];
-
-  if (this._data) {
-    var defaultFilter = this._options.filter;
-    var filter;
-
-    if (options && options.filter) {
-      if (defaultFilter) {
-        filter = function filter(item) {
-          return defaultFilter(item) && options.filter(item);
-        };
-      } else {
-        filter = options.filter;
-      }
-    } else {
-      filter = defaultFilter;
-    }
-
-    mappedItems = this._data.map(callback, {
-      filter: filter,
-      order: options && options.order
-    });
-  } else {
-    mappedItems = [];
-  }
-
-  return mappedItems;
-};
-/**
- * Get the DataSet to which this DataView is connected. In case there is a chain
- * of multiple DataViews, the root DataSet of this chain is returned.
- * @return {DataSet} dataSet
- */
-
-
-DataView.prototype.getDataSet = function () {
-  var dataSet = this;
-
-  while (dataSet instanceof DataView) {
-    dataSet = dataSet._data;
-  }
-
-  return dataSet || null;
-};
-/**
- * Event listener. Will propagate all events from the connected data set to
- * the subscribers of the DataView, but will filter the items and only trigger
- * when there are changes in the filtered data set.
- * @param {string} event
- * @param {Object | null} params
- * @param {string} senderId
- * @private
- */
-
-
-DataView.prototype._onEvent = function (event, params, senderId) {
-  var i, len, id, item;
-  var ids = params && params.items;
-  var addedIds = [],
-      updatedIds = [],
-      removedIds = [],
-      oldItems = [],
-      updatedItems = [],
-      removedItems = [];
-
-  if (ids && this._data) {
-    switch (event) {
-      case 'add':
-        // filter the ids of the added items
-        for (i = 0, len = ids.length; i < len; i++) {
-          id = ids[i];
-          item = this.get(id);
-
-          if (item) {
-            this._ids[id] = true;
-            addedIds.push(id);
-          }
+        for (var i = 0, len = _ids.length; i < len; i++) {
+          var id = _ids[i];
+          this._ids[id] = true;
         }
 
-        break;
+        this.length = _ids.length;
 
-      case 'update':
-        // determine the event from the views viewpoint: an updated
-        // item can be added, updated, or removed from this view.
-        for (i = 0, len = ids.length; i < len; i++) {
-          id = ids[i];
-          item = this.get(id);
+        this._trigger('add', {
+          items: _ids
+        });
+      } else {
+        this._data = new DataSet();
+      } // subscribe to new dataset
 
-          if (item) {
-            if (this._ids[id]) {
-              updatedIds.push(id);
-              updatedItems.push(params.data[i]);
-              oldItems.push(params.oldData[i]);
-            } else {
+
+      if (this._data.on) {
+        this._data.on('*', this.listener);
+      }
+    }
+    /**
+     * Refresh the DataView.
+     * Useful when the DataView has a filter function containing a variable parameter.
+     */
+
+  }, {
+    key: "refresh",
+    value: function refresh() {
+      var ids = this._data.getIds({
+        filter: this._options.filter
+      });
+
+      var oldIds = Object.keys(this._ids);
+      var newIds = {};
+      var addedIds = [];
+      var removedIds = [];
+      var removedItems = []; // check for additions
+
+      for (var i = 0, len = ids.length; i < len; i++) {
+        var id = ids[i];
+        newIds[id] = true;
+
+        if (!this._ids[id]) {
+          addedIds.push(id);
+          this._ids[id] = true;
+        }
+      } // check for removals
+
+
+      for (var _i = 0, _len = oldIds.length; _i < _len; _i++) {
+        var _id = oldIds[_i];
+
+        var item = this._data.get(_id);
+
+        if (item == null) {
+          // @TODO: Investigate.
+          // Doesn't happen during tests or examples.
+          // Is it really impossible or could it eventually happen?
+          // How to handle it if it does? The types guarantee non-nullable items.
+          console.error('If you see this, report it please.');
+        } else if (!newIds[_id]) {
+          removedIds.push(_id);
+          removedItems.push(item);
+          delete this._ids[_id];
+        }
+      }
+
+      this.length += addedIds.length - removedIds.length; // trigger events
+
+      if (addedIds.length) {
+        this._trigger('add', {
+          items: addedIds
+        });
+      }
+
+      if (removedIds.length) {
+        this._trigger('remove', {
+          items: removedIds,
+          oldData: removedItems
+        });
+      }
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "get",
+    value: function get(first, second) {
+      if (this._data == null) {
+        return null;
+      } // parse the arguments
+
+
+      var ids = null;
+      var options;
+
+      if (isId(first) || Array.isArray(first)) {
+        ids = first;
+        options = second;
+      } else {
+        options = first;
+      } // extend the options with the default options and provided options
+
+
+      var viewOptions = Object.assign({}, this._options, options); // create a combined filter method when needed
+
+      var thisFilter = this._options.filter;
+      var optionsFilter = options && options.filter;
+
+      if (thisFilter && optionsFilter) {
+        viewOptions.filter = function (item) {
+          return thisFilter(item) && optionsFilter(item);
+        };
+      }
+
+      if (ids == null) {
+        return this._data.get(viewOptions);
+      } else {
+        return this._data.get(ids, viewOptions);
+      }
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "getIds",
+    value: function getIds(options) {
+      if (this._data.length) {
+        var defaultFilter = this._options.filter;
+        var optionsFilter = options != null ? options.filter : null;
+        var filter;
+
+        if (optionsFilter) {
+          if (defaultFilter) {
+            filter = function filter(item) {
+              return defaultFilter(item) && optionsFilter(item);
+            };
+          } else {
+            filter = optionsFilter;
+          }
+        } else {
+          filter = defaultFilter;
+        }
+
+        return this._data.getIds({
+          filter: filter,
+          order: options && options.order
+        });
+      } else {
+        return [];
+      }
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "forEach",
+    value: function forEach(callback, options) {
+      if (this._data) {
+        var defaultFilter = this._options.filter;
+        var optionsFilter = options && options.filter;
+        var filter;
+
+        if (optionsFilter) {
+          if (defaultFilter) {
+            filter = function filter(item) {
+              return defaultFilter(item) && optionsFilter(item);
+            };
+          } else {
+            filter = optionsFilter;
+          }
+        } else {
+          filter = defaultFilter;
+        }
+
+        this._data.forEach(callback, {
+          filter: filter,
+          order: options && options.order
+        });
+      }
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "map",
+    value: function map(callback, options) {
+      if (this._data) {
+        var defaultFilter = this._options.filter;
+        var optionsFilter = options && options.filter;
+        var filter;
+
+        if (optionsFilter) {
+          if (defaultFilter) {
+            filter = function filter(item) {
+              return defaultFilter(item) && optionsFilter(item);
+            };
+          } else {
+            filter = optionsFilter;
+          }
+        } else {
+          filter = defaultFilter;
+        }
+
+        return this._data.map(callback, {
+          filter: filter,
+          order: options && options.order
+        });
+      } else {
+        return [];
+      }
+    }
+    /** @inheritdoc */
+
+  }, {
+    key: "getDataSet",
+    value: function getDataSet() {
+      return this._data.getDataSet();
+    }
+    /**
+     * Event listener. Will propagate all events from the connected data set to the subscribers of the DataView, but will filter the items and only trigger when there are changes in the filtered data set.
+     *
+     * @param event - The name of the event.
+     * @param params - Parameters of the event.
+     * @param senderId - Id supplied by the sender.
+     */
+
+  }, {
+    key: "_onEvent",
+    value: function _onEvent(event, params, senderId) {
+      if (!params || !params.items || !this._data) {
+        return;
+      }
+
+      var ids = params.items;
+      var addedIds = [];
+      var updatedIds = [];
+      var removedIds = [];
+      var oldItems = [];
+      var updatedItems = [];
+      var removedItems = [];
+
+      switch (event) {
+        case 'add':
+          // filter the ids of the added items
+          for (var i = 0, len = ids.length; i < len; i++) {
+            var id = ids[i];
+            var item = this.get(id);
+
+            if (item) {
               this._ids[id] = true;
               addedIds.push(id);
             }
-          } else {
-            if (this._ids[id]) {
-              delete this._ids[id];
-              removedIds.push(id);
-              removedItems.push(params.oldData[i]);
+          }
+
+          break;
+
+        case 'update':
+          // determine the event from the views viewpoint: an updated
+          // item can be added, updated, or removed from this view.
+          for (var _i2 = 0, _len2 = ids.length; _i2 < _len2; _i2++) {
+            var _id2 = ids[_i2];
+
+            var _item = this.get(_id2);
+
+            if (_item) {
+              if (this._ids[_id2]) {
+                updatedIds.push(_id2);
+                updatedItems.push(params.data[_i2]);
+                oldItems.push(params.oldData[_i2]);
+              } else {
+                this._ids[_id2] = true;
+                addedIds.push(_id2);
+              }
+            } else {
+              if (this._ids[_id2]) {
+                delete this._ids[_id2];
+                removedIds.push(_id2);
+                removedItems.push(params.oldData[_i2]);
+              }
             }
           }
-        }
 
-        break;
+          break;
 
-      case 'remove':
-        // filter the ids of the removed items
-        for (i = 0, len = ids.length; i < len; i++) {
-          id = ids[i];
+        case 'remove':
+          // filter the ids of the removed items
+          for (var _i3 = 0, _len3 = ids.length; _i3 < _len3; _i3++) {
+            var _id3 = ids[_i3];
 
-          if (this._ids[id]) {
-            delete this._ids[id];
-            removedIds.push(id);
-            removedItems.push(params.oldData[i]);
+            if (this._ids[_id3]) {
+              delete this._ids[_id3];
+              removedIds.push(_id3);
+              removedItems.push(params.oldData[_i3]);
+            }
           }
-        }
 
-        break;
+          break;
+      }
+
+      this.length += addedIds.length - removedIds.length;
+
+      if (addedIds.length) {
+        this._trigger('add', {
+          items: addedIds
+        }, senderId);
+      }
+
+      if (updatedIds.length) {
+        this._trigger('update', {
+          items: updatedIds,
+          oldData: oldItems,
+          data: updatedItems
+        }, senderId);
+      }
+
+      if (removedIds.length) {
+        this._trigger('remove', {
+          items: removedIds,
+          oldData: removedItems
+        }, senderId);
+      }
     }
+  }]);
+  return DataView;
+}(DataSetPart);
 
-    this.length += addedIds.length - removedIds.length;
-
-    if (addedIds.length) {
-      this._trigger('add', {
-        items: addedIds
-      }, senderId);
-    }
-
-    if (updatedIds.length) {
-      this._trigger('update', {
-        items: updatedIds,
-        oldData: oldItems,
-        data: updatedItems
-      }, senderId);
-    }
-
-    if (removedIds.length) {
-      this._trigger('remove', {
-        items: removedIds,
-        oldData: removedItems
-      }, senderId);
-    }
-  }
-}; // copy subscription functionality from DataSet
-
-
-DataView.prototype.on = DataSet_1.prototype.on;
-DataView.prototype.off = DataSet_1.prototype.off;
-DataView.prototype._trigger = DataSet_1.prototype._trigger; // TODO: make these functions deprecated (replaced with `on` and `off` since version 0.5)
-
-DataView.prototype.subscribe = DataView.prototype.on;
-DataView.prototype.unsubscribe = DataView.prototype.off;
-var _DataView = DataView;
-var DataSet$1 = DataSet_1;
-var DataView$1 = _DataView;
-var Queue$1 = Queue_1;
-var visData = {
-  DataSet: DataSet$1,
-  DataView: DataView$1,
-  Queue: Queue$1
+var index = {
+  DataSet: DataSet,
+  DataView: DataView,
+  Queue: Queue
 };
 
 /**
@@ -16173,27 +14902,27 @@ StepNumber.prototype.end = function () {
 
 var StepNumber_1 = StepNumber;
 
-function _typeof$2(obj) {
+function _typeof$1(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof$2 = function (obj) {
+    _typeof$1 = function (obj) {
       return typeof obj;
     };
   } else {
-    _typeof$2 = function (obj) {
+    _typeof$1 = function (obj) {
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
   }
 
-  return _typeof$2(obj);
+  return _typeof$1(obj);
 }
 
-function _classCallCheck(instance, Constructor) {
+function _classCallCheck$1(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
 
-function _defineProperties(target, props) {
+function _defineProperties$1(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
@@ -16203,9 +14932,9 @@ function _defineProperties(target, props) {
   }
 }
 
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
+function _createClass$1(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties$1(Constructor, staticProps);
   return Constructor;
 }
 
@@ -16744,7 +15473,7 @@ function setBackgroundColor(backgroundColor, dst) {
     fill = backgroundColor;
     stroke = 'none';
     strokeWidth = 0;
-  } else if (_typeof$2(backgroundColor) === 'object') {
+  } else if (_typeof$1(backgroundColor) === 'object') {
     if (backgroundColor.fill !== undefined) fill = backgroundColor.fill;
     if (backgroundColor.stroke !== undefined) stroke = backgroundColor.stroke;
     if (backgroundColor.strokeWidth !== undefined) strokeWidth = backgroundColor.strokeWidth;
@@ -16837,7 +15566,7 @@ function () {
    * @ignore
    */
   function Validator() {
-    _classCallCheck(this, Validator);
+    _classCallCheck$1(this, Validator);
   }
   /**
    * Main function to be called
@@ -16849,7 +15578,7 @@ function () {
    */
 
 
-  _createClass(Validator, null, [{
+  _createClass$1(Validator, null, [{
     key: "validate",
     value: function validate(options, referenceOptions, subObject) {
       errorFound = false;
@@ -16965,7 +15694,7 @@ function () {
   }, {
     key: "getType",
     value: function getType(object) {
-      var type = _typeof$2(object);
+      var type = _typeof$1(object);
 
       if (type === 'object') {
         if (object === null) {
@@ -17599,7 +16328,7 @@ Range.prototype.center = function () {
 
 var Range_1 = Range;
 
-var DataView$2 = visData.DataView;
+var DataView$1 = index.DataView;
 /**
  * @class Filter
  *
@@ -17725,7 +16454,7 @@ Filter.prototype._getDataPoints = function (index) {
     var f = {};
     f.column = this.column;
     f.value = this.values[index];
-    var dataView = new DataView$2(this.dataGroup.getDataSet(), {
+    var dataView = new DataView$1(this.dataGroup.getDataSet(), {
       filter: function filter(item) {
         return item[f.column] == f.value;
       }
@@ -17804,8 +16533,8 @@ Filter.prototype.loadInBackground = function (index) {
 
 var Filter_1 = Filter;
 
-var DataSet$2 = visData.DataSet;
-var DataView$3 = visData.DataView;
+var DataSet$1 = index.DataSet;
+var DataView$2 = index.DataView;
 /**
  * Creates a container for all data of one specific 3D-graph.
  *
@@ -17843,12 +16572,12 @@ DataGroup.prototype.initializeData = function (graph3d, rawData, style) {
   if (rawData === undefined) return;
 
   if (Array.isArray(rawData)) {
-    rawData = new DataSet$2(rawData);
+    rawData = new DataSet$1(rawData);
   }
 
   var data;
 
-  if (rawData instanceof DataSet$2 || rawData instanceof DataView$3) {
+  if (rawData instanceof DataSet$1 || rawData instanceof DataView$2) {
     data = rawData.get();
   } else {
     throw new Error('Array, DataSet, or DataView expected');
@@ -28542,15 +27271,15 @@ var keycharm = createCommonjsModule$1(function (module, exports) {
 var util_1 = util;
 var DOMutil$1 = DOMutil; // data
 
-var DataSet$3 = visData.DataSet,
-    DataView$4 = visData.DataView,
-    Queue$2 = visData.Queue;
-var DataSet_1$1 = DataSet$3;
-var DataView_1 = DataView$4;
-var Queue_1$1 = Queue$2; // Graph3d
+var DataSet$2 = index.DataSet,
+    DataView$3 = index.DataView,
+    Queue$1 = index.Queue;
+var DataSet_1 = DataSet$2;
+var DataView_1 = DataView$3;
+var Queue_1 = Queue$1; // Graph3d
 
 var Graph3d$1 = Graph3d_1;
-var graph3d = {
+var graph3d_1 = {
   Camera: Camera_1,
   Filter: Filter_1,
   Point2d: Point2d_1,
@@ -28562,18 +27291,18 @@ var graph3d = {
 var moment$4 = moment$3;
 var Hammer = hammer$1;
 var keycharm$1 = keycharm;
-var visGraph3d = {
+var graph3d = {
   util: util_1,
   DOMutil: DOMutil$1,
-  DataSet: DataSet_1$1,
+  DataSet: DataSet_1,
   DataView: DataView_1,
-  Queue: Queue_1$1,
+  Queue: Queue_1,
   Graph3d: Graph3d$1,
-  graph3d: graph3d,
+  graph3d: graph3d_1,
   moment: moment$4,
   Hammer: Hammer,
   keycharm: keycharm$1
 };
 
-export default visGraph3d;
-export { DOMutil$1 as DOMutil, DataSet_1$1 as DataSet, DataView_1 as DataView, Graph3d$1 as Graph3d, Hammer, Queue_1$1 as Queue, graph3d, keycharm$1 as keycharm, moment$4 as moment, util_1 as util };
+export default graph3d;
+export { DOMutil$1 as DOMutil, DataSet_1 as DataSet, DataView_1 as DataView, Graph3d$1 as Graph3d, Hammer, Queue_1 as Queue, graph3d_1 as graph3d, keycharm$1 as keycharm, moment$4 as moment, util_1 as util };
