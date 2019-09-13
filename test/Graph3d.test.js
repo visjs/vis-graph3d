@@ -4,9 +4,7 @@ var canvasMockify = require('./canvas-mock');
 var stdout = require('test-console').stdout;
 var Validator = require("./../lib/shared/Validator").Validator;
 //var {printStyle} = require('./../lib/shared/Validator');
-var {allOptions, configureOptions} = require('./../lib/graph3d/options.js');
-
-var now = new Date();
+var {allOptions} = require('./../lib/graph3d/options.js');
 
 describe('Graph3d', function () {
   before(function() {
@@ -24,7 +22,7 @@ describe('Graph3d', function () {
     assert(Graph3d.DEFAULTS !== undefined);
 
     let errorFound;
-    let output;
+    let output; // eslint-disable-line no-unused-vars
     output = stdout.inspectSync(function() {
       errorFound = Validator.validate(Graph3d.DEFAULTS, allOptions);
     });
