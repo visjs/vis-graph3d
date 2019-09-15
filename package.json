@@ -44,14 +44,14 @@
     }
   },
   "dependencies": {
-    "emitter-component": "^1.1.1",
-    "hammerjs": "^2.0.8",
-    "keycharm": "^0.2.0",
-    "moment": "^2.24.0",
-    "propagating-hammerjs": "^1.4.7",
-    "timsort": "^0.3.0",
-    "vis-data": "^6.2.0",
-    "vis-util": "^1.1.6"
+    "emitter-component": "1.1.1",
+    "hammerjs": "2.0.8",
+    "keycharm": "0.2.0",
+    "moment": "2.24.0",
+    "propagating-hammerjs": "1.4.7",
+    "timsort": "0.3.0",
+    "vis-data": "6.2.0",
+    "vis-util": "1.1.6"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
