@@ -30,6 +30,7 @@
     "build": "npm run js:graph3d",
     "watch": "rollup --watch --config rollup.config.js",
     "watch-dev": "npm run watch-dev",
+    "generate-examples-index": "generate-examples-index -t \"Vis Graph3D Examples\" -c mygraph -w https://visjs.github.io/vis-graph3d -S ./scripts/examples-index/screenshot-script.js -lis",
     "lint": "eslint '{src,test}/**/*.{m,}{j,t}s{x,}'",
     "clean": "rimraf 'dist/*'",
     "postinstall": "opencollective postinstall || exit 0",
@@ -84,7 +85,8 @@
     "rollup-plugin-uglify": "^6.0.2",
     "semantic-release": "^15.13.21",
     "sinon": "^7.4.1",
-    "test-console": "^1.1.0"
+    "test-console": "^1.1.0",
+    "vis-dev-utils": "^1.0.0"
   },
   "collective": {
     "type": "opencollective",
