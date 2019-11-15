@@ -13,6 +13,10 @@
   "bugs": {
     "url": "https://github.com/visjs/vis-graph3d/issues"
   },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/visjs"
+  },
   "keywords": [
     "vis",
     "visualization",
