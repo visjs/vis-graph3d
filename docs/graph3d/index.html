@@ -385,6 +385,43 @@ var options = {
       <td>The line width of dots, bars and lines. Applicable for all styles.</td>
     </tr>
 
+    <tr class='toggle collapsible' onclick="toggleTable('optionTable','surfaceColors', this);">
+        <td><span parent="surfaceColors" class="right-caret"></span> surfaceColors</td>
+        <td>array or object</td>
+        <td><code>['#FF0000', '#FFF000', '#00FF00', '#68E8FB', '#000FFF']</code></td>
+        <td>When <code>surfaceColors</code> is set, the surface will be colored according to the colors provided. If is an object it must have the <code>hue</code> key, it will then be converted into an array according to the following hue values provided:</td>
+      </tr>
+      <tr parent="surfaceColors" class="hidden">
+        <td class="indent">surfaceColors.hue.start</td>
+        <td>number</td>
+        <td>40</td>
+        <td>What hue does the surface start at?</td>
+      </tr>
+      <tr parent="surfaceColors" class="hidden">
+        <td class="indent">surfaceColors.hue.end</td>
+        <td>number</td>
+        <td>180</td>
+        <td>What hue does the surface end at?</td>
+      </tr>
+      <tr parent="surfaceColors" class="hidden">
+        <td class="indent">surfaceColors.hue.saturation</td>
+        <td>number</td>
+        <td>50</td>
+        <td>What is the saturation value of all hue colors</td>
+      </tr>
+      <tr parent="surfaceColors" class="hidden">
+        <td class="indent">surfaceColors.hue.brightness</td>
+        <td>number</td>
+        <td>100</td>
+        <td>What is the brightness value of all hue colors</td>
+      </tr>
+      <tr parent="surfaceColors" class="hidden">
+        <td class="indent">surfaceColors.hue.colorStops</td>
+        <td>number</td>
+        <td>8</td>
+        <td>How many color stops does the hue go through between hue start and hue end.</td>
+      </tr>
+
     <tr>
       <td>dotSizeRatio</td>
       <td>number</td>
