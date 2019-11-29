@@ -14,11 +14,13 @@
     var graph = null;
 
     function custom(x, y) {
-        return (Math.sin(x/50) * Math.cos(y/50) * 50 + 50);
+      return (Math.sin(x/50) * Math.cos(y/50) * 50 + 50);
     }
 
     // Called when the Visualization API is loaded.
     function drawVisualization() {
+      var style = document.getElementById('style').value;
+
       // Create and populate a data table.
       data = new vis.DataSet();
       // create some nice looking data with sin/cos
@@ -28,11 +30,11 @@
       var axisStep = axisMax / steps;
       for (var x = 0; x < axisMax; x+=axisStep) {
         for (var y = 0; y < axisMax; y+=axisStep) {
-            var value = custom(x,y);
-            data.add({id:counter++,x:x,y:y,z:value,style:value});
+          var value = custom(x,y);
+          data.add({id:counter++,x:x,y:y,z:value,style:value});
         }
       }
-      
+
       // specify options
       var options = {
         width:  '600px',
@@ -43,24 +45,46 @@
         showShadow: false,
         keepAspectRatio: true,
         verticalRatio: 0.5,
-        surfaceColors: [
-          '#FF0000',
-          '#FF00FF',
-          '#FFF000',
-          '#00FF00',
-          '#000FFF',
-        ],
       };
+
+      if (style === 'hue') {
+        options.surfaceColors = {
+          hue: {
+            start: 40,
+            end: 180,
+            saturation: 50,
+            brightness: 100,
+            colorStops: 8, // How many colour gradients do we want
+          }
+        };
+      } else if(style === 'html') {
+        options.surfaceColors = [
+          '#FFFFFF',
+          '#6A0DAD',
+          '#000000',
+        ];
+      } // else use defaults.
 
       // Instantiate our graph object.
       var container = document.getElementById('mygraph');
       graph = new vis.Graph3d(container, data, options);
+
+      document.getElementById('style').onchange = drawVisualization;
     }
   </script>
   
 </head>
 
 <body onload="drawVisualization();">
+<p>
+  <label for="style"> Style:
+    <select id="style">
+      <option value="default">Default</option>
+      <option value="hue">Hue</option>
+      <option value="html">HTML Hex</option>
+    </select>
+  </label>
+</p>
 <div id="mygraph"></div>
 
 <div id="info"></div>
