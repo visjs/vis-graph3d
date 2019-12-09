@@ -460,7 +460,7 @@ function drawCsv() {
   var options = getOptions();
 
   // Creat a graph
-  var graph = new vis.Graph3d(document.getElementById('graph'), data, options);
+  var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
 }
 
 function drawJson() {
@@ -469,7 +469,7 @@ function drawJson() {
   var options = getOptions();
 
   // Creat a graph
-  var graph = new vis.Graph3d(document.getElementById('graph'), data, options);
+  var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
 }
 
 function drawJavascript() {
@@ -478,7 +478,7 @@ function drawJavascript() {
   var options = getOptions();
 
   // Creat a graph
-  var graph = new vis.Graph3d(document.getElementById('graph'), data, options);
+  var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
 }
 
 
@@ -489,7 +489,7 @@ function drawGooglespreadsheet() {
 
     if (response.isError()) {
       error = 'Error: ' + response.getMessage();
-      document.getElementById('graph').innerHTML =
+      document.getElementById('mygraph').innerHTML =
           "<span style='color: red; font-weight: bold;'>" + error + "</span>"; ;
     }
 
@@ -500,7 +500,7 @@ function drawGooglespreadsheet() {
     options = getOptions();
 
     // Instantiate our graph object.
-    var graph = new vis.Graph3d(document.getElementById('graph'), data, options);
+    var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
   }
 
   url = document.getElementById("googlespreadsheetText").value;
@@ -520,7 +520,7 @@ function drawDatasource() {
 
     if (response.isError()) {
       error = 'Error: ' + response.getMessage();
-      document.getElementById('graph').innerHTML =
+      document.getElementById('mygraph').innerHTML =
           "<span style='color: red; font-weight: bold;'>" + error + "</span>"; ;
     }
 
@@ -531,7 +531,7 @@ function drawDatasource() {
     options = getOptions();
 
     // Instantiate our graph object.
-    var graph = new vis.Graph3d(document.getElementById('graph'), data, options);
+    var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
   };
 
   url = document.getElementById("datasourceText").value;
