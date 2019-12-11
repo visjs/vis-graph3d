@@ -389,36 +389,36 @@ var options = {
         <td><span parent="surfaceColors" class="right-caret"></span> surfaceColors</td>
         <td>array or object</td>
         <td><code>['#FF0000', '#FFF000', '#00FF00', '#68E8FB', '#000FFF']</code></td>
-        <td>When <code>surfaceColors</code> is set, the surface will be colored according to the colors provided. If is an object it must have the <code>hue</code> key, it will then be converted into an array according to the following hue values provided:</td>
+        <td>When <code>surfaceColors</code> is set, the surface will be colored according to the colors provided. If it is an object it must have the <code>hue</code> key, it will then be converted into an array according to the following hue values provided:</td>
       </tr>
       <tr parent="surfaceColors" class="hidden">
         <td class="indent">surfaceColors.hue.start</td>
         <td>number</td>
-        <td>40</td>
-        <td>What hue does the surface start at?</td>
+        <td>None</td>
+        <td>The hue value of the maximum z value of the surface. Hue is in degrees (0 to 360).</td>
       </tr>
       <tr parent="surfaceColors" class="hidden">
         <td class="indent">surfaceColors.hue.end</td>
         <td>number</td>
-        <td>180</td>
-        <td>What hue does the surface end at?</td>
+        <td>None</td>
+        <td>The hue value of the minimum z value of the surface. Hue is in degrees (0 to 360).</td>
       </tr>
       <tr parent="surfaceColors" class="hidden">
         <td class="indent">surfaceColors.hue.saturation</td>
         <td>number</td>
-        <td>50</td>
-        <td>What is the saturation value of all hue colors</td>
+        <td>None</td>
+        <td>Saturation value of all hue colors. Saturation is in percent (0 to 100).</td>
       </tr>
       <tr parent="surfaceColors" class="hidden">
         <td class="indent">surfaceColors.hue.brightness</td>
         <td>number</td>
-        <td>100</td>
-        <td>What is the brightness value of all hue colors</td>
+        <td>None</td>
+        <td>Brightness value of all hue colors. Brightness is in percent (0 to 100).</td>
       </tr>
       <tr parent="surfaceColors" class="hidden">
         <td class="indent">surfaceColors.hue.colorStops</td>
         <td>number</td>
-        <td>8</td>
+        <td>None</td>
         <td>How many color stops does the hue go through between hue start and hue end.</td>
       </tr>
 
