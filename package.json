@@ -27,6 +27,7 @@
     "graph",
     "browser"
   ],
+  "files": ["**/*"],
   "scripts": {
     "test": "mocha --exit --require @babel/register",
     "test-cov": "nyc --reporter=lcov mocha --exit --require @babel/register",

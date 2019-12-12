@@ -15,4 +15,9 @@ npm-debug.log
 .commits.tmp
 gen/
 .nyc_output/
-coverage/
+
+# generated files
+/coverage/
+/dist/
+/examples/index.html
+/examples/thumbnails/
