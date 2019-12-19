@@ -1,0 +1,47 @@
+{
+  "name": "crypto-random-string",
+  "version": "1.0.0",
+  "description": "Generate a cryptographically strong random string",
+  "license": "MIT",
+  "repository": "sindresorhus/crypto-random-string",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "random",
+    "string",
+    "str",
+    "rand",
+    "text",
+    "id",
+    "identifier",
+    "slug",
+    "salt",
+    "crypto",
+    "strong",
+    "secure",
+    "hex"
+  ],
+  "devDependencies": {
+    "ava": "*",
+    "xo": "*"
+  },
+  "xo": {
+    "esnext": true
+  }
+
+,"_resolved": "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-1.0.0.tgz"
+,"_integrity": "sha1-ojD2T1aDEOFJgAmUB5DsmVRbyn4="
+,"_from": "crypto-random-string@1.0.0"
+}

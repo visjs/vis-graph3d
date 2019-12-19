@@ -1,0 +1,20 @@
+{
+  "name": "mdurl",
+  "version": "1.0.1",
+  "description": "URL utilities for markdown-it",
+  "repository": "markdown-it/mdurl",
+  "license": "MIT",
+  "scripts": {
+    "test": "make test"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "eslint": "0.13.0",
+    "eslint-plugin-nodeca": "^1.0.0",
+    "istanbul": "*"
+  }
+
+,"_resolved": "https://registry.npmjs.org/mdurl/-/mdurl-1.0.1.tgz"
+,"_integrity": "sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4="
+,"_from": "mdurl@1.0.1"
+}

@@ -1,0 +1,16 @@
+[
+	{
+		"name": "iphone 7",
+		"platform": "ios",
+		"os": "10.0",
+		"size": "375x667",
+		"release": "2016-09"
+	},
+	{
+		"name": "iphone 7 plus",
+		"platform": "ios",
+		"os": "10.0",
+		"size": "414x736",
+		"release": "2016-09"
+	}
+]
