@@ -57,7 +57,7 @@
     "propagating-hammerjs": "1.4.7",
     "timsort": "0.3.0",
     "vis-data": "6.2.5",
-    "vis-util": "2.0.1"
+    "vis-util": "2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
