@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  * 
  * @version 0.0.0-no-version
- * @date    2019-12-22T16:47:15Z
+ * @date    2019-12-22T20:45:33Z
  * 
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2018-2019 visjs contributors, https://github.com/visjs
@@ -4787,8 +4787,8 @@ var DOMutil_7 = DOMutil.drawBar;
  * 
  * Manage unstructured data using DataSet. Add, update, and remove data, and listen for changes in the data.
  * 
- * @version 6.2.5
- * @date    2019-12-19T22:51:12Z
+ * @version 6.3.0
+ * @date    2019-12-22T20:33:43Z
  * 
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2018-2019 visjs contributors, https://github.com/visjs
@@ -17216,6 +17216,11 @@ function _objectSpread$1(target) {
 
   return target;
 }
+
+var warnTypeCorectionDeprecation = function warnTypeCorectionDeprecation() {
+  console.warn("Type coercion has been deprecated. " + "Please, use data pipes instead. " + "See https://visjs.github.io/vis-data/data/datapipe.html#TypeCoercion for more details with working migration example.");
+  console.trace();
+};
 /**
  * # DataSet
  *
@@ -17265,15 +17270,6 @@ function _objectSpread$1(target) {
  *   }
  * });
  * console.log('filtered items', items);
- *
- * // retrieve formatted items
- * var items = data.get({
- *   fields: ['id', 'date'],
- *   type: {
- *     date: 'ISODate'
- *   }
- * });
- * console.log('formatted items', items);
  * ```
  *
  * @typeParam Item - Item type that may or may not have an id.
@@ -17315,6 +17311,7 @@ function (_DataSetPart) {
     // from everything to everything (also from ISODate to Number for example)
 
     if (_this._options.type) {
+      warnTypeCorectionDeprecation();
       var fields = keys$6(_this._options.type);
 
       for (var i = 0, len = fields.length; i < len; i++) {
@@ -18219,6 +18216,8 @@ function (_DataSetPart) {
       }
 
       if (fieldType) {
+        warnTypeCorectionDeprecation();
+
         for (var _i10 = 0, _len10 = values.length; _i10 < _len10; _i10++) {
           values[_i10] = convert(values[_i10], fieldType);
         }
@@ -18258,6 +18257,10 @@ function (_DataSetPart) {
         var field = fields[i];
         var fieldType = this._type[field]; // type may be undefined
 
+        if (fieldType != null) {
+          warnTypeCorectionDeprecation();
+        }
+
         d[field] = convert(item[field], fieldType);
       }
 
@@ -18291,6 +18294,7 @@ function (_DataSetPart) {
       var fields = keys$6(raw);
 
       if (types) {
+        warnTypeCorectionDeprecation();
         converted = {};
 
         for (var i = 0, len = fields.length; i < len; i++) {
@@ -18340,6 +18344,10 @@ function (_DataSetPart) {
       for (var i = 0, len = fields.length; i < len; i++) {
         var field = fields[i];
         var fieldType = this._type[field]; // type may be undefined
+
+        if (fieldType != null) {
+          warnTypeCorectionDeprecation();
+        }
 
         d[field] = convert(item[field], fieldType);
       }
