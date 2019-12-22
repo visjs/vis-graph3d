@@ -88,7 +88,7 @@
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-uglify": "^6.0.2",
     "semantic-release": "^15.13.21",
-    "sinon": "^7.4.1",
+    "sinon": "^8.0.0",
     "test-console": "^1.1.0",
     "vis-dev-utils": "^1.0.0"
   },
