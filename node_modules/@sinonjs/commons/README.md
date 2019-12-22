@@ -1,6 +1,7 @@
 # commons
 
-[![Build status](https://secure.travis-ci.org/sinonjs/commons.svg?branch=master)](http://travis-ci.org/sinonjs/commons) [![Coverage Status](https://coveralls.io/repos/github/sinonjs/commons/badge.svg?branch=master)](https://coveralls.io/github/sinonjs/commons?branch=master)
+[![CircleCI](https://circleci.com/gh/sinonjs/commons.svg?style=svg)](https://circleci.com/gh/sinonjs/commons)
+[![codecov](https://codecov.io/gh/sinonjs/commons/branch/master/graph/badge.svg)](https://codecov.io/gh/sinonjs/commons)
 
 Simple functions shared among the sinon end user libraries
 

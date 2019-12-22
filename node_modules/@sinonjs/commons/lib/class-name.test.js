@@ -10,7 +10,7 @@ describe("className", function() {
         // use a class definition here
         // https://github.com/sinonjs/eslint-config-sinon/blob/master/index.js
         // var instance = new (class TestClass {})();
-        var instance = new function TestClass() {}();
+        var instance = new (function TestClass() {})();
         var name = className(instance);
         assert.equals(name, "TestClass");
     });

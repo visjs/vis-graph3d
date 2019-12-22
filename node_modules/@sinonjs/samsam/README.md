@@ -1,8 +1,7 @@
 # samsam
 
 [![Build status](https://secure.travis-ci.org/sinonjs/samsam.svg?branch=master)](http://travis-ci.org/sinonjs/samsam)
-[![Coverage Status](https://coveralls.io/repos/github/sinonjs/samsam/badge.svg?branch=master)](https://coveralls.io/github/sinonjs/samsam?branch=master)
-
+[![Coverage status](https://codecov.io/gh/sinonjs/samsam/branch/master/graph/badge.svg)](https://codecov.io/gh/sinonjs/samsam)
 Value identification and comparison functions
 
 Documentation: http://sinonjs.github.io/samsam/

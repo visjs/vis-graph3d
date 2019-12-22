@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = {
+    global: require("./global"),
     calledInOrder: require("./called-in-order"),
     className: require("./class-name"),
     deprecated: require("./deprecated"),
