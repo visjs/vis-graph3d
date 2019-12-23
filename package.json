@@ -76,7 +76,7 @@
     "lint-staged": "^9.2.3",
     "merge-stream": "^2.0.0",
     "mocha": "^6.2.0",
-    "nyc": "^14.1.1",
+    "nyc": "^15.0.0",
     "opencollective": "^1.0.3",
     "rimraf": "^3.0.0",
     "rollup": "^1.19.4",
