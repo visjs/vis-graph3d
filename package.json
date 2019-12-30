@@ -4,7 +4,7 @@
   "description": "Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.",
   "main": "dist/vis-graph3d.min.js",
   "module": "dist/esm.js",
-  "homepage": "http://visjs.org/",
+  "homepage": "https://visjs.github.io/vis-graph3d/",
   "license": "(Apache-2.0 OR MIT)",
   "repository": {
     "type": "git",
