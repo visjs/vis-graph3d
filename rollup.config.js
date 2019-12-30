@@ -1,40 +1,44 @@
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import nodeBuiltins from 'rollup-plugin-node-builtins';
 import babel from 'rollup-plugin-babel';
-import { uglify } from 'rollup-plugin-uglify';
-import banner from 'rollup-plugin-banner';
-import genHeader from './lib/header';
+import { generateHeader } from 'vis-dev-utils';
+import { terser } from "rollup-plugin-terser";
+
+const banner = generateHeader();
 
 export default [{
 	input: 'index.js',
 	output: {
+		banner,
 		file: 'dist/esm.js',
 		format: 'esm',
+		sourcemap: true
 	},
 	plugins: [
 		commonjs(),
-		nodeBuiltins(),
 		nodeResolve(),
-		babel(),
-		banner(genHeader('data'))
+		babel({ runtimeHelpers: true })
 	],
 },
 {
 	input: 'index.js',
 	output: {
+		banner,
 		file: 'dist/vis-graph3d.min.js',
 		format: 'umd',
 		exports: 'named',
 		name: 'vis',
-		extend: true
+		extend: true,
+		sourcemap: true
 	},
 	plugins: [
 		commonjs(),
-		nodeBuiltins(),
 		nodeResolve(),
-		babel(),
-		uglify(),
-		banner(genHeader('graph3d'))
+		babel({ runtimeHelpers: true }),
+		terser({
+			output: {
+				comments: (_node, { value }) => /@license/.test(value)
+			}
+		})
 	],
 }]
