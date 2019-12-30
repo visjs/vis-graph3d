@@ -90,7 +90,7 @@
     "semantic-release": "^15.13.21",
     "sinon": "^8.0.0",
     "test-console": "^1.1.0",
-    "vis-dev-utils": "^1.0.0"
+    "vis-dev-utils": "1.1.0"
   },
   "collective": {
     "type": "opencollective",
