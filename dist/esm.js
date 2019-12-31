@@ -1,11 +1,11 @@
 /**
  * vis-graph3d - data
- * http://visjs.org/
+ * https://visjs.github.io/vis-graph3d/
  * 
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  * 
  * @version 0.0.0-no-version
- * @date    2019-12-23T10:19:28Z
+ * @date    2019-12-31T10:04:19Z
  * 
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2018-2019 visjs contributors, https://github.com/visjs
