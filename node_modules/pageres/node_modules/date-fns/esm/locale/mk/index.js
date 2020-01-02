@@ -13,6 +13,7 @@
  * @author Petar Vlahu [@vlahupetar]{@link https://github.com/vlahupetar}
  */
 // var locale = {
+//   code: 'mk',
 //   formatDistance: formatDistance,
 //   formatLong: formatLong,
 //   formatRelative: formatRelative,
