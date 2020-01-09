@@ -71,7 +71,7 @@
     "babel-plugin-istanbul": "^6.0.0",
     "eslint": "^6.1.0",
     "git-authors-cli": "^1.0.18",
-    "husky": "^3.0.4",
+    "husky": "^4.0.2",
     "jsdom": "15.2.0",
     "jsdom-global": "^3.0.2",
     "lint-staged": "^9.2.3",
