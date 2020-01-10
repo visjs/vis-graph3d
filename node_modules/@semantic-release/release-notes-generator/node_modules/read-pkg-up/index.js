@@ -11,7 +11,7 @@ module.exports = async options => {
 	}
 
 	return {
-		package: await readPkg({...options, cwd: path.dirname(filePath)}),
+		packageJson: await readPkg({...options, cwd: path.dirname(filePath)}),
 		path: filePath
 	};
 };
@@ -24,7 +24,7 @@ module.exports.sync = options => {
 	}
 
 	return {
-		package: readPkg.sync({...options, cwd: path.dirname(filePath)}),
+		packageJson: readPkg.sync({...options, cwd: path.dirname(filePath)}),
 		path: filePath
 	};
 };

@@ -3,7 +3,7 @@ const execa = require('execa');
 function head(options) {
 	try {
 		return execa.sync('git', ['rev-parse', 'HEAD'], options).stdout;
-	} catch (error) {
+	} catch (_) {
 		return undefined;
 	}
 }
@@ -22,7 +22,7 @@ function branch(options) {
 		}
 
 		return headRef;
-	} catch (error) {
+	} catch (_) {
 		return undefined;
 	}
 }

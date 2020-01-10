@@ -84,27 +84,6 @@ module.exports = {
 		hosts: ['https://gitlab.com'],
 		issueURLSegments: ['issues', 'merge_requests'],
 	},
-	waffle: {
-		actions: {
-			// https://help.waffle.io/dependencies/which-keywords-are-supported-with-dependencies
-			close: ['close', 'closes', 'closed', 'fix', 'fixes', 'fixed', 'resolve', 'resolves', 'resolved'],
-			// https://help.github.com/articles/closing-issues-using-keywords
-			block: ['blocks', 'block', 'required by', 'needed by', 'dependency of'],
-			require: ['blocked by', 'requires', 'require', 'need', 'needs', 'depends on'],
-			// https://help.waffle.io/epics/which-keywords-are-supported-with-epics
-			parentOf: ['parent of', 'parent to', 'parent'],
-			// https://help.waffle.io/epics/which-keywords-are-supported-with-epics
-			childOf: ['child of', 'child to', 'child'],
-			// https://help.github.com/articles/about-duplicate-issues-and-pull-requests
-			duplicate: ['Duplicate of'],
-		},
-		delimiters: [':'],
-		// https://guides.github.com/features/issues/#notifications
-		mentionsPrefixes: ['@'],
-		issuePrefixes: ['#', 'gh-'],
-		hosts: ['https://github.com'],
-		issueURLSegments: ['issues', 'pull'],
-	},
 	default: {
 		actions: {
 			close: [
@@ -125,10 +104,6 @@ module.exports = {
 				'implemented',
 				'implementing',
 			],
-			block: ['blocks', 'block', 'required by', 'needed by', 'dependency of'],
-			require: ['blocked by', 'requires', 'require', 'need', 'needs', 'depends on'],
-			parentOf: ['parent of', 'parent to', 'parent'],
-			childOf: ['child of', 'child to', 'child'],
 			duplicate: ['Duplicate of', '/duplicate'],
 		},
 		delimiters: [':'],

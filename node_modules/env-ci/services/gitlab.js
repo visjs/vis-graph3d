@@ -5,6 +5,9 @@ module.exports = {
 		return Boolean(env.GITLAB_CI);
 	},
 	configuration({env}) {
+		const pr = env.CI_MERGE_REQUEST_ID;
+		const isPr = Boolean(pr);
+
 		return {
 			name: 'GitLab CI/CD',
 			service: 'gitlab',
@@ -14,7 +17,10 @@ module.exports = {
 			buildUrl: `${env.CI_PROJECT_URL}/pipelines/${env.CI_PIPELINE_ID}`,
 			job: env.CI_JOB_ID,
 			jobUrl: `${env.CI_PROJECT_URL}/-/jobs/${env.CI_JOB_ID}`,
-			branch: env.CI_COMMIT_REF_NAME,
+			branch: isPr ? env.CI_MERGE_REQUEST_TARGET_BRANCH_NAME : env.CI_COMMIT_REF_NAME,
+			pr,
+			isPr,
+			prBranch: env.CI_MERGE_REQUEST_SOURCE_BRANCH_NAME,
 			slug: env.CI_PROJECT_PATH,
 			root: env.CI_PROJECT_DIR,
 		};

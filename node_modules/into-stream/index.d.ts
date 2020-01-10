@@ -10,8 +10,8 @@ declare namespace intoStream {
 		| Iterable<Buffer | string>;
 
 	type InputObject =
-		| {[key: string]: unknown}
-		| Iterable<{[key: string]: unknown}>;
+		| {[key: string]: any}
+		| Iterable<{[key: string]: any}>;
 }
 
 declare const intoStream: {

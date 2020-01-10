@@ -8,7 +8,7 @@ const PROPERTIES_MAPPING = {root: 'teamcity.build.workingDir', branch: 'teamcity
 const safeReadProperties = filePath => {
 	try {
 		return javaProperties.of(filePath);
-	} catch (error) {
+	} catch (_) {
 		return undefined;
 	}
 };

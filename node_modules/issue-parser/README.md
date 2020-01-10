@@ -1,6 +1,6 @@
 # issue-parser
 
-Parser for [Github](https://github.com), [GitLab](https://gitlab.com), [Bitbucket](https://bitbucket.org) and [Waffle](https://waffle.io) issues actions, references and mentions
+Parser for [Github](https://github.com), [GitLab](https://gitlab.com) and [Bitbucket](https://bitbucket.org) issues actions, references and mentions
 
 [![Travis](https://img.shields.io/travis/pvdlg/issue-parser.svg)](https://travis-ci.org/pvdlg/issue-parser)
 [![Codecov](https://img.shields.io/codecov/c/github/pvdlg/issue-parser.svg)](https://codecov.io/gh/pvdlg/issue-parser)
@@ -10,7 +10,6 @@ The parser can identify:
 - GitHub [closing keywords](https://help.github.com/articles/closing-issues-using-keywords), [duplicate keyword](https://help.github.com/articles/about-duplicate-issues-and-pull-requests), [issue references](https://guides.github.com/features/issues/#notifications) and [user mentions](https://guides.github.com/features/issues/#notifications)
 - GitLab [closing keywords](https://docs.gitlab.com/ee/user/project/issues/automatic_issue_closing.html), [duplicate keyword](https://gitlab.com/gitlab-org/gitlab-ce/merge_requests/12845), [issue references](https://about.gitlab.com/2016/03/08/gitlab-tutorial-its-all-connected) and [user mentions](https://about.gitlab.com/2016/03/08/gitlab-tutorial-its-all-connected)
 - Bitbucket [closing keywords](https://confluence.atlassian.com/bitbucket/resolve-issues-automatically-when-users-push-code-221451126.html), [issue references](https://confluence.atlassian.com/bitbucket/mark-up-comments-issues-and-commit-messages-321859781.html) and [user mentions](https://confluence.atlassian.com/bitbucket/mark-up-comments-issues-and-commit-messages-321859781.html)
-- Waffle.io [epics](https://help.waffle.io/epics/which-keywords-are-supported-with-epics) and [dependencies](https://help.waffle.io/dependencies/which-keywords-are-supported-with-dependencies) keywords
 - [Custom](#custom-format) or [additional](#extend-existing-format) keywords
 
 ## Install
@@ -74,28 +73,6 @@ parse('Issue description, ref user/package#1, fixing #2. /cc @user');
   refs: [{raw: 'user/package#1', slug: 'user/package', prefix: '#', issue: '1'}],
   actions: {
     close: [{raw: 'fixing #2', action: 'Fixing', prefix: '#', issue: '2'}],
-  },
-  mentions: [{raw: '@user', prefix: '@', user: 'user'}],
-}
-*/
-```
-
-### Waffle format
-
-```js
-const issueParser = require('issue-parser');
-const parse = issueParser('waffle');
-
-parse('Issue description, ref user/package#1, Fix #2, blocks user/package#3, Require #4, Parent of #5, Child of #6 /cc @user');
-/*
-{
-  refs: [{raw: 'user/package#1', slug: 'user/package', prefix: '#', issue: '1'}],
-  actions: {
-    close: [{raw: 'Fix #2', action: 'Fix', prefix: '#', issue: '2'}],
-    block: [{raw: 'blocks user/package#3', action: 'Blocks', slug: 'user/package', prefix: '#', issue: '3'}],
-    require: [{raw: 'Require #4', action: 'Require', prefix: '#', issue: '4'}],
-    parentOf: [{raw: 'Parent of #5', action: 'Parent of', prefix: '#', issue: '5'}],
-    childOf: [{raw: 'Child of #6', action: 'Child of', prefix: '#', issue: '6'}],
   },
   mentions: [{raw: '@user', prefix: '@', user: 'user'}],
 }
@@ -341,10 +318,6 @@ Parser options. Can be `github`, `gitlab` or `bitbucket` for predefined options,
 Type: `Object`<br>
 Default:
 `{close: ['close', 'closes', 'closed', 'closing', 'fix', 'fixes', 'fixed', 'fixing', 'resolve', 'resolves', 'resolved', 'resolving', 'implement', 'implements', 'implemented', 'implementing'],
-  block: ['blocks', 'block', 'required by', 'needed by', 'dependency of'],
-  require: ['blocked by', 'requires', 'require', 'need', 'needs', 'depends on'],
-  parentOf: ['parent of', 'parent to', 'parent'],
-  childOf: ['child of', 'child to', 'child'],
   duplicate: ['Duplicate of', '/duplicate']}`
 
 Object with type of action as key and array of keywords as value.

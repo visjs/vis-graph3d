@@ -88,7 +88,7 @@ function parse(text, regexp, mentionRegexp, {actions, issuePrefixes, hosts}) {
 			prefix && issuePrefixes.some(issuePrefix => issuePrefix.toUpperCase() === prefix.toUpperCase())
 				? prefix
 				: undefined;
-		raw = parsed[0].substring(
+		raw = parsed[0].slice(
 			parsed[0].indexOf(
 				parsed[1] || hosts.find(host => parsed[0].toUpperCase().includes(host.toUpperCase())) || parsed[2] || parsed[3]
 			)

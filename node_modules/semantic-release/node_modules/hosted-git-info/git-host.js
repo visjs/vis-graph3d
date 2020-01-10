@@ -56,7 +56,7 @@ GitHost.prototype._fill = function (template, opts) {
       vars[key] = value.split('/').map(function (pathComponent) {
         return encodeURIComponent(pathComponent)
       }).join('/')
-    } else {
+    } else if (key !== 'domain') {
       vars[key] = encodeURIComponent(value)
     }
   })
