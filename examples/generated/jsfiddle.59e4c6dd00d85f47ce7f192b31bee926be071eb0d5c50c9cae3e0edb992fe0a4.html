@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Graph 3D | Mobile</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      action="https://jsfiddle.net/api/post/library/pure/"
+      method="post"
+      target="_self"
+    >
+      <input
+        type="hidden"
+        name="css"
+        value="html,
+body {
+  font: 10pt arial;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#mygraph {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+"
+      />
+      <input
+        type="hidden"
+        name="html"
+        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+'
+      />
+      <input
+        type="hidden"
+        name="js"
+        value='var data = null;
+var graph = null;
+
+function custom(x, y) {
+  return Math.sin(x / 50) * Math.cos(y / 50) * 50 + 50;
+}
+
+// Called when the Visualization API is loaded.
+function drawVisualization() {
+  // Create and populate a data table.
+  data = new vis.DataSet();
+
+  // create some nice looking data with sin/cos
+  var steps = 10; // number of datapoints will be steps*steps
+  var axisMax = 314;
+  var axisStep = axisMax / steps;
+  for (var x = 0; x &lt; axisMax; x += axisStep) {
+    for (var y = 0; y &lt; axisMax; y += axisStep) {
+      var value = custom(x, y);
+      data.add([{ x: x, y: y, z: value }]);
+    }
+  }
+
+  // specify options
+  var options = {
+    width: "100%",
+    height: "100%",
+    style: "surface",
+    showPerspective: true,
+    showGrid: true,
+    showShadow: false,
+    keepAspectRatio: true,
+    verticalRatio: 0.5,
+    backgroundColor: {
+      strokeWidth: 0
+    }
+  };
+
+  // create our graph
+  var container = document.getElementById("mygraph");
+  graph = new vis.Graph3d(container, data, options);
+}
+
+window.addEventListener("resize", () =&gt; {
+  graph.redraw();
+});
+window.addEventListener("load", () =&gt; {
+  drawVisualization();
+});
+'
+      />
+      <input
+        type="hidden"
+        name="resources"
+        value="https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js"
+      />
+      <input type="hidden" name="title" value="Graph 3D | Mobile" />
+      <input type="hidden" name="wrap" value="b" />
+      <button id="open" alt="JSFiddle" title="JSFiddle">
+        Open JSFiddle
+      </button>
+    </form>
+
+    <script type="text/javascript">
+      document.getElementById("open").click();
+    </script>
+  </body>
+</html>

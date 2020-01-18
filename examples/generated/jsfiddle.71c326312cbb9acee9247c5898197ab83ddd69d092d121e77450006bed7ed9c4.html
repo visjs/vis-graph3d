@@ -1,0 +1,334 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Graph 3D | Playground</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      action="https://jsfiddle.net/api/post/library/pure/"
+      method="post"
+      target="_self"
+    >
+      <input type="hidden" name="css" value />
+      <input
+        type="hidden"
+        name="html"
+        value='&lt;h1&gt;Graph 3D - Playground&lt;/h1&gt;
+
+&lt;table style="width:100%;"&gt;
+  &lt;colgroup&gt;
+    &lt;col width="50%" /&gt;
+    &lt;col width="50%" /&gt;
+  &lt;/colgroup&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;h2&gt;Data&lt;/h2&gt;
+        &lt;p&gt;
+          Graph 3D expects a data table with first three to five columns: colums
+          &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;, &lt;code&gt;z&lt;/code&gt; (optional),
+          &lt;code&gt;style&lt;/code&gt;, &lt;code&gt;filter&lt;/code&gt; (optional).
+        &lt;/p&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td style="white-space: nowrap"&gt;
+                &lt;input
+                  type="radio"
+                  name="datatype"
+                  id="datatypeCsv"
+                  onclick="selectDataType();"
+                  checked
+                  value="csv"
+                /&gt;Csv
+              &lt;/td&gt;
+              &lt;td&gt;
+                &lt;div id="csv"&gt;
+                  &lt;textarea id="csvTextarea"&gt;&lt;/textarea&gt;
+                  &lt;p&gt;
+                    &lt;a
+                      href="javascript: loadCsvExample();"
+                      title="Load an example"
+                      &gt;Simple example&lt;/a
+                    &gt;
+                    &lt;a
+                      href="javascript: loadCsvLineExample();"
+                      title="Load an example"
+                      &gt;Line example&lt;/a
+                    &gt;
+                    &lt;a
+                      href="javascript: loadCsvAnimationExample();"
+                      title="Load an example"
+                      &gt;Animation example&lt;/a
+                    &gt;
+                    &lt;a
+                      href="javascript: loadCsvMovingDotsExample();"
+                      title="Load an example"
+                      &gt;Moving dots example&lt;/a
+                    &gt;
+                    &lt;a
+                      href="javascript: loadCsvColoredDotsExample();"
+                      title="Load an example"
+                      &gt;Colored dots example&lt;/a
+                    &gt;
+                    &lt;a
+                      href="javascript: loadCsvSizedDotsExample();"
+                      title="Load an example"
+                      &gt;Sized dots example&lt;/a
+                    &gt;
+                  &lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;!-- TODO: add JSON examples --&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;br /&gt;
+      &lt;/td&gt;
+      &lt;td rowspan="2"&gt;
+        &lt;h2&gt;Graph&lt;/h2&gt;
+        &lt;p&gt;
+          &lt;input type="button" value="Draw graph" onclick="draw();" id="draw" /&gt;
+        &lt;/p&gt;
+
+        &lt;div id="mygraph"&gt;&lt;/div&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;h2&gt;Options&lt;/h2&gt;
+
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Option&lt;/th&gt;
+              &lt;th&gt;Value&lt;/th&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;width&lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type="text" id="width" value="100%" /&gt;
+                &lt;span class="info"
+                  &gt;for example &amp;quot;500px&amp;quot; or &amp;quot;100%&amp;quot;&lt;/span
+                &gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;height&lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type="text" id="height" value="100%" /&gt;
+                &lt;span class="info"
+                  &gt;for example &amp;quot;500px&amp;quot; or &amp;quot;100%&amp;quot;&lt;/span
+                &gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;style&lt;/td&gt;
+              &lt;td&gt;
+                &lt;select id="style"&gt;
+                  &lt;option value="bar"&gt;bar &lt;/option
+                  &gt;&lt;option value="bar-color"&gt;bar-color &lt;/option
+                  &gt;&lt;option value="bar-size"&gt;bar-size &lt;/option
+                  &gt;&lt;option value="dot"&gt;dot &lt;/option
+                  &gt;&lt;option value="dot-color"&gt;dot-color &lt;/option
+                  &gt;&lt;option value="dot-size"&gt;dot-size &lt;/option
+                  &gt;&lt;option value="dot-line"&gt;dot-line &lt;/option
+                  &gt;&lt;option value="line"&gt;line &lt;/option
+                  &gt;&lt;option value="grid"&gt;grid &lt;/option
+                  &gt;&lt;option value="surface" selected&gt;surface &lt;/option&gt;&lt;/select
+                &gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;showAnimationControls&lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type="checkbox" id="showAnimationControls" checked /&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;showGrid&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="showGrid" checked /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;showXAxis&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="showXAxis" checked /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;showYAxis&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="showYAxis" checked /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;showZAxis&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="showZAxis" checked /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;showPerspective&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="showPerspective" checked /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;showLegend&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="showLegend" checked /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;showShadow&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="showShadow" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;keepAspectRatio&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="keepAspectRatio" checked /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;verticalRatio&lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type="text" id="verticalRatio" value="0.5" /&gt;
+                &lt;span class="info"&gt;a value between 0.1 and 1.0&lt;/span&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;animationInterval&lt;/td&gt;
+              &lt;td&gt;
+                &lt;input type="text" id="animationInterval" value="1000" /&gt;
+                &lt;span class="info"&gt;in milliseconds&lt;/span&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;animationPreload&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="animationPreload" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;animationAutoStart&lt;/td&gt;
+              &lt;td&gt;&lt;input type="checkbox" id="animationAutoStart" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;xCenter&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="xCenter" value="55%" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;yCenter&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="yCenter" value="45%" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;xMin&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="xMin" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;xMax&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="xMax" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;xStep&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="xStep" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;yMin&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="yMin" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;yMax&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="yMax" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;yStep&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="yStep" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;zMin&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="zMin" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;zMax&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="zMax" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;zStep&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="zStep" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;valueMin&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="valueMin" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;valueMax&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="valueMax" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;xBarWidth&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="xBarWidth" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;yBarWidth&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="yBarWidth" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+              &lt;td&gt;xLabel&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="xLabel" value="x" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;yLabel&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="yLabel" value="y" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;zLabel&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="zLabel" value="z" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;filterLabel&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="filterLabel" value="time" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;legendLabel&lt;/td&gt;
+              &lt;td&gt;&lt;input type="text" id="legendLabel" value="value" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+'
+      />
+      <input
+        type="hidden"
+        name="js"
+        value='// Called when the Visualization API is loaded.
+function drawVisualization() {
+  // TODO
+}
+
+window.addEventListener("load", () =&gt; {
+  load();
+});
+'
+      />
+      <input
+        type="hidden"
+        name="resources"
+        value="https://visjs.github.io/vis-graph3d/examples/graph3d/playground/playground.css,https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js,https://visjs.github.io/vis-graph3d/examples/graph3d/playground/playground.js,https://visjs.github.io/vis-graph3d/examples/graph3d/playground/csv2array.js"
+      />
+      <input type="hidden" name="title" value="Graph 3D | Playground" />
+      <input type="hidden" name="wrap" value="b" />
+      <button id="open" alt="JSFiddle" title="JSFiddle">
+        Open JSFiddle
+      </button>
+    </form>
+
+    <script type="text/javascript">
+      document.getElementById("open").click();
+    </script>
+  </body>
+</html>

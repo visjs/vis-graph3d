@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Graph 3D | Styling Surface</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      action="https://codepen.io/pen/define"
+      method="post"
+      target="_self"
+    >
+      <input
+        type="hidden"
+        name="data"
+        value='{"css":"body {\n  font: 10pt arial;\n}\n\nfieldset {\n  width: fit-content;\n}\n\nfieldset &gt; div {\n  float: left;\n}\n\nfieldset &gt; div + div {\n  margin-left: 100px;\n}\n","css_external":"","html":"&lt;fieldset&gt;\n  &lt;legend&gt;Select Style&lt;/legend&gt;\n  &lt;div&gt;\n    &lt;input\n      type=\"radio\"\n      name=\"style\"\n      id=\"defaultStyle\"\n      value=\"default\"\n      checked=\"checked\"\n      onchange=\"drawVisualization();\"\n    /&gt;\n    &lt;label for=\"defaultStyle\"&gt;Default Configuration: &lt;/label&gt;\n    &lt;code&gt;\n      &lt;pre&gt;\nsurfaceColors: [\n  &amp;apos;#FF0000&amp;apos;,\n  &amp;apos;#FFF000&amp;apos;,\n  &amp;apos;#00FF00&amp;apos;,\n  &amp;apos;#68E8FB&amp;apos;,\n  &amp;apos;#000FFF&amp;apos;,\n]&lt;/pre\n      &gt;\n    &lt;/code&gt;\n  &lt;/div&gt;\n\n  &lt;div&gt;\n    &lt;input\n      type=\"radio\"\n      name=\"style\"\n      id=\"hueStyle\"\n      value=\"hue\"\n      onchange=\"drawVisualization();\"\n    /&gt;\n    &lt;label for=\"hueStyle\"&gt;Hue Configuration:&lt;/label&gt;\n    &lt;code&gt;\n      &lt;pre&gt;\nsurfaceColors: {\n  hue: {\n    start: -360,\n    end: 360,\n    saturation: 50,\n    brightness: 100,\n    colorStops: 8,\n  }\n}&lt;/pre\n      &gt;\n    &lt;/code&gt;\n  &lt;/div&gt;\n\n  &lt;div&gt;\n    &lt;input\n      type=\"radio\"\n      name=\"style\"\n      id=\"htmlStyle\"\n      value=\"html\"\n      onchange=\"drawVisualization();\"\n    /&gt;\n    &lt;label for=\"htmlStyle\"&gt;HTML Hex Configuration:&lt;/label&gt;\n    &lt;code&gt;\n      &lt;pre&gt;\nsurfaceColors: [\n  &amp;apos;#FFFFFF&amp;apos;,\n  &amp;apos;#6A0DAD&amp;apos;,\n  &amp;apos;#000000&amp;apos;,\n]&lt;/pre\n      &gt;\n    &lt;/code&gt;\n  &lt;/div&gt;\n&lt;/fieldset&gt;\n\n&lt;div id=\"mygraph\"&gt;&lt;/div&gt;\n","js":"var data = null;\nvar graph = null;\n\nfunction custom(x, y) {\n  return Math.sin(x / 50) * Math.cos(y / 50) * 50 + 50;\n}\n\n// Called when the Visualization API is loaded.\nfunction drawVisualization() {\n  var radioButtons = document.getElementsByName(\"style\");\n  var selectedRadio = null;\n  radioButtons.forEach(function(radioButton) {\n    if (radioButton.checked === true) {\n      selectedRadio = radioButton;\n    }\n  });\n  const style = (selectedRadio &amp;&amp; selectedRadio.value) || null;\n\n  // Create and populate a data table.\n  data = new vis.DataSet();\n  // create some nice looking data with sin/cos\n  var counter = 0;\n  var steps = 50; // number of datapoints will be steps*steps\n  var axisMax = 314;\n  var axisStep = axisMax / steps;\n  for (var x = 0; x &lt; axisMax; x += axisStep) {\n    for (var y = 0; y &lt; axisMax; y += axisStep) {\n      var value = custom(x, y);\n      data.add({ id: counter++, x: x, y: y, z: value, style: value });\n    }\n  }\n\n  // specify options\n  var options = {\n    width: \"600px\",\n    height: \"600px\",\n    style: \"surface\",\n    showPerspective: true,\n    showGrid: true,\n    showShadow: false,\n    keepAspectRatio: true,\n    verticalRatio: 0.5\n  };\n\n  if (style === \"hue\") {\n    options.surfaceColors = {\n      hue: {\n        start: -360,\n        end: 360,\n        saturation: 50,\n        brightness: 100,\n        colorStops: 8 // How many colour gradients do we want\n      }\n    };\n  } else if (style === \"html\") {\n    options.surfaceColors = [\"#FFFFFF\", \"#6A0DAD\", \"#000000\"];\n  } // else use defaults.\n\n  // Instantiate our graph object.\n  var container = document.getElementById(\"mygraph\");\n  graph = new vis.Graph3d(container, data, options);\n}\n\nwindow.addEventListener(\"load\", () =&gt; {\n  drawVisualization();\n});\n","js_external":"https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js","title":"Graph 3D | Styling Surface"}'
+      />
+      <button id="open" alt="JSFiddle" title="JSFiddle">
+        Open CodePen
+      </button>
+    </form>
+
+    <script type="text/javascript">
+      document.getElementById("open").click();
+    </script>
+  </body>
+</html>

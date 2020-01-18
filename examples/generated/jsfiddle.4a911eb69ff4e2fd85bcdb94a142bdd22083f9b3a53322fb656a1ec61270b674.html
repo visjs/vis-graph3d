@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Graph 3D | Animation Moving Dots</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      action="https://jsfiddle.net/api/post/library/pure/"
+      method="post"
+      target="_self"
+    >
+      <input
+        type="hidden"
+        name="css"
+        value="body {
+  font: 10pt arial;
+}
+"
+      />
+      <input
+        type="hidden"
+        name="html"
+        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+
+&lt;div id="info"&gt;&lt;/div&gt;
+'
+      />
+      <input
+        type="hidden"
+        name="js"
+        value='var data = null;
+var graph = null;
+
+// Called when the Visualization API is loaded.
+function drawVisualization() {
+  // create the data table.
+  data = new vis.DataSet();
+
+  // create some shortcuts to math functions
+  var sin = Math.sin;
+  var cos = Math.cos;
+  var pi = Math.PI;
+
+  // create the animation data
+  var tmax = 2.0 * pi;
+  var tstep = tmax / 75;
+  var dotCount = 1; // set this to 1, 2, 3, 4, ...
+  for (var t = 0; t &lt; tmax; t += tstep) {
+    var tgroup = parseFloat(t.toFixed(2));
+    var value = t;
+
+    // a dot in the center
+    data.add({ x: 0, y: 0, z: 0, filter: tgroup, style: value });
+
+    // one or multiple dots moving around the center
+    for (var dot = 0; dot &lt; dotCount; dot++) {
+      var tdot = t + (2 * pi * dot) / dotCount;
+      data.add({
+        x: sin(tdot),
+        y: cos(tdot),
+        z: sin(tdot),
+        filter: tgroup,
+        style: value
+      });
+      data.add({
+        x: sin(tdot),
+        y: -cos(tdot),
+        z: sin(tdot + (tmax * 1) / 2),
+        filter: tgroup,
+        style: value
+      });
+    }
+  }
+
+  // specify options
+  var options = {
+    width: "600px",
+    height: "600px",
+    style: "dot-color",
+    showPerspective: true,
+    showGrid: true,
+    keepAspectRatio: true,
+    verticalRatio: 1.0,
+    animationInterval: 35, // milliseconds
+    animationPreload: false,
+    animationAutoStart: true,
+    legendLabel: "color value",
+    cameraPosition: {
+      horizontal: 2.7,
+      vertical: 0.0,
+      distance: 1.65
+    }
+  };
+
+  // create our graph
+  var container = document.getElementById("mygraph");
+  graph = new vis.Graph3d(container, data, options);
+}
+
+window.addEventListener("load", () =&gt; {
+  drawVisualization();
+});
+'
+      />
+      <input
+        type="hidden"
+        name="resources"
+        value="https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js"
+      />
+      <input
+        type="hidden"
+        name="title"
+        value="Graph 3D | Animation Moving Dots"
+      />
+      <input type="hidden" name="wrap" value="b" />
+      <button id="open" alt="JSFiddle" title="JSFiddle">
+        Open JSFiddle
+      </button>
+    </form>
+
+    <script type="text/javascript">
+      document.getElementById("open").click();
+    </script>
+  </body>
+</html>

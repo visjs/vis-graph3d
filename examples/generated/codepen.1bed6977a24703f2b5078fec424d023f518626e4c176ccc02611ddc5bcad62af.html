@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Graph 3D | Custom Labels</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      action="https://codepen.io/pen/define"
+      method="post"
+      target="_self"
+    >
+      <input
+        type="hidden"
+        name="data"
+        value='{"css":"body {\n  font: 10pt arial;\n}\n","css_external":"","html":"&lt;p&gt;\n  &lt;label for=\"style\"&gt;\n    Style:\n    &lt;select id=\"style\"&gt;\n      &lt;option value=\"bar\"&gt;bar&lt;/option&gt;\n      &lt;option value=\"bar-color\"&gt;bar-color&lt;/option&gt;\n      &lt;option value=\"bar-size\"&gt;bar-size&lt;/option&gt;\n\n      &lt;option value=\"dot\"&gt;dot&lt;/option&gt;\n      &lt;option value=\"dot-line\"&gt;dot-line&lt;/option&gt;\n      &lt;option value=\"dot-color\"&gt;dot-color&lt;/option&gt;\n      &lt;option value=\"dot-size\"&gt;dot-size&lt;/option&gt;\n\n      &lt;option value=\"grid\"&gt;grid&lt;/option&gt;\n      &lt;option value=\"line\"&gt;line&lt;/option&gt;\n      &lt;option value=\"surface\"&gt;surface&lt;/option&gt;\n    &lt;/select&gt;\n  &lt;/label&gt;\n&lt;/p&gt;\n\n&lt;div id=\"mygraph\"&gt;&lt;/div&gt;\n\n&lt;div id=\"info\"&gt;&lt;/div&gt;\n","js":"var data = null;\nvar graph = null;\n\nfunction custom(x, y) {\n  return (-Math.sin(x / Math.PI) * Math.cos(y / Math.PI) * 10 + 10) * 1000;\n}\n\n// Called when the Visualization API is loaded.\nfunction drawVisualization() {\n  var style = document.getElementById(\"style\").value;\n  var withValue =\n    [\"bar-color\", \"bar-size\", \"dot-size\", \"dot-color\"].indexOf(style) != -1;\n\n  // Create and populate a data table.\n  data = new vis.DataSet();\n\n  // create some nice looking data with sin/cos\n  var steps = 5; // number of datapoints will be steps*steps\n  var axisMax = 10;\n  var axisStep = axisMax / steps;\n  for (var x = 0; x &lt;= axisMax; x += axisStep) {\n    for (var y = 0; y &lt;= axisMax; y += axisStep) {\n      var z = custom(x, y);\n      if (withValue) {\n        var value = y - x;\n        data.add({ x: x, y: y, z: z, style: value });\n      } else {\n        data.add({ x: x, y: y, z: z });\n      }\n    }\n  }\n\n  // specify options\n  var options = {\n    width: \"600px\",\n    height: \"600px\",\n    style: style,\n    showPerspective: true,\n    showGrid: true,\n    showShadow: false,\n\n    // Option tooltip can be true, false, or a function returning a string with HTML contents\n    //tooltip: true,\n    tooltip: function(point) {\n      // parameter point contains properties x, y, z\n      return \"value: &lt;b&gt;\" + point.z + \"&lt;/b&gt;\";\n    },\n\n    xValueLabel: function(value) {\n      return vis\n        .moment()\n        .add(value, \"days\")\n        .format(\"DD MMM\");\n    },\n\n    yValueLabel: function(value) {\n      return value * 10 + \"%\";\n    },\n\n    zValueLabel: function(value) {\n      return value / 1000 + \"K\";\n    },\n\n    keepAspectRatio: true,\n    verticalRatio: 0.5\n  };\n\n  var camera = graph ? graph.getCameraPosition() : null;\n\n  // create our graph\n  var container = document.getElementById(\"mygraph\");\n  graph = new vis.Graph3d(container, data, options);\n\n  if (camera) graph.setCameraPosition(camera); // restore camera position\n\n  document.getElementById(\"style\").onchange = drawVisualization;\n}\n\nwindow.addEventListener(\"load\", () =&gt; {\n  drawVisualization();\n});\n","js_external":"https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js","title":"Graph 3D | Custom Labels"}'
+      />
+      <button id="open" alt="JSFiddle" title="JSFiddle">
+        Open CodePen
+      </button>
+    </form>
+
+    <script type="text/javascript">
+      document.getElementById("open").click();
+    </script>
+  </body>
+</html>

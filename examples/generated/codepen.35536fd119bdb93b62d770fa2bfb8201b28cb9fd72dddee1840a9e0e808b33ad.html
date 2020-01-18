@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Graph 3D | Camera Position</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      action="https://codepen.io/pen/define"
+      method="post"
+      target="_self"
+    >
+      <input
+        type="hidden"
+        name="data"
+        value='{"css":"body {\n  font: 10pt arial;\n}\ntd {\n  font: 10pt arial;\n}\n","css_external":"","html":"&lt;h1&gt;Graph 3d camera position&lt;/h1&gt;\n&lt;table&gt;\n  &lt;tbody&gt;\n    &lt;tr&gt;\n      &lt;td&gt;Horizontal angle (0 to 2*pi)&lt;/td&gt;\n      &lt;td&gt;&lt;input type=\"text\" id=\"horizontal\" value=\"1.0\" /&gt;&lt;/td&gt;\n    &lt;/tr&gt;\n    &lt;tr&gt;\n      &lt;td&gt;Vertical angle (0 to 0.5*pi)&lt;/td&gt;\n      &lt;td&gt;&lt;input type=\"text\" id=\"vertical\" value=\"0.5\" /&gt;&lt;/td&gt;\n    &lt;/tr&gt;\n    &lt;tr&gt;\n      &lt;td&gt;Distance (0.71 to 5.0)&lt;/td&gt;\n      &lt;td&gt;&lt;input type=\"text\" id=\"distance\" value=\"1.7\" /&gt;&lt;/td&gt;\n    &lt;/tr&gt;\n    &lt;tr&gt;\n      &lt;td&gt;&lt;/td&gt;\n      &lt;td&gt;\n        &lt;input type=\"button\" value=\"Set\" onclick=\"setCameraPosition();\" /&gt;\n      &lt;/td&gt;\n    &lt;/tr&gt;\n  &lt;/tbody&gt;\n&lt;/table&gt;\n\n&lt;div id=\"mygraph\"&gt;&lt;/div&gt;\n\n&lt;div id=\"info\"&gt;&lt;/div&gt;\n","js":"var data = null;\nvar graph = null;\n\nfunction custom(x, y) {\n  return Math.sin(x / 50) * Math.cos(y / 50) * 50 + 50;\n}\n\n// callback function, called when the camera position has changed\nfunction onCameraPositionChange() {\n  // adjust the values of startDate and endDate\n  var pos = graph.getCameraPosition();\n  document.getElementById(\"horizontal\").value = parseFloat(\n    pos.horizontal.toFixed(3)\n  );\n  document.getElementById(\"vertical\").value = parseFloat(\n    pos.vertical.toFixed(3)\n  );\n  document.getElementById(\"distance\").value = parseFloat(\n    pos.distance.toFixed(3)\n  );\n}\n\n// set the camera position\nfunction setCameraPosition() {\n  var horizontal = parseFloat(document.getElementById(\"horizontal\").value);\n  var vertical = parseFloat(document.getElementById(\"vertical\").value);\n  var distance = parseFloat(document.getElementById(\"distance\").value);\n  var pos = {\n    horizontal: horizontal,\n    vertical: vertical,\n    distance: distance\n  };\n  graph.setCameraPosition(pos);\n\n  // retrieve the camera position again, to get the applied values\n  onCameraPositionChange();\n}\n\n// Called when the Visualization API is loaded.\nfunction drawVisualization() {\n  // Create and populate a data table.\n  data = new vis.DataSet();\n  // create some nice looking data with sin/cos\n  var steps = 50; // number of datapoints will be steps*steps\n  var axisMax = 314;\n  var axisStep = axisMax / steps;\n  for (var x = 0; x &lt; axisMax; x += axisStep) {\n    for (var y = 0; y &lt; axisMax; y += axisStep) {\n      var value = custom(x, y);\n      data.add([{ x: x, y: y, z: value, t: 0, style: value }]);\n    }\n  }\n\n  // specify options\n  var options = {\n    width: \"600px\",\n    height: \"600px\",\n    style: \"surface\",\n    showPerspective: true,\n    showGrid: true,\n    showShadow: false,\n    keepAspectRatio: true,\n    verticalRatio: 0.5\n  };\n\n  // create our graph\n  var container = document.getElementById(\"mygraph\");\n  graph = new vis.Graph3d(container, data, options);\n\n  graph.on(\"cameraPositionChange\", onCameraPositionChange);\n}\n\nwindow.addEventListener(\"load\", () =&gt; {\n  drawVisualization();\n});\n","js_external":"https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js","title":"Graph 3D | Camera Position"}'
+      />
+      <button id="open" alt="JSFiddle" title="JSFiddle">
+        Open CodePen
+      </button>
+    </form>
+
+    <script type="text/javascript">
+      document.getElementById("open").click();
+    </script>
+  </body>
+</html>

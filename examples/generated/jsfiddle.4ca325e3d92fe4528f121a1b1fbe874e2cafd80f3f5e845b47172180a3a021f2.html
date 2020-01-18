@@ -1,0 +1,217 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Graph 3D | WORLD INDEXES BY COUNTRY 2018 MID-YEAR</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      action="https://jsfiddle.net/api/post/library/pure/"
+      method="post"
+      target="_self"
+    >
+      <input
+        type="hidden"
+        name="css"
+        value="body {
+  font: 10pt arial;
+}
+div#info {
+  width: 500px;
+  text-align: center;
+  margin-top: 2em;
+  font-size: 1.2em;
+}
+span#graphHead,
+span#updateTime,
+span#startTime,
+span#endTime {
+  font: 10pt arial;
+  font-weight: bold;
+  text-align: center;
+}
+"
+      />
+      <input
+        type="hidden"
+        name="html"
+        value='&lt;p&gt;
+  &lt;label for="style"&gt;
+    Style:
+    &lt;select id="style"&gt;
+      &lt;option value="bar"&gt;bar&lt;/option&gt;
+      &lt;option value="dot"&gt;dot&lt;/option&gt;
+      &lt;option value="dot-line"&gt;dot-line&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/label&gt;
+&lt;/p&gt;
+&lt;div style="text-align: center; width: 1024px;"&gt;
+  &lt;span id="graphHead"&gt;WORLD INDEXES BY COUNTRY 2018 MID-YEAR&lt;/span&gt;&lt;br /&gt;
+  &lt;span id="updateTime"&gt;&lt;/span&gt;&lt;br /&gt;
+  &lt;span id="startTime"&gt;&lt;/span&gt;&lt;br /&gt;
+  &lt;span id="endTime"&gt;&lt;/span&gt;&lt;br /&gt;
+  &lt;div id="mygraph" height="470px"&gt;&lt;/div&gt;
+  &lt;div id="info"&gt;Hover the mouse cursor over the graph to see tooltips.&lt;/div&gt;
+&lt;/div&gt;
+'
+      />
+      <input
+        type="hidden"
+        name="js"
+        value='var graph = null;
+
+function drawVisualization() {
+  var style = document.getElementById("style").value;
+  var withValue =
+    ["bar-color", "bar-size", "dot-size", "dot-color"].indexOf(style) != -1;
+
+  // Create and populate a data table.
+  var data = new vis.DataSet();
+  var extra_content = [];
+  data.add({
+    id: "c57621e7d6cfb81",
+    x: 0,
+    y: -1,
+    z: 0,
+    extra: extra_content[0]
+  });
+  var axis_x = {};
+  var axis_y = {};
+  var file1 = "world_index_data_small.json?nocache=" + Math.random();
+  var _width = "1000px";
+  var _height = "1000px";
+
+  var request = new XMLHttpRequest();
+  request.open("GET", file1, true);
+
+  function axisLoad(axis_obj, callback) {
+    Object.keys(axis_obj).forEach(function(field, i) {
+      callback(axis_obj[field], i);
+    });
+  }
+
+  request.onload = function() {
+    if (request.status &gt;= 200 &amp;&amp; request.status &lt; 400) {
+      var result = JSON.parse(request.responseText);
+      axisLoad(result.graph3d, function(object, i) {
+        data.add(object);
+      });
+      axisLoad(result.axis_x, function(object, i) {
+        axis_x[i] = object;
+      });
+      axisLoad(result.axis_y, function(object, i) {
+        axis_y[i] = object;
+      });
+      data.remove("c57621e7d6cfb81");
+    } else {
+      console.log("ERR: request.onload");
+    }
+  };
+  request.onerror = function() {
+    console.log("ERR: Connection request");
+  };
+  request.send();
+
+  var options = {
+    width: _width,
+    height: _height,
+    style: style,
+    showPerspective: false,
+    showLegend: true,
+    showGrid: true,
+    showShadow: true,
+    xLabel: "COUNTRY",
+    yLabel: "INDEX",
+    zLabel: "PERCENT",
+    legendLabel: "value",
+    rotateAxisLabels: true,
+    axisColor: "#41413C",
+    axisFontType: "courier",
+    axisFontSize: 30,
+    gridColor: "#5590CC",
+    backgroundColor: "white",
+    dataColor: {
+      fill: "green",
+      stroke: "green",
+      strokeWidth: 2
+    },
+    cameraPosition: {
+      horizontal: 0,
+      vertical: 2,
+      distance: 2.3
+    },
+    tooltip: function(point) {
+      return (
+        "value: &lt;b&gt;" +
+        point.z +
+        "%&lt;/b&gt;&lt;br&gt;" +
+        axis_x[point.x] +
+        "&lt;/b&gt;&lt;br&gt;" +
+        axis_y[point.y]
+      );
+    },
+    tooltipDelay: 0,
+    tooltipStyle: {
+      content: {
+        background: "rgba(255, 255, 255, 0.7)",
+        padding: "10px",
+        borderRadius: "10px"
+      },
+      line: {
+        borderLeft: "1px dotted rgba(0, 0, 0, 0.5)"
+      },
+      dot: {
+        border: "5px solid rgba(0, 0, 0, 0.5)"
+      }
+    },
+    keepAspectRatio: false,
+    verticalRatio: 0.5,
+    xBarWidth: 1,
+    yBarWidth: 1,
+    xStep: 1,
+    yStep: 1,
+    xCenter: "50%",
+    yCenter: "25%",
+    xValueLabel: function(value) {
+      return "" + axis_x[value.toString()];
+    },
+    yValueLabel: function(value) {
+      return "" + axis_y[value.toString()];
+    },
+    zValueLabel: function(value) {
+      return value + "%";
+    }
+  };
+  var camera = graph ? graph.getCameraPosition() : null;
+  var container = document.getElementById("mygraph");
+  graph = new vis.Graph3d(container, data, options);
+  if (camera) graph.setCameraPosition(camera);
+  document.getElementById("style").onchange = drawVisualization;
+}
+
+window.addEventListener("load", () =&gt; {
+  drawVisualization();
+});
+'
+      />
+      <input
+        type="hidden"
+        name="resources"
+        value="https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js"
+      />
+      <input
+        type="hidden"
+        name="title"
+        value="Graph 3D | WORLD INDEXES BY COUNTRY 2018 MID-YEAR"
+      />
+      <input type="hidden" name="wrap" value="b" />
+      <button id="open" alt="JSFiddle" title="JSFiddle">
+        Open JSFiddle
+      </button>
+    </form>
+
+    <script type="text/javascript">
+      document.getElementById("open").click();
+    </script>
+  </body>
+</html>

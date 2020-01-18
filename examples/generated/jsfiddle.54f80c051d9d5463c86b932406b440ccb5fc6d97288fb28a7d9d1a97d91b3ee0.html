@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Graph 3D | Line</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      action="https://jsfiddle.net/api/post/library/pure/"
+      method="post"
+      target="_self"
+    >
+      <input
+        type="hidden"
+        name="css"
+        value="body {
+  font: 10pt arial;
+}
+"
+      />
+      <input
+        type="hidden"
+        name="html"
+        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+
+&lt;div id="info"&gt;&lt;/div&gt;
+'
+      />
+      <input
+        type="hidden"
+        name="js"
+        value='var data = null;
+var graph = null;
+
+// Called when the Visualization API is loaded.
+function drawVisualization() {
+  // Create and populate a data table.
+  data = new vis.DataSet();
+
+  // create some nice looking data with sin/cos
+  var steps = 500;
+  var axisMax = 314;
+  var tmax = 4 * 2 * Math.PI;
+  var axisStep = axisMax / steps;
+  for (var t = 0; t &lt; tmax; t += tmax / steps) {
+    var r = 1;
+    var x = r * Math.sin(t);
+    var y = r * Math.cos(t);
+    var z = t / tmax;
+    data.add({ x: x, y: y, z: z });
+  }
+
+  // specify options
+  var options = {
+    width: "600px",
+    height: "600px",
+    style: "line",
+    showPerspective: false,
+    showGrid: true,
+    keepAspectRatio: true,
+    verticalRatio: 1.0
+  };
+
+  // create our graph
+  var container = document.getElementById("mygraph");
+  graph = new vis.Graph3d(container, data, options);
+
+  graph.setCameraPosition(0.4, undefined, undefined);
+}
+
+window.addEventListener("load", () =&gt; {
+  drawVisualization();
+});
+'
+      />
+      <input
+        type="hidden"
+        name="resources"
+        value="https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js"
+      />
+      <input type="hidden" name="title" value="Graph 3D | Line" />
+      <input type="hidden" name="wrap" value="b" />
+      <button id="open" alt="JSFiddle" title="JSFiddle">
+        Open JSFiddle
+      </button>
+    </form>
+
+    <script type="text/javascript">
+      document.getElementById("open").click();
+    </script>
+  </body>
+</html>
