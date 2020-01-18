@@ -35,7 +35,7 @@
     "build": "npm run js:graph3d",
     "watch": "rollup --watch --config rollup.config.js",
     "watch-dev": "npm run watch-dev",
-    "generate-examples-index": "generate-examples-index -t \"Vis Graph3D Examples\" -c mygraph -w https://visjs.github.io/vis-graph3d -S ./scripts/examples-index/screenshot-script.js -lis",
+    "generate-examples-index": "generate-examples-index --config generate-examples-index.json",
     "lint": "eslint '{src,test}/**/*.{m,}{j,t}s{x,}'",
     "clean": "rimraf 'dist/*'",
     "postinstall": "opencollective postinstall || exit 0",
@@ -88,7 +88,7 @@
     "semantic-release": "^16.0.0",
     "sinon": "^8.0.0",
     "test-console": "^1.1.0",
-    "vis-dev-utils": "^1.2.0"
+    "vis-dev-utils": "^2.1.0"
   },
   "collective": {
     "type": "opencollective",

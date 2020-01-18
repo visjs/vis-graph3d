@@ -1,0 +1,23 @@
+{
+  "base-url": "https://visjs.github.io/vis-graph3d/",
+  "output-directory": "./examples",
+
+  "assets-local-directory": "./examples/generated",
+  "assets-web-directory": "./generated",
+  "examples-local-directory": "./examples/graph3d",
+  "examples-web-directory": "./graph3d",
+  "pages-local-directory": "./examples/generated",
+  "pages-web-directory": "./generated",
+
+  "index": true,
+  "lint": true,
+  "playgrounds": true,
+  "screenshots": true,
+
+  "container-id": "mygraph",
+  "format": "html",
+  "parallel": 6,
+  "screenshot-script": "./scripts/examples-index/screenshot-script.js",
+  "title": "Vis Graph3D Examples",
+  "verify": 100
+}

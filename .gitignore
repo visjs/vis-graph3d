@@ -19,5 +19,7 @@ gen/
 # generated files
 /coverage/
 /dist/
+/examples/examples.css
+/examples/generated/
 /examples/index.html
 /examples/thumbnails/
