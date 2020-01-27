@@ -1,7 +1,7 @@
 /**!
 
  @license
- handlebars v4.7.1
+ handlebars v4.7.2
 
 Copyright (C) 2011-2019 by Yehuda Katz
 
@@ -209,7 +209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _internalProtoAccess = __webpack_require__(32);
 
-	var VERSION = '4.7.1';
+	var VERSION = '4.7.2';
 	exports.VERSION = VERSION;
 	var COMPILER_REVISION = 8;
 	exports.COMPILER_REVISION = COMPILER_REVISION;
@@ -1751,12 +1751,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 42 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	exports.__esModule = true;
 	exports.wrapHelper = wrapHelper;
 
 	function wrapHelper(helper, transformOptionsFn) {
+	  if (typeof helper !== 'function') {
+	    // This should not happen, but apparently it does in https://github.com/wycats/handlebars.js/issues/1639
+	    // We try to make the wrapper least-invasive by not wrapping it, if the helper is not a function.
+	    return helper;
+	  }
 	  var wrapper = function wrapper() /* dynamic arguments */{
 	    var options = arguments[arguments.length - 1];
 	    arguments[arguments.length - 1] = transformOptionsFn(options);
