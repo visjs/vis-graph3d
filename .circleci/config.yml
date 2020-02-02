@@ -50,6 +50,10 @@ jobs:
           root: ..
           paths:
             - "repo/dist"
+            - "repo/esnext"
+            - "repo/peer"
+            - "repo/standalone"
+            - "repo/styles"
 
   lint:
     executor: node

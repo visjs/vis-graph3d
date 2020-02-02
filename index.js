@@ -1,10 +1,10 @@
 // utils
-var util = require('vis-util');
+var util = require('vis-util/esnext');
 exports.util = util;
 exports.DOMutil = require('./lib/DOMutil');
 
 // data
-var { DataSet, DataView, Queue } = require('vis-data');
+var { DataSet, DataView, Queue } = require('vis-data/esnext');
 exports.DataSet = DataSet;
 exports.DataView = DataView;
 exports.Queue = Queue;
