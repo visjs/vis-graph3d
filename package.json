@@ -74,7 +74,7 @@
     "husky": "4.0.7",
     "jsdom": "15.2.0",
     "jsdom-global": "3.0.2",
-    "lint-staged": "10.0.3",
+    "lint-staged": "10.0.7",
     "mocha": "7.0.1",
     "nyc": "15.0.0",
     "opencollective": "1.0.3",
