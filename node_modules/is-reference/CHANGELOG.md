@@ -1,5 +1,9 @@
 # is-reference changelog
 
+## 1.1.4
+
+* Disregarded imported specifiers if they differ from local specifiers
+
 ## 1.1.3
 
 * Handle expressions without a Program
