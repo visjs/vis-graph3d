@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-02-17T20:34:11.018Z
+ * @date    2020-02-17T20:36:05.058Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -18982,11 +18982,11 @@ var fails$2 = function (exec) {
 };
 
 var descriptors$2 = !fails$2(function () {
-  return Object.defineProperty({}, 'a', {
+  return Object.defineProperty({}, 1, {
     get: function () {
       return 7;
     }
-  }).a != 7;
+  })[1] != 7;
 });
 
 var nativePropertyIsEnumerable$3 = {}.propertyIsEnumerable;
@@ -19123,7 +19123,7 @@ var aFunction$3 = function (it) {
   return it;
 };
 
-var bindContext$2 = function (fn, that, length) {
+var functionBindContext$1 = function (fn, that, length) {
   aFunction$3(fn);
   if (that === undefined) return fn;
 
@@ -19256,9 +19256,9 @@ var _export$2 = function (options, source) {
     sourceProperty = USE_NATIVE && nativeProperty ? nativeProperty : source[key];
     if (USE_NATIVE && typeof targetProperty === typeof sourceProperty) continue; // bind timers to global for call from export context
 
-    if (options.bind && USE_NATIVE) resultProperty = bindContext$2(sourceProperty, global_1$2); // wrap global constructors for prevent changs in this version
+    if (options.bind && USE_NATIVE) resultProperty = functionBindContext$1(sourceProperty, global_1$2); // wrap global constructors for prevent changs in this version
     else if (options.wrap && USE_NATIVE) resultProperty = wrapConstructor$2(sourceProperty); // make static versions for prototype methods
-      else if (PROTO && typeof sourceProperty == 'function') resultProperty = bindContext$2(Function.call, sourceProperty); // default case
+      else if (PROTO && typeof sourceProperty == 'function') resultProperty = functionBindContext$1(Function.call, sourceProperty); // default case
         else resultProperty = sourceProperty; // add a flag to not completely full polyfills
 
     if (options.sham || sourceProperty && sourceProperty.sham || targetProperty && targetProperty.sham) {
@@ -19455,10 +19455,10 @@ var getBuiltIn$2 = function (namespace, method) {
   return arguments.length < 2 ? aFunction$4(path$2[namespace]) || aFunction$4(global_1$2[namespace]) : path$2[namespace] && path$2[namespace][method] || global_1$2[namespace] && global_1$2[namespace][method];
 };
 
-var userAgent$2 = getBuiltIn$2('navigator', 'userAgent') || '';
+var engineUserAgent$1 = getBuiltIn$2('navigator', 'userAgent') || '';
 
 var slice$4 = [].slice;
-var MSIE$1 = /MSIE .\./.test(userAgent$2); // <- dirty ie9- check
+var MSIE$1 = /MSIE .\./.test(engineUserAgent$1); // <- dirty ie9- check
 
 var wrap$3 = function (scheduler) {
   return function (handler, timeout
@@ -19521,9 +19521,9 @@ var shared$2 = createCommonjsModule$1(function (module) {
   (module.exports = function (key, value) {
     return sharedStore$2[key] || (sharedStore$2[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.6.1',
+    version: '3.6.4',
     mode:  'pure' ,
-    copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
+    copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
   });
 });
 
@@ -19582,16 +19582,16 @@ var match$2, version$2;
 if (v8$2) {
   match$2 = v8$2.split('.');
   version$2 = match$2[0] + match$2[1];
-} else if (userAgent$2) {
-  match$2 = userAgent$2.match(/Edge\/(\d+)/);
+} else if (engineUserAgent$1) {
+  match$2 = engineUserAgent$1.match(/Edge\/(\d+)/);
 
   if (!match$2 || match$2[1] >= 74) {
-    match$2 = userAgent$2.match(/Chrome\/(\d+)/);
+    match$2 = engineUserAgent$1.match(/Chrome\/(\d+)/);
     if (match$2) version$2 = match$2[1];
   }
 }
 
-var v8Version$2 = version$2 && +version$2;
+var engineV8Version$1 = version$2 && +version$2;
 
 var SPECIES$5 = wellKnownSymbol$2('species');
 
@@ -19599,7 +19599,7 @@ var arrayMethodHasSpeciesSupport$2 = function (METHOD_NAME) {
   // We can't use this feature detection in V8 since it causes
   // deoptimization and serious performance degradation
   // https://github.com/zloirock/core-js/issues/677
-  return v8Version$2 >= 51 || !fails$2(function () {
+  return engineV8Version$1 >= 51 || !fails$2(function () {
     var array = [];
     var constructor = array.constructor = {};
 
@@ -19619,7 +19619,7 @@ var MAXIMUM_ALLOWED_INDEX_EXCEEDED$2 = 'Maximum allowed index exceeded'; // We c
 // deoptimization and serious performance degradation
 // https://github.com/zloirock/core-js/issues/679
 
-var IS_CONCAT_SPREADABLE_SUPPORT$2 = v8Version$2 >= 51 || !fails$2(function () {
+var IS_CONCAT_SPREADABLE_SUPPORT$2 = engineV8Version$1 >= 51 || !fails$2(function () {
   var array = [];
   array[IS_CONCAT_SPREADABLE$2] = false;
   return array.concat()[0] !== array;
@@ -19685,7 +19685,7 @@ var concat$5 = concat_1$2;
 var concat$6 = concat$5;
 
 var f$c = wellKnownSymbol$2;
-var wrappedWellKnownSymbol$2 = {
+var wellKnownSymbolWrapped$1 = {
   f: f$c
 };
 
@@ -19694,7 +19694,7 @@ var defineProperty$c = objectDefineProperty$2.f;
 var defineWellKnownSymbol$2 = function (NAME) {
   var Symbol = path$2.Symbol || (path$2.Symbol = {});
   if (!has$3(Symbol, NAME)) defineProperty$c(Symbol, NAME, {
-    value: wrappedWellKnownSymbol$2.f(NAME)
+    value: wellKnownSymbolWrapped$1.f(NAME)
   });
 };
 
@@ -20270,7 +20270,7 @@ for (var COLLECTION_NAME$2 in domIterables$2) {
   }
 }
 
-var iterator$6 = wrappedWellKnownSymbol$2.f('iterator');
+var iterator$6 = wellKnownSymbolWrapped$1.f('iterator');
 
 var iterator$7 = iterator$6;
 
@@ -20320,7 +20320,7 @@ var createMethod$8 = function (TYPE) {
   return function ($this, callbackfn, that, specificCreate) {
     var O = toObject$2($this);
     var self = indexedObject$2(O);
-    var boundFunction = bindContext$2(callbackfn, that, 3);
+    var boundFunction = functionBindContext$1(callbackfn, that, 3);
     var length = toLength$2(self.length);
     var index = 0;
     var create = specificCreate || arraySpeciesCreate$2;
@@ -20550,7 +20550,7 @@ if (!nativeSymbol$2) {
   objectGetOwnPropertyNames$2.f = objectGetOwnPropertyNamesExternal$2.f = $getOwnPropertyNames$2;
   objectGetOwnPropertySymbols$2.f = $getOwnPropertySymbols$2;
 
-  wrappedWellKnownSymbol$2.f = function (name) {
+  wellKnownSymbolWrapped$1.f = function (name) {
     return wrap$4(wellKnownSymbol$2(name), name);
   };
 
@@ -20777,6 +20777,8 @@ var symbol$6 = symbol$5;
 
 var _typeof_1$2 = createCommonjsModule$1(function (module) {
   function _typeof(obj) {
+    "@babel/helpers - typeof";
+
     if (typeof symbol$6 === "function" && typeof iterator$8 === "symbol") {
       module.exports = _typeof = function _typeof(obj) {
         return typeof obj;
@@ -20793,9 +20795,9 @@ var _typeof_1$2 = createCommonjsModule$1(function (module) {
   module.exports = _typeof;
 });
 
-var sloppyArrayMethod$2 = function (METHOD_NAME, argument) {
+var arrayMethodIsStrict$1 = function (METHOD_NAME, argument) {
   var method = [][METHOD_NAME];
-  return !method || !fails$2(function () {
+  return !!method && fails$2(function () {
     // eslint-disable-next-line no-useless-call,no-throw-literal
     method.call(null, argument || function () {
       throw 1;
@@ -20803,10 +20805,39 @@ var sloppyArrayMethod$2 = function (METHOD_NAME, argument) {
   });
 };
 
-var $forEach$4 = arrayIteration$2.forEach; // `Array.prototype.forEach` method implementation
+var defineProperty$e = Object.defineProperty;
+var cache = {};
+
+var thrower$1 = function (it) {
+  throw it;
+};
+
+var arrayMethodUsesToLength$1 = function (METHOD_NAME, options) {
+  if (has$3(cache, METHOD_NAME)) return cache[METHOD_NAME];
+  if (!options) options = {};
+  var method = [][METHOD_NAME];
+  var ACCESSORS = has$3(options, 'ACCESSORS') ? options.ACCESSORS : false;
+  var argument0 = has$3(options, 0) ? options[0] : thrower$1;
+  var argument1 = has$3(options, 1) ? options[1] : undefined;
+  return cache[METHOD_NAME] = !!method && !fails$2(function () {
+    if (ACCESSORS && !descriptors$2) return true;
+    var O = {
+      length: -1
+    };
+    if (ACCESSORS) defineProperty$e(O, 1, {
+      enumerable: true,
+      get: thrower$1
+    });else O[1] = 1;
+    method.call(O, argument0, argument1);
+  });
+};
+
+var $forEach$4 = arrayIteration$2.forEach;
+var STRICT_METHOD$4 = arrayMethodIsStrict$1('forEach');
+var USES_TO_LENGTH$6 = arrayMethodUsesToLength$1('forEach'); // `Array.prototype.forEach` method implementation
 // https://tc39.github.io/ecma262/#sec-array.prototype.foreach
 
-var arrayForEach$2 = sloppyArrayMethod$2('forEach') ? function forEach(callbackfn
+var arrayForEach$2 = !STRICT_METHOD$4 || !USES_TO_LENGTH$6 ? function forEach(callbackfn
 /* , thisArg */
 ) {
   return $forEach$4(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
@@ -20871,30 +20902,30 @@ var stringTrim$2 = {
 };
 
 var trim$5 = stringTrim$2.trim;
-var nativeParseInt$2 = global_1$2.parseInt;
+var $parseInt = global_1$2.parseInt;
 var hex$2 = /^[+-]?0[Xx]/;
-var FORCED$6 = nativeParseInt$2(whitespaces$2 + '08') !== 8 || nativeParseInt$2(whitespaces$2 + '0x16') !== 22; // `parseInt` method
+var FORCED$6 = $parseInt(whitespaces$2 + '08') !== 8 || $parseInt(whitespaces$2 + '0x16') !== 22; // `parseInt` method
 // https://tc39.github.io/ecma262/#sec-parseint-string-radix
 
-var _parseInt$5 = FORCED$6 ? function parseInt(string, radix) {
+var numberParseInt = FORCED$6 ? function parseInt(string, radix) {
   var S = trim$5(String(string));
-  return nativeParseInt$2(S, radix >>> 0 || (hex$2.test(S) ? 16 : 10));
-} : nativeParseInt$2;
+  return $parseInt(S, radix >>> 0 || (hex$2.test(S) ? 16 : 10));
+} : $parseInt;
 
 // https://tc39.github.io/ecma262/#sec-parseint-string-radix
 
 _export$2({
   global: true,
-  forced: parseInt != _parseInt$5
+  forced: parseInt != numberParseInt
 }, {
-  parseInt: _parseInt$5
+  parseInt: numberParseInt
 });
 
-var _parseInt$6 = path$2.parseInt;
+var _parseInt$5 = path$2.parseInt;
+
+var _parseInt$6 = _parseInt$5;
 
 var _parseInt$7 = _parseInt$6;
-
-var _parseInt$8 = _parseInt$7;
 
 var values$4 = entryVirtual$2('Array').values;
 
@@ -20955,49 +20986,42 @@ var fill$1 = fill_1;
 var fill$2 = fill$1;
 
 var trim$6 = stringTrim$2.trim;
-var nativeParseFloat = global_1$2.parseFloat;
-var FORCED$7 = 1 / nativeParseFloat(whitespaces$2 + '-0') !== -Infinity; // `parseFloat` method
+var $parseFloat = global_1$2.parseFloat;
+var FORCED$7 = 1 / $parseFloat(whitespaces$2 + '-0') !== -Infinity; // `parseFloat` method
 // https://tc39.github.io/ecma262/#sec-parsefloat-string
 
-var _parseFloat = FORCED$7 ? function parseFloat(string) {
+var numberParseFloat = FORCED$7 ? function parseFloat(string) {
   var trimmedString = trim$6(String(string));
-  var result = nativeParseFloat(trimmedString);
+  var result = $parseFloat(trimmedString);
   return result === 0 && trimmedString.charAt(0) == '-' ? -0 : result;
-} : nativeParseFloat;
+} : $parseFloat;
 
 // https://tc39.github.io/ecma262/#sec-parsefloat-string
 
 _export$2({
   global: true,
-  forced: parseFloat != _parseFloat
+  forced: parseFloat != numberParseFloat
 }, {
-  parseFloat: _parseFloat
+  parseFloat: numberParseFloat
 });
 
-var _parseFloat$1 = path$2.parseFloat;
+var _parseFloat = path$2.parseFloat;
+
+var _parseFloat$1 = _parseFloat;
 
 var _parseFloat$2 = _parseFloat$1;
-
-var _parseFloat$3 = _parseFloat$2;
 
 var $filter$2 = arrayIteration$2.filter;
 var HAS_SPECIES_SUPPORT$3 = arrayMethodHasSpeciesSupport$2('filter'); // Edge 14- issue
 
-var USES_TO_LENGTH$6 = HAS_SPECIES_SUPPORT$3 && !fails$2(function () {
-  [].filter.call({
-    length: -1,
-    0: 1
-  }, function (it) {
-    throw it;
-  });
-}); // `Array.prototype.filter` method
+var USES_TO_LENGTH$7 = arrayMethodUsesToLength$1('filter'); // `Array.prototype.filter` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.filter
 // with adding support of @@species
 
 _export$2({
   target: 'Array',
   proto: true,
-  forced: !HAS_SPECIES_SUPPORT$3 || !USES_TO_LENGTH$6
+  forced: !HAS_SPECIES_SUPPORT$3 || !USES_TO_LENGTH$7
 }, {
   filter: function filter(callbackfn
   /* , thisArg */
@@ -21022,13 +21046,17 @@ var filter$6 = filter$5;
 var $indexOf$2 = arrayIncludes$2.indexOf;
 var nativeIndexOf$2 = [].indexOf;
 var NEGATIVE_ZERO$2 = !!nativeIndexOf$2 && 1 / [1].indexOf(1, -0) < 0;
-var SLOPPY_METHOD$2 = sloppyArrayMethod$2('indexOf'); // `Array.prototype.indexOf` method
+var STRICT_METHOD$5 = arrayMethodIsStrict$1('indexOf');
+var USES_TO_LENGTH$8 = arrayMethodUsesToLength$1('indexOf', {
+  ACCESSORS: true,
+  1: 0
+}); // `Array.prototype.indexOf` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.indexof
 
 _export$2({
   target: 'Array',
   proto: true,
-  forced: NEGATIVE_ZERO$2 || SLOPPY_METHOD$2
+  forced: NEGATIVE_ZERO$2 || !STRICT_METHOD$5 || !USES_TO_LENGTH$8
 }, {
   indexOf: function indexOf(searchElement
   /* , fromIndex = 0 */
@@ -21062,8 +21090,8 @@ var FAILS_ON_NULL$1 = fails$2(function () {
   test$4.sort(null);
 }); // Old WebKit
 
-var SLOPPY_METHOD$3 = sloppyArrayMethod$2('sort');
-var FORCED$8 = FAILS_ON_UNDEFINED$1 || !FAILS_ON_NULL$1 || SLOPPY_METHOD$3; // `Array.prototype.sort` method
+var STRICT_METHOD$6 = arrayMethodIsStrict$1('sort');
+var FORCED$8 = FAILS_ON_UNDEFINED$1 || !FAILS_ON_NULL$1 || !STRICT_METHOD$6; // `Array.prototype.sort` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.sort
 
 _export$2({
@@ -21631,7 +21659,7 @@ Slider.prototype._onMouseDown = function (event) {
   var leftButtonDown = event.which ? event.which === 1 : event.button === 1;
   if (!leftButtonDown) return;
   this.startClientX = event.clientX;
-  this.startSlideX = _parseFloat$3(this.frame.slide.style.left);
+  this.startSlideX = _parseFloat$2(this.frame.slide.style.left);
   this.frame.style.cursor = 'move'; // add event listeners to handle moving the contents
   // we store the function onmousemove and onmouseup in the graph, so we can
   // remove the eventlisteners lateron in the function mouseUp()
@@ -21652,7 +21680,7 @@ Slider.prototype._onMouseDown = function (event) {
 };
 
 Slider.prototype.leftToIndex = function (left) {
-  var width = _parseFloat$3(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
+  var width = _parseFloat$2(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
   var x = left - 3;
   var index = Math.round(x / width * (values$6(this).length - 1));
   if (index < 0) index = 0;
@@ -21661,7 +21689,7 @@ Slider.prototype.leftToIndex = function (left) {
 };
 
 Slider.prototype.indexToLeft = function (index) {
-  var width = _parseFloat$3(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
+  var width = _parseFloat$2(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
   var x = index / (values$6(this).length - 1) * width;
   var left = x + 3;
   return left;
@@ -21732,7 +21760,7 @@ function StepNumber(start, end, step, prettyStep) {
 
 
 StepNumber.prototype.isNumeric = function (n) {
-  return !isNaN(_parseFloat$3(n)) && isFinite(n);
+  return !isNaN(_parseFloat$2(n)) && isFinite(n);
 };
 /**
  * Set a new range: start, end and step.
@@ -21811,7 +21839,7 @@ StepNumber.calculatePrettyStep = function (step) {
 
 
 StepNumber.prototype.getCurrent = function () {
-  return _parseFloat$3(this._current.toPrecision(this.precision));
+  return _parseFloat$2(this._current.toPrecision(this.precision));
 };
 /**
  * returns the current step size
@@ -21902,21 +21930,14 @@ var reverse$2 = reverse$1;
 var $map$2 = arrayIteration$2.map;
 var HAS_SPECIES_SUPPORT$4 = arrayMethodHasSpeciesSupport$2('map'); // FF49- issue
 
-var USES_TO_LENGTH$7 = HAS_SPECIES_SUPPORT$4 && !fails$2(function () {
-  [].map.call({
-    length: -1,
-    0: 1
-  }, function (it) {
-    throw it;
-  });
-}); // `Array.prototype.map` method
+var USES_TO_LENGTH$9 = arrayMethodUsesToLength$1('map'); // `Array.prototype.map` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.map
 // with adding support of @@species
 
 _export$2({
   target: 'Array',
   proto: true,
-  forced: !HAS_SPECIES_SUPPORT$4 || !USES_TO_LENGTH$7
+  forced: !HAS_SPECIES_SUPPORT$4 || !USES_TO_LENGTH$9
 }, {
   map: function map(callbackfn
   /* , thisArg */
@@ -21953,6 +21974,12 @@ var isArray$9 = isArray$8;
 
 var isArray$a = isArray$9;
 
+var HAS_SPECIES_SUPPORT$5 = arrayMethodHasSpeciesSupport$2('slice');
+var USES_TO_LENGTH$a = arrayMethodUsesToLength$1('slice', {
+  ACCESSORS: true,
+  0: 0,
+  1: 2
+});
 var SPECIES$6 = wellKnownSymbol$2('species');
 var nativeSlice$2 = [].slice;
 var max$4 = Math.max; // `Array.prototype.slice` method
@@ -21962,7 +21989,7 @@ var max$4 = Math.max; // `Array.prototype.slice` method
 _export$2({
   target: 'Array',
   proto: true,
-  forced: !arrayMethodHasSpeciesSupport$2('slice')
+  forced: !HAS_SPECIES_SUPPORT$5 || !USES_TO_LENGTH$a
 }, {
   slice: function slice(start, end) {
     var O = toIndexedObject$2(this);
@@ -22820,9 +22847,9 @@ var defineProperty_1$2 = createCommonjsModule$1(function (module) {
   if (Object.defineProperty.sham) defineProperty.sham = true;
 });
 
-var defineProperty$e = defineProperty_1$2;
+var defineProperty$f = defineProperty_1$2;
 
-var defineProperty$f = defineProperty$e;
+var defineProperty$g = defineProperty$f;
 
 function _defineProperties$1(target, props) {
   for (var i = 0; i < props.length; i++) {
@@ -22831,7 +22858,7 @@ function _defineProperties$1(target, props) {
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
 
-    defineProperty$f(target, descriptor.key, descriptor);
+    defineProperty$g(target, descriptor.key, descriptor);
   }
 }
 
@@ -24921,16 +24948,16 @@ Graph3d.prototype.animationStop = function () {
 Graph3d.prototype._resizeCenter = function () {
   // calculate the horizontal center position
   if (this.xCenter.charAt(this.xCenter.length - 1) === '%') {
-    this.currentXCenter = _parseFloat$3(this.xCenter) / 100 * this.frame.canvas.clientWidth;
+    this.currentXCenter = _parseFloat$2(this.xCenter) / 100 * this.frame.canvas.clientWidth;
   } else {
-    this.currentXCenter = _parseFloat$3(this.xCenter); // supposed to be in px
+    this.currentXCenter = _parseFloat$2(this.xCenter); // supposed to be in px
   } // calculate the vertical center position
 
 
   if (this.yCenter.charAt(this.yCenter.length - 1) === '%') {
-    this.currentYCenter = _parseFloat$3(this.yCenter) / 100 * (this.frame.canvas.clientHeight - filter$6(this.frame).clientHeight);
+    this.currentYCenter = _parseFloat$2(this.yCenter) / 100 * (this.frame.canvas.clientHeight - filter$6(this.frame).clientHeight);
   } else {
-    this.currentYCenter = _parseFloat$3(this.yCenter); // supposed to be in px
+    this.currentYCenter = _parseFloat$2(this.yCenter); // supposed to be in px
   }
 };
 /**
@@ -25853,7 +25880,7 @@ Graph3d.prototype._hsv2rgb = function (H, S, V) {
       break;
   }
 
-  return 'RGB(' + _parseInt$8(R * 255) + ',' + _parseInt$8(G * 255) + ',' + _parseInt$8(B * 255) + ')';
+  return 'RGB(' + _parseInt$7(R * 255) + ',' + _parseInt$7(G * 255) + ',' + _parseInt$7(B * 255) + ')';
 };
 /**
  *
@@ -26502,8 +26529,8 @@ Graph3d.prototype._onMouseMove = function (event) {
   this.moving = true;
   event = event || window.event; // calculate change in mouse position
 
-  var diffX = _parseFloat$3(getMouseX(event)) - this.startMouseX;
-  var diffY = _parseFloat$3(getMouseY(event)) - this.startMouseY; // move with ctrl or rotate by other
+  var diffX = _parseFloat$2(getMouseX(event)) - this.startMouseX;
+  var diffY = _parseFloat$2(getMouseY(event)) - this.startMouseY; // move with ctrl or rotate by other
 
   if (event && event.ctrlKey === true) {
     // calculate change in mouse position
