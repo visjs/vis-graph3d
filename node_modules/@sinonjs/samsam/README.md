@@ -1,6 +1,6 @@
 # samsam
 
-[![Build status](https://secure.travis-ci.org/sinonjs/samsam.svg?branch=master)](http://travis-ci.org/sinonjs/samsam)
+[![CircleCI](https://circleci.com/gh/sinonjs/samsam.svg?style=svg)](https://circleci.com/gh/sinonjs/samsam)
 [![Coverage status](https://codecov.io/gh/sinonjs/samsam/branch/master/graph/badge.svg)](https://codecov.io/gh/sinonjs/samsam)
 Value identification and comparison functions
 

@@ -8,53 +8,55 @@ var valueToString = require("@sinonjs/commons").valueToString;
 
 var matchObject = require("./match-object");
 
-var TYPE_MAP = {
-    function: function(m, expectation, message) {
-        m.test = expectation;
-        m.message = message || "match(" + functionName(expectation) + ")";
-    },
-    number: function(m, expectation) {
-        m.test = function(actual) {
-            // we need type coercion here
-            return expectation == actual; // eslint-disable-line eqeqeq
-        };
-    },
-    object: function(m, expectation) {
-        var array = [];
-
-        if (typeof expectation.test === "function") {
+var createTypeMap = function(match) {
+    return {
+        function: function(m, expectation, message) {
+            m.test = expectation;
+            m.message = message || "match(" + functionName(expectation) + ")";
+        },
+        number: function(m, expectation) {
             m.test = function(actual) {
-                return expectation.test(actual) === true;
+                // we need type coercion here
+                return expectation == actual; // eslint-disable-line eqeqeq
             };
-            m.message = "match(" + functionName(expectation.test) + ")";
+        },
+        object: function(m, expectation) {
+            var array = [];
+
+            if (typeof expectation.test === "function") {
+                m.test = function(actual) {
+                    return expectation.test(actual) === true;
+                };
+                m.message = "match(" + functionName(expectation.test) + ")";
+                return m;
+            }
+
+            array = map(Object.keys(expectation), function(key) {
+                return key + ": " + valueToString(expectation[key]);
+            });
+
+            m.test = function(actual) {
+                return matchObject(actual, expectation, match);
+            };
+            m.message = "match(" + join(array, ", ") + ")";
+
             return m;
+        },
+        regexp: function(m, expectation) {
+            m.test = function(actual) {
+                return typeof actual === "string" && expectation.test(actual);
+            };
+        },
+        string: function(m, expectation) {
+            m.test = function(actual) {
+                return (
+                    typeof actual === "string" &&
+                    stringIndexOf(actual, expectation) !== -1
+                );
+            };
+            m.message = 'match("' + expectation + '")';
         }
-
-        array = map(Object.keys(expectation), function(key) {
-            return key + ": " + valueToString(expectation[key]);
-        });
-
-        m.test = function(actual) {
-            return matchObject(actual, expectation);
-        };
-        m.message = "match(" + join(array, ", ") + ")";
-
-        return m;
-    },
-    regexp: function(m, expectation) {
-        m.test = function(actual) {
-            return typeof actual === "string" && expectation.test(actual);
-        };
-    },
-    string: function(m, expectation) {
-        m.test = function(actual) {
-            return (
-                typeof actual === "string" &&
-                stringIndexOf(actual, expectation) !== -1
-            );
-        };
-        m.message = 'match("' + expectation + '")';
-    }
+    };
 };
 
-module.exports = TYPE_MAP;
+module.exports = createTypeMap;

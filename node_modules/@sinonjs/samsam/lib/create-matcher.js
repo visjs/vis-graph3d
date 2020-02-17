@@ -24,7 +24,7 @@ var some = arrayProto.some;
 var hasOwnProperty = objectProto.hasOwnProperty;
 var objectToString = objectProto.toString;
 
-var TYPE_MAP = require("./create-matcher/type-map");
+var TYPE_MAP = require("./create-matcher/type-map")(createMatcher); // eslint-disable-line no-use-before-define
 
 /**
  * Creates a matcher object for the passed expectation
