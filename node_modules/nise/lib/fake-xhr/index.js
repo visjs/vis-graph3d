@@ -1,8 +1,9 @@
 "use strict";
 
-var GlobalTextEncoder = typeof TextEncoder !== "undefined"
-    ? TextEncoder
-    : require("@sinonjs/text-encoding").TextEncoder;
+var GlobalTextEncoder =
+    typeof TextEncoder !== "undefined"
+        ? TextEncoder
+        : require("@sinonjs/text-encoding").TextEncoder;
 var globalObject = require("@sinonjs/commons").global;
 var configureLogError = require("../configure-logger");
 var sinonEvent = require("../event");
@@ -22,7 +23,7 @@ function getWorkingXHR(globalScope) {
 
     var supportsActiveX = typeof globalScope.ActiveXObject !== "undefined";
     if (supportsActiveX) {
-        return function () {
+        return function() {
             return new globalScope.ActiveXObject("MSXML2.XMLHTTP.3.0");
         };
     }
@@ -36,32 +37,40 @@ var unsafeHeaders = {
     "Access-Control-Request-Headers": true,
     "Access-Control-Request-Method": true,
     "Accept-Encoding": true,
-    "Connection": true,
+    Connection: true,
     "Content-Length": true,
-    "Cookie": true,
-    "Cookie2": true,
+    Cookie: true,
+    Cookie2: true,
     "Content-Transfer-Encoding": true,
-    "Date": true,
-    "DNT": true,
-    "Expect": true,
-    "Host": true,
+    Date: true,
+    DNT: true,
+    Expect: true,
+    Host: true,
     "Keep-Alive": true,
-    "Origin": true,
-    "Referer": true,
-    "TE": true,
-    "Trailer": true,
+    Origin: true,
+    Referer: true,
+    TE: true,
+    Trailer: true,
     "Transfer-Encoding": true,
-    "Upgrade": true,
+    Upgrade: true,
     "User-Agent": true,
-    "Via": true
+    Via: true
 };
 
 function EventTargetHandler() {
     var self = this;
-    var events = ["loadstart", "progress", "abort", "error", "load", "timeout", "loadend"];
+    var events = [
+        "loadstart",
+        "progress",
+        "abort",
+        "error",
+        "load",
+        "timeout",
+        "loadend"
+    ];
 
     function addEventListener(eventName) {
-        self.addEventListener(eventName, function (event) {
+        self.addEventListener(eventName, function(event) {
             var listener = self["on" + eventName];
 
             if (listener && typeof listener === "function") {
@@ -82,7 +91,7 @@ function normalizeHeaderValue(value) {
 }
 
 function getHeader(headers, header) {
-    var foundHeader = Object.keys(headers).filter(function (h) {
+    var foundHeader = Object.keys(headers).filter(function(h) {
         return h.toLowerCase() === header.toLowerCase();
     });
 
@@ -98,16 +107,20 @@ function verifyResponseBodyType(body, responseType) {
     var isString = typeof body === "string";
 
     if (responseType === "arraybuffer") {
-
         if (!isString && !(body instanceof ArrayBuffer)) {
-            error = new Error("Attempted to respond to fake XMLHttpRequest with " +
-                            body + ", which is not a string or ArrayBuffer.");
+            error = new Error(
+                "Attempted to respond to fake XMLHttpRequest with " +
+                    body +
+                    ", which is not a string or ArrayBuffer."
+            );
             error.name = "InvalidBodyException";
         }
-    }
-    else if (!isString) {
-        error = new Error("Attempted to respond to fake XMLHttpRequest with " +
-                        body + ", which is not a string.");
+    } else if (!isString) {
+        error = new Error(
+            "Attempted to respond to fake XMLHttpRequest with " +
+                body +
+                ", which is not a string."
+        );
         error.name = "InvalidBodyException";
     }
 
@@ -125,7 +138,10 @@ function convertToArrayBuffer(body, encoding) {
 }
 
 function isXmlContentType(contentType) {
-    return !contentType || /(text\/xml)|(application\/xml)|(\+xml)/.test(contentType);
+    return (
+        !contentType ||
+        /(text\/xml)|(application\/xml)|(\+xml)/.test(contentType)
+    );
 }
 
 function clearResponse(xhr) {
@@ -138,17 +154,23 @@ function clearResponse(xhr) {
 }
 
 function fakeXMLHttpRequestFor(globalScope) {
-    var isReactNative = globalScope.navigator && globalScope.navigator.product === "ReactNative";
+    var isReactNative =
+        globalScope.navigator &&
+        globalScope.navigator.product === "ReactNative";
     var sinonXhr = { XMLHttpRequest: globalScope.XMLHttpRequest };
     sinonXhr.GlobalXMLHttpRequest = globalScope.XMLHttpRequest;
     sinonXhr.GlobalActiveXObject = globalScope.ActiveXObject;
-    sinonXhr.supportsActiveX = typeof sinonXhr.GlobalActiveXObject !== "undefined";
+    sinonXhr.supportsActiveX =
+        typeof sinonXhr.GlobalActiveXObject !== "undefined";
     sinonXhr.supportsXHR = typeof sinonXhr.GlobalXMLHttpRequest !== "undefined";
     sinonXhr.workingXHR = getWorkingXHR(globalScope);
     sinonXhr.supportsTimeout =
-        (sinonXhr.supportsXHR && "timeout" in (new sinonXhr.GlobalXMLHttpRequest()));
-    sinonXhr.supportsCORS = isReactNative ||
-        (sinonXhr.supportsXHR && "withCredentials" in (new sinonXhr.GlobalXMLHttpRequest()));
+        sinonXhr.supportsXHR &&
+        "timeout" in new sinonXhr.GlobalXMLHttpRequest();
+    sinonXhr.supportsCORS =
+        isReactNative ||
+        (sinonXhr.supportsXHR &&
+            "withCredentials" in new sinonXhr.GlobalXMLHttpRequest());
 
     // Note that for FakeXMLHttpRequest to work pre ES5
     // we lose some of the alignment with the spec.
@@ -190,15 +212,22 @@ function fakeXMLHttpRequestFor(globalScope) {
     }
 
     // largest arity in XHR is 5 - XHR#open
-    var apply = function (obj, method, args) {
+    var apply = function(obj, method, args) {
         switch (args.length) {
-            case 0: return obj[method]();
-            case 1: return obj[method](args[0]);
-            case 2: return obj[method](args[0], args[1]);
-            case 3: return obj[method](args[0], args[1], args[2]);
-            case 4: return obj[method](args[0], args[1], args[2], args[3]);
-            case 5: return obj[method](args[0], args[1], args[2], args[3], args[4]);
-            default: throw new Error("Unhandled case");
+            case 0:
+                return obj[method]();
+            case 1:
+                return obj[method](args[0]);
+            case 2:
+                return obj[method](args[0], args[1]);
+            case 3:
+                return obj[method](args[0], args[1], args[2]);
+            case 4:
+                return obj[method](args[0], args[1], args[2], args[3]);
+            case 5:
+                return obj[method](args[0], args[1], args[2], args[3], args[4]);
+            default:
+                throw new Error("Unhandled case");
         }
     };
 
@@ -218,13 +247,13 @@ function fakeXMLHttpRequestFor(globalScope) {
             "addEventListener",
             "overrideMimeType",
             "removeEventListener"
-        ].forEach(function (method) {
-            fakeXhr[method] = function () {
+        ].forEach(function(method) {
+            fakeXhr[method] = function() {
                 return apply(xhr, method, arguments);
             };
         });
 
-        fakeXhr.send = function () {
+        fakeXhr.send = function() {
             // Ref: https://xhr.spec.whatwg.org/#the-responsetype-attribute
             if (xhr.responseType !== fakeXhr.responseType) {
                 xhr.responseType = fakeXhr.responseType;
@@ -232,13 +261,13 @@ function fakeXMLHttpRequestFor(globalScope) {
             return apply(xhr, "send", arguments);
         };
 
-        var copyAttrs = function (args) {
-            args.forEach(function (attr) {
+        var copyAttrs = function(args) {
+            args.forEach(function(attr) {
                 fakeXhr[attr] = xhr[attr];
             });
         };
 
-        var stateChangeStart = function () {
+        var stateChangeStart = function() {
             fakeXhr.readyState = xhr.readyState;
             if (xhr.readyState >= FakeXMLHttpRequest.HEADERS_RECEIVED) {
                 copyAttrs(["status", "statusText"]);
@@ -257,9 +286,13 @@ function fakeXMLHttpRequestFor(globalScope) {
             }
         };
 
-        var stateChangeEnd = function () {
+        var stateChangeEnd = function() {
             if (fakeXhr.onreadystatechange) {
-                fakeXhr.onreadystatechange.call(fakeXhr, { target: fakeXhr, currentTarget: fakeXhr });
+                // eslint-disable-next-line no-useless-call
+                fakeXhr.onreadystatechange.call(fakeXhr, {
+                    target: fakeXhr,
+                    currentTarget: fakeXhr
+                });
             }
         };
 
@@ -271,9 +304,9 @@ function fakeXMLHttpRequestFor(globalScope) {
         if (xhr.addEventListener) {
             xhr.addEventListener("readystatechange", stateChangeStart);
 
-            Object.keys(fakeXhr.eventListeners).forEach(function (event) {
+            Object.keys(fakeXhr.eventListeners).forEach(function(event) {
                 /*eslint-disable no-loop-func*/
-                fakeXhr.eventListeners[event].forEach(function (handler) {
+                fakeXhr.eventListeners[event].forEach(function(handler) {
                     xhr.addEventListener(event, handler.listener, {
                         capture: handler.capture,
                         once: handler.once
@@ -303,7 +336,10 @@ function fakeXMLHttpRequestFor(globalScope) {
     }
 
     function verifyHeadersReceived(xhr) {
-        if (xhr.async && xhr.readyState !== FakeXMLHttpRequest.HEADERS_RECEIVED) {
+        if (
+            xhr.async &&
+            xhr.readyState !== FakeXMLHttpRequest.HEADERS_RECEIVED
+        ) {
             throw new Error("No headers received");
         }
     }
@@ -345,8 +381,11 @@ function fakeXMLHttpRequestFor(globalScope) {
         xhr.requestHeaders = {};
         xhr.responseHeaders = {};
 
-        if (xhr.readyState !== FakeXMLHttpRequest.UNSENT && xhr.sendFlag
-            && xhr.readyState !== FakeXMLHttpRequest.DONE) {
+        if (
+            xhr.readyState !== FakeXMLHttpRequest.UNSENT &&
+            xhr.sendFlag &&
+            xhr.readyState !== FakeXMLHttpRequest.DONE
+        ) {
             xhr.readyStateChange(FakeXMLHttpRequest.DONE);
             xhr.sendFlag = false;
         }
@@ -379,14 +418,17 @@ function fakeXMLHttpRequestFor(globalScope) {
                         return null;
                     }
 
-                    return result.getElementsByTagNameNS(parsererrorNS, "parsererror").length
-                        ? null : result;
+                    return result.getElementsByTagNameNS(
+                        parsererrorNS,
+                        "parsererror"
+                    ).length
+                        ? null
+                        : result;
                 }
                 var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
                 xmlDoc.async = "false";
                 xmlDoc.loadXML(text);
-                return xmlDoc.parseError.errorCode !== 0
-                    ? null : xmlDoc;
+                return xmlDoc.parseError.errorCode !== 0 ? null : xmlDoc;
             } catch (e) {
                 // Unable to parse XML - no biggie
             }
@@ -455,7 +497,7 @@ function fakeXMLHttpRequestFor(globalScope) {
 
             if (FakeXMLHttpRequest.useFilters === true) {
                 var xhrArgs = arguments;
-                var defake = FakeXMLHttpRequest.filters.some(function (filter) {
+                var defake = FakeXMLHttpRequest.filters.some(function(filter) {
                     return filter.apply(this, xhrArgs);
                 });
                 if (defake) {
@@ -469,7 +511,12 @@ function fakeXMLHttpRequestFor(globalScope) {
         readyStateChange: function readyStateChange(state) {
             this.readyState = state;
 
-            var readyStateChangeEvent = new sinonEvent.Event("readystatechange", false, false, this);
+            var readyStateChangeEvent = new sinonEvent.Event(
+                "readystatechange",
+                false,
+                false,
+                this
+            );
             var event, progress;
 
             if (typeof this.onreadystatechange === "function") {
@@ -482,22 +529,37 @@ function fakeXMLHttpRequestFor(globalScope) {
 
             if (this.readyState === FakeXMLHttpRequest.DONE) {
                 if (this.timedOut || this.aborted || this.status === 0) {
-                    progress = {loaded: 0, total: 0};
-                    event = (this.timedOut && "timeout") || (this.aborted && "abort") || "error";
+                    progress = { loaded: 0, total: 0 };
+                    event =
+                        (this.timedOut && "timeout") ||
+                        (this.aborted && "abort") ||
+                        "error";
                 } else {
-                    progress = {loaded: 100, total: 100};
+                    progress = { loaded: 100, total: 100 };
                     event = "load";
                 }
 
                 if (supportsProgress) {
-                    this.upload.dispatchEvent(new sinonEvent.ProgressEvent("progress", progress, this));
-                    this.upload.dispatchEvent(new sinonEvent.ProgressEvent(event, progress, this));
-                    this.upload.dispatchEvent(new sinonEvent.ProgressEvent("loadend", progress, this));
+                    this.upload.dispatchEvent(
+                        new sinonEvent.ProgressEvent("progress", progress, this)
+                    );
+                    this.upload.dispatchEvent(
+                        new sinonEvent.ProgressEvent(event, progress, this)
+                    );
+                    this.upload.dispatchEvent(
+                        new sinonEvent.ProgressEvent("loadend", progress, this)
+                    );
                 }
 
-                this.dispatchEvent(new sinonEvent.ProgressEvent("progress", progress, this));
-                this.dispatchEvent(new sinonEvent.ProgressEvent(event, progress, this));
-                this.dispatchEvent(new sinonEvent.ProgressEvent("loadend", progress, this));
+                this.dispatchEvent(
+                    new sinonEvent.ProgressEvent("progress", progress, this)
+                );
+                this.dispatchEvent(
+                    new sinonEvent.ProgressEvent(event, progress, this)
+                );
+                this.dispatchEvent(
+                    new sinonEvent.ProgressEvent("loadend", progress, this)
+                );
             }
 
             this.dispatchEvent(readyStateChangeEvent);
@@ -506,7 +568,10 @@ function fakeXMLHttpRequestFor(globalScope) {
         // Ref https://xhr.spec.whatwg.org/#the-setrequestheader()-method
         setRequestHeader: function setRequestHeader(header, value) {
             if (typeof value !== "string") {
-                throw new TypeError("By RFC7230, section 3.2.4, header values should be strings. Got " + typeof value);
+                throw new TypeError(
+                    "By RFC7230, section 3.2.4, header values should be strings. Got " +
+                        typeof value
+                );
             }
             verifyState(this);
 
@@ -515,10 +580,18 @@ function fakeXMLHttpRequestFor(globalScope) {
                 checkUnsafeHeaders = this.unsafeHeadersEnabled();
             }
 
-            if (checkUnsafeHeaders && (getHeader(unsafeHeaders, header) !== null || /^(Sec-|Proxy-)/i.test(header))) {
-                throw new Error("Refused to set unsafe header \"" + header + "\"");
+            if (
+                checkUnsafeHeaders &&
+                (getHeader(unsafeHeaders, header) !== null ||
+                    /^(Sec-|Proxy-)/i.test(header))
+            ) {
+                throw new Error(
+                    // eslint-disable-next-line quotes
+                    'Refused to set unsafe header "' + header + '"'
+                );
             }
 
+            // eslint-disable-next-line no-param-reassign
             value = normalizeHeaderValue(value);
 
             var existingHeader = getHeader(this.requestHeaders, header);
@@ -541,9 +614,9 @@ function fakeXMLHttpRequestFor(globalScope) {
         setResponseHeaders: function setResponseHeaders(headers) {
             verifyRequestOpened(this);
 
-            var responseHeaders = this.responseHeaders = {};
+            var responseHeaders = (this.responseHeaders = {});
 
-            Object.keys(headers).forEach(function (header) {
+            Object.keys(headers).forEach(function(header) {
                 responseHeaders[header] = headers[header];
             });
 
@@ -559,12 +632,17 @@ function fakeXMLHttpRequestFor(globalScope) {
             verifyState(this);
 
             if (!/^(head)$/i.test(this.method)) {
-                var contentType = getHeader(this.requestHeaders, "Content-Type");
+                var contentType = getHeader(
+                    this.requestHeaders,
+                    "Content-Type"
+                );
                 if (this.requestHeaders[contentType]) {
                     var value = this.requestHeaders[contentType].split(";");
-                    this.requestHeaders[contentType] = value[0] + ";charset=utf-8";
+                    this.requestHeaders[contentType] =
+                        value[0] + ";charset=utf-8";
                 } else if (supportsFormData && !(data instanceof FormData)) {
-                    this.requestHeaders["Content-Type"] = "text/plain;charset=utf-8";
+                    this.requestHeaders["Content-Type"] =
+                        "text/plain;charset=utf-8";
                 }
 
                 this.requestBody = data;
@@ -579,7 +657,11 @@ function fakeXMLHttpRequestFor(globalScope) {
             }
 
             // Only listen if setInterval and Date are a stubbed.
-            if (sinonXhr.supportsTimeout && typeof setInterval.clock === "object" && typeof Date.clock === "object") {
+            if (
+                sinonXhr.supportsTimeout &&
+                typeof setInterval.clock === "object" &&
+                typeof Date.clock === "object"
+            ) {
                 var initiatedTime = Date.now();
                 var self = this;
 
@@ -588,15 +670,20 @@ function fakeXMLHttpRequestFor(globalScope) {
                 // is in flight, so we must check anytime the end user forces a clock tick to make
                 // sure timeout hasn't changed.
                 // https://xhr.spec.whatwg.org/#dfnReturnLink-2
-                var clearIntervalId = setInterval(function () {
+                var clearIntervalId = setInterval(function() {
                     // Check if the readyState has been reset or is done. If this is the case, there
                     // should be no timeout. This will also prevent aborted requests and
                     // fakeServerWithClock from triggering unnecessary responses.
-                    if (self.readyState === FakeXMLHttpRequest.UNSENT
-                    || self.readyState === FakeXMLHttpRequest.DONE) {
+                    if (
+                        self.readyState === FakeXMLHttpRequest.UNSENT ||
+                        self.readyState === FakeXMLHttpRequest.DONE
+                    ) {
                         clearInterval(clearIntervalId);
-                    } else if (typeof self.timeout === "number" && self.timeout > 0) {
-                        if (Date.now() >= (initiatedTime + self.timeout)) {
+                    } else if (
+                        typeof self.timeout === "number" &&
+                        self.timeout > 0
+                    ) {
+                        if (Date.now() >= initiatedTime + self.timeout) {
                             self.triggerTimeout();
                             clearInterval(clearIntervalId);
                         }
@@ -604,7 +691,9 @@ function fakeXMLHttpRequestFor(globalScope) {
                 }, 1);
             }
 
-            this.dispatchEvent(new sinonEvent.Event("loadstart", false, false, this));
+            this.dispatchEvent(
+                new sinonEvent.Event("loadstart", false, false, this)
+            );
         },
 
         abort: function abort() {
@@ -613,7 +702,7 @@ function fakeXMLHttpRequestFor(globalScope) {
             this.readyState = FakeXMLHttpRequest.UNSENT;
         },
 
-        error: function () {
+        error: function() {
             clearResponse(this);
             this.errorFlag = true;
             this.requestHeaders = {};
@@ -638,6 +727,7 @@ function fakeXMLHttpRequestFor(globalScope) {
                 return null;
             }
 
+            // eslint-disable-next-line no-param-reassign
             header = getHeader(this.responseHeaders, header);
 
             return this.responseHeaders[header] || null;
@@ -651,7 +741,7 @@ function fakeXMLHttpRequestFor(globalScope) {
             var responseHeaders = this.responseHeaders;
             var headers = Object.keys(responseHeaders)
                 .filter(excludeSetCookie2Header)
-                .reduce(function (prev, header) {
+                .reduce(function(prev, header) {
                     var value = responseHeaders[header];
 
                     return prev + (header + ": " + value + "\r\n");
@@ -664,9 +754,12 @@ function fakeXMLHttpRequestFor(globalScope) {
             verifyRequestSent(this);
             verifyHeadersReceived(this);
             verifyResponseBodyType(body, this.responseType);
-            var contentType = this.overriddenMimeType || this.getResponseHeader("Content-Type");
+            var contentType =
+                this.overriddenMimeType ||
+                this.getResponseHeader("Content-Type");
 
-            var isTextResponse = this.responseType === "" || this.responseType === "text";
+            var isTextResponse =
+                this.responseType === "" || this.responseType === "text";
             clearResponse(this);
             if (this.async) {
                 var chunkSize = this.chunkSize || 10;
@@ -676,21 +769,33 @@ function fakeXMLHttpRequestFor(globalScope) {
                     this.readyStateChange(FakeXMLHttpRequest.LOADING);
 
                     if (isTextResponse) {
-                        this.responseText = this.response += body.substring(index, index + chunkSize);
+                        this.responseText = this.response += body.substring(
+                            index,
+                            index + chunkSize
+                        );
                     }
                     index += chunkSize;
                 } while (index < body.length);
             }
 
-            this.response = convertResponseBody(this.responseType, contentType, body);
+            this.response = convertResponseBody(
+                this.responseType,
+                contentType,
+                body
+            );
             if (isTextResponse) {
                 this.responseText = this.response;
             }
 
             if (this.responseType === "document") {
                 this.responseXML = this.response;
-            } else if (this.responseType === "" && isXmlContentType(contentType)) {
-                this.responseXML = FakeXMLHttpRequest.parseXML(this.responseText);
+            } else if (
+                this.responseType === "" &&
+                isXmlContentType(contentType)
+            ) {
+                this.responseXML = FakeXMLHttpRequest.parseXML(
+                    this.responseText
+                );
             }
             this.readyStateChange(FakeXMLHttpRequest.DONE);
         },
@@ -703,19 +808,33 @@ function fakeXMLHttpRequestFor(globalScope) {
 
         uploadProgress: function uploadProgress(progressEventRaw) {
             if (supportsProgress) {
-                this.upload.dispatchEvent(new sinonEvent.ProgressEvent("progress", progressEventRaw, this.upload));
+                this.upload.dispatchEvent(
+                    new sinonEvent.ProgressEvent(
+                        "progress",
+                        progressEventRaw,
+                        this.upload
+                    )
+                );
             }
         },
 
         downloadProgress: function downloadProgress(progressEventRaw) {
             if (supportsProgress) {
-                this.dispatchEvent(new sinonEvent.ProgressEvent("progress", progressEventRaw, this));
+                this.dispatchEvent(
+                    new sinonEvent.ProgressEvent(
+                        "progress",
+                        progressEventRaw,
+                        this
+                    )
+                );
             }
         },
 
         uploadError: function uploadError(error) {
             if (supportsCustomEvent) {
-                this.upload.dispatchEvent(new sinonEvent.CustomEvent("error", {detail: error}));
+                this.upload.dispatchEvent(
+                    new sinonEvent.CustomEvent("error", { detail: error })
+                );
             }
         },
 
@@ -760,8 +879,10 @@ function fakeXMLHttpRequestFor(globalScope) {
 
         if (sinonXhr.supportsActiveX) {
             globalScope.ActiveXObject = function ActiveXObject(objId) {
-                if (objId === "Microsoft.XMLHTTP" || /^Msxml2\.XMLHTTP/i.test(objId)) {
-
+                if (
+                    objId === "Microsoft.XMLHTTP" ||
+                    /^Msxml2\.XMLHTTP/i.test(objId)
+                ) {
                     return new FakeXMLHttpRequest();
                 }
 

@@ -12,6 +12,7 @@ var isMatcher = require("./is-matcher");
  * @private
  * @param {*} actual A value to examine
  * @param {object} expectation An object with properties to match on
+ * @param {object} matcher A matcher to use for comparison
  * @returns {boolean} Returns true when `actual` matches all properties in `expectation`
  */
 function matchObject(actual, expectation, matcher) {

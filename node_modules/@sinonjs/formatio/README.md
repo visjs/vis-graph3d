@@ -2,6 +2,7 @@
 
 [![Build status](https://secure.travis-ci.org/sinonjs/formatio.svg?branch=master)](http://travis-ci.org/sinonjs/formatio)
 [![codecov](https://codecov.io/gh/sinonjs/formatio/branch/master/graph/badge.svg)](https://codecov.io/gh/sinonjs/formatio)
+<a href="CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
 
 > The cheesy object formatter
 

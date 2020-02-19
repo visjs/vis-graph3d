@@ -6,10 +6,12 @@
 var realSetTimeout = setTimeout;
 
 function configureLogger(config) {
+    // eslint-disable-next-line no-param-reassign
     config = config || {};
     // Function which prints errors.
     if (!config.hasOwnProperty("logger")) {
-        config.logger = function () { };
+        // eslint-disable-next-line no-empty-function
+        config.logger = function() {};
     }
     // When set to true, any errors logged will be thrown immediately;
     // If set to false, the errors will be thrown in separate execution frame.
@@ -23,7 +25,11 @@ function configureLogger(config) {
 
     return function logError(label, e) {
         var msg = label + " threw exception: ";
-        var err = { name: e.name || label, message: e.message || e.toString(), stack: e.stack };
+        var err = {
+            name: e.name || label,
+            message: e.message || e.toString(),
+            stack: e.stack
+        };
 
         function throwLoggedError() {
             err.message = msg + err.message;

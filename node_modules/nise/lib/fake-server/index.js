@@ -17,12 +17,15 @@ function responseArray(handler) {
 
     if (typeof response[2] !== "string") {
         if (!supportsArrayBuffer) {
-            throw new TypeError("Fake server response body should be a string, but was " +
-                                typeof response[2]);
-        }
-        else if (!(response[2] instanceof ArrayBuffer)) {
-            throw new TypeError("Fake server response body should be a string or ArrayBuffer, but was " +
-                                typeof response[2]);
+            throw new TypeError(
+                "Fake server response body should be a string, but was " +
+                    typeof response[2]
+            );
+        } else if (!(response[2] instanceof ArrayBuffer)) {
+            throw new TypeError(
+                "Fake server response body should be a string or ArrayBuffer, but was " +
+                    typeof response[2]
+            );
         }
     }
 
@@ -30,7 +33,7 @@ function responseArray(handler) {
 }
 
 function getDefaultWindowLocation() {
-    return { "host": "localhost", "protocol": "http" };
+    return { host: "localhost", protocol: "http" };
 }
 
 function getWindowLocation() {
@@ -44,7 +47,10 @@ function getWindowLocation() {
         return window.location;
     }
 
-    if ((typeof window.window !== "undefined") && (typeof window.window.location !== "undefined")) {
+    if (
+        typeof window.window !== "undefined" &&
+        typeof window.window.location !== "undefined"
+    ) {
         // React Native on Android places location on window.window
         return window.window.location;
     }
@@ -56,7 +62,10 @@ function matchOne(response, reqMethod, reqUrl) {
     var rmeth = response.method;
     var matchMethod = !rmeth || rmeth.toLowerCase() === reqMethod.toLowerCase();
     var url = response.url;
-    var matchUrl = !url || url === reqUrl || (typeof url.test === "function" && url.test(reqUrl));
+    var matchUrl =
+        !url ||
+        url === reqUrl ||
+        (typeof url.test === "function" && url.test(reqUrl));
 
     return matchMethod && matchUrl;
 }
@@ -75,7 +84,11 @@ function match(response, request) {
     if (matchOne(response, this.getHTTPMethod(request), requestUrl)) {
         if (typeof response.response === "function") {
             var ru = response.url;
-            var args = [request].concat(ru && typeof ru.exec === "function" ? ru.exec(requestUrl).slice(1) : []);
+            var args = [request].concat(
+                ru && typeof ru.exec === "function"
+                    ? ru.exec(requestUrl).slice(1)
+                    : []
+            );
             return response.response.apply(response, args);
         }
 
@@ -102,7 +115,7 @@ function incrementRequestCount() {
 }
 
 var fakeServer = {
-    create: function (config) {
+    create: function(config) {
         var server = Object.create(this);
         server.configure(config);
         this.xhr = fakeXhr.useFakeXMLHttpRequest();
@@ -111,9 +124,8 @@ var fakeServer = {
         server.queue = [];
         server.responses = [];
 
-
-        this.xhr.onCreate = function (xhrObj) {
-            xhrObj.unsafeHeadersEnabled = function () {
+        this.xhr.onCreate = function(xhrObj) {
+            xhrObj.unsafeHeadersEnabled = function() {
                 return !(server.unsafeHeadersEnabled === false);
             };
             server.addRequest(xhrObj);
@@ -122,20 +134,21 @@ var fakeServer = {
         return server;
     },
 
-    configure: function (config) {
+    configure: function(config) {
         var self = this;
         var whitelist = {
-            "autoRespond": true,
-            "autoRespondAfter": true,
-            "respondImmediately": true,
-            "fakeHTTPMethods": true,
-            "logger": true,
-            "unsafeHeadersEnabled": true
+            autoRespond: true,
+            autoRespondAfter: true,
+            respondImmediately: true,
+            fakeHTTPMethods: true,
+            logger: true,
+            unsafeHeadersEnabled: true
         };
 
+        // eslint-disable-next-line no-param-reassign
         config = config || {};
 
-        Object.keys(config).forEach(function (setting) {
+        Object.keys(config).forEach(function(setting) {
             if (setting in whitelist) {
                 self[setting] = config[setting];
             }
@@ -150,13 +163,13 @@ var fakeServer = {
 
         incrementRequestCount.call(this);
 
-        xhrObj.onSend = function () {
+        xhrObj.onSend = function() {
             server.handleRequest(this);
 
             if (server.respondImmediately) {
                 server.respond();
             } else if (server.autoRespond && !server.responding) {
-                setTimeout(function () {
+                setTimeout(function() {
                     server.responding = false;
                     server.respond();
                 }, server.autoRespondAfter || 10);
@@ -168,7 +181,9 @@ var fakeServer = {
 
     getHTTPMethod: function getHTTPMethod(request) {
         if (this.fakeHTTPMethods && /post/i.test(request.method)) {
-            var matches = (request.requestBody || "").match(/_method=([^\b;]+)/);
+            var matches = (request.requestBody || "").match(
+                /_method=([^\b;]+)/
+            );
             return matches ? matches[1] : request.method;
         }
 
@@ -183,7 +198,7 @@ var fakeServer = {
         }
     },
 
-    logger: function () {
+    logger: function() {
         // no-op; override via configure()
     },
 
@@ -207,19 +222,25 @@ var fakeServer = {
         }
 
         if (arguments.length === 1) {
+            // eslint-disable-next-line no-param-reassign
             body = method;
+            // eslint-disable-next-line no-param-reassign
             url = method = null;
         }
 
         if (arguments.length === 2) {
+            // eslint-disable-next-line no-param-reassign
             body = url;
+            // eslint-disable-next-line no-param-reassign
             url = method;
+            // eslint-disable-next-line no-param-reassign
             method = null;
         }
 
         push.call(this.responses, {
             method: method,
-            url: typeof url === "string" && url !== "" ? pathToRegexp(url) : url,
+            url:
+                typeof url === "string" && url !== "" ? pathToRegexp(url) : url,
             response: typeof body === "function" ? body : responseArray(body)
         });
     },
@@ -233,7 +254,7 @@ var fakeServer = {
         var requests = queue.splice(0, queue.length);
         var self = this;
 
-        requests.forEach(function (request) {
+        requests.forEach(function(request) {
             self.processRequest(request);
         });
     },
