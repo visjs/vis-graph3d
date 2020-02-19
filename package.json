@@ -83,7 +83,7 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "5.2.0",
     "semantic-release": "17.0.0",
-    "sinon": "8.1.1",
+    "sinon": "9.0.0",
     "test-console": "1.1.0",
     "vis-dev-utils": "2.1.0"
   },
