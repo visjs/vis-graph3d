@@ -265,10 +265,11 @@ function toUnicode(domainName, {
   checkHyphens = false,
   checkBidi = false,
   checkJoiners = false,
-  useSTD3ASCIIRules = false
+  useSTD3ASCIIRules = false,
+  processingOption = "nontransitional"
 } = {}) {
   const result = processing(domainName, {
-    processingOption: "nontransitional",
+    processingOption,
     checkHyphens,
     checkBidi,
     checkJoiners,

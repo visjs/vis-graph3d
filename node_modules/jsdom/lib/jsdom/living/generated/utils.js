@@ -12,6 +12,7 @@ function hasOwn(obj, prop) {
 const wrapperSymbol = Symbol("wrapper");
 const implSymbol = Symbol("impl");
 const sameObjectCaches = Symbol("SameObject caches");
+const ctorRegistrySymbol = Symbol.for("[webidl2js]  constructor registry");
 
 function getSameObject(wrapper, prop, creator) {
   if (!wrapper[sameObjectCaches]) {
@@ -62,6 +63,17 @@ function isArrayIndexPropName(P) {
   return true;
 }
 
+const byteLengthGetter =
+    Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, "byteLength").get;
+function isArrayBuffer(value) {
+  try {
+    byteLengthGetter.call(value);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 const supportsPropertyIndex = Symbol("supports property index");
 const supportedPropertyIndices = Symbol("supported property indices");
 const supportsPropertyName = Symbol("supports property name");
@@ -80,12 +92,14 @@ module.exports = exports = {
   wrapperSymbol,
   implSymbol,
   getSameObject,
+  ctorRegistrySymbol,
   wrapperForImpl,
   implForWrapper,
   tryWrapperForImpl,
   tryImplForWrapper,
   iterInternalSymbol,
   IteratorPrototype,
+  isArrayBuffer,
   isArrayIndexPropName,
   supportsPropertyIndex,
   supportedPropertyIndices,
