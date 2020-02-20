@@ -6,5 +6,5 @@ module.exports = value => {
 	}
 
 	const prototype = Object.getPrototypeOf(value);
-	return prototype === null || prototype === Object.getPrototypeOf({});
+	return prototype === null || prototype === Object.prototype;
 };
