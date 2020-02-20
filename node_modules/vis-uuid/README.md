@@ -1,5 +1,7 @@
 # Vis UUID
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/visjs/vis-uuid.svg)](https://greenkeeper.io/)
+
 UUID (version 1 and 4) generation library.
 Also offers conversion methods between string representation and binary (array of numbers or Uint8Array) representation.
 Comes in UMD version for good compatibility and ESM version ready for treeshaking.
