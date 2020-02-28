@@ -59,11 +59,11 @@
     "vis-util": "3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.8.4",
+    "@babel/core": "7.8.6",
     "@babel/plugin-proposal-class-properties": "7.8.3",
     "@babel/plugin-transform-runtime": "7.8.3",
-    "@babel/preset-env": "7.8.4",
-    "@babel/register": "7.8.3",
+    "@babel/preset-env": "7.8.6",
+    "@babel/register": "7.8.6",
     "@babel/runtime-corejs3": "7.8.4",
     "babel-plugin-istanbul": "6.0.0",
     "eslint": "6.8.0",
