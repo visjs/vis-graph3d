@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-02-28T21:20:03.178Z
+ * @date    2020-02-28T22:09:22.302Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -4383,9 +4383,7 @@ function topMost(pile, accessors) {
   return candidate;
 }
 
-var util =
-/*#__PURE__*/
-Object.freeze({
+var util = /*#__PURE__*/Object.freeze({
   __proto__: null,
   isNumber: isNumber,
   recursiveDOMDelete: recursiveDOMDelete,
@@ -15930,9 +15928,7 @@ var setTimeout$1$1 = setTimeout$1;
  * @typeParam T - The type of method names to be replaced by queued versions.
  */
 
-var Queue =
-/*#__PURE__*/
-function () {
+var Queue = /*#__PURE__*/function () {
   /**
    * Construct a new Queue.
    *
@@ -16145,9 +16141,7 @@ function () {
  */
 
 
-var DataSetPart =
-/*#__PURE__*/
-function () {
+var DataSetPart = /*#__PURE__*/function () {
   function DataSetPart() {
     classCallCheck(this, DataSetPart);
     this._subscribers = {
@@ -16300,9 +16294,7 @@ var slicedToArray = _slicedToArray;
  * @typeparam Item - The item type this stream is going to work with.
  */
 
-var DataStream =
-/*#__PURE__*/
-function () {
+var DataStream = /*#__PURE__*/function () {
   /**
    * Create a new data stream.
    *
@@ -16319,9 +16311,7 @@ function () {
 
   createClass(DataStream, [{
     key: iterator$2$1,
-    value:
-    /*#__PURE__*/
-    regenerator.mark(function value() {
+    value: /*#__PURE__*/regenerator.mark(function value() {
       var _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, _step$value, id, item;
 
       return regenerator.wrap(function value$(_context) {
@@ -16396,9 +16386,7 @@ function () {
 
   }, {
     key: "entries",
-    value:
-    /*#__PURE__*/
-    regenerator.mark(function entries() {
+    value: /*#__PURE__*/regenerator.mark(function entries() {
       var _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, _step2$value, id, item;
 
       return regenerator.wrap(function entries$(_context2) {
@@ -16473,9 +16461,7 @@ function () {
 
   }, {
     key: "keys",
-    value:
-    /*#__PURE__*/
-    regenerator.mark(function keys() {
+    value: /*#__PURE__*/regenerator.mark(function keys() {
       var _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, _step3$value, id;
 
       return regenerator.wrap(function keys$(_context3) {
@@ -16550,9 +16536,7 @@ function () {
 
   }, {
     key: "values",
-    value:
-    /*#__PURE__*/
-    regenerator.mark(function values() {
+    value: /*#__PURE__*/regenerator.mark(function values() {
       var _iteratorNormalCompletion4, _didIteratorError4, _iteratorError4, _iterator4, _step4, _step4$value, item;
 
       return regenerator.wrap(function values$(_context4) {
@@ -16830,9 +16814,7 @@ function () {
     key: "filter",
     value: function filter(callback) {
       var pairs = this._pairs;
-      return new DataStream(defineProperty$7$1({}, iterator$2$1,
-      /*#__PURE__*/
-      regenerator.mark(function _callee() {
+      return new DataStream(defineProperty$7$1({}, iterator$2$1, /*#__PURE__*/regenerator.mark(function _callee() {
         var _iteratorNormalCompletion7, _didIteratorError7, _iteratorError7, _iterator7, _step7, _step7$value, id, item;
 
         return regenerator.wrap(function _callee$(_context7) {
@@ -16958,9 +16940,7 @@ function () {
     key: "map",
     value: function map(callback) {
       var pairs = this._pairs;
-      return new DataStream(defineProperty$7$1({}, iterator$2$1,
-      /*#__PURE__*/
-      regenerator.mark(function _callee2() {
+      return new DataStream(defineProperty$7$1({}, iterator$2$1, /*#__PURE__*/regenerator.mark(function _callee2() {
         var _iteratorNormalCompletion9, _didIteratorError9, _iteratorError9, _iterator9, _step9, _step9$value, id, item;
 
         return regenerator.wrap(function _callee2$(_context8) {
@@ -17275,9 +17255,7 @@ var warnTypeCorectionDeprecation = function warnTypeCorectionDeprecation() {
  */
 
 
-var DataSet =
-/*#__PURE__*/
-function (_DataSetPart) {
+var DataSet = /*#__PURE__*/function (_DataSetPart) {
   inherits(DataSet, _DataSetPart);
   /**
    * Construct a new DataSet.
@@ -18349,9 +18327,7 @@ function (_DataSetPart) {
     value: function stream(ids) {
       if (ids) {
         var data = this._data;
-        return new DataStream(defineProperty$7$1({}, iterator$2$1,
-        /*#__PURE__*/
-        regenerator.mark(function _callee() {
+        return new DataStream(defineProperty$7$1({}, iterator$2$1, /*#__PURE__*/regenerator.mark(function _callee() {
           var _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, id, item;
 
           return regenerator.wrap(function _callee$(_context7) {
@@ -18483,9 +18459,7 @@ function (_DataSetPart) {
  */
 
 
-var DataView =
-/*#__PURE__*/
-function (_DataSetPart) {
+var DataView = /*#__PURE__*/function (_DataSetPart) {
   inherits(DataView, _DataSetPart);
   /**
    * Create a DataView.
@@ -22851,9 +22825,7 @@ var printStyle = 'background: #FFeeee; color: #dd0000';
  *  Used to validate options.
  */
 
-var Validator =
-/*#__PURE__*/
-function () {
+var Validator = /*#__PURE__*/function () {
   /**
    * @ignore
    */

@@ -7,7 +7,7 @@ exports.default = _default;
 
 var _data = _interopRequireDefault(require("core-js-compat/data"));
 
-var _shippedProposals = _interopRequireDefault(require("./shipped-proposals"));
+var _corejs3ShippedProposals = _interopRequireDefault(require("@babel/compat-data/corejs3-shipped-proposals"));
 
 var _getModulesListForTargetVersion = _interopRequireDefault(require("core-js-compat/get-modules-list-for-target-version"));
 
@@ -29,7 +29,7 @@ const corejs3PolyfillsWithoutProposals = Object.keys(_data.default).filter(name 
   return memo;
 }, {});
 
-const corejs3PolyfillsWithShippedProposals = _shippedProposals.default.reduce((memo, key) => {
+const corejs3PolyfillsWithShippedProposals = _corejs3ShippedProposals.default.reduce((memo, key) => {
   memo[key] = _data.default[key];
   return memo;
 }, Object.assign({}, corejs3PolyfillsWithoutProposals));

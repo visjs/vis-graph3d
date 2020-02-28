@@ -188,6 +188,7 @@ function getTargets(targets = {}, options = {}) {
     targets.browsers = Object.keys(supportsESModules).map(browser => `${browser} ${supportsESModules[browser]}`).join(", ");
   }
 
+  delete targets.esmodules;
   const browsersquery = validateBrowsers(targets.browsers);
   const hasTargets = Object.keys(targets).length > 0;
   const shouldParseBrowsers = !!targets.browsers;

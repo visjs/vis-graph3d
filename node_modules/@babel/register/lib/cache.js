@@ -63,6 +63,7 @@ function save() {
     _fs.default.writeFileSync(FILENAME, serialised);
   } catch (e) {
     switch (e.code) {
+      case "ENOENT":
       case "EACCES":
       case "EPERM":
         console.warn(`Babel could not write cache to file: ${FILENAME} 

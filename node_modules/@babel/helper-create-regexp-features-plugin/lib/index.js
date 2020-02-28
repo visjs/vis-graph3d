@@ -17,6 +17,8 @@ var _core = require("@babel/core");
 
 var _helperRegex = require("@babel/helper-regex");
 
+var _helperAnnotateAsPure = _interopRequireDefault(require("@babel/helper-annotate-as-pure"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const version = _package.default.version.split(".").reduce((v, x) => v * 1e5 + +x, 0);
@@ -90,7 +92,10 @@ function createRegExpFeaturePlugin({
         node.pattern = (0, _regexpuCore.default)(node.pattern, node.flags, regexpuOptions);
 
         if (regexpuOptions.namedGroup && Object.keys(namedCaptureGroups).length > 0 && runtime && !isRegExpTest(path)) {
-          path.replaceWith(_core.types.callExpression(this.addHelper("wrapRegExp"), [node, _core.types.valueToNode(namedCaptureGroups)]));
+          const call = _core.types.callExpression(this.addHelper("wrapRegExp"), [node, _core.types.valueToNode(namedCaptureGroups)]);
+
+          (0, _helperAnnotateAsPure.default)(call);
+          path.replaceWith(call);
         }
 
         if ((0, _features.hasFeature)(features, _features.FEATURES.unicodeFlag)) {

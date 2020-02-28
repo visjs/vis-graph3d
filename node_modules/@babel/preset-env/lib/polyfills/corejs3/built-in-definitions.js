@@ -52,7 +52,7 @@ const BuiltIns = {
   compositeKey: ["esnext.composite-key"],
   compositeSymbol: ["esnext.composite-symbol", ...SymbolDependencies],
   fetch: PromiseDependencies,
-  globalThis: ["esnext.global-this"],
+  globalThis: ["es.global-this", "esnext.global-this"],
   parseFloat: ["es.parse-float"],
   parseInt: ["es.parse-int"],
   queueMicrotask: ["web.queue-microtask"],
@@ -99,7 +99,7 @@ const InstanceProperties = {
   lastItem: ["esnext.array.last-item"],
   link: ["es.string.link"],
   match: ["es.string.match", "es.regexp.exec"],
-  matchAll: ["esnext.string.match-all"],
+  matchAll: ["es.string.match-all", "esnext.string.match-all"],
   map: ["es.array.map"],
   name: ["es.function.name"],
   padEnd: ["es.string.pad-end"],
@@ -238,7 +238,7 @@ const StaticProperties = {
   },
   Promise: {
     all: PromiseDependenciesWithIterators,
-    allSettled: ["esnext.promise.all-settled", ...PromiseDependenciesWithIterators],
+    allSettled: ["es.promise.all-settled", "esnext.promise.all-settled", ...PromiseDependenciesWithIterators],
     any: ["esnext.promise.any", "esnext.aggregate-error", ...PromiseDependenciesWithIterators],
     race: PromiseDependenciesWithIterators,
     try: ["esnext.promise.try", ...PromiseDependenciesWithIterators]

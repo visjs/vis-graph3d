@@ -1163,5 +1163,12 @@
     "date": "2020-02-05",
     "lts": false,
     "security": true
+  },
+  {
+    "name": "nodejs",
+    "version": "13.9.0",
+    "date": "2020-02-18",
+    "lts": false,
+    "security": false
   }
 ]
