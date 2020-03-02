@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-02-28T22:09:22.302Z
+ * @date    2020-03-02T21:18:15.680Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -23944,6 +23944,9 @@ DataGroup.prototype.initializeData = function (graph3d, rawData, style) {
     this._setRangeDefaults(valueRange, graph3d.defaultValueMin, graph3d.defaultValueMax);
 
     this.valueRange = valueRange;
+  } else {
+    this.colValue = 'z';
+    this.valueRange = this.zRange;
   } // Initialize data filter if a filter column is provided
 
 
@@ -24183,11 +24186,7 @@ DataGroup.prototype.getDataPoints = function (data) {
     point.y = data[i][this.colY] || 0;
     point.z = data[i][this.colZ] || 0;
     point.data = data[i];
-
-    if (this.colValue !== undefined) {
-      point.value = data[i][this.colValue] || 0;
-    }
-
+    point.value = data[i][this.colValue] || 0;
     var obj = {};
     obj.point = point;
     obj.bottom = new Point3d_1(point.x, point.y, this.zRange.min);
@@ -24284,8 +24283,6 @@ DataGroup.prototype._getDataPoints = function (data) {
     dataPoints = this.initDataAsMatrix(data);
   } else {
     // 'dot', 'dot-line', etc.
-    this._checkValueField(data);
-
     dataPoints = this.getDataPoints(data);
 
     if (this.style === Settings.STYLE.LINE) {
@@ -24299,34 +24296,6 @@ DataGroup.prototype._getDataPoints = function (data) {
   }
 
   return dataPoints;
-};
-/**
- * Check if the state is consistent for the use of the value field.
- *
- * Throws if a problem is detected.
- *
- * @param {Array.<Object>} data
- * @private
- */
-
-
-DataGroup.prototype._checkValueField = function (data) {
-  var hasValueField = this.style === Settings.STYLE.BARCOLOR || this.style === Settings.STYLE.BARSIZE || this.style === Settings.STYLE.DOTCOLOR || this.style === Settings.STYLE.DOTSIZE;
-
-  if (!hasValueField) {
-    return; // No need to check further
-  } // Following field must be present for the current graph style
-
-
-  if (this.colValue === undefined) {
-    throw new Error('Expected data to have ' + ' field \'style\' ' + ' for graph style \'' + this.style + '\'');
-  } // The data must also contain this field.
-  // Note that only first data element is checked.
-
-
-  if (data[0][this.colValue] === undefined) {
-    throw new Error('Expected data to have ' + ' field \'' + this.colValue + '\' ' + ' for graph style \'' + this.style + '\'');
-  }
 };
 
 var DataGroup_1 = DataGroup;
@@ -24683,11 +24652,7 @@ Graph3d.prototype.getDataPoints = function (data) {
     point.y = data[i][this.colY] || 0;
     point.z = data[i][this.colZ] || 0;
     point.data = data[i];
-
-    if (this.colValue !== undefined) {
-      point.value = data[i][this.colValue] || 0;
-    }
-
+    point.value = data[i][this.colValue] || 0;
     var obj = {};
     obj.point = point;
     obj.bottom = new Point3d_1(point.x, point.y, this.zRange.min);
@@ -24749,8 +24714,6 @@ Graph3d.prototype._getDataPoints = function (data) {
     }
   } else {
     // 'dot', 'dot-line', etc.
-    this._checkValueField(data);
-
     dataPoints = this.getDataPoints(data);
 
     if (this.style === Graph3d.STYLE.LINE) {
@@ -25154,7 +25117,7 @@ Graph3d.prototype._redrawLegend = function () {
 
   var isSizeLegend = this.style === Graph3d.STYLE.BARSIZE || this.style === Graph3d.STYLE.DOTSIZE; // Legend is either tracking z values or style values. This flag if false means use z values.
 
-  var isValueLegend = this.style === Graph3d.STYLE.DOTSIZE || this.style === Graph3d.STYLE.DOTCOLOR || this.style === Graph3d.STYLE.BARCOLOR;
+  var isValueLegend = this.style === Graph3d.STYLE.DOTSIZE || this.style === Graph3d.STYLE.DOTCOLOR || this.style === Graph3d.STYLE.SURFACE || this.style === Graph3d.STYLE.BARCOLOR;
   var height = Math.max(this.frame.clientHeight * 0.25, 100);
   var top = this.margin;
 
@@ -26019,8 +25982,8 @@ Graph3d.prototype._drawCircle = function (ctx, point, color, borderColor, size) 
 
 
 Graph3d.prototype._getColorsRegular = function (point) {
-  // calculate Hue from the current value. At zMin the hue is 240, at zMax the hue is 0
-  var hue = (1 - (point.point.z - this.zRange.min) * this.scale.z / this.verticalRatio) * 240;
+  // calculate Hue from the current value. At vMin the hue is 240, at vMax the hue is 0
+  var hue = (1 - (point.point.value - this.valueRange.min) * this.scale.value) * 240;
 
   var color = this._hsv2rgb(hue, 1, 1);
 
@@ -26280,9 +26243,9 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
   }
 
   if (topSideVisible) {
-    // calculate Hue from the current value. At zMin the hue is 240, at zMax the hue is 0
-    var zAvg = (point.point.z + right.point.z + top.point.z + cross.point.z) / 4;
-    var ratio = 1 - (zAvg - this.zRange.min) * this.scale.z / this.verticalRatio;
+    // calculate Hue from the current value. At vMin the hue is 240, at vMax the hue is 0
+    var vAvg = (point.point.value + right.point.value + top.point.value + cross.point.value) / 4;
+    var ratio = 1 - (vAvg - this.valueRange.min) * this.scale.value;
     var colors = this.surfaceColors;
 
     if (colors && colors.length !== 0) {
@@ -26345,11 +26308,11 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
 Graph3d.prototype._drawGridLine = function (ctx, from, to) {
   if (from === undefined || to === undefined) {
     return;
-  } // calculate Hue from the current value. At zMin the hue is 240, at zMax the hue is 0
+  } // calculate Hue from the current value. At vMin the hue is 240, at vMax the hue is 0
 
 
-  var zAvg = (from.point.z + to.point.z) / 2;
-  var h = (1 - (zAvg - this.zRange.min) * this.scale.z / this.verticalRatio) * 240;
+  var vAvg = (from.point.value + to.point.value) / 2;
+  var h = (1 - (vAvg - this.valueRange.min) * this.scale.value) * 240;
   ctx.lineWidth = this._getStrokeWidth(from) * 2;
   ctx.strokeStyle = this._hsv2rgb(h, 1, 1);
 
