@@ -1,8 +1,8 @@
 "use strict";
 
-var util = _interopRequireWildcard(require("./util"));
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+var util = _interopRequireWildcard(require("./util"));
 
 /**
  * Copyright (c) 2014-present, Facebook, Inc.

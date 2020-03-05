@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 var _assert = _interopRequireDefault(require("assert"));
 
 var _emit = require("./emit");
@@ -7,8 +9,6 @@ var _emit = require("./emit");
 var _util = require("util");
 
 var _util2 = require("./util");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /**
  * Copyright (c) 2014-present, Facebook, Inc.

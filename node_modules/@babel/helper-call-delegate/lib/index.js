@@ -34,16 +34,20 @@ const visitor = {
 
 };
 
-function _default(path, scope = path.scope) {
+function _default(path, scope = path.scope, shouldHoistVariables = true) {
   const {
     node
   } = path;
   const container = t.functionExpression(null, [], node.body, node.generator, node.async);
   let callee = container;
   let args = [];
-  (0, _helperHoistVariables.default)(path, id => scope.push({
-    id
-  }));
+
+  if (shouldHoistVariables) {
+    (0, _helperHoistVariables.default)(path, id => scope.push({
+      id
+    }));
+  }
+
   const state = {
     foundThis: false,
     foundArguments: false
