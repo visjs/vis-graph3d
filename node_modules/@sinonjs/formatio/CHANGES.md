@@ -1,5 +1,15 @@
 # Changes
 
+## 5.0.1
+
+- [`47a360d`](https://github.com/sinonjs/formatio/commit/47a360d5c5db72ba8ced2d598421bfe105facc69)
+  Bump @sinonjs/samsam to latest (Morgan Roderick)
+    >
+    > This helps dedupe dependencies in Sinon. See https://github.com/sinonjs/sinon/issues/2224
+    >
+
+_Released on 2020-02-20._
+
 ## 5.0.0
 
 - [`116aedb`](https://github.com/sinonjs/formatio/commit/116aedb20ca89f5f022633457366afe17b070772)

@@ -2,7 +2,7 @@
 
 var fakeXhr = require("../fake-xhr");
 var push = [].push;
-var format = require("./format");
+var log = require("./log");
 var configureLogError = require("../configure-logger");
 var pathToRegexp = require("path-to-regexp");
 
@@ -204,16 +204,7 @@ var fakeServer = {
 
     logError: configureLogError({}),
 
-    log: function log(response, request) {
-        var str;
-
-        str = "Request:\n" + format(request) + "\n\n";
-        str += "Response:\n" + format(response) + "\n\n";
-
-        if (typeof this.logger === "function") {
-            this.logger(str);
-        }
-    },
+    log: log,
 
     respondWith: function respondWith(method, url, body) {
         if (arguments.length === 1 && typeof method !== "function") {
