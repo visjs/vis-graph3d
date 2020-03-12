@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-03-07T19:14:28.168Z
+ * @date    2020-03-12T18:12:50.739Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -25405,9 +25405,9 @@ Graph3d.prototype.drawAxisLabelXRotate = function (ctx, point3d, text, armAngle,
 
   if (Math.cos(armAngle * 2) > 0) {
     ctx.save();
-    ctx.get;
     ctx.translate(point2d.x, point2d.y);
     ctx.rotate(Math.PI / 2);
+    ctx.fillStyle = this.axisColor;
     ctx.fillText(text, point2d.x / 100, point2d.y / 100);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
@@ -25444,9 +25444,9 @@ Graph3d.prototype.drawAxisLabelYRotate = function (ctx, point3d, text, armAngle,
 
   if (Math.cos(armAngle * 2) < 0 && Math.sin(armAngle * 2) < 0) {
     ctx.save();
-    ctx.get;
     ctx.translate(point2d.x, point2d.y);
     ctx.rotate(Math.PI / 2 * -1);
+    ctx.fillStyle = this.axisColor;
     ctx.fillText(text, point2d.x / 100, point2d.y / 100);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
@@ -25454,9 +25454,9 @@ Graph3d.prototype.drawAxisLabelYRotate = function (ctx, point3d, text, armAngle,
     ctx.restore();
   } else if (Math.cos(armAngle * 2) < 0) {
     ctx.save();
-    ctx.get;
     ctx.translate(point2d.x, point2d.y);
     ctx.rotate(Math.PI / 2);
+    ctx.fillStyle = this.axisColor;
     ctx.fillText(text, point2d.x / 100, point2d.y / 100);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
