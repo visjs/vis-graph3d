@@ -1,6 +1,6 @@
-# tr46.js
+# tr46
 
-> An implementation of [Unicode Technical Standard #46: Unicode IDNA Compatibility Processing](https://unicode.org/reports/tr46/).
+An JavaScript implementation of [Unicode Technical Standard #46: Unicode IDNA Compatibility Processing](https://unicode.org/reports/tr46/).
 
 
 ## Installation
