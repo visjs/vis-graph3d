@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-03-13T19:13:20.665Z
+ * @date    2020-03-13T20:11:11.320Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -25397,21 +25397,17 @@ Graph3d.prototype.drawAxisLabelZ = function (ctx, point3d, text, offset) {
 
 
 Graph3d.prototype.drawAxisLabelXRotate = function (ctx, point3d, text, armAngle, yMargin) {
-  if (yMargin === undefined) {
-    yMargin = 0;
-  }
 
   var point2d = this._convert3Dto2D(point3d);
 
   if (Math.cos(armAngle * 2) > 0) {
     ctx.save();
     ctx.translate(point2d.x, point2d.y);
-    ctx.rotate(Math.PI / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
     ctx.fillStyle = this.axisColor;
-    ctx.fillText(text, point2d.x / 100, point2d.y / 100);
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    point2d.y += yMargin;
+    ctx.fillText(text, 0, 0);
     ctx.restore();
   } else if (Math.sin(armAngle * 2) < 0) {
     ctx.textAlign = 'right';
@@ -25436,31 +25432,17 @@ Graph3d.prototype.drawAxisLabelXRotate = function (ctx, point3d, text, armAngle,
 
 
 Graph3d.prototype.drawAxisLabelYRotate = function (ctx, point3d, text, armAngle, yMargin) {
-  if (yMargin === undefined) {
-    yMargin = 0;
-  }
 
   var point2d = this._convert3Dto2D(point3d);
 
-  if (Math.cos(armAngle * 2) < 0 && Math.sin(armAngle * 2) < 0) {
+  if (Math.cos(armAngle * 2) < 0) {
     ctx.save();
     ctx.translate(point2d.x, point2d.y);
-    ctx.rotate(Math.PI / 2 * -1);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
     ctx.fillStyle = this.axisColor;
-    ctx.fillText(text, point2d.x / 100, point2d.y / 100);
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    point2d.y += yMargin;
-    ctx.restore();
-  } else if (Math.cos(armAngle * 2) < 0) {
-    ctx.save();
-    ctx.translate(point2d.x, point2d.y);
-    ctx.rotate(Math.PI / 2);
-    ctx.fillStyle = this.axisColor;
-    ctx.fillText(text, point2d.x / 100, point2d.y / 100);
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    point2d.y += yMargin;
+    ctx.fillText(text, 0, 0);
     ctx.restore();
   } else if (Math.sin(armAngle * 2) > 0) {
     ctx.textAlign = 'right';
