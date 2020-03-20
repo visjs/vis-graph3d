@@ -61,7 +61,7 @@ function mtime(filename) {
 
 function compile(code, filename) {
   const opts = new babel.OptionManager().init(Object.assign({
-    sourceRoot: _path.default.dirname(filename)
+    sourceRoot: _path.default.dirname(filename) + _path.default.sep
   }, (0, _cloneDeep.default)(transformOpts), {
     filename
   }));

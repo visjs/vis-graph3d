@@ -13,6 +13,8 @@ var _pluginSyntaxJsonStrings = _interopRequireDefault(require("@babel/plugin-syn
 
 var _pluginSyntaxNullishCoalescingOperator = _interopRequireDefault(require("@babel/plugin-syntax-nullish-coalescing-operator"));
 
+var _pluginSyntaxNumericSeparator = _interopRequireDefault(require("@babel/plugin-syntax-numeric-separator"));
+
 var _pluginSyntaxObjectRestSpread = _interopRequireDefault(require("@babel/plugin-syntax-object-rest-spread"));
 
 var _pluginSyntaxOptionalCatchBinding = _interopRequireDefault(require("@babel/plugin-syntax-optional-catch-binding"));
@@ -28,6 +30,8 @@ var _pluginProposalDynamicImport = _interopRequireDefault(require("@babel/plugin
 var _pluginProposalJsonStrings = _interopRequireDefault(require("@babel/plugin-proposal-json-strings"));
 
 var _pluginProposalNullishCoalescingOperator = _interopRequireDefault(require("@babel/plugin-proposal-nullish-coalescing-operator"));
+
+var _pluginProposalNumericSeparator = _interopRequireDefault(require("@babel/plugin-proposal-numeric-separator"));
 
 var _pluginProposalObjectRestSpread = _interopRequireDefault(require("@babel/plugin-proposal-object-rest-spread"));
 
@@ -99,13 +103,32 @@ var _pluginTransformTypeofSymbol = _interopRequireDefault(require("@babel/plugin
 
 var _pluginTransformUnicodeRegex = _interopRequireDefault(require("@babel/plugin-transform-unicode-regex"));
 
+var _transformAsyncArrowsInClass = _interopRequireDefault(require("@babel/preset-modules/lib/plugins/transform-async-arrows-in-class"));
+
+var _transformEdgeDefaultParameters = _interopRequireDefault(require("@babel/preset-modules/lib/plugins/transform-edge-default-parameters"));
+
+var _transformEdgeFunctionName = _interopRequireDefault(require("@babel/preset-modules/lib/plugins/transform-edge-function-name"));
+
+var _transformTaggedTemplateCaching = _interopRequireDefault(require("@babel/preset-modules/lib/plugins/transform-tagged-template-caching"));
+
+var _transformSafariBlockShadowing = _interopRequireDefault(require("@babel/preset-modules/lib/plugins/transform-safari-block-shadowing"));
+
+var _transformSafariForShadowing = _interopRequireDefault(require("@babel/preset-modules/lib/plugins/transform-safari-for-shadowing"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = {
+  "bugfix/transform-async-arrows-in-class": _transformAsyncArrowsInClass.default,
+  "bugfix/transform-edge-default-parameters": _transformEdgeDefaultParameters.default,
+  "bugfix/transform-edge-function-name": _transformEdgeFunctionName.default,
+  "bugfix/transform-safari-block-shadowing": _transformSafariBlockShadowing.default,
+  "bugfix/transform-safari-for-shadowing": _transformSafariForShadowing.default,
+  "bugfix/transform-tagged-template-caching": _transformTaggedTemplateCaching.default,
   "proposal-async-generator-functions": _pluginProposalAsyncGeneratorFunctions.default,
   "proposal-dynamic-import": _pluginProposalDynamicImport.default,
   "proposal-json-strings": _pluginProposalJsonStrings.default,
   "proposal-nullish-coalescing-operator": _pluginProposalNullishCoalescingOperator.default,
+  "proposal-numeric-separator": _pluginProposalNumericSeparator.default,
   "proposal-object-rest-spread": _pluginProposalObjectRestSpread.default,
   "proposal-optional-catch-binding": _pluginProposalOptionalCatchBinding.default,
   "proposal-optional-chaining": _pluginProposalOptionalChaining.default,
@@ -114,6 +137,7 @@ var _default = {
   "syntax-dynamic-import": _pluginSyntaxDynamicImport.default,
   "syntax-json-strings": _pluginSyntaxJsonStrings.default,
   "syntax-nullish-coalescing-operator": _pluginSyntaxNullishCoalescingOperator.default,
+  "syntax-numeric-separator": _pluginSyntaxNumericSeparator.default,
   "syntax-object-rest-spread": _pluginSyntaxObjectRestSpread.default,
   "syntax-optional-catch-binding": _pluginSyntaxOptionalCatchBinding.default,
   "syntax-optional-chaining": _pluginSyntaxOptionalChaining.default,

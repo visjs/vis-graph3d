@@ -467,6 +467,7 @@ var _default = (0, _helperPluginUtils.declare)((api, options) => {
         }
 
         path.replaceWithMultiple(nodes);
+        path.scope.crawl();
       },
 
       VariableDeclaration(path) {

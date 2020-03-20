@@ -25,6 +25,7 @@ class State {
     this.noArrowParamsConversionAt = [];
     this.inParameters = false;
     this.maybeInArrowParameters = false;
+    this.maybeInAsyncArrowHead = false;
     this.inPipeline = false;
     this.inType = false;
     this.noAnonFunctionType = false;
@@ -59,8 +60,7 @@ class State {
     this.context = [_context.types.braceStatement];
     this.exprAllowed = true;
     this.containsEsc = false;
-    this.containsOctal = false;
-    this.octalPosition = null;
+    this.octalPositions = [];
     this.exportedIdentifiers = [];
     this.tokensLength = 0;
   }

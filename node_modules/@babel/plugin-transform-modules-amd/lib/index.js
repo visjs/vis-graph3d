@@ -108,7 +108,7 @@ var _default = (0, _helperPluginUtils.declare)((api, options) => {
             importNames.push(requireId);
           }
 
-          let moduleName = this.getModuleName();
+          let moduleName = (0, _helperModuleTransforms.getModuleName)(this.file.opts, options);
           if (moduleName) moduleName = _core.types.stringLiteral(moduleName);
           const {
             meta,

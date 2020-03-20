@@ -1,8 +1,8 @@
 # regexpu-core [![Build status](https://travis-ci.org/mathiasbynens/regexpu-core.svg?branch=master)](https://travis-ci.org/mathiasbynens/regexpu-core) [![Code coverage status](https://img.shields.io/codecov/c/github/mathiasbynens/regexpu-core.svg)](https://codecov.io/gh/mathiasbynens/regexpu-core)
 
-_regexpu_ is a source code transpiler that enables the use of ES6 Unicode regular expressions in JavaScript-of-today (ES5).
+_regexpu_ is a source code transpiler that enables the use of ES2015 Unicode regular expressions in JavaScript-of-today (ES5).
 
-_regexpu-core_ contains _regexpu_’s core functionality, i.e. `rewritePattern(pattern, flag)`, which enables rewriting regular expressions that make use of [the ES6 `u` flag](https://mathiasbynens.be/notes/es6-unicode-regex) into equivalent ES5-compatible regular expression patterns.
+_regexpu-core_ contains _regexpu_’s core functionality, i.e. `rewritePattern(pattern, flag)`, which enables rewriting regular expressions that make use of [the ES2015 `u` flag](https://mathiasbynens.be/notes/es6-unicode-regex) into equivalent ES5-compatible regular expression patterns.
 
 ## Installation
 
@@ -44,7 +44,7 @@ _regexpu-core_ can rewrite non-ES6 regular expressions too, which is useful to d
 rewritePattern('foo.bar');
 // → 'foo(?:[\\0-\\t\\x0B\\f\\x0E-\\u2027\\u202A-\\uFFFF])bar'
 
-// But with the ES6 `u` flag, it matches astral symbols too:
+// But with the ES2015 `u` flag, it matches astral symbols too:
 rewritePattern('foo.bar', 'u');
 // → 'foo(?:[\\0-\\t\\x0B\\f\\x0E-\\u2027\\u202A-\\uD7FF\\uDC00-\\uFFFF]|[\\uD800-\\uDBFF][\\uDC00-\\uDFFF]|[\\uD800-\\uDBFF])bar'
 ```
@@ -125,7 +125,7 @@ rewritePattern('(?<name>.)\k<name>', '', {
 
 #### `useUnicodeFlag` (default: `false`)
 
-Setting this option to `true` enables the use of Unicode code point escapes of the form `\u{…}`. Note that in regular expressions, such escape sequences only work correctly when the ES6 `u` flag is set. Enabling this setting often results in more compact output, although there are cases (such as `\p{Lu}`) where it actually _increases_ the output size.
+Setting this option to `true` enables the use of Unicode code point escapes of the form `\u{…}`. Note that in regular expressions, such escape sequences only work correctly when the ES2015 `u` flag is set. Enabling this setting often results in more compact output, although there are cases (such as `\p{Lu}`) where it actually _increases_ the output size.
 
 ```js
 rewritePattern('\\p{Script_Extensions=Anatolian_Hieroglyphs}', 'u', {

@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.UseBuiltInsOption = exports.ModulesOption = exports.TopLevelOptions = void 0;
 const TopLevelOptions = {
+  bugfixes: "bugfixes",
   configPath: "configPath",
   corejs: "corejs",
   debug: "debug",

@@ -266,7 +266,7 @@ var _default = (0, _helperPluginUtils.declare)((api, opts) => {
       ExportNamedDeclaration(path) {
         const declaration = path.get("declaration");
         if (!declaration.isVariableDeclaration()) return;
-        const hasRest = declaration.get("declarations").some(path => hasRestElement(path.get("id")));
+        const hasRest = declaration.get("declarations").some(path => hasObjectPatternRestElement(path.get("id")));
         if (!hasRest) return;
         const specifiers = [];
 

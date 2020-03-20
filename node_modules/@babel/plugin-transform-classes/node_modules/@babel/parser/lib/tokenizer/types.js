@@ -67,12 +67,25 @@ const types = {
     beforeExpr,
     startsExpr
   }),
+  bracketHashL: new TokenType("#[", {
+    beforeExpr,
+    startsExpr
+  }),
+  bracketBarL: new TokenType("[|", {
+    beforeExpr,
+    startsExpr
+  }),
   bracketR: new TokenType("]"),
+  bracketBarR: new TokenType("|]"),
   braceL: new TokenType("{", {
     beforeExpr,
     startsExpr
   }),
   braceBarL: new TokenType("{|", {
+    beforeExpr,
+    startsExpr
+  }),
+  braceHashL: new TokenType("#{", {
     beforeExpr,
     startsExpr
   }),
