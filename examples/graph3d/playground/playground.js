@@ -413,6 +413,7 @@ function getOptions() {
     showPerspective:   (document.getElementById("showPerspective").checked != false),
     showLegend:        (document.getElementById("showLegend").checked != false),
     showShadow:        (document.getElementById("showShadow").checked != false),
+    showSurfaceGrid:   (document.getElementById("showSurfaceGrid").checked != false),
     keepAspectRatio:   (document.getElementById("keepAspectRatio").checked != false),
     verticalRatio:      Number(document.getElementById("verticalRatio").value) || undefined,
     animationInterval:  Number(document.getElementById("animationInterval").value) || undefined,
