@@ -405,6 +405,7 @@ function getOptions() {
     height:             document.getElementById("height").value,
     style:              document.getElementById("style").value,
     showAnimationControls: (document.getElementById("showAnimationControls").checked != false),
+    showGrayBottom:    (document.getElementById("showGrayBottom").checked != false),
     showGrid:          (document.getElementById("showGrid").checked != false),
     showXAxis:         (document.getElementById("showXAxis").checked != false),
     showYAxis:         (document.getElementById("showYAxis").checked != false),
