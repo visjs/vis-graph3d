@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-03-22T15:52:10.120Z
+ * @date    2020-03-22T16:03:41.427Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -21277,6 +21277,29 @@ Point3d.avg = function (a, b) {
   return new Point3d((a.x + b.x) / 2, (a.y + b.y) / 2, (a.z + b.z) / 2);
 };
 /**
+ * Scale the provided point by a scalar, returns p*c
+ * @param {Point3d} p
+ * @param {number} c
+ * @return {Point3d} p*c
+ */
+
+
+Point3d.scalarProduct = function (p, c) {
+  return new Point3d(p.x * c, p.y * c, p.z * c);
+};
+/**
+ * Calculate the dot product of the two provided points, returns a.b
+ * Documentation: http://en.wikipedia.org/wiki/Dot_product
+ * @param {Point3d} a
+ * @param {Point3d} b
+ * @return {Point3d} dot product a.b
+ */
+
+
+Point3d.dotProduct = function (a, b) {
+  return a.x * b.x + a.y * b.y + a.z * b.z;
+};
+/**
  * Calculate the cross product of the two provided points, returns axb
  * Documentation: http://en.wikipedia.org/wiki/Cross_product
  * @param {Point3d} a
@@ -21293,13 +21316,22 @@ Point3d.crossProduct = function (a, b) {
   return crossproduct;
 };
 /**
- * Rtrieve the length of the vector (or the distance from this point to the origin
+ * Retrieve the length of the vector (or the distance from this point to the origin
  * @return {number}  length
  */
 
 
 Point3d.prototype.length = function () {
   return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+};
+/**
+ * Return a normalized vector pointing in the same direction.
+ * @return {Point3d}  normalized
+ */
+
+
+Point3d.prototype.normalize = function () {
+  return Point3d.scalarProduct(this, 1 / this.length());
 };
 
 var Point3d_1 = Point3d;
@@ -22223,7 +22255,7 @@ var STYLENAME = {
  * and can be directly copied over.
  */
 
-var OPTIONKEYS = ['width', 'height', 'filterLabel', 'legendLabel', 'xLabel', 'yLabel', 'zLabel', 'xValueLabel', 'yValueLabel', 'zValueLabel', 'showXAxis', 'showYAxis', 'showZAxis', 'showGrid', 'showPerspective', 'showShadow', 'keepAspectRatio', 'rotateAxisLabels', 'verticalRatio', 'dotSizeRatio', 'dotSizeMinFraction', 'dotSizeMaxFraction', 'showAnimationControls', 'surfaceColors', 'animationInterval', 'animationPreload', 'animationAutoStart', 'axisColor', 'axisFontSize', 'axisFontType', 'gridColor', 'xCenter', 'yCenter', 'zoomable', 'tooltipDelay', 'ctrlToZoom'];
+var OPTIONKEYS = ['width', 'height', 'filterLabel', 'legendLabel', 'xLabel', 'yLabel', 'zLabel', 'xValueLabel', 'yValueLabel', 'zValueLabel', 'showXAxis', 'showYAxis', 'showZAxis', 'showGrayBottom', 'showGrid', 'showPerspective', 'showShadow', 'showSurfaceGrid', 'keepAspectRatio', 'rotateAxisLabels', 'verticalRatio', 'dotSizeRatio', 'dotSizeMinFraction', 'dotSizeMaxFraction', 'showAnimationControls', 'surfaceColors', 'animationInterval', 'animationPreload', 'animationAutoStart', 'axisColor', 'axisFontSize', 'axisFontType', 'gridColor', 'xCenter', 'yCenter', 'zoomable', 'tooltipDelay', 'ctrlToZoom'];
 /**
  * Field names in the options hash which are of relevance to the user.
  *
@@ -22366,8 +22398,6 @@ function setDefaults(src, dst) {
   setSpecialSettings(src, dst); // Following are internal fields, not part of the user settings
 
   dst.margin = 10; // px
-
-  dst.showGrayBottom = false; // TODO: this does not work correctly
 
   dst.showTooltip = false;
   dst.onclick_callback = null;
@@ -22599,8 +22629,13 @@ function setDataColor(dataColor, dst) {
 
 
 function setSurfaceColor(surfaceColors, dst) {
-  if (surfaceColors === undefined) {
+  if (surfaceColors === undefined || surfaceColors === true) {
     return; // Nothing to do
+  }
+
+  if (surfaceColors === false) {
+    dst.surfaceColors = undefined;
+    return;
   }
 
   if (dst.surfaceColors === undefined) {
@@ -23260,6 +23295,7 @@ var surfaceColorsOptions = {
     }
   },
   __type__: {
+    boolean: bool,
     array: array,
     object: object
   }
@@ -23388,6 +23424,9 @@ var allOptions$1 = {
     boolean: bool,
     'undefined': 'undefined'
   },
+  showGrayBottom: {
+    boolean: bool
+  },
   showGrid: {
     boolean: bool
   },
@@ -23399,6 +23438,9 @@ var allOptions$1 = {
     boolean: bool
   },
   showShadow: {
+    boolean: bool
+  },
+  showSurfaceGrid: {
     boolean: bool
   },
   showXAxis: {
@@ -24345,9 +24387,11 @@ Graph3d.DEFAULTS = {
   showXAxis: true,
   showYAxis: true,
   showZAxis: true,
+  showGrayBottom: false,
   showGrid: true,
   showPerspective: true,
   showShadow: false,
+  showSurfaceGrid: true,
   keepAspectRatio: true,
   rotateAxisLabels: true,
   verticalRatio: 0.5,
@@ -26204,6 +26248,7 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
   var topSideVisible = true;
   var fillStyle;
   var strokeStyle;
+  var cosViewAngle;
 
   if (this.showGrayBottom || this.showShadow) {
     // calculate the cross product of the two vectors from center
@@ -26212,13 +26257,21 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
     // for calculating light intensity
     var aDiff = Point3d_1.subtract(cross.trans, point.trans);
     var bDiff = Point3d_1.subtract(top.trans, right.trans);
-    var crossproduct = Point3d_1.crossProduct(aDiff, bDiff);
-    var len = crossproduct.length(); // FIXME: there is a bug with determining the surface side (shadow or colored)
+    var surfaceNormal = Point3d_1.crossProduct(aDiff, bDiff);
 
-    topSideVisible = crossproduct.z > 0;
+    if (this.showPerspective) {
+      var surfacePosition = Point3d_1.avg(Point3d_1.avg(point.trans, cross.trans), Point3d_1.avg(right.trans, top.trans)); // This corresponds to diffuse lighting with light source at (0, 0, 0).
+      // More generally, we would need `surfacePosition - lightPosition`:
+
+      cosViewAngle = -Point3d_1.dotProduct(surfaceNormal.normalize(), surfacePosition.normalize());
+    } else {
+      cosViewAngle = surfaceNormal.z / surfaceNormal.length();
+    }
+
+    topSideVisible = cosViewAngle > 0;
   }
 
-  if (topSideVisible) {
+  if (topSideVisible || !this.showGrayBottom) {
     // calculate Hue from the current value. At vMin the hue is 240, at vMax the hue is 0
     var vAvg = (point.point.value + right.point.value + top.point.value + cross.point.value) / 4;
     var ratio = 1 - (vAvg - this.valueRange.min) * this.scale.value;
@@ -26242,6 +26295,15 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
       var minB = colors[startIndex].b;
       var maxB = colors[endIndex].b;
       var b = minB + ratioWithin * (maxB - minB);
+
+      if (this.showShadow) {
+        var v = (1 + cosViewAngle) / 2; // value. TODO: scale
+
+        r *= v;
+        g *= v;
+        b *= v;
+      }
+
       fillStyle = concat$6(_context = concat$6(_context2 = "RGB(".concat(r, ", ")).call(_context2, g, ", ")).call(_context, b, ")");
     } else {
       var h = ratio * 240;
@@ -26250,19 +26312,22 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
       var v = 1; // value
 
       if (this.showShadow) {
-        v = Math.min(1 + crossproduct.x / len / 2, 1); // value. TODO: scale
+        v = (1 + cosViewAngle) / 2; // value. TODO: scale
 
         fillStyle = this._hsv2rgb(h, s, v);
-        strokeStyle = fillStyle;
       } else {
         v = 1;
         fillStyle = this._hsv2rgb(h, s, v);
-        strokeStyle = this.axisColor; // TODO: should be customizable
       }
     }
   } else {
     fillStyle = 'gray';
-    strokeStyle = this.axisColor;
+  }
+
+  if (this.showSurfaceGrid) {
+    strokeStyle = this.axisColor; // TODO: should be customizable
+  } else {
+    strokeStyle = fillStyle;
   }
 
   ctx.lineWidth = this._getStrokeWidth(point); // TODO: only draw stroke when strokeWidth > 0
