@@ -390,7 +390,7 @@ var options = {
 
     <tr class='toggle collapsible' onclick="toggleTable('optionTable','surfaceColors', this);">
         <td><span parent="surfaceColors" class="right-caret"></span> surfaceColors</td>
-        <td>array or object</td>
+        <td>boolean, array or object</td>
         <td><code>['#FF0000', '#FFF000', '#00FF00', '#68E8FB', '#000FFF']</code></td>
         <td>When <code>surfaceColors</code> is set, the surface will be colored according to the colors provided. If it is an object it must have the <code>hue</code> key, it will then be converted into an array according to the following hue values provided:</td>
       </tr>
@@ -501,6 +501,12 @@ var options = {
         Only applicable when the provided data contains an animation.</td>
     </tr>
     <tr>
+      <td>showGrayBottom</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>If true, draw the bottom side of the surface in gray.</td>
+    </tr>
+    <tr>
       <td>showGrid</td>
       <td>boolean</td>
       <td>true</td>
@@ -548,6 +554,13 @@ var options = {
       <td>boolean</td>
       <td>false</td>
       <td>Show shadow on the graph.</td>
+    </tr>
+    <tr>
+      <td>showSurfaceGrid</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>If true, grid lines are drawn on the surface of the graph itself
+        (only effective if <code>style: 'surface'</code>.</td>
     </tr>
     <tr>
       <td>style</td>
