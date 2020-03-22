@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-03-21T14:47:09.899Z
+ * @date    2020-03-22T11:26:09.221Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -22427,6 +22427,7 @@ function setSpecialSettings(src, dst) {
 
   if (src.onclick != undefined) {
     dst.onclick_callback = src.onclick;
+    console.warn("`options.onclick` is deprecated and may be removed in a future version." + " Please use `Graph3d.on('click', handler)` instead.");
   }
 
   if (src.tooltipStyle !== undefined) {
@@ -26489,7 +26490,8 @@ Graph3d.prototype._onMouseUp = function (event) {
 
 
 Graph3d.prototype._onClick = function (event) {
-  if (!this.onclick_callback) return;
+  // NOTE: onclick_callback is deprecated and may be removed in a future version.
+  if (!this.onclick_callback && !this.hasListeners('click')) return;
 
   if (!this.moving) {
     var boundingRect = this.frame.getBoundingClientRect();
@@ -26498,7 +26500,10 @@ Graph3d.prototype._onClick = function (event) {
 
     var dataPoint = this._dataPointFromXY(mouseX, mouseY);
 
-    if (dataPoint) this.onclick_callback(dataPoint.point.data);
+    if (dataPoint) {
+      if (this.onclick_callback) this.onclick_callback(dataPoint.point.data);
+      this.emit('click', dataPoint.point.data);
+    }
   } else {
     // disable onclick callback, if it came immediately after rotate/pan
     this.moving = false;

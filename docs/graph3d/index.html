@@ -477,16 +477,9 @@ var options = {
       <td>onclick</td>
       <td>function</td>
       <td>none</td>
-      <td>Event handler for a click event with signature <code>function onclick(point)</code>.<br>
-        Parameter <code>point</code> contains data for the nearest graph element relative to the click in
-        the line of sight. It is an object with the fields:
-        <ul>
-        <li><code>id   </code> - id of nearest node to the click</li>
-        <li><code>x    </code> - x-coordinate in graph units</li>
-        <li><code>y    </code> - y-coordinate in graph units</li>
-        <li><code>z    </code> - z-coordinate in graph units</li>
-        <li><code>style</code> - if present, the data value for this point</li>
-        </ul>
+      <td>This option is deprecated and may be removed in a future version.
+        Please use <code>graph.on('click', handler);</code> instead. See
+        <a href="#Events">Events</a> for further details.
       </td>
     </tr>
 
@@ -999,6 +992,23 @@ graph3d.on('cameraPositionChange', onCameraPositionChange);
         but not after a call to <code>setCameraPosition</code> method.
         The new camera position can be retrieved by calling the method
         <code>getCameraPosition</code>.</td>
+    </tr>
+
+    <tr>
+      <td>click</td>
+      <td>
+        <ul>
+          <li><code>id   </code> - id of nearest node to the click</li>
+          <li><code>x    </code> - x-coordinate in graph units</li>
+          <li><code>y    </code> - y-coordinate in graph units</li>
+          <li><code>z    </code> - z-coordinate in graph units</li>
+          <li><code>style</code> - if present, the data value for this point</li>
+        </ul>
+      </td>
+      <td>Event handler for a click event with signature <code>function onclick(point)</code>.<br>
+        Parameter <code>point</code> contains data for the nearest graph element relative to the click in
+        the line of sight.
+      </td>
     </tr>
   </table>
 

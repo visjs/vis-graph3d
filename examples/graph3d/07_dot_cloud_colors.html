@@ -48,7 +48,6 @@
         keepAspectRatio: true,
         verticalRatio: 1.0,
         legendLabel: 'distance',
-        onclick: onclick,
         cameraPosition: {
           horizontal: -0.35,
           vertical: 0.22,
@@ -59,6 +58,7 @@
       // create our graph
       var container = document.getElementById('mygraph');
       graph = new vis.Graph3d(container, data, options);
+      graph.on('click', onclick);
     }
   </script>
   
