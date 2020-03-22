@@ -73,7 +73,7 @@ function drawVisualization() {
   var extra_content = [
     "Arbitrary information",
     "You can access data from the point source object",
-    "Tooltip example content"
+    "Tooltip example content",
   ];
 
   // create some nice looking data with sin/cos
@@ -90,14 +90,14 @@ function drawVisualization() {
           y: y,
           z: z,
           style: value,
-          extra: extra_content[(x * y) % extra_content.length]
+          extra: extra_content[(x * y) % extra_content.length],
         });
       } else {
         data.add({
           x: x,
           y: y,
           z: z,
-          extra: extra_content[(x * y) % extra_content.length]
+          extra: extra_content[(x * y) % extra_content.length],
         });
       }
     }
@@ -114,7 +114,7 @@ function drawVisualization() {
     showShadow: false,
 
     // Option tooltip can be true, false, or a function returning a string with HTML contents
-    tooltip: function(point) {
+    tooltip: function (point) {
       // parameter point contains properties x, y, z, and data
       // data is the original object passed to the point constructor
       return "value: &lt;b&gt;" + point.z + "&lt;/b&gt;&lt;br&gt;" + point.data.extra;
@@ -125,18 +125,18 @@ function drawVisualization() {
       content: {
         background: "rgba(255, 255, 255, 0.7)",
         padding: "10px",
-        borderRadius: "10px"
+        borderRadius: "10px",
       },
       line: {
-        borderLeft: "1px dotted rgba(0, 0, 0, 0.5)"
+        borderLeft: "1px dotted rgba(0, 0, 0, 0.5)",
       },
       dot: {
-        border: "5px solid rgba(0, 0, 0, 0.5)"
-      }
+        border: "5px solid rgba(0, 0, 0, 0.5)",
+      },
     },
 
     keepAspectRatio: true,
-    verticalRatio: 0.5
+    verticalRatio: 0.5,
   };
 
   var camera = graph ? graph.getCameraPosition() : null;

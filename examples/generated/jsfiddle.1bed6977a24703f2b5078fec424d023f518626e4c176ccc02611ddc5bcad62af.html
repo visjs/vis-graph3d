@@ -92,28 +92,25 @@ function drawVisualization() {
 
     // Option tooltip can be true, false, or a function returning a string with HTML contents
     //tooltip: true,
-    tooltip: function(point) {
+    tooltip: function (point) {
       // parameter point contains properties x, y, z
       return "value: &lt;b&gt;" + point.z + "&lt;/b&gt;";
     },
 
-    xValueLabel: function(value) {
-      return vis
-        .moment()
-        .add(value, "days")
-        .format("DD MMM");
+    xValueLabel: function (value) {
+      return vis.moment().add(value, "days").format("DD MMM");
     },
 
-    yValueLabel: function(value) {
+    yValueLabel: function (value) {
       return value * 10 + "%";
     },
 
-    zValueLabel: function(value) {
+    zValueLabel: function (value) {
       return value / 1000 + "K";
     },
 
     keepAspectRatio: true,
-    verticalRatio: 0.5
+    verticalRatio: 0.5,
   };
 
   var camera = graph ? graph.getCameraPosition() : null;

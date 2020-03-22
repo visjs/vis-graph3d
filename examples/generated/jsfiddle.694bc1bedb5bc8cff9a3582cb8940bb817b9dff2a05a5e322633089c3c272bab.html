@@ -120,7 +120,7 @@ function custom(x, y) {
 function drawVisualization() {
   var radioButtons = document.getElementsByName("style");
   var selectedRadio = null;
-  radioButtons.forEach(function(radioButton) {
+  radioButtons.forEach(function (radioButton) {
     if (radioButton.checked === true) {
       selectedRadio = radioButton;
     }
@@ -150,7 +150,7 @@ function drawVisualization() {
     showGrid: true,
     showShadow: false,
     keepAspectRatio: true,
-    verticalRatio: 0.5
+    verticalRatio: 0.5,
   };
 
   if (style === "hue") {
@@ -160,8 +160,8 @@ function drawVisualization() {
         end: 360,
         saturation: 50,
         brightness: 100,
-        colorStops: 8 // How many colour gradients do we want
-      }
+        colorStops: 8, // How many colour gradients do we want
+      },
     };
   } else if (style === "html") {
     options.surfaceColors = ["#FFFFFF", "#6A0DAD", "#000000"];

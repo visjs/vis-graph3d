@@ -61,14 +61,14 @@ function drawVisualization() {
         y: cos(tdot),
         z: sin(tdot),
         filter: tgroup,
-        style: value
+        style: value,
       });
       data.add({
         x: sin(tdot),
         y: -cos(tdot),
         z: sin(tdot + (tmax * 1) / 2),
         filter: tgroup,
-        style: value
+        style: value,
       });
     }
   }
@@ -89,8 +89,8 @@ function drawVisualization() {
     cameraPosition: {
       horizontal: 2.7,
       vertical: 0.0,
-      distance: 1.65
-    }
+      distance: 1.65,
+    },
   };
 
   // create our graph

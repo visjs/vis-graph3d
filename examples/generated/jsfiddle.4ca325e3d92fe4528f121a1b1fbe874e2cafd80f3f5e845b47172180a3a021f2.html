@@ -73,7 +73,7 @@ function drawVisualization() {
     x: 0,
     y: -1,
     z: 0,
-    extra: extra_content[0]
+    extra: extra_content[0],
   });
   var axis_x = {};
   var axis_y = {};
@@ -85,21 +85,21 @@ function drawVisualization() {
   request.open("GET", file1, true);
 
   function axisLoad(axis_obj, callback) {
-    Object.keys(axis_obj).forEach(function(field, i) {
+    Object.keys(axis_obj).forEach(function (field, i) {
       callback(axis_obj[field], i);
     });
   }
 
-  request.onload = function() {
+  request.onload = function () {
     if (request.status &gt;= 200 &amp;&amp; request.status &lt; 400) {
       var result = JSON.parse(request.responseText);
-      axisLoad(result.graph3d, function(object, i) {
+      axisLoad(result.graph3d, function (object, i) {
         data.add(object);
       });
-      axisLoad(result.axis_x, function(object, i) {
+      axisLoad(result.axis_x, function (object, i) {
         axis_x[i] = object;
       });
-      axisLoad(result.axis_y, function(object, i) {
+      axisLoad(result.axis_y, function (object, i) {
         axis_y[i] = object;
       });
       data.remove("c57621e7d6cfb81");
@@ -107,7 +107,7 @@ function drawVisualization() {
       console.log("ERR: request.onload");
     }
   };
-  request.onerror = function() {
+  request.onerror = function () {
     console.log("ERR: Connection request");
   };
   request.send();
@@ -133,14 +133,14 @@ function drawVisualization() {
     dataColor: {
       fill: "green",
       stroke: "green",
-      strokeWidth: 2
+      strokeWidth: 2,
     },
     cameraPosition: {
       horizontal: 0,
       vertical: 2,
-      distance: 2.3
+      distance: 2.3,
     },
-    tooltip: function(point) {
+    tooltip: function (point) {
       return (
         "value: &lt;b&gt;" +
         point.z +
@@ -155,14 +155,14 @@ function drawVisualization() {
       content: {
         background: "rgba(255, 255, 255, 0.7)",
         padding: "10px",
-        borderRadius: "10px"
+        borderRadius: "10px",
       },
       line: {
-        borderLeft: "1px dotted rgba(0, 0, 0, 0.5)"
+        borderLeft: "1px dotted rgba(0, 0, 0, 0.5)",
       },
       dot: {
-        border: "5px solid rgba(0, 0, 0, 0.5)"
-      }
+        border: "5px solid rgba(0, 0, 0, 0.5)",
+      },
     },
     keepAspectRatio: false,
     verticalRatio: 0.5,
@@ -172,15 +172,15 @@ function drawVisualization() {
     yStep: 1,
     xCenter: "50%",
     yCenter: "25%",
-    xValueLabel: function(value) {
+    xValueLabel: function (value) {
       return "" + axis_x[value.toString()];
     },
-    yValueLabel: function(value) {
+    yValueLabel: function (value) {
       return "" + axis_y[value.toString()];
     },
-    zValueLabel: function(value) {
+    zValueLabel: function (value) {
       return value + "%";
-    }
+    },
   };
   var camera = graph ? graph.getCameraPosition() : null;
   var container = document.getElementById("mygraph");

@@ -50,14 +50,14 @@
 &lt;p&gt;
   &lt;label for="xBarWidth"&gt;
     Bar width X:
-    &lt;input type="text" id="xBarWidth" value style="width:50px;" /&gt; (only
+    &lt;input type="text" id="xBarWidth" value style="width: 50px;" /&gt; (only
     applicable for styles &amp;quot;bar&amp;quot; and &amp;quot;bar-color&amp;quot;)
   &lt;/label&gt;
 &lt;/p&gt;
 &lt;p&gt;
   &lt;label for="yBarWidth"&gt;
     Bar width Y:
-    &lt;input type="text" id="yBarWidth" value style="width:50px;" /&gt; (only
+    &lt;input type="text" id="yBarWidth" value style="width: 50px;" /&gt; (only
     applicable for styles &amp;quot;bar&amp;quot; and &amp;quot;bar-color&amp;quot;)
   &lt;/label&gt;
 &lt;/p&gt;
@@ -106,8 +106,8 @@ function drawVisualization() {
           z: z,
           style: {
             fill: colors[x / axisStep],
-            stroke: "#999"
-          }
+            stroke: "#999",
+          },
         });
       } else {
         data.push({ x: x, y: y, z: z });
@@ -126,7 +126,7 @@ function drawVisualization() {
     showGrid: true,
     showShadow: false,
     keepAspectRatio: true,
-    verticalRatio: 0.5
+    verticalRatio: 0.5,
   };
 
   var camera = graph ? graph.getCameraPosition() : null;
