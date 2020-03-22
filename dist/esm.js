@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-03-22T11:34:45.011Z
+ * @date    2020-03-22T15:52:10.120Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -24951,43 +24951,43 @@ Graph3d.prototype.setPointDrawingMethod = function () {
 
   switch (this.style) {
     case Graph3d.STYLE.BAR:
-      method = Graph3d.prototype._redrawBarGraphPoint;
+      method = this._redrawBarGraphPoint;
       break;
 
     case Graph3d.STYLE.BARCOLOR:
-      method = Graph3d.prototype._redrawBarColorGraphPoint;
+      method = this._redrawBarColorGraphPoint;
       break;
 
     case Graph3d.STYLE.BARSIZE:
-      method = Graph3d.prototype._redrawBarSizeGraphPoint;
+      method = this._redrawBarSizeGraphPoint;
       break;
 
     case Graph3d.STYLE.DOT:
-      method = Graph3d.prototype._redrawDotGraphPoint;
+      method = this._redrawDotGraphPoint;
       break;
 
     case Graph3d.STYLE.DOTLINE:
-      method = Graph3d.prototype._redrawDotLineGraphPoint;
+      method = this._redrawDotLineGraphPoint;
       break;
 
     case Graph3d.STYLE.DOTCOLOR:
-      method = Graph3d.prototype._redrawDotColorGraphPoint;
+      method = this._redrawDotColorGraphPoint;
       break;
 
     case Graph3d.STYLE.DOTSIZE:
-      method = Graph3d.prototype._redrawDotSizeGraphPoint;
+      method = this._redrawDotSizeGraphPoint;
       break;
 
     case Graph3d.STYLE.SURFACE:
-      method = Graph3d.prototype._redrawSurfaceGraphPoint;
+      method = this._redrawSurfaceGraphPoint;
       break;
 
     case Graph3d.STYLE.GRID:
-      method = Graph3d.prototype._redrawGridGraphPoint;
+      method = this._redrawGridGraphPoint;
       break;
 
     case Graph3d.STYLE.LINE:
-      method = Graph3d.prototype._redrawLineGraphPoint;
+      method = this._redrawLineGraphPoint;
       break;
 
     default:
@@ -25002,22 +25002,15 @@ Graph3d.prototype.setPointDrawingMethod = function () {
 
 
 Graph3d.prototype.setAxisLabelMethod = function () {
-  var method_x, method_y, method_z;
-  method_x = method_y = method_z = undefined;
-
-  if (this.rotateAxisLabels == true) {
-    method_x = Graph3d.prototype.drawAxisLabelXRotate;
-    method_y = Graph3d.prototype.drawAxisLabelYRotate;
-    method_z = Graph3d.prototype.drawAxisLabelZRotate;
+  if (this.rotateAxisLabels) {
+    this._drawAxisLabelX = this.drawAxisLabelXRotate;
+    this._drawAxisLabelY = this.drawAxisLabelYRotate;
+    this._drawAxisLabelZ = this.drawAxisLabelZRotate;
   } else {
-    method_x = Graph3d.prototype.drawAxisLabelX;
-    method_y = Graph3d.prototype.drawAxisLabelY;
-    method_z = Graph3d.prototype.drawAxisLabelZ;
+    this._drawAxisLabelX = this.drawAxisLabelX;
+    this._drawAxisLabelY = this.drawAxisLabelY;
+    this._drawAxisLabelZ = this.drawAxisLabelZ;
   }
-
-  this._drawAxisLabelX = method_x;
-  this._drawAxisLabelY = method_y;
-  this._drawAxisLabelZ = method_z;
 };
 /**
  * Redraw the Graph.
