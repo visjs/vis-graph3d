@@ -70,18 +70,26 @@
           verticalRatio: 0.5
         };
 
-        if (style === "hue") {
-          options.surfaceColors = {
+        if (style === "default") {
+          options.colormap = [
+            '#000FFF',
+            '#68E8FB',
+            '#00FF00',
+            '#FFF000',
+            '#FF0000',
+          ]
+        } else if (style === "hue") {
+          options.colormap = {
             hue: {
-              start: -360,
-              end: 360,
+              start: 360,
+              end: -360,
               saturation: 50,
               brightness: 100,
               colorStops: 8 // How many colour gradients do we want
             }
           };
         } else if (style === "html") {
-          options.surfaceColors = ["#FFFFFF", "#6A0DAD", "#000000"];
+          options.colormap = ["#000000", "#6A0DAD", "#FFFFFF"];
         } // else use defaults.
 
         // Instantiate our graph object.
@@ -105,12 +113,12 @@
         />
         <label for="defaultStyle">Default Configuration: </label>
         <code>
-          <pre>surfaceColors: [
-  '#FF0000',
-  '#FFF000',
-  '#00FF00',
-  '#68E8FB',
+          <pre>colormap: [
   '#000FFF',
+  '#68E8FB',
+  '#00FF00',
+  '#FFF000',
+  '#FF0000',
 ]</pre>
         </code>
       </div>
@@ -125,10 +133,10 @@
         />
         <label for="hueStyle">Hue Configuration:</label>
         <code>
-          <pre>surfaceColors: {
+          <pre>colormap: {
   hue: {
-    start: -360,
-    end: 360,
+    start: 360,
+    end: -360,
     saturation: 50,
     brightness: 100,
     colorStops: 8,
@@ -147,10 +155,10 @@
         />
         <label for="htmlStyle">HTML Hex Configuration:</label>
         <code>
-          <pre>surfaceColors: [
-  '#FFFFFF',
-  '#6A0DAD',
+          <pre>colormap: [
   '#000000',
+  '#6A0DAD',
+  '#FFFFFF',
 ]</pre>
         </code>
       </div>
