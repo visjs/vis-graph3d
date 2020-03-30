@@ -5,9 +5,7 @@ function isObject(value) {
   return typeof value === "object" && value !== null || typeof value === "function";
 }
 
-function hasOwn(obj, prop) {
-  return Object.prototype.hasOwnProperty.call(obj, prop);
-}
+const hasOwn = Function.prototype.call.bind(Object.prototype.hasOwnProperty);
 
 const wrapperSymbol = Symbol("wrapper");
 const implSymbol = Symbol("impl");
