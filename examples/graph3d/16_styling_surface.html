@@ -77,7 +77,11 @@
             '#00FF00',
             '#FFF000',
             '#FF0000',
-          ]
+          ];
+        } else if (style === "function") {
+          options.colormap = function(x) {
+            return {r: 255*x, g: 0, b: 0};
+          };
         } else if (style === "hue") {
           options.colormap = {
             hue: {
@@ -120,6 +124,22 @@
   '#FFF000',
   '#FF0000',
 ]</pre>
+        </code>
+      </div>
+
+      <div>
+        <input
+          type="radio"
+          name="style"
+          id="functionStyle"
+          value="function"
+          onchange="drawVisualization();"
+        />
+        <label for="functionStyle">Function Configuration:</label>
+        <code>
+          <pre>colormap: function(x) {
+  return {r: 255*x, g: 0, b: 0};
+}</pre>
         </code>
       </div>
 
