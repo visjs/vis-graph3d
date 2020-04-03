@@ -80,7 +80,7 @@
           ];
         } else if (style === "function") {
           options.colormap = function(x) {
-            return {r: 255*x, g: 0, b: 0};
+            return {r: 255*x, g: 0, b: 0, a: (1+x)/2};
           };
         } else if (style === "hue") {
           options.colormap = {
@@ -138,7 +138,7 @@
         <label for="functionStyle">Function Configuration:</label>
         <code>
           <pre>colormap: function(x) {
-  return {r: 255*x, g: 0, b: 0};
+  return {r: 255*x, g: 0, b: 0, a: (1+x)/2};
 }</pre>
         </code>
       </div>
