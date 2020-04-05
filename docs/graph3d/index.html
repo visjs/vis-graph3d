@@ -390,7 +390,7 @@ var options = {
 
     <tr class='toggle collapsible' onclick="toggleTable('optionTable','surfaceColors', this);">
         <td><span parent="surfaceColors" class="right-caret"></span> surfaceColors</td>
-        <td>array or object</td>
+        <td>boolean, array or object</td>
         <td><code>['#FF0000', '#FFF000', '#00FF00', '#68E8FB', '#000FFF']</code></td>
         <td>When <code>surfaceColors</code> is set, the surface will be colored according to the colors provided. If it is an object it must have the <code>hue</code> key, it will then be converted into an array according to the following hue values provided:</td>
       </tr>
@@ -477,16 +477,9 @@ var options = {
       <td>onclick</td>
       <td>function</td>
       <td>none</td>
-      <td>Event handler for a click event with signature <code>function onclick(point)</code>.<br>
-        Parameter <code>point</code> contains data for the nearest graph element relative to the click in
-        the line of sight. It is an object with the fields:
-        <ul>
-        <li><code>id   </code> - id of nearest node to the click</li>
-        <li><code>x    </code> - x-coordinate in graph units</li>
-        <li><code>y    </code> - y-coordinate in graph units</li>
-        <li><code>z    </code> - z-coordinate in graph units</li>
-        <li><code>style</code> - if present, the data value for this point</li>
-        </ul>
+      <td>This option is deprecated and may be removed in a future version.
+        Please use <code>graph.on('click', handler);</code> instead. See
+        <a href="#Events">Events</a> for further details.
       </td>
     </tr>
 
@@ -506,6 +499,12 @@ var options = {
         The animation controls consists of buttons previous, start/stop, next,
         and a slider showing the current frame.
         Only applicable when the provided data contains an animation.</td>
+    </tr>
+    <tr>
+      <td>showGrayBottom</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>If true, draw the bottom side of the surface in gray.</td>
     </tr>
     <tr>
       <td>showGrid</td>
@@ -555,6 +554,13 @@ var options = {
       <td>boolean</td>
       <td>false</td>
       <td>Show shadow on the graph.</td>
+    </tr>
+    <tr>
+      <td>showSurfaceGrid</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>If true, grid lines are drawn on the surface of the graph itself
+        (only effective if <code>style: 'surface'</code>.</td>
     </tr>
     <tr>
       <td>style</td>
@@ -999,6 +1005,23 @@ graph3d.on('cameraPositionChange', onCameraPositionChange);
         but not after a call to <code>setCameraPosition</code> method.
         The new camera position can be retrieved by calling the method
         <code>getCameraPosition</code>.</td>
+    </tr>
+
+    <tr>
+      <td>click</td>
+      <td>
+        <ul>
+          <li><code>id   </code> - id of nearest node to the click</li>
+          <li><code>x    </code> - x-coordinate in graph units</li>
+          <li><code>y    </code> - y-coordinate in graph units</li>
+          <li><code>z    </code> - z-coordinate in graph units</li>
+          <li><code>style</code> - if present, the data value for this point</li>
+        </ul>
+      </td>
+      <td>Event handler for a click event with signature <code>function onclick(point)</code>.<br>
+        Parameter <code>point</code> contains data for the nearest graph element relative to the click in
+        the line of sight.
+      </td>
     </tr>
   </table>
 
