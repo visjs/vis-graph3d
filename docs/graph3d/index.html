@@ -388,42 +388,49 @@ var options = {
       <td>The line width of dots, bars and lines. Applicable for all styles.</td>
     </tr>
 
-    <tr class='toggle collapsible' onclick="toggleTable('optionTable','surfaceColors', this);">
-        <td><span parent="surfaceColors" class="right-caret"></span> surfaceColors</td>
-        <td>boolean, array or object</td>
-        <td><code>['#FF0000', '#FFF000', '#00FF00', '#68E8FB', '#000FFF']</code></td>
-        <td>When <code>surfaceColors</code> is set, the surface will be colored according to the colors provided. If it is an object it must have the <code>hue</code> key, it will then be converted into an array according to the following hue values provided:</td>
+    <tr class='toggle collapsible' onclick="toggleTable('optionTable','colormap', this);">
+        <td><span parent="colormap" class="right-caret"></span> colormap</td>
+        <td>array, function</td>
+        <td>none</td>
+        <td>When <code>colormap</code> is set, the surface will be colored according to the colors provided. If it is a function it will be called with normalized values between 0 and 1 and must return the RGB values as object with keys <code>{r, g, b}</code>. If it is an object it must have the <code>hue</code> key, it will then be converted into an array according to the following hue values provided:</td>
       </tr>
-      <tr parent="surfaceColors" class="hidden">
+      <tr parent="colormap" class="hidden">
         <td class="indent">surfaceColors.hue.start</td>
         <td>number</td>
         <td>None</td>
         <td>The hue value of the maximum z value of the surface. Hue is in degrees with a period of 360.</td>
       </tr>
-      <tr parent="surfaceColors" class="hidden">
+      <tr parent="colormap" class="hidden">
         <td class="indent">surfaceColors.hue.end</td>
         <td>number</td>
         <td>None</td>
         <td>The hue value of the minimum z value of the surface. Hue is in degrees with a period of 360.</td>
       </tr>
-      <tr parent="surfaceColors" class="hidden">
+      <tr parent="colormap" class="hidden">
         <td class="indent">surfaceColors.hue.saturation</td>
         <td>number</td>
         <td>None</td>
         <td>Saturation value of all hue colors. Saturation is in percent (0 to 100).</td>
       </tr>
-      <tr parent="surfaceColors" class="hidden">
+      <tr parent="colormap" class="hidden">
         <td class="indent">surfaceColors.hue.brightness</td>
         <td>number</td>
         <td>None</td>
         <td>Brightness value of all hue colors. Brightness is in percent (0 to 100).</td>
       </tr>
-      <tr parent="surfaceColors" class="hidden">
+      <tr parent="colormap" class="hidden">
         <td class="indent">surfaceColors.hue.colorStops</td>
         <td>number</td>
         <td>None</td>
         <td>How many color stops does the hue go through between hue start and hue end.</td>
       </tr>
+
+    <tr>
+      <td>surfaceColors</td>
+      <td>boolean, array or object</td>
+      <td>none</td>
+      <td>This option is deprecated and may be removed in a future version. Please use the <code>colormap</code> option instead. Note that the <code>colormap</code> option uses the reverse array ordering (running from vMin to vMax).</td>
+    </tr>
 
     <tr>
       <td>dotSizeRatio</td>

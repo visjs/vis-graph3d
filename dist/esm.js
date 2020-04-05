@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-04-05T10:17:31.406Z
+ * @date    2020-04-05T20:48:49.428Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -19632,6 +19632,39 @@ var concat$5 = concat_1$2;
 
 var concat$6 = concat$5;
 
+// https://tc39.github.io/ecma262/#sec-number.isnan
+
+_export$2({
+  target: 'Number',
+  stat: true
+}, {
+  isNaN: function isNaN(number) {
+    // eslint-disable-next-line no-self-compare
+    return number != number;
+  }
+});
+
+var isNan = path$2.Number.isNaN;
+
+var isNan$1 = isNan;
+
+var isNan$2 = isNan$1;
+
+// https://tc39.github.io/ecma262/#sec-array.isarray
+
+_export$2({
+  target: 'Array',
+  stat: true
+}, {
+  isArray: isArray$7
+});
+
+var isArray$8 = path$2.Array.isArray;
+
+var isArray$9 = isArray$8;
+
+var isArray$a = isArray$9;
+
 var f$c = wellKnownSymbol$2;
 var wellKnownSymbolWrapped$2 = {
   f: f$c
@@ -20820,61 +20853,6 @@ var forEach_1$2 = function (it) {
 
 var forEach$7 = forEach_1$2;
 
-// a string of all valid unicode whitespaces
-// eslint-disable-next-line max-len
-var whitespaces$2 = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
-
-var whitespace$2 = '[' + whitespaces$2 + ']';
-var ltrim$2 = RegExp('^' + whitespace$2 + whitespace$2 + '*');
-var rtrim$2 = RegExp(whitespace$2 + whitespace$2 + '*$'); // `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
-
-var createMethod$9 = function (TYPE) {
-  return function ($this) {
-    var string = String(requireObjectCoercible$2($this));
-    if (TYPE & 1) string = string.replace(ltrim$2, '');
-    if (TYPE & 2) string = string.replace(rtrim$2, '');
-    return string;
-  };
-};
-
-var stringTrim$2 = {
-  // `String.prototype.{ trimLeft, trimStart }` methods
-  // https://tc39.github.io/ecma262/#sec-string.prototype.trimstart
-  start: createMethod$9(1),
-  // `String.prototype.{ trimRight, trimEnd }` methods
-  // https://tc39.github.io/ecma262/#sec-string.prototype.trimend
-  end: createMethod$9(2),
-  // `String.prototype.trim` method
-  // https://tc39.github.io/ecma262/#sec-string.prototype.trim
-  trim: createMethod$9(3)
-};
-
-var trim$5 = stringTrim$2.trim;
-var $parseInt$2 = global_1$2.parseInt;
-var hex$2 = /^[+-]?0[Xx]/;
-var FORCED$6 = $parseInt$2(whitespaces$2 + '08') !== 8 || $parseInt$2(whitespaces$2 + '0x16') !== 22; // `parseInt` method
-// https://tc39.github.io/ecma262/#sec-parseint-string-radix
-
-var numberParseInt$2 = FORCED$6 ? function parseInt(string, radix) {
-  var S = trim$5(String(string));
-  return $parseInt$2(S, radix >>> 0 || (hex$2.test(S) ? 16 : 10));
-} : $parseInt$2;
-
-// https://tc39.github.io/ecma262/#sec-parseint-string-radix
-
-_export$2({
-  global: true,
-  forced: parseInt != numberParseInt$2
-}, {
-  parseInt: numberParseInt$2
-});
-
-var _parseInt$3 = path$2.parseInt;
-
-var _parseInt$4 = _parseInt$3;
-
-var _parseInt$5 = _parseInt$4;
-
 var values$4 = entryVirtual$2('Array').values;
 
 var values$5 = values$4;
@@ -20933,13 +20911,42 @@ var fill$1 = fill_1;
 
 var fill$2 = fill$1;
 
-var trim$6 = stringTrim$2.trim;
+// a string of all valid unicode whitespaces
+// eslint-disable-next-line max-len
+var whitespaces$2 = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
+
+var whitespace$2 = '[' + whitespaces$2 + ']';
+var ltrim$2 = RegExp('^' + whitespace$2 + whitespace$2 + '*');
+var rtrim$2 = RegExp(whitespace$2 + whitespace$2 + '*$'); // `String.prototype.{ trim, trimStart, trimEnd, trimLeft, trimRight }` methods implementation
+
+var createMethod$9 = function (TYPE) {
+  return function ($this) {
+    var string = String(requireObjectCoercible$2($this));
+    if (TYPE & 1) string = string.replace(ltrim$2, '');
+    if (TYPE & 2) string = string.replace(rtrim$2, '');
+    return string;
+  };
+};
+
+var stringTrim$2 = {
+  // `String.prototype.{ trimLeft, trimStart }` methods
+  // https://tc39.github.io/ecma262/#sec-string.prototype.trimstart
+  start: createMethod$9(1),
+  // `String.prototype.{ trimRight, trimEnd }` methods
+  // https://tc39.github.io/ecma262/#sec-string.prototype.trimend
+  end: createMethod$9(2),
+  // `String.prototype.trim` method
+  // https://tc39.github.io/ecma262/#sec-string.prototype.trim
+  trim: createMethod$9(3)
+};
+
+var trim$5 = stringTrim$2.trim;
 var $parseFloat = global_1$2.parseFloat;
-var FORCED$7 = 1 / $parseFloat(whitespaces$2 + '-0') !== -Infinity; // `parseFloat` method
+var FORCED$6 = 1 / $parseFloat(whitespaces$2 + '-0') !== -Infinity; // `parseFloat` method
 // https://tc39.github.io/ecma262/#sec-parsefloat-string
 
-var numberParseFloat = FORCED$7 ? function parseFloat(string) {
-  var trimmedString = trim$6(String(string));
+var numberParseFloat = FORCED$6 ? function parseFloat(string) {
+  var trimmedString = trim$5(String(string));
   var result = $parseFloat(trimmedString);
   return result === 0 && trimmedString.charAt(0) == '-' ? -0 : result;
 } : $parseFloat;
@@ -21039,13 +21046,13 @@ var FAILS_ON_NULL$1 = fails$2(function () {
 }); // Old WebKit
 
 var STRICT_METHOD$7 = arrayMethodIsStrict$2('sort');
-var FORCED$8 = FAILS_ON_UNDEFINED$1 || !FAILS_ON_NULL$1 || !STRICT_METHOD$7; // `Array.prototype.sort` method
+var FORCED$7 = FAILS_ON_UNDEFINED$1 || !FAILS_ON_NULL$1 || !STRICT_METHOD$7; // `Array.prototype.sort` method
 // https://tc39.github.io/ecma262/#sec-array.prototype.sort
 
 _export$2({
   target: 'Array',
   proto: true,
-  forced: FORCED$8
+  forced: FORCED$7
 }, {
   sort: function sort(comparefn) {
     return comparefn === undefined ? nativeSort$1.call(toObject$2(this)) : nativeSort$1.call(toObject$2(this), aFunction$3(comparefn));
@@ -21876,37 +21883,6 @@ StepNumber.prototype.end = function () {
 
 var StepNumber_1 = StepNumber;
 
-var nativeReverse = [].reverse;
-var test$5 = [1, 2]; // `Array.prototype.reverse` method
-// https://tc39.github.io/ecma262/#sec-array.prototype.reverse
-// fix for Safari 12.0 bug
-// https://bugs.webkit.org/show_bug.cgi?id=188794
-
-_export$2({
-  target: 'Array',
-  proto: true,
-  forced: String(test$5) === String(test$5.reverse())
-}, {
-  reverse: function reverse() {
-    // eslint-disable-next-line no-self-assign
-    if (isArray$7(this)) this.length = this.length;
-    return nativeReverse.call(this);
-  }
-});
-
-var reverse = entryVirtual$2('Array').reverse;
-
-var ArrayPrototype$k = Array.prototype;
-
-var reverse_1 = function (it) {
-  var own = it.reverse;
-  return it === ArrayPrototype$k || it instanceof Array && own === ArrayPrototype$k.reverse ? reverse : own;
-};
-
-var reverse$1 = reverse_1;
-
-var reverse$2 = reverse$1;
-
 var $map$2 = arrayIteration$2.map;
 var HAS_SPECIES_SUPPORT$5 = arrayMethodHasSpeciesSupport$2('map'); // FF49- issue
 
@@ -21928,31 +21904,47 @@ _export$2({
 
 var map$7 = entryVirtual$2('Array').map;
 
-var ArrayPrototype$l = Array.prototype;
+var ArrayPrototype$k = Array.prototype;
 
 var map_1$2 = function (it) {
   var own = it.map;
-  return it === ArrayPrototype$l || it instanceof Array && own === ArrayPrototype$l.map ? map$7 : own;
+  return it === ArrayPrototype$k || it instanceof Array && own === ArrayPrototype$k.map ? map$7 : own;
 };
 
 var map$8 = map_1$2;
 
 var map$9 = map$8;
 
-// https://tc39.github.io/ecma262/#sec-array.isarray
+var nativeReverse = [].reverse;
+var test$5 = [1, 2]; // `Array.prototype.reverse` method
+// https://tc39.github.io/ecma262/#sec-array.prototype.reverse
+// fix for Safari 12.0 bug
+// https://bugs.webkit.org/show_bug.cgi?id=188794
 
 _export$2({
   target: 'Array',
-  stat: true
+  proto: true,
+  forced: String(test$5) === String(test$5.reverse())
 }, {
-  isArray: isArray$7
+  reverse: function reverse() {
+    // eslint-disable-next-line no-self-assign
+    if (isArray$7(this)) this.length = this.length;
+    return nativeReverse.call(this);
+  }
 });
 
-var isArray$8 = path$2.Array.isArray;
+var reverse = entryVirtual$2('Array').reverse;
 
-var isArray$9 = isArray$8;
+var ArrayPrototype$l = Array.prototype;
 
-var isArray$a = isArray$9;
+var reverse_1 = function (it) {
+  var own = it.reverse;
+  return it === ArrayPrototype$l || it instanceof Array && own === ArrayPrototype$l.reverse ? reverse : own;
+};
+
+var reverse$1 = reverse_1;
+
+var reverse$2 = reverse$1;
 
 var HAS_SPECIES_SUPPORT$6 = arrayMethodHasSpeciesSupport$2('slice');
 var USES_TO_LENGTH$b = arrayMethodUsesToLength$2('slice', {
@@ -22255,7 +22247,7 @@ var STYLENAME = {
  * and can be directly copied over.
  */
 
-var OPTIONKEYS = ['width', 'height', 'filterLabel', 'legendLabel', 'xLabel', 'yLabel', 'zLabel', 'xValueLabel', 'yValueLabel', 'zValueLabel', 'showXAxis', 'showYAxis', 'showZAxis', 'showGrayBottom', 'showGrid', 'showPerspective', 'showShadow', 'showSurfaceGrid', 'keepAspectRatio', 'rotateAxisLabels', 'verticalRatio', 'dotSizeRatio', 'dotSizeMinFraction', 'dotSizeMaxFraction', 'showAnimationControls', 'surfaceColors', 'animationInterval', 'animationPreload', 'animationAutoStart', 'axisColor', 'axisFontSize', 'axisFontType', 'gridColor', 'xCenter', 'yCenter', 'zoomable', 'tooltipDelay', 'ctrlToZoom'];
+var OPTIONKEYS = ['width', 'height', 'filterLabel', 'legendLabel', 'xLabel', 'yLabel', 'zLabel', 'xValueLabel', 'yValueLabel', 'zValueLabel', 'showXAxis', 'showYAxis', 'showZAxis', 'showGrayBottom', 'showGrid', 'showPerspective', 'showShadow', 'showSurfaceGrid', 'keepAspectRatio', 'rotateAxisLabels', 'verticalRatio', 'dotSizeRatio', 'dotSizeMinFraction', 'dotSizeMaxFraction', 'showAnimationControls', 'animationInterval', 'animationPreload', 'animationAutoStart', 'axisColor', 'axisFontSize', 'axisFontType', 'gridColor', 'xCenter', 'yCenter', 'zoomable', 'tooltipDelay', 'ctrlToZoom'];
 /**
  * Field names in the options hash which are of relevance to the user.
  *
@@ -22445,8 +22437,24 @@ function setSpecialSettings(src, dst) {
   }
 
   setDataColor(src.dataColor, dst);
-  setSurfaceColor(src.surfaceColors, dst);
   setStyle(src.style, dst);
+
+  if (src.surfaceColors !== undefined) {
+    console.warn('`options.surfaceColors` is deprecated and may be removed in a future ' + 'version. Please use `options.colormap` instead. Note that the `colormap` ' + 'option uses the inverse array ordering (running from vMin to vMax).');
+
+    if (src.colormap !== undefined) {
+      throw new Error('The `colormap` and `surfaceColors` options are mutually exclusive.');
+    }
+
+    if (dst.style !== 'surface') {
+      console.warn('Ignoring `surfaceColors` in graph style `' + dst.style + '` for ' + 'backward compatibility (only effective in `surface` plots).');
+    } else {
+      setSurfaceColor(src.surfaceColors, dst);
+    }
+  } else {
+    setColormap(src.colormap, dst);
+  }
+
   setShowLegend(src.showLegend, dst);
   setCameraPosition(src.cameraPosition, dst); // As special fields go, this is an easy one; just a translation of the name.
   // Can't use this.tooltip directly, because that field exists internally
@@ -22620,8 +22628,6 @@ function setDataColor(dataColor, dst) {
   }
 }
 /**
- * Converts an object that accepts a HUE keyword. This is converted to a certain amount of hex color stops. At which point:
- * the HTML hex color codes is converted into an RGB color object.
  * 
  * @param {Object | Array<string>} surfaceColors Either an object that describes the HUE, or an array of HTML hex color codes
  * @param {Object} dst 
@@ -22642,64 +22648,100 @@ function setSurfaceColor(surfaceColors, dst) {
     dst.surfaceColors = {};
   }
 
-  var rgbColors = [];
+  var rgbColors;
 
   if (isArray$a(surfaceColors)) {
-    if (surfaceColors.length < 2) {
-      throw new Error('Surface colors array length must be 2 or above.');
-    }
-
-    rgbColors = map$9(surfaceColors).call(surfaceColors, function (colorCode) {
-      if (!util.isValidHex(colorCode)) {
-        throw new Error('Invalid hex color code supplied to surfaceColors.');
-      }
-
-      return util.hexToRGB(colorCode);
-    });
+    rgbColors = parseColorArray(surfaceColors);
   } else if (_typeof_1$2(surfaceColors) === 'object') {
-    if (surfaceColors.hue === undefined) {
-      throw new Error('Unsupported type of surfaceColors');
-    }
-
-    if (surfaceColors.hue.saturation < 0 || surfaceColors.hue.saturation > 100) {
-      throw new Error('Surface colors saturation is out of bounds. Expected range is 0-100.');
-    }
-
-    if (surfaceColors.hue.brightness < 0 || surfaceColors.hue.brightness > 100) {
-      throw new Error('Surface colors brightness is out of bounds. Expected range is 0-100.');
-    }
-
-    if (surfaceColors.hue.colorStops < 2) {
-      throw new Error('Surface colors colorStops is out of bounds. Expected 2 or above.');
-    }
-
-    var startHue = Math.min(surfaceColors.hue.start, surfaceColors.hue.end);
-    var endHue = Math.max(surfaceColors.hue.start, surfaceColors.hue.end);
-    var saturation = surfaceColors.hue.saturation;
-    var brightness = surfaceColors.hue.brightness;
-    var stops = surfaceColors.hue.colorStops;
-    var hueStepSize = (endHue - startHue) / stops;
-    var currentHue = startHue;
-
-    while (currentHue < endHue) {
-      var calculatedHue = currentHue % 360;
-
-      if (calculatedHue < 0) {
-        calculatedHue = 360 + calculatedHue;
-      }
-
-      rgbColors.push(util.HSVToRGB(calculatedHue / 360, saturation / 100, brightness / 100));
-      currentHue += hueStepSize;
-    }
-
-    if (surfaceColors.hue.start > surfaceColors.hue.end) {
-      reverse$2(rgbColors).call(rgbColors);
-    }
+    rgbColors = parseColorObject(surfaceColors.hue);
   } else {
     throw new Error('Unsupported type of surfaceColors');
+  } // for some reason surfaceColors goes from vMax to vMin:
+
+
+  reverse$2(rgbColors).call(rgbColors);
+
+  dst.colormap = rgbColors;
+}
+/**
+ *
+ * @param {Object | Array<string>} colormap Either an object that describes the HUE, or an array of HTML hex color codes
+ * @param {Object} dst
+ */
+
+
+function setColormap(colormap, dst) {
+  if (colormap === undefined) {
+    return;
   }
 
-  dst.surfaceColors = rgbColors;
+  var rgbColors;
+
+  if (isArray$a(colormap)) {
+    rgbColors = parseColorArray(colormap);
+  } else if (_typeof_1$2(colormap) === 'object') {
+    rgbColors = parseColorObject(colormap.hue);
+  } else if (typeof colormap === 'function') {
+    rgbColors = colormap;
+  } else {
+    throw new Error('Unsupported type of colormap');
+  }
+
+  dst.colormap = rgbColors;
+}
+/**
+ *
+ * @param {Array} colormap
+ */
+
+
+function parseColorArray(colormap) {
+  if (colormap.length < 2) {
+    throw new Error('Colormap array length must be 2 or above.');
+  }
+
+  return map$9(colormap).call(colormap, function (colorCode) {
+    if (!util.isValidHex(colorCode)) {
+      throw new Error("Invalid hex color code supplied to colormap.");
+    }
+
+    return util.hexToRGB(colorCode);
+  });
+}
+/**
+ * Converts an object to a certain amount of hex color stops. At which point:
+ * the HTML hex color codes is converted into an RGB color object.
+ *
+ * @param {Object} hues
+ */
+
+
+function parseColorObject(hues) {
+  if (hues === undefined) {
+    throw new Error('Unsupported type of colormap');
+  }
+
+  if (!(hues.saturation >= 0 && hues.saturation <= 100)) {
+    throw new Error('Saturation is out of bounds. Expected range is 0-100.');
+  }
+
+  if (!(hues.brightness >= 0 && hues.brightness <= 100)) {
+    throw new Error('Brightness is out of bounds. Expected range is 0-100.');
+  }
+
+  if (!(hues.colorStops >= 2)) {
+    throw new Error('colorStops is out of bounds. Expected 2 or above.');
+  }
+
+  var hueStep = (hues.end - hues.start) / (hues.colorStops - 1);
+  var rgbColors = [];
+
+  for (var i = 0; i < hues.colorStops; ++i) {
+    var hue = (hues.start + hueStep * i) % 360 / 360;
+    rgbColors.push(util.HSVToRGB(hue < 0 ? hue + 1 : hue, hues.saturation / 100, hues.brightness / 100));
+  }
+
+  return rgbColors;
 }
 /**
  *
@@ -22750,7 +22792,7 @@ var fix$1 = function (match, offset, string) {
   return match;
 };
 
-var FORCED$9 = fails$2(function () {
+var FORCED$8 = fails$2(function () {
   return $stringify$4('\uDF06\uD834') !== '"\\udf06\\ud834"' || $stringify$4('\uDEAD') !== '"\\udead"';
 });
 
@@ -22759,7 +22801,7 @@ if ($stringify$4) {
   _export$2({
     target: 'JSON',
     stat: true,
-    forced: FORCED$9
+    forced: FORCED$8
   }, {
     // eslint-disable-next-line no-unused-vars
     stringify: function stringify(it, replacer, space) {
@@ -23297,7 +23339,36 @@ var surfaceColorsOptions = {
   __type__: {
     boolean: bool,
     array: array,
-    object: object
+    object: object,
+    'undefined': 'undefined'
+  }
+};
+var colormapOptions = {
+  hue: {
+    start: {
+      number: number
+    },
+    end: {
+      number: number
+    },
+    saturation: {
+      number: number
+    },
+    brightness: {
+      number: number
+    },
+    colorStops: {
+      number: number
+    },
+    __type__: {
+      object: object
+    }
+  },
+  __type__: {
+    array: array,
+    object: object,
+    'function': 'function',
+    'undefined': 'undefined'
   }
 };
 /**
@@ -23362,6 +23433,7 @@ var allOptions$1 = {
   yCenter: {
     string: string
   },
+  colormap: colormapOptions,
   dataColor: colorOptions,
   dotSizeMinFraction: {
     number: number
@@ -24446,7 +24518,8 @@ Graph3d.DEFAULTS = {
     strokeWidth: 1 // px
 
   },
-  surfaceColors: ['#FF0000', '#FFF000', '#00FF00', '#68E8FB', '#000FFF'],
+  surfaceColors: autoByDefault,
+  colormap: autoByDefault,
   cameraPosition: {
     horizontal: 1.0,
     vertical: 0.5,
@@ -25179,10 +25252,10 @@ Graph3d.prototype._redrawLegend = function () {
     var y;
 
     for (y = ymin; y < ymax; y++) {
-      var f = (y - ymin) / (ymax - ymin);
-      var hue = f * 240;
+      // Need (1 - x) because y runs from top to bottom:
+      var f = 1 - (y - ymin) / (ymax - ymin);
 
-      var color = this._hsv2rgb(hue, 1, 1);
+      var color = this._colormap(f, 1);
 
       ctx.strokeStyle = color;
       ctx.beginPath();
@@ -25751,69 +25824,6 @@ Graph3d.prototype._redrawAxis = function () {
   }
 };
 /**
- * Calculate the color based on the given value.
- * @param {number} H   Hue, a value be between 0 and 360
- * @param {number} S   Saturation, a value between 0 and 1
- * @param {number} V   Value, a value between 0 and 1
- * @returns {string}
- * @private
- */
-
-
-Graph3d.prototype._hsv2rgb = function (H, S, V) {
-  var R, G, B, C, Hi, X;
-  C = V * S;
-  Hi = Math.floor(H / 60); // hi = 0,1,2,3,4,5
-
-  X = C * (1 - Math.abs(H / 60 % 2 - 1));
-
-  switch (Hi) {
-    case 0:
-      R = C;
-      G = X;
-      B = 0;
-      break;
-
-    case 1:
-      R = X;
-      G = C;
-      B = 0;
-      break;
-
-    case 2:
-      R = 0;
-      G = C;
-      B = X;
-      break;
-
-    case 3:
-      R = 0;
-      G = X;
-      B = C;
-      break;
-
-    case 4:
-      R = X;
-      G = 0;
-      B = C;
-      break;
-
-    case 5:
-      R = C;
-      G = 0;
-      B = X;
-      break;
-
-    default:
-      R = 0;
-      G = 0;
-      B = 0;
-      break;
-  }
-
-  return 'RGB(' + _parseInt$5(R * 255) + ',' + _parseInt$5(G * 255) + ',' + _parseInt$5(B * 255) + ')';
-};
-/**
  *
  * @param {vis.Point3d} point
  * @returns {*}
@@ -26002,12 +26012,11 @@ Graph3d.prototype._drawCircle = function (ctx, point, color, borderColor, size) 
 
 
 Graph3d.prototype._getColorsRegular = function (point) {
-  // calculate Hue from the current value. At vMin the hue is 240, at vMax the hue is 0
-  var hue = (1 - (point.point.value - this.valueRange.min) * this.scale.value) * 240;
+  var f = (point.point.value - this.valueRange.min) * this.scale.value;
 
-  var color = this._hsv2rgb(hue, 1, 1);
+  var color = this._colormap(f, 1);
 
-  var borderColor = this._hsv2rgb(hue, 1, 0.8);
+  var borderColor = this._colormap(f, 0.8);
 
   return {
     fill: color,
@@ -26047,9 +26056,9 @@ Graph3d.prototype._getColorsColor = function (point) {
     color = point.point.value;
     borderColor = point.point.value;
   } else {
-    var hue = (1 - (point.point.value - this.valueRange.min) * this.scale.value) * 240;
-    color = this._hsv2rgb(hue, 1, 1);
-    borderColor = this._hsv2rgb(hue, 1, 0.8);
+    var f = (point.point.value - this.valueRange.min) * this.scale.value;
+    color = this._colormap(f, 1);
+    borderColor = this._colormap(f, 0.8);
   }
 
   return {
@@ -26071,6 +26080,58 @@ Graph3d.prototype._getColorsSize = function () {
     fill: fill$2(this.dataColor),
     border: this.dataColor.stroke
   };
+};
+/**
+ * Determine the color corresponding to a given value on the color scale.
+ *
+ * @param {number} [x] the data value to be mapped running from 0 to 1
+ * @param {number} [v] scale factor between 0 and 1 for the color brightness
+ * @returns {string}
+ * @private
+ */
+
+
+Graph3d.prototype._colormap = function (x) {
+  var v = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var r, g, b, a;
+  var colormap = this.colormap;
+
+  if (isArray$a(colormap)) {
+    var maxIndex = colormap.length - 1;
+    var startIndex = Math.max(Math.floor(x * maxIndex), 0);
+    var endIndex = Math.min(startIndex + 1, maxIndex);
+    var innerRatio = x * maxIndex - startIndex;
+    var min = colormap[startIndex];
+    var max = colormap[endIndex];
+    r = min.r + innerRatio * (max.r - min.r);
+    g = min.g + innerRatio * (max.g - min.g);
+    b = min.b + innerRatio * (max.b - min.b);
+  } else if (typeof colormap === 'function') {
+    var _colormap = colormap(x);
+
+    r = _colormap.r;
+    g = _colormap.g;
+    b = _colormap.b;
+    a = _colormap.a;
+  } else {
+    var hue = (1 - x) * 240;
+
+    var _util$HSVToRGB = util.HSVToRGB(hue / 360, 1, 1);
+
+    r = _util$HSVToRGB.r;
+    g = _util$HSVToRGB.g;
+    b = _util$HSVToRGB.b;
+  }
+
+  if (typeof a === 'number' && !isNan$2(a)) {
+    var _context, _context2, _context3;
+
+    return concat$6(_context = concat$6(_context2 = concat$6(_context3 = "RGBA(".concat(Math.round(r * v), ", ")).call(_context3, Math.round(g * v), ", ")).call(_context2, Math.round(b * v), ", ")).call(_context, a, ")");
+  } else {
+    var _context4, _context5;
+
+    return concat$6(_context4 = concat$6(_context5 = "RGB(".concat(Math.round(r * v), ", ")).call(_context5, Math.round(g * v), ", ")).call(_context4, Math.round(b * v), ")");
+  }
 };
 /**
  * Determine the size of a point on-screen, as determined by the
@@ -26272,54 +26333,11 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
   }
 
   if (topSideVisible || !this.showGrayBottom) {
-    // calculate Hue from the current value. At vMin the hue is 240, at vMax the hue is 0
     var vAvg = (point.point.value + right.point.value + top.point.value + cross.point.value) / 4;
-    var ratio = 1 - (vAvg - this.valueRange.min) * this.scale.value;
-    var colors = this.surfaceColors;
+    var ratio = (vAvg - this.valueRange.min) * this.scale.value; // lighting factor. TODO: let user specify lighting model as function(?)
 
-    if (colors && colors.length !== 0) {
-      var _context, _context2;
-
-      var colorStops = colors.length - 1;
-      var startIndex = Math.floor(ratio * colorStops);
-      var endIndex = Math.ceil(ratio * colorStops);
-      var startRatio = startIndex / colorStops;
-      var endRatio = endIndex / colorStops;
-      var ratioWithin = (ratio - startRatio) / (endRatio - startRatio);
-      var minR = colors[startIndex].r;
-      var maxR = colors[endIndex].r;
-      var r = minR + ratioWithin * (maxR - minR);
-      var minG = colors[startIndex].g;
-      var maxG = colors[endIndex].g;
-      var g = minG + ratioWithin * (maxG - minG);
-      var minB = colors[startIndex].b;
-      var maxB = colors[endIndex].b;
-      var b = minB + ratioWithin * (maxB - minB);
-
-      if (this.showShadow) {
-        var v = (1 + cosViewAngle) / 2; // value. TODO: scale
-
-        r *= v;
-        g *= v;
-        b *= v;
-      }
-
-      fillStyle = concat$6(_context = concat$6(_context2 = "RGB(".concat(r, ", ")).call(_context2, g, ", ")).call(_context, b, ")");
-    } else {
-      var h = ratio * 240;
-      var s = 1; // saturation
-
-      var v = 1; // value
-
-      if (this.showShadow) {
-        v = (1 + cosViewAngle) / 2; // value. TODO: scale
-
-        fillStyle = this._hsv2rgb(h, s, v);
-      } else {
-        v = 1;
-        fillStyle = this._hsv2rgb(h, s, v);
-      }
-    }
+    var v = this.showShadow ? (1 + cosViewAngle) / 2 : 1;
+    fillStyle = this._colormap(ratio, v);
   } else {
     fillStyle = 'gray';
   }
@@ -26349,13 +26367,12 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
 Graph3d.prototype._drawGridLine = function (ctx, from, to) {
   if (from === undefined || to === undefined) {
     return;
-  } // calculate Hue from the current value. At vMin the hue is 240, at vMax the hue is 0
-
+  }
 
   var vAvg = (from.point.value + to.point.value) / 2;
-  var h = (1 - (vAvg - this.valueRange.min) * this.scale.value) * 240;
+  var f = (vAvg - this.valueRange.min) * this.scale.value;
   ctx.lineWidth = this._getStrokeWidth(from) * 2;
-  ctx.strokeStyle = this._hsv2rgb(h, 1, 1);
+  ctx.strokeStyle = this._colormap(f, 1);
 
   this._line(ctx, from.screen, to.screen);
 };

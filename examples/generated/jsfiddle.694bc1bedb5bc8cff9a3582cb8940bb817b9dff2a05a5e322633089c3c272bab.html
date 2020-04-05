@@ -47,13 +47,31 @@ fieldset &gt; div + div {
     &lt;label for="defaultStyle"&gt;Default Configuration: &lt;/label&gt;
     &lt;code&gt;
       &lt;pre&gt;
-surfaceColors: [
-  &amp;apos;#FF0000&amp;apos;,
-  &amp;apos;#FFF000&amp;apos;,
-  &amp;apos;#00FF00&amp;apos;,
-  &amp;apos;#68E8FB&amp;apos;,
+colormap: [
   &amp;apos;#000FFF&amp;apos;,
+  &amp;apos;#68E8FB&amp;apos;,
+  &amp;apos;#00FF00&amp;apos;,
+  &amp;apos;#FFF000&amp;apos;,
+  &amp;apos;#FF0000&amp;apos;,
 ]&lt;/pre
+      &gt;
+    &lt;/code&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;input
+      type="radio"
+      name="style"
+      id="functionStyle"
+      value="function"
+      onchange="drawVisualization();"
+    /&gt;
+    &lt;label for="functionStyle"&gt;Function Configuration:&lt;/label&gt;
+    &lt;code&gt;
+      &lt;pre&gt;
+colormap: function(x) {
+  return {r: 255*x, g: 0, b: 0, a: (1+x)/2};
+}&lt;/pre
       &gt;
     &lt;/code&gt;
   &lt;/div&gt;
@@ -69,10 +87,10 @@ surfaceColors: [
     &lt;label for="hueStyle"&gt;Hue Configuration:&lt;/label&gt;
     &lt;code&gt;
       &lt;pre&gt;
-surfaceColors: {
+colormap: {
   hue: {
-    start: -360,
-    end: 360,
+    start: 360,
+    end: -360,
     saturation: 50,
     brightness: 100,
     colorStops: 8,
@@ -93,10 +111,10 @@ surfaceColors: {
     &lt;label for="htmlStyle"&gt;HTML Hex Configuration:&lt;/label&gt;
     &lt;code&gt;
       &lt;pre&gt;
-surfaceColors: [
-  &amp;apos;#FFFFFF&amp;apos;,
-  &amp;apos;#6A0DAD&amp;apos;,
+colormap: [
   &amp;apos;#000000&amp;apos;,
+  &amp;apos;#6A0DAD&amp;apos;,
+  &amp;apos;#FFFFFF&amp;apos;,
 ]&lt;/pre
       &gt;
     &lt;/code&gt;
@@ -155,18 +173,24 @@ function drawVisualization() {
     verticalRatio: 0.5,
   };
 
-  if (style === "hue") {
-    options.surfaceColors = {
+  if (style === "default") {
+    options.colormap = ["#000FFF", "#68E8FB", "#00FF00", "#FFF000", "#FF0000"];
+  } else if (style === "function") {
+    options.colormap = function (x) {
+      return { r: 255 * x, g: 0, b: 0, a: (1 + x) / 2 };
+    };
+  } else if (style === "hue") {
+    options.colormap = {
       hue: {
-        start: -360,
-        end: 360,
+        start: 360,
+        end: -360,
         saturation: 50,
         brightness: 100,
         colorStops: 8, // How many colour gradients do we want
       },
     };
   } else if (style === "html") {
-    options.surfaceColors = ["#FFFFFF", "#6A0DAD", "#000000"];
+    options.colormap = ["#000000", "#6A0DAD", "#FFFFFF"];
   } // else use defaults.
 
   // Instantiate our graph object.
