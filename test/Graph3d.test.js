@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Graph3d = require('../lib/graph3d/Graph3d');
+import Graph3d from '../lib/graph3d/Graph3d';
 var canvasMockify = require('./canvas-mock');
 var stdout = require('test-console').stdout;
 var Validator = require("./../lib/shared/Validator").Validator;

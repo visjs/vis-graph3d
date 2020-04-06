@@ -19,7 +19,11 @@ gen/
 # generated files
 /coverage/
 /dist/
+/esnext/
 /examples/examples.css
 /examples/generated/
 /examples/index.html
 /examples/thumbnails/
+/peer/
+/standalone/
+/vis-graph3d-0.0.0-no-version.tgz
