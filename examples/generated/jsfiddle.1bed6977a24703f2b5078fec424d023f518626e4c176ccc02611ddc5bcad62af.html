@@ -98,7 +98,7 @@ function drawVisualization() {
     },
 
     xValueLabel: function (value) {
-      return vis.moment().add(value, "days").format("DD MMM");
+      return moment().add(value, "days").format("DD MMM");
     },
 
     yValueLabel: function (value) {
@@ -132,7 +132,7 @@ window.addEventListener("load", () =&gt; {
       <input
         type="hidden"
         name="resources"
-        value="https://visjs.github.io/vis-graph3d/dist/vis-graph3d.min.js"
+        value="https://unpkg.com/moment@2.24.0/moment.js,https://visjs.github.io/vis-graph3d/standalone/umd/vis-graph3d.min.js"
       />
       <input type="hidden" name="title" value="Graph 3D | Custom Labels" />
       <input type="hidden" name="wrap" value="b" />
