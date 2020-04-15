@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-04-15T06:45:18.642Z
+ * @date    2020-04-15T06:47:46.844Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -5917,19 +5917,9 @@ var some$1 = some_1;
 
 var some$2 = some$1;
 
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof_1(call) === "object" || typeof call === "function")) {
-    return call;
-  }
+var create$3 = create;
 
-  return assertThisInitialized(self);
-}
-
-var possibleConstructorReturn = _possibleConstructorReturn;
-
-var getPrototypeOf$3 = getPrototypeOf;
-
-var getPrototypeOf$4 = getPrototypeOf$3;
+var create$4 = create$3;
 
 // https://tc39.github.io/ecma262/#sec-object.setprototypeof
 
@@ -5945,21 +5935,6 @@ var setPrototypeOf = path.Object.setPrototypeOf;
 var setPrototypeOf$1 = setPrototypeOf;
 
 var setPrototypeOf$2 = setPrototypeOf$1;
-
-var getPrototypeOf$5 = createCommonjsModule(function (module) {
-  function _getPrototypeOf(o) {
-    module.exports = _getPrototypeOf = setPrototypeOf$2 ? getPrototypeOf$4 : function _getPrototypeOf(o) {
-      return o.__proto__ || getPrototypeOf$4(o);
-    };
-    return _getPrototypeOf(o);
-  }
-
-  module.exports = _getPrototypeOf;
-});
-
-var create$3 = create;
-
-var create$4 = create$3;
 
 var setPrototypeOf$3 = createCommonjsModule(function (module) {
   function _setPrototypeOf(o, p) {
@@ -5990,6 +5965,31 @@ function _inherits(subClass, superClass) {
 }
 
 var inherits = _inherits;
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof_1(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return assertThisInitialized(self);
+}
+
+var possibleConstructorReturn = _possibleConstructorReturn;
+
+var getPrototypeOf$3 = getPrototypeOf;
+
+var getPrototypeOf$4 = getPrototypeOf$3;
+
+var getPrototypeOf$5 = createCommonjsModule(function (module) {
+  function _getPrototypeOf(o) {
+    module.exports = _getPrototypeOf = setPrototypeOf$2 ? getPrototypeOf$4 : function _getPrototypeOf(o) {
+      return o.__proto__ || getPrototypeOf$4(o);
+    };
+    return _getPrototypeOf(o);
+  }
+
+  module.exports = _getPrototypeOf;
+});
 
 var freezing = !fails(function () {
   return Object.isExtensible(Object.preventExtensions({}));
