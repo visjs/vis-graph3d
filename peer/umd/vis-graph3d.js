@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-04-30T06:46:01.815Z
+ * @date    2020-04-30T08:02:26.025Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -2919,7 +2919,7 @@
 	  var n = slice$3(_context = Object.prototype.toString.call(o)).call(_context, 8, -1);
 
 	  if (n === "Object" && o.constructor) n = o.constructor.name;
-	  if (n === "Map" || n === "Set") return from_1$2(n);
+	  if (n === "Map" || n === "Set") return from_1$2(o);
 	  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
 	}
 
