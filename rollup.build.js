@@ -10,7 +10,8 @@ export default generateRollupConfiguration({
     "vis-util": "vis",
     hammerjs: "Hammer",
     keycharm: "keycharm",
-    moment: "moment"
+    moment: "moment",
+    uuid: "uuidv4"
   },
   header: { name: "vis-graph3d" },
   libraryFilename: "vis-graph3d",

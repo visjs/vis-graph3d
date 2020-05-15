@@ -64,7 +64,8 @@
     "keycharm": "^0.2.0 || ^0.3.0",
     "moment": "^2.24.0",
     "propagating-hammerjs": "^1.4.0",
-    "vis-data": "^6.2.0",
+    "uuid": "^7.0.0 || ^8.0.0",
+    "vis-data": "^6.5.0",
     "vis-util": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
@@ -111,7 +112,8 @@
     "semantic-release": "17.0.7",
     "sinon": "9.0.2",
     "test-console": "1.1.0",
-    "vis-data": "6.5.0",
+    "uuid": "8.0.0",
+    "vis-data": "6.5.1",
     "vis-dev-utils": "2.2.6",
     "vis-util": "4.0.0"
   },
