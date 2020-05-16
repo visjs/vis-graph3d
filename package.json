@@ -84,7 +84,7 @@
     "component-emitter": "1.3.0",
     "core-js": "3.6.5",
     "eslint": "7.0.0",
-    "git-authors-cli": "1.0.25",
+    "git-authors-cli": "1.0.26",
     "hammerjs": "2.0.8",
     "husky": "4.2.5",
     "jsdom": "16.2.2",
