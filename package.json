@@ -112,7 +112,7 @@
     "semantic-release": "17.0.7",
     "sinon": "9.0.2",
     "test-console": "1.1.0",
-    "uuid": "8.0.0",
+    "uuid": "8.1.0",
     "vis-data": "6.5.1",
     "vis-dev-utils": "2.2.10",
     "vis-util": "4.0.2"
