@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-05-20T21:48:59.428Z
+ * @date    2020-05-20T21:50:27.322Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -25,8 +25,8 @@
  */
 
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('component-emitter'), require('vis-util/esnext'), require('vis-data/esnext')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'component-emitter', 'vis-util/esnext', 'vis-data/esnext'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('component-emitter'), require('vis-util/esnext/umd/vis-util.js'), require('vis-data/esnext/umd/vis-data.js')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'component-emitter', 'vis-util/esnext/umd/vis-util.js', 'vis-data/esnext/umd/vis-data.js'], factory) :
   (global = global || self, factory(global.vis = global.vis || {}, global.Emitter, global.vis, global.vis));
 }(this, (function (exports, Emitter, util, esnext) {
   Emitter = Emitter && Object.prototype.hasOwnProperty.call(Emitter, 'default') ? Emitter['default'] : Emitter;
