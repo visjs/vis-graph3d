@@ -16,7 +16,9 @@ export default [{
 	},
 	plugins: [
 		commonjs(),
-		nodeResolve(),
+		nodeResolve({
+			browser: true
+		}),
 		babel({ runtimeHelpers: true })
 	],
 },
@@ -33,7 +35,9 @@ export default [{
 	},
 	plugins: [
 		commonjs(),
-		nodeResolve(),
+		nodeResolve({
+			browser: true
+		}),
 		babel({ runtimeHelpers: true }),
 		terser({
 			output: {
