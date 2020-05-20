@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-05-20T21:11:20.758Z
+ * @date    2020-05-20T21:48:59.428Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -9932,8 +9932,7 @@
 
 	      for (i = 0; i < tokens.length; i++) {
 	        token = tokens[i];
-	        parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0]; // console.log('token', token, 'parsedInput', parsedInput,
-	        //         'regex', getParseRegexForToken(token, config));
+	        parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
 
 	        if (parsedInput) {
 	          skipped = string.substr(0, string.indexOf(parsedInput));
@@ -12491,7 +12490,7 @@
 	      config._d = new Date(toInt(input));
 	    }); //! moment.js
 
-	    hooks.version = '2.25.3';
+	    hooks.version = '2.26.0';
 	    setHookCallback(createLocal);
 	    hooks.fn = proto;
 	    hooks.min = min;
