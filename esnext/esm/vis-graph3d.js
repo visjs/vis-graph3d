@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-05-20T21:50:27.322Z
+ * @date    2020-05-20T21:50:44.015Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -25,8 +25,8 @@
  */
 
 import Emitter from 'component-emitter';
-import { addEventListener, preventDefault, removeEventListener, selectiveDeepExtend, isValidHex, hexToRGB, HSVToRGB, copyAndExtendArray, copyArray } from 'vis-util/esnext/esm/vis-util.js';
-import { DataView, DataSet } from 'vis-data/esnext/esm/vis-data.js';
+import { addEventListener, preventDefault, removeEventListener, selectiveDeepExtend, isValidHex, hexToRGB, HSVToRGB, copyAndExtendArray, copyArray } from 'vis-util/esnext';
+import { DataView, DataSet } from 'vis-data/esnext';
 
 /**
  * @prototype Point3d
