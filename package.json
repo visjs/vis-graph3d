@@ -111,10 +111,11 @@
     "rollup-plugin-typescript2": "0.27.1",
     "semantic-release": "17.0.7",
     "sinon": "9.0.2",
+    "snap-shot-it": "7.9.3",
     "test-console": "1.1.0",
     "uuid": "8.1.0",
     "vis-data": "6.5.3",
-    "vis-dev-utils": "2.2.13",
+    "vis-dev-utils": "2.3.0",
     "vis-util": "4.0.2"
   },
   "collective": {

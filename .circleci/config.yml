@@ -162,6 +162,7 @@ workflows:
       - test:
           requires:
             - prepare
+            - build
 
       - gh_pages:
           requires:
