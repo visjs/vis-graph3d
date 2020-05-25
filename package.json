@@ -109,7 +109,7 @@
     "rollup-plugin-postcss": "3.1.1",
     "rollup-plugin-terser": "6.1.0",
     "rollup-plugin-typescript2": "0.27.1",
-    "semantic-release": "17.0.7",
+    "semantic-release": "17.0.8",
     "sinon": "9.0.2",
     "test-console": "1.1.0",
     "uuid": "8.1.0",
