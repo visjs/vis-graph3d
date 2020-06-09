@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-06-09T20:14:44.698Z
+ * @date    2020-06-09T20:18:27.770Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -2416,6 +2416,110 @@
 	  };
 	});
 
+	// https://tc39.github.io/ecma262/#sec-object.defineproperty
+
+	_export({
+	  target: 'Object',
+	  stat: true,
+	  forced: !descriptors,
+	  sham: !descriptors
+	}, {
+	  defineProperty: objectDefineProperty.f
+	});
+
+	var defineProperty_1 = createCommonjsModule(function (module) {
+	  var Object = path.Object;
+
+	  var defineProperty = module.exports = function defineProperty(it, key, desc) {
+	    return Object.defineProperty(it, key, desc);
+	  };
+
+	  if (Object.defineProperty.sham) defineProperty.sham = true;
+	});
+
+	// https://tc39.github.io/ecma262/#sec-object.defineproperties
+
+	_export({
+	  target: 'Object',
+	  stat: true,
+	  forced: !descriptors,
+	  sham: !descriptors
+	}, {
+	  defineProperties: objectDefineProperties
+	});
+
+	var defineProperties_1 = createCommonjsModule(function (module) {
+	  var Object = path.Object;
+
+	  var defineProperties = module.exports = function defineProperties(T, D) {
+	    return Object.defineProperties(T, D);
+	  };
+
+	  if (Object.defineProperties.sham) defineProperties.sham = true;
+	});
+
+	var ownKeys = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
+	  var keys = objectGetOwnPropertyNames.f(anObject(it));
+	  var getOwnPropertySymbols = objectGetOwnPropertySymbols.f;
+	  return getOwnPropertySymbols ? keys.concat(getOwnPropertySymbols(it)) : keys;
+	};
+
+	// https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptors
+
+	_export({
+	  target: 'Object',
+	  stat: true,
+	  sham: !descriptors
+	}, {
+	  getOwnPropertyDescriptors: function getOwnPropertyDescriptors(object) {
+	    var O = toIndexedObject(object);
+	    var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
+	    var keys = ownKeys(O);
+	    var result = {};
+	    var index = 0;
+	    var key, descriptor;
+
+	    while (keys.length > index) {
+	      descriptor = getOwnPropertyDescriptor(O, key = keys[index++]);
+	      if (descriptor !== undefined) createProperty(result, key, descriptor);
+	    }
+
+	    return result;
+	  }
+	});
+
+	var getOwnPropertyDescriptors = path.Object.getOwnPropertyDescriptors;
+
+	var nativeGetOwnPropertyDescriptor$2 = objectGetOwnPropertyDescriptor.f;
+	var FAILS_ON_PRIMITIVES = fails(function () {
+	  nativeGetOwnPropertyDescriptor$2(1);
+	});
+	var FORCED$3 = !descriptors || FAILS_ON_PRIMITIVES; // `Object.getOwnPropertyDescriptor` method
+	// https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptor
+
+	_export({
+	  target: 'Object',
+	  stat: true,
+	  forced: FORCED$3,
+	  sham: !descriptors
+	}, {
+	  getOwnPropertyDescriptor: function getOwnPropertyDescriptor(it, key) {
+	    return nativeGetOwnPropertyDescriptor$2(toIndexedObject(it), key);
+	  }
+	});
+
+	var getOwnPropertyDescriptor_1 = createCommonjsModule(function (module) {
+	  var Object = path.Object;
+
+	  var getOwnPropertyDescriptor = module.exports = function getOwnPropertyDescriptor(it, key) {
+	    return Object.getOwnPropertyDescriptor(it, key);
+	  };
+
+	  if (Object.getOwnPropertyDescriptor.sham) getOwnPropertyDescriptor.sham = true;
+	});
+
+	var getOwnPropertySymbols = path.Object.getOwnPropertySymbols;
+
 	var ITERATOR$2 = wellKnownSymbol('iterator');
 
 	var getIteratorMethod = function (it) {
@@ -2546,110 +2650,6 @@
 
 	var from_1 = path.Array.from;
 
-	// https://tc39.github.io/ecma262/#sec-object.defineproperty
-
-	_export({
-	  target: 'Object',
-	  stat: true,
-	  forced: !descriptors,
-	  sham: !descriptors
-	}, {
-	  defineProperty: objectDefineProperty.f
-	});
-
-	var defineProperty_1 = createCommonjsModule(function (module) {
-	  var Object = path.Object;
-
-	  var defineProperty = module.exports = function defineProperty(it, key, desc) {
-	    return Object.defineProperty(it, key, desc);
-	  };
-
-	  if (Object.defineProperty.sham) defineProperty.sham = true;
-	});
-
-	// https://tc39.github.io/ecma262/#sec-object.defineproperties
-
-	_export({
-	  target: 'Object',
-	  stat: true,
-	  forced: !descriptors,
-	  sham: !descriptors
-	}, {
-	  defineProperties: objectDefineProperties
-	});
-
-	var defineProperties_1 = createCommonjsModule(function (module) {
-	  var Object = path.Object;
-
-	  var defineProperties = module.exports = function defineProperties(T, D) {
-	    return Object.defineProperties(T, D);
-	  };
-
-	  if (Object.defineProperties.sham) defineProperties.sham = true;
-	});
-
-	var ownKeys = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
-	  var keys = objectGetOwnPropertyNames.f(anObject(it));
-	  var getOwnPropertySymbols = objectGetOwnPropertySymbols.f;
-	  return getOwnPropertySymbols ? keys.concat(getOwnPropertySymbols(it)) : keys;
-	};
-
-	// https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptors
-
-	_export({
-	  target: 'Object',
-	  stat: true,
-	  sham: !descriptors
-	}, {
-	  getOwnPropertyDescriptors: function getOwnPropertyDescriptors(object) {
-	    var O = toIndexedObject(object);
-	    var getOwnPropertyDescriptor = objectGetOwnPropertyDescriptor.f;
-	    var keys = ownKeys(O);
-	    var result = {};
-	    var index = 0;
-	    var key, descriptor;
-
-	    while (keys.length > index) {
-	      descriptor = getOwnPropertyDescriptor(O, key = keys[index++]);
-	      if (descriptor !== undefined) createProperty(result, key, descriptor);
-	    }
-
-	    return result;
-	  }
-	});
-
-	var getOwnPropertyDescriptors = path.Object.getOwnPropertyDescriptors;
-
-	var nativeGetOwnPropertyDescriptor$2 = objectGetOwnPropertyDescriptor.f;
-	var FAILS_ON_PRIMITIVES = fails(function () {
-	  nativeGetOwnPropertyDescriptor$2(1);
-	});
-	var FORCED$3 = !descriptors || FAILS_ON_PRIMITIVES; // `Object.getOwnPropertyDescriptor` method
-	// https://tc39.github.io/ecma262/#sec-object.getownpropertydescriptor
-
-	_export({
-	  target: 'Object',
-	  stat: true,
-	  forced: FORCED$3,
-	  sham: !descriptors
-	}, {
-	  getOwnPropertyDescriptor: function getOwnPropertyDescriptor(it, key) {
-	    return nativeGetOwnPropertyDescriptor$2(toIndexedObject(it), key);
-	  }
-	});
-
-	var getOwnPropertyDescriptor_1 = createCommonjsModule(function (module) {
-	  var Object = path.Object;
-
-	  var getOwnPropertyDescriptor = module.exports = function getOwnPropertyDescriptor(it, key) {
-	    return Object.getOwnPropertyDescriptor(it, key);
-	  };
-
-	  if (Object.getOwnPropertyDescriptor.sham) getOwnPropertyDescriptor.sham = true;
-	});
-
-	var getOwnPropertySymbols = path.Object.getOwnPropertySymbols;
-
 	// https://tc39.github.io/ecma262/#sec-object.create
 
 	_export({
@@ -2663,27 +2663,6 @@
 	var defineProperty$4 = defineProperty_1;
 
 	var defineProperty$5 = defineProperty$4;
-
-	var FAILS_ON_PRIMITIVES$1 = fails(function () {
-	  objectKeys(1);
-	}); // `Object.keys` method
-	// https://tc39.github.io/ecma262/#sec-object.keys
-
-	_export({
-	  target: 'Object',
-	  stat: true,
-	  forced: FAILS_ON_PRIMITIVES$1
-	}, {
-	  keys: function keys(it) {
-	    return objectKeys(toObject(it));
-	  }
-	});
-
-	var keys$1 = path.Object.keys;
-
-	var keys$2 = keys$1;
-
-	var keys$3 = keys$2;
 
 	var non = '\u200B\u0085\u180E'; // check that a method works with the correct list
 	// of whitespaces and has a correct name
@@ -2708,38 +2687,6 @@
 	});
 
 	var trim$1 = entryVirtual('String').trim;
-
-	var $map = arrayIteration.map;
-	var HAS_SPECIES_SUPPORT$1 = arrayMethodHasSpeciesSupport('map'); // FF49- issue
-
-	var USES_TO_LENGTH$3 = arrayMethodUsesToLength('map'); // `Array.prototype.map` method
-	// https://tc39.github.io/ecma262/#sec-array.prototype.map
-	// with adding support of @@species
-
-	_export({
-	  target: 'Array',
-	  proto: true,
-	  forced: !HAS_SPECIES_SUPPORT$1 || !USES_TO_LENGTH$3
-	}, {
-	  map: function map(callbackfn
-	  /* , thisArg */
-	  ) {
-	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-	  }
-	});
-
-	var map = entryVirtual('Array').map;
-
-	var ArrayPrototype$8 = Array.prototype;
-
-	var map_1 = function (it) {
-	  var own = it.map;
-	  return it === ArrayPrototype$8 || it instanceof Array && own === ArrayPrototype$8.map ? map : own;
-	};
-
-	var map$1 = map_1;
-
-	var map$2 = map$1;
 
 	var trim$2 = stringTrim.trim;
 	var $parseInt = global_1.parseInt;
@@ -2813,31 +2760,31 @@
 
 	var values$3 = path.Object.values;
 
+	var FAILS_ON_PRIMITIVES$1 = fails(function () {
+	  objectGetPrototypeOf(1);
+	}); // `Object.getPrototypeOf` method
+	// https://tc39.github.io/ecma262/#sec-object.getprototypeof
+
+	_export({
+	  target: 'Object',
+	  stat: true,
+	  forced: FAILS_ON_PRIMITIVES$1,
+	  sham: !correctPrototypeGetter
+	}, {
+	  getPrototypeOf: function getPrototypeOf(it) {
+	    return objectGetPrototypeOf(toObject(it));
+	  }
+	});
+
+	var getPrototypeOf = path.Object.getPrototypeOf;
+
+	var getPrototypeOf$1 = getPrototypeOf;
+
+	var getPrototypeOf$2 = getPrototypeOf$1;
+
 	var isArray$4 = isArray$1;
 
 	var isArray$5 = isArray$4;
-
-	function _arrayLikeToArray(arr, len) {
-	  if (len == null || len > arr.length) len = arr.length;
-
-	  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-	    arr2[i] = arr[i];
-	  }
-
-	  return arr2;
-	}
-
-	var arrayLikeToArray = _arrayLikeToArray;
-
-	function _arrayWithoutHoles(arr) {
-	  if (isArray$5(arr)) return arrayLikeToArray(arr);
-	}
-
-	var arrayWithoutHoles = _arrayWithoutHoles;
-
-	var from_1$1 = from_1;
-
-	var from_1$2 = from_1$1;
 
 	var ITERATOR$5 = wellKnownSymbol('iterator');
 
@@ -2851,14 +2798,12 @@
 
 	var isIterable$1 = isIterable_1;
 
-	function _iterableToArray(iter) {
-	  if (typeof symbol$2 !== "undefined" && isIterable$1(Object(iter))) return from_1$2(iter);
-	}
+	var from_1$1 = from_1;
 
-	var iterableToArray = _iterableToArray;
+	var from_1$2 = from_1$1;
 
-	var HAS_SPECIES_SUPPORT$2 = arrayMethodHasSpeciesSupport('slice');
-	var USES_TO_LENGTH$4 = arrayMethodUsesToLength('slice', {
+	var HAS_SPECIES_SUPPORT$1 = arrayMethodHasSpeciesSupport('slice');
+	var USES_TO_LENGTH$3 = arrayMethodUsesToLength('slice', {
 	  ACCESSORS: true,
 	  0: 0,
 	  1: 2
@@ -2872,7 +2817,7 @@
 	_export({
 	  target: 'Array',
 	  proto: true,
-	  forced: !HAS_SPECIES_SUPPORT$2 || !USES_TO_LENGTH$4
+	  forced: !HAS_SPECIES_SUPPORT$1 || !USES_TO_LENGTH$3
 	}, {
 	  slice: function slice(start, end) {
 	    var O = toIndexedObject(this);
@@ -2908,16 +2853,28 @@
 
 	var slice$1 = entryVirtual('Array').slice;
 
-	var ArrayPrototype$9 = Array.prototype;
+	var ArrayPrototype$8 = Array.prototype;
 
 	var slice_1 = function (it) {
 	  var own = it.slice;
-	  return it === ArrayPrototype$9 || it instanceof Array && own === ArrayPrototype$9.slice ? slice$1 : own;
+	  return it === ArrayPrototype$8 || it instanceof Array && own === ArrayPrototype$8.slice ? slice$1 : own;
 	};
 
 	var slice$2 = slice_1;
 
 	var slice$3 = slice$2;
+
+	function _arrayLikeToArray(arr, len) {
+	  if (len == null || len > arr.length) len = arr.length;
+
+	  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+	    arr2[i] = arr[i];
+	  }
+
+	  return arr2;
+	}
+
+	var arrayLikeToArray = _arrayLikeToArray;
 
 	function _unsupportedIterableToArray(o, minLen) {
 	  var _context;
@@ -2934,44 +2891,6 @@
 
 	var unsupportedIterableToArray = _unsupportedIterableToArray;
 
-	function _nonIterableSpread() {
-	  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-	}
-
-	var nonIterableSpread = _nonIterableSpread;
-
-	function _toConsumableArray(arr) {
-	  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
-	}
-
-	var toConsumableArray = _toConsumableArray;
-
-	var slice$4 = slice_1;
-
-	var slice$5 = slice$4;
-
-	var FAILS_ON_PRIMITIVES$2 = fails(function () {
-	  objectGetPrototypeOf(1);
-	}); // `Object.getPrototypeOf` method
-	// https://tc39.github.io/ecma262/#sec-object.getprototypeof
-
-	_export({
-	  target: 'Object',
-	  stat: true,
-	  forced: FAILS_ON_PRIMITIVES$2,
-	  sham: !correctPrototypeGetter
-	}, {
-	  getPrototypeOf: function getPrototypeOf(it) {
-	    return objectGetPrototypeOf(toObject(it));
-	  }
-	});
-
-	var getPrototypeOf = path.Object.getPrototypeOf;
-
-	var getPrototypeOf$1 = getPrototypeOf;
-
-	var getPrototypeOf$2 = getPrototypeOf$1;
-
 	// https://tc39.github.io/ecma262/#sec-date.now
 
 	_export({
@@ -2984,6 +2903,133 @@
 	});
 
 	var now = path.Date.now;
+
+	var FAILS_ON_PRIMITIVES$2 = fails(function () {
+	  objectKeys(1);
+	}); // `Object.keys` method
+	// https://tc39.github.io/ecma262/#sec-object.keys
+
+	_export({
+	  target: 'Object',
+	  stat: true,
+	  forced: FAILS_ON_PRIMITIVES$2
+	}, {
+	  keys: function keys(it) {
+	    return objectKeys(toObject(it));
+	  }
+	});
+
+	var keys$1 = path.Object.keys;
+
+	var keys$2 = keys$1;
+
+	var keys$3 = keys$2;
+
+	var $map = arrayIteration.map;
+	var HAS_SPECIES_SUPPORT$2 = arrayMethodHasSpeciesSupport('map'); // FF49- issue
+
+	var USES_TO_LENGTH$4 = arrayMethodUsesToLength('map'); // `Array.prototype.map` method
+	// https://tc39.github.io/ecma262/#sec-array.prototype.map
+	// with adding support of @@species
+
+	_export({
+	  target: 'Array',
+	  proto: true,
+	  forced: !HAS_SPECIES_SUPPORT$2 || !USES_TO_LENGTH$4
+	}, {
+	  map: function map(callbackfn
+	  /* , thisArg */
+	  ) {
+	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
+
+	var map = entryVirtual('Array').map;
+
+	var ArrayPrototype$9 = Array.prototype;
+
+	var map_1 = function (it) {
+	  var own = it.map;
+	  return it === ArrayPrototype$9 || it instanceof Array && own === ArrayPrototype$9.map ? map : own;
+	};
+
+	var map$1 = map_1;
+
+	var map$2 = map$1;
+
+	// https://tc39.github.io/ecma262/#sec-reflect.ownkeys
+
+	_export({
+	  target: 'Reflect',
+	  stat: true
+	}, {
+	  ownKeys: ownKeys
+	});
+
+	var ownKeys$1 = path.Reflect.ownKeys;
+
+	var slice$4 = slice_1;
+
+	var slice$5 = slice$4;
+
+	function _arrayWithoutHoles(arr) {
+	  if (isArray$5(arr)) return arrayLikeToArray(arr);
+	}
+
+	var arrayWithoutHoles = _arrayWithoutHoles;
+
+	function _iterableToArray(iter) {
+	  if (typeof symbol$2 !== "undefined" && isIterable$1(Object(iter))) return from_1$2(iter);
+	}
+
+	var iterableToArray = _iterableToArray;
+
+	function _nonIterableSpread() {
+	  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+	}
+
+	var nonIterableSpread = _nonIterableSpread;
+
+	function _toConsumableArray(arr) {
+	  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+	}
+
+	var toConsumableArray = _toConsumableArray;
+
+	var symbol$3 = symbol;
+
+	var symbol$4 = symbol$3;
+
+	/**
+	 * vis-util
+	 * https://github.com/visjs/vis-util
+	 *
+	 * utilitie collection for visjs
+	 *
+	 * @version 4.1.0
+	 * @date    2020-06-06T20:01:04.286Z
+	 *
+	 * @copyright (c) 2011-2017 Almende B.V, http://almende.com
+	 * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
+	 *
+	 * @license
+	 * vis.js is dual licensed under both
+	 *
+	 *   1. The Apache 2.0 License
+	 *      http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 *   and
+	 *
+	 *   2. The MIT License
+	 *      http://opensource.org/licenses/MIT
+	 *
+	 * vis.js may be distributed under either license.
+	 */
+
+	/**
+	 * Use this symbol to delete properies in deepObjectAssign.
+	 */
+	var DELETE = symbol$4("DELETE");
 
 	var fullHexRE = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
 	var shortHexRE = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -3092,9 +3138,9 @@
 	          copyOrDelete(a, b, prop, allowDeletion);
 	        }
 	      } else if (isArray$3(b[prop])) {
-	        var _context;
+	        var _context2;
 
-	        a[prop] = slice$5(_context = b[prop]).call(_context);
+	        a[prop] = slice$5(_context2 = b[prop]).call(_context2);
 	      } else {
 	        copyOrDelete(a, b, prop, allowDeletion);
 	      }
@@ -3114,9 +3160,9 @@
 
 
 	function copyAndExtendArray(arr, newValue) {
-	  var _context2;
+	  var _context3;
 
-	  return concat$2(_context2 = []).call(_context2, toConsumableArray(arr), [newValue]);
+	  return concat$2(_context3 = []).call(_context3, toConsumableArray(arr), [newValue]);
 	}
 	/**
 	 * Used to extend an array and copy it. This is used to propagate paths recursively.
@@ -3142,13 +3188,13 @@
 
 	function addEventListener(element, action, listener, useCapture) {
 	  if (element.addEventListener) {
-	    var _context3;
+	    var _context4;
 
 	    if (useCapture === undefined) {
 	      useCapture = false;
 	    }
 
-	    if (action === "mousewheel" && indexOf$3(_context3 = navigator.userAgent).call(_context3, "Firefox") >= 0) {
+	    if (action === "mousewheel" && indexOf$3(_context4 = navigator.userAgent).call(_context4, "Firefox") >= 0) {
 	      action = "DOMMouseScroll"; // For Firefox
 	    }
 
@@ -3170,14 +3216,14 @@
 
 	function removeEventListener(element, action, listener, useCapture) {
 	  if (element.removeEventListener) {
-	    var _context4;
+	    var _context5;
 
 	    // non-IE browsers
 	    if (useCapture === undefined) {
 	      useCapture = false;
 	    }
 
-	    if (action === "mousewheel" && indexOf$3(_context4 = navigator.userAgent).call(_context4, "Firefox") >= 0) {
+	    if (action === "mousewheel" && indexOf$3(_context5 = navigator.userAgent).call(_context5, "Firefox") >= 0) {
 	      action = "DOMMouseScroll"; // For Firefox
 	    }
 
