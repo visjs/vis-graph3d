@@ -22,8 +22,9 @@ describe('Graph3d', function () {
     assert(Graph3d.DEFAULTS !== undefined);
 
     let errorFound;
-    let output; // eslint-disable-line no-unused-vars
-    output = stdout.inspectSync(function() {
+    // Useful during debugging:
+    // const output =
+    stdout.inspectSync(function() {
       errorFound = Validator.validate(Graph3d.DEFAULTS, allOptions);
     });
 
