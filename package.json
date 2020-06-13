@@ -39,8 +39,8 @@
     "styles"
   ],
   "scripts": {
-    "test": "BABEL_ENV=test mocha --exit --require vis-dev-utils/babel-register",
-    "test-cov": "BABEL_ENV=test-cov nyc --reporter=lcov mocha --exit --require vis-dev-utils/babel-register",
+    "test": "BABEL_ENV=test mocha --exit",
+    "test-cov": "BABEL_ENV=test-cov nyc --reporter=lcov mocha --exit",
     "js:graph3d": "rollup --config rollup.build.js && rollup --config rollup.config.js",
     "build": "npm run js:graph3d",
     "watch": "rollup --watch --config rollup.config.js",
