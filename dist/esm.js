@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-06-14T17:38:50.115Z
+ * @date    2020-06-14T20:04:44.997Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -14050,7 +14050,7 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
         var oldData = _ref5.oldData,
             update = _ref5.update;
         var id = oldData[_this6._idProp];
-        var updatedData = deepExtend(deepExtend({}, oldData), update);
+        var updatedData = pureDeepObjectAssign(oldData, update);
 
         _this6._data.set(id, updatedData);
 
@@ -15366,6 +15366,7 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
 
 var esnext$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
+	DELETE: DELETE,
 	DataSet: DataSet,
 	DataStream: DataStream,
 	DataView: DataView,

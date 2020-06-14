@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-06-14T17:37:34.920Z
+ * @date    2020-06-14T20:03:34.008Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -3059,6 +3059,10 @@ _export({
 
 var ownKeys$1 = path.Reflect.ownKeys;
 
+var ownKeys$2 = ownKeys$1;
+
+var ownKeys$3 = ownKeys$2;
+
 var slice$4 = slice_1;
 
 var slice$5 = slice$4;
@@ -3091,6 +3095,12 @@ var symbol$3 = symbol;
 
 var symbol$4 = symbol$3;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof symbol$4 === "undefined" || getIteratorMethod$1(o) == null) { if (isArray$3(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = getIterator$1(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray$1(o, minLen) { var _context13; if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = slice$5(_context13 = Object.prototype.toString.call(o)).call(_context13, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_1$2(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
+
+function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 /**
  * vis-util
  * https://github.com/visjs/vis-util
@@ -3121,6 +3131,128 @@ var symbol$4 = symbol$3;
  * Use this symbol to delete properies in deepObjectAssign.
  */
 var DELETE = symbol$4("DELETE");
+/**
+ * Pure version of deepObjectAssign, it doesn't modify any of it's arguments.
+ *
+ * @param base - The base object that fullfils the whole interface T.
+ * @param updates - Updates that may change or delete props.
+ *
+ * @returns A brand new instance with all the supplied objects deeply merged.
+ */
+
+
+function pureDeepObjectAssign(base) {
+  var _context;
+
+  for (var _len = arguments.length, updates = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    updates[_key - 1] = arguments[_key];
+  }
+
+  return deepObjectAssign.apply(void 0, concat$2(_context = [{}, base]).call(_context, updates));
+}
+/**
+ * Deep version of object assign with additional deleting by the DELETE symbol.
+ *
+ * @param values - Objects to be deeply merged.
+ *
+ * @returns The first object from values.
+ */
+
+
+function deepObjectAssign() {
+  var merged = deepObjectAssignNonentry.apply(void 0, arguments);
+  stripDelete(merged);
+  console.log(merged);
+  return merged;
+}
+/**
+ * Deep version of object assign with additional deleting by the DELETE symbol.
+ *
+ * @remarks
+ * This doesn't strip the DELETE symbols so they may end up in the final object.
+ *
+ * @param values - Objects to be deeply merged.
+ *
+ * @returns The first object from values.
+ */
+
+
+function deepObjectAssignNonentry() {
+  for (var _len2 = arguments.length, values = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    values[_key2] = arguments[_key2];
+  }
+
+  if (values.length < 2) {
+    return values[0];
+  } else if (values.length > 2) {
+    var _context2;
+
+    return deepObjectAssignNonentry.apply(void 0, concat$2(_context2 = [deepObjectAssign(values[0], values[1])]).call(_context2, toConsumableArray(slice$5(values).call(values, 2))));
+  }
+
+  var a = values[0];
+  var b = values[1];
+
+  var _iterator = _createForOfIteratorHelper(ownKeys$3(b)),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var prop = _step.value;
+      if (Object.prototype.propertyIsEnumerable.call(b, b[prop])) ;else if (b[prop] === DELETE) {
+        delete a[prop];
+      } else if (a[prop] !== null && b[prop] !== null && _typeof_1(a[prop]) === "object" && _typeof_1(b[prop]) === "object" && !isArray$3(a[prop]) && !isArray$3(b[prop])) {
+        a[prop] = deepObjectAssignNonentry(a[prop], b[prop]);
+      } else {
+        a[prop] = clone(b[prop]);
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return a;
+}
+/**
+ * Deep clone given object or array. In case of primitive simply return.
+ *
+ * @param a - Anything.
+ *
+ * @returns Deep cloned object/array or unchanged a.
+ */
+
+
+function clone(a) {
+  if (isArray$3(a)) {
+    return map$2(a).call(a, function (value) {
+      return clone(value);
+    });
+  } else if (_typeof_1(a) === "object" && a !== null) {
+    return deepObjectAssignNonentry({}, a);
+  } else {
+    return a;
+  }
+}
+/**
+ * Strip DELETE from given object.
+ *
+ * @param a - Object which may contain DELETE but won't after this is executed.
+ */
+
+
+function stripDelete(a) {
+  for (var _i = 0, _Object$keys = keys$3(a); _i < _Object$keys.length; _i++) {
+    var prop = _Object$keys[_i];
+
+    if (a[prop] === DELETE) {
+      delete a[prop];
+    } else if (_typeof_1(a[prop]) === "object" && a[prop] !== null) {
+      stripDelete(a[prop]);
+    }
+  }
+}
 
 var fullHexRE = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
 var shortHexRE = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -12579,19 +12711,19 @@ var moment = createCommonjsModule(function (module, exports) {
   });
 });
 
-function ownKeys$2(object, enumerableOnly) { var keys = keys$3(object); if (getOwnPropertySymbols$2) { var symbols = getOwnPropertySymbols$2(object); if (enumerableOnly) symbols = filter$2(symbols).call(symbols, function (sym) { return getOwnPropertyDescriptor$3(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = keys$3(object); if (getOwnPropertySymbols$2) { var symbols = getOwnPropertySymbols$2(object); if (enumerableOnly) symbols = filter$2(symbols).call(symbols, function (sym) { return getOwnPropertyDescriptor$3(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { var _context28; forEach$2(_context28 = ownKeys$2(Object(source), true)).call(_context28, function (key) { defineProperty$8(target, key, source[key]); }); } else if (getOwnPropertyDescriptors$2) { defineProperties$1(target, getOwnPropertyDescriptors$2(source)); } else { var _context29; forEach$2(_context29 = ownKeys$2(Object(source))).call(_context29, function (key) { defineProperty$5(target, key, getOwnPropertyDescriptor$3(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { var _context28; forEach$2(_context28 = ownKeys$4(Object(source), true)).call(_context28, function (key) { defineProperty$8(target, key, source[key]); }); } else if (getOwnPropertyDescriptors$2) { defineProperties$1(target, getOwnPropertyDescriptors$2(source)); } else { var _context29; forEach$2(_context29 = ownKeys$4(Object(source))).call(_context29, function (key) { defineProperty$5(target, key, getOwnPropertyDescriptor$3(source, key)); }); } } return target; }
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf$5(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf$5(this).constructor; result = construct$3(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !construct$3) return false; if (construct$3.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(construct$3(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof symbol$4 === "undefined" || getIteratorMethod$1(o) == null) { if (isArray$3(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = getIterator$1(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper$1(o, allowArrayLike) { var it; if (typeof symbol$4 === "undefined" || getIteratorMethod$1(o) == null) { if (isArray$3(o) || (it = _unsupportedIterableToArray$2(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = getIterator$1(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
-function _unsupportedIterableToArray$1(o, minLen) { var _context19; if (!o) return; if (typeof o === "string") return _arrayLikeToArray$1(o, minLen); var n = slice$5(_context19 = Object.prototype.toString.call(o)).call(_context19, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_1$2(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen); }
+function _unsupportedIterableToArray$2(o, minLen) { var _context19; if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = slice$5(_context19 = Object.prototype.toString.call(o)).call(_context19, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_1$2(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
 
-function _arrayLikeToArray$1(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 /* eslint @typescript-eslint/member-ordering: ["error", { "classes": ["field", "constructor", "method"] }] */
 
 /**
@@ -13398,7 +13530,7 @@ var DataStream = /*#__PURE__*/function () {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
-              _iterator = _createForOfIteratorHelper(this._pairs);
+              _iterator = _createForOfIteratorHelper$1(this._pairs);
               _context10.prev = 1;
 
               _iterator.s();
@@ -13454,7 +13586,7 @@ var DataStream = /*#__PURE__*/function () {
         while (1) {
           switch (_context11.prev = _context11.next) {
             case 0:
-              _iterator2 = _createForOfIteratorHelper(this._pairs);
+              _iterator2 = _createForOfIteratorHelper$1(this._pairs);
               _context11.prev = 1;
 
               _iterator2.s();
@@ -13510,7 +13642,7 @@ var DataStream = /*#__PURE__*/function () {
         while (1) {
           switch (_context12.prev = _context12.next) {
             case 0:
-              _iterator3 = _createForOfIteratorHelper(this._pairs);
+              _iterator3 = _createForOfIteratorHelper$1(this._pairs);
               _context12.prev = 1;
 
               _iterator3.s();
@@ -13566,7 +13698,7 @@ var DataStream = /*#__PURE__*/function () {
         while (1) {
           switch (_context13.prev = _context13.next) {
             case 0:
-              _iterator4 = _createForOfIteratorHelper(this._pairs);
+              _iterator4 = _createForOfIteratorHelper$1(this._pairs);
               _context13.prev = 1;
 
               _iterator4.s();
@@ -13673,7 +13805,7 @@ var DataStream = /*#__PURE__*/function () {
     value: function toObjectMap() {
       var map = create$2(null);
 
-      var _iterator5 = _createForOfIteratorHelper(this._pairs),
+      var _iterator5 = _createForOfIteratorHelper$1(this._pairs),
           _step5;
 
       try {
@@ -13769,7 +13901,7 @@ var DataStream = /*#__PURE__*/function () {
     value: function distinct(callback) {
       var set = new set$3();
 
-      var _iterator6 = _createForOfIteratorHelper(this._pairs),
+      var _iterator6 = _createForOfIteratorHelper$1(this._pairs),
           _step6;
 
       try {
@@ -13807,7 +13939,7 @@ var DataStream = /*#__PURE__*/function () {
           while (1) {
             switch (_context16.prev = _context16.next) {
               case 0:
-                _iterator7 = _createForOfIteratorHelper(pairs);
+                _iterator7 = _createForOfIteratorHelper$1(pairs);
                 _context16.prev = 1;
 
                 _iterator7.s();
@@ -13866,7 +13998,7 @@ var DataStream = /*#__PURE__*/function () {
   }, {
     key: "forEach",
     value: function forEach(callback) {
-      var _iterator8 = _createForOfIteratorHelper(this._pairs),
+      var _iterator8 = _createForOfIteratorHelper$1(this._pairs),
           _step8;
 
       try {
@@ -13904,7 +14036,7 @@ var DataStream = /*#__PURE__*/function () {
           while (1) {
             switch (_context17.prev = _context17.next) {
               case 0:
-                _iterator9 = _createForOfIteratorHelper(pairs);
+                _iterator9 = _createForOfIteratorHelper$1(pairs);
                 _context17.prev = 1;
 
                 _iterator9.s();
@@ -14036,7 +14168,7 @@ var DataStream = /*#__PURE__*/function () {
   }, {
     key: "reduce",
     value: function reduce(callback, accumulator) {
-      var _iterator10 = _createForOfIteratorHelper(this._pairs),
+      var _iterator10 = _createForOfIteratorHelper$1(this._pairs),
           _step10;
 
       try {
@@ -14485,7 +14617,7 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
         var oldData = _ref5.oldData,
             update = _ref5.update;
         var id = oldData[_this6._idProp];
-        var updatedData = deepExtend(deepExtend({}, oldData), update);
+        var updatedData = pureDeepObjectAssign(oldData, update);
 
         _this6._data.set(id, updatedData);
 
@@ -14991,7 +15123,7 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
       var max = null;
       var maxField = null;
 
-      var _iterator11 = _createForOfIteratorHelper(values$2(_context24 = this._data).call(_context24)),
+      var _iterator11 = _createForOfIteratorHelper$1(values$2(_context24 = this._data).call(_context24)),
           _step11;
 
       try {
@@ -15028,7 +15160,7 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
       var min = null;
       var minField = null;
 
-      var _iterator12 = _createForOfIteratorHelper(values$2(_context25 = this._data).call(_context25)),
+      var _iterator12 = _createForOfIteratorHelper$1(values$2(_context25 = this._data).call(_context25)),
           _step12;
 
       try {
@@ -15232,7 +15364,7 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
             while (1) {
               switch (_context26.prev = _context26.next) {
                 case 0:
-                  _iterator13 = _createForOfIteratorHelper(ids);
+                  _iterator13 = _createForOfIteratorHelper$1(ids);
                   _context26.prev = 1;
 
                   _iterator13.s();
@@ -19125,5 +19257,5 @@ Graph3d.prototype.setSize = function (width, height) {
   this.redraw();
 }; // -----------------------------------------------------------------------------
 
-export { DataSet, DataStream, DataView, Graph3d, Camera as Graph3dCamera, Filter as Graph3dFilter, Point2d_1 as Graph3dPoint2d, Point3d_1 as Graph3dPoint3d, Slider as Graph3dSlider, StepNumber_1 as Graph3dStepNumber, Queue, createNewDataPipeFrom };
+export { DELETE, DataSet, DataStream, DataView, Graph3d, Camera as Graph3dCamera, Filter as Graph3dFilter, Point2d_1 as Graph3dPoint2d, Point3d_1 as Graph3dPoint3d, Slider as Graph3dSlider, StepNumber_1 as Graph3dStepNumber, Queue, createNewDataPipeFrom };
 //# sourceMappingURL=vis-graph3d.js.map
