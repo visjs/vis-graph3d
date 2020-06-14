@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-06-13T21:27:51.923Z
+ * @date    2020-06-14T17:37:34.920Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -3006,8 +3006,8 @@
 	 *
 	 * utilitie collection for visjs
 	 *
-	 * @version 4.2.0
-	 * @date    2020-06-13T17:11:08.287Z
+	 * @version 4.3.0
+	 * @date    2020-06-14T16:42:10.465Z
 	 *
 	 * @copyright (c) 2011-2017 Almende B.V, http://almende.com
 	 * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -3138,9 +3138,9 @@
 	          copyOrDelete(a, b, prop, allowDeletion);
 	        }
 	      } else if (isArray$3(b[prop])) {
-	        var _context2;
+	        var _context3;
 
-	        a[prop] = slice$5(_context2 = b[prop]).call(_context2);
+	        a[prop] = slice$5(_context3 = b[prop]).call(_context3);
 	      } else {
 	        copyOrDelete(a, b, prop, allowDeletion);
 	      }
@@ -3160,9 +3160,9 @@
 
 
 	function copyAndExtendArray(arr, newValue) {
-	  var _context3;
+	  var _context4;
 
-	  return concat$2(_context3 = []).call(_context3, toConsumableArray(arr), [newValue]);
+	  return concat$2(_context4 = []).call(_context4, toConsumableArray(arr), [newValue]);
 	}
 	/**
 	 * Used to extend an array and copy it. This is used to propagate paths recursively.
@@ -3188,13 +3188,13 @@
 
 	function addEventListener(element, action, listener, useCapture) {
 	  if (element.addEventListener) {
-	    var _context4;
+	    var _context5;
 
 	    if (useCapture === undefined) {
 	      useCapture = false;
 	    }
 
-	    if (action === "mousewheel" && indexOf$3(_context4 = navigator.userAgent).call(_context4, "Firefox") >= 0) {
+	    if (action === "mousewheel" && indexOf$3(_context5 = navigator.userAgent).call(_context5, "Firefox") >= 0) {
 	      action = "DOMMouseScroll"; // For Firefox
 	    }
 
@@ -3216,14 +3216,14 @@
 
 	function removeEventListener(element, action, listener, useCapture) {
 	  if (element.removeEventListener) {
-	    var _context5;
+	    var _context6;
 
 	    // non-IE browsers
 	    if (useCapture === undefined) {
 	      useCapture = false;
 	    }
 
-	    if (action === "mousewheel" && indexOf$3(_context5 = navigator.userAgent).call(_context5, "Firefox") >= 0) {
+	    if (action === "mousewheel" && indexOf$3(_context6 = navigator.userAgent).call(_context6, "Firefox") >= 0) {
 	      action = "DOMMouseScroll"; // For Firefox
 	    }
 
