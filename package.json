@@ -91,7 +91,7 @@
     "jsdom": "16.2.2",
     "jsdom-global": "3.0.2",
     "keycharm": "0.3.1",
-    "lint-staged": "10.2.10",
+    "lint-staged": "10.2.11",
     "mocha": "8.0.1",
     "moment": "2.26.0",
     "nyc": "15.1.0",
