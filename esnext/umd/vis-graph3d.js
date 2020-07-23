@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-07-22T05:13:53.812Z
+ * @date    2020-07-23T19:53:29.585Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -27,7 +27,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('component-emitter'), require('vis-util/esnext/umd/vis-util.js'), require('vis-data/esnext/umd/vis-data.js')) :
   typeof define === 'function' && define.amd ? define(['exports', 'component-emitter', 'vis-util/esnext/umd/vis-util.js', 'vis-data/esnext/umd/vis-data.js'], factory) :
-  (global = global || self, factory(global.vis = global.vis || {}, global.Emitter, global.vis, global.vis));
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.vis = global.vis || {}, global.Emitter, global.vis, global.vis));
 }(this, (function (exports, Emitter, util, esnext) {
   Emitter = Emitter && Object.prototype.hasOwnProperty.call(Emitter, 'default') ? Emitter['default'] : Emitter;
 
