@@ -113,7 +113,7 @@
     "sinon": "9.0.2",
     "snap-shot-it": "7.9.3",
     "test-console": "1.1.0",
-    "uuid": "8.2.0",
+    "uuid": "8.3.0",
     "vis-data": "6.6.1",
     "vis-dev-utils": "2.3.6",
     "vis-util": "4.3.3"
