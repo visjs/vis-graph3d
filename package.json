@@ -92,7 +92,7 @@
     "jsdom-global": "3.0.2",
     "keycharm": "0.3.1",
     "lint-staged": "10.2.11",
-    "mocha": "8.0.1",
+    "mocha": "8.1.0",
     "moment": "2.27.0",
     "nyc": "15.1.0",
     "opencollective": "1.0.3",
