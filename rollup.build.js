@@ -2,7 +2,7 @@ import packageJSON from "./package.json";
 import { generateRollupConfiguration } from "vis-dev-utils";
 
 export default generateRollupConfiguration({
-  externalForPeerBuild: ["moment", "vis-data"],
+  externalForPeerBuild: ["vis-data"],
   globals: {
     "component-emitter": "Emitter",
     "propagating-hammerjs": "propagating",
@@ -10,7 +10,6 @@ export default generateRollupConfiguration({
     "vis-util": "vis",
     hammerjs: "Hammer",
     keycharm: "keycharm",
-    moment: "moment",
     uuid: "uuidv4"
   },
   header: { name: "vis-graph3d" },

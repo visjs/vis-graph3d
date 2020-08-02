@@ -21,6 +21,5 @@ exports.graph3d = {
 };
 
 // bundled external libraries
-exports.moment = require('./lib/module/moment');
 exports.Hammer = require('./lib/module/hammer');
 exports.keycharm = require('keycharm');

@@ -62,10 +62,9 @@
     "component-emitter": "^1.3.0",
     "hammerjs": "^2.0.0",
     "keycharm": "^0.2.0 || ^0.3.0",
-    "moment": "^2.24.0",
     "propagating-hammerjs": "^1.4.0",
     "uuid": "^7.0.0 || ^8.0.0",
-    "vis-data": "^6.5.0",
+    "vis-data": "^7.0.0",
     "vis-util": "^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
@@ -93,7 +92,6 @@
     "keycharm": "0.3.1",
     "lint-staged": "10.2.11",
     "mocha": "8.1.0",
-    "moment": "2.27.0",
     "nyc": "15.1.0",
     "opencollective": "1.0.3",
     "postcss-assets": "5.0.0",
@@ -114,7 +112,7 @@
     "snap-shot-it": "7.9.3",
     "test-console": "1.1.0",
     "uuid": "8.3.0",
-    "vis-data": "6.6.1",
+    "vis-data": "7.0.0",
     "vis-dev-utils": "2.3.7",
     "vis-util": "4.3.4"
   },
