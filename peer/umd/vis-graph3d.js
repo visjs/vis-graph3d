@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-08-13T23:21:33.796Z
+ * @date    2020-08-14T01:01:47.006Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -39,10 +39,6 @@
 	      return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
 	    }
 		}, fn(module, module.exports), module.exports;
-	}
-
-	function getCjsExportFromNamespace (n) {
-		return n && n['default'] || n;
 	}
 
 	function commonjsRequire () {
@@ -1414,12 +1410,6 @@
 
 	var iterator$2 = iterator$1;
 
-	// empty
-
-	var es_object_toString = /*#__PURE__*/Object.freeze({
-		__proto__: null
-	});
-
 	var hiddenKeys$1 = enumBugKeys.concat('length', 'prototype'); // `Object.getOwnPropertyNames` method
 	// https://tc39.github.io/ecma262/#sec-object.getownpropertynames
 
@@ -1845,12 +1835,6 @@
 
 	defineWellKnownSymbol('asyncIterator');
 
-	// empty
-
-	var es_symbol_description = /*#__PURE__*/Object.freeze({
-		__proto__: null
-	});
-
 	// https://tc39.github.io/ecma262/#sec-symbol.hasinstance
 
 	defineWellKnownSymbol('hasInstance');
@@ -1900,10 +1884,6 @@
 	// https://tc39.github.io/ecma262/#sec-json-@@tostringtag
 
 	setToStringTag(global_1.JSON, 'JSON', true);
-
-	getCjsExportFromNamespace(es_object_toString);
-
-	getCjsExportFromNamespace(es_symbol_description);
 
 	var symbol = path.Symbol;
 
