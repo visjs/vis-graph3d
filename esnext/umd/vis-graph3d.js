@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-08-12T23:16:06.924Z
+ * @date    2020-08-13T23:21:33.796Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -29,7 +29,9 @@
   typeof define === 'function' && define.amd ? define(['exports', 'component-emitter', 'vis-util/esnext/umd/vis-util.js', 'vis-data/esnext/umd/vis-data.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.vis = global.vis || {}, global.Emitter, global.vis, global.vis));
 }(this, (function (exports, Emitter, util, esnext) {
-  Emitter = Emitter && Object.prototype.hasOwnProperty.call(Emitter, 'default') ? Emitter['default'] : Emitter;
+  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+  var Emitter__default = /*#__PURE__*/_interopDefaultLegacy(Emitter);
 
   /**
    * @prototype Point3d
@@ -2930,7 +2932,7 @@
   }
 
   // Extend Graph3d with an Emitter mixin
-  Emitter(Graph3d.prototype);
+  Emitter__default['default'](Graph3d.prototype);
 
   /**
    * Calculate the scaling values, dependent on the range in x, y, and z direction
