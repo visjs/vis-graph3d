@@ -6,7 +6,7 @@
   "jsnext": "esnext/esm/vis-graph3d.js",
   "main": "peer/umd/vis-graph3d.js",
   "module": "peer/esm/vis-graph3d.js",
-  "types": "declarations/index.d.ts",
+  "types": "peer/index.d.ts",
   "homepage": "https://visjs.github.io/vis-graph3d/",
   "license": "(Apache-2.0 OR MIT)",
   "repository": {
