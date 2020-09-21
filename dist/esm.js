@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-09-21T09:21:36.718Z
+ * @date    2020-09-21T10:18:07.770Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -5979,6 +5979,25 @@ var runtime_1 = createCommonjsModule(function (module) {
     var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
     var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
 
+    function define(obj, key, value) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+      return obj[key];
+    }
+
+    try {
+      // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+      define({}, "");
+    } catch (err) {
+      define = function (obj, key, value) {
+        return obj[key] = value;
+      };
+    }
+
     function wrap(innerFn, outerFn, self, tryLocsList) {
       // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
       var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
@@ -6052,14 +6071,14 @@ var runtime_1 = createCommonjsModule(function (module) {
     var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
     GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
     GeneratorFunctionPrototype.constructor = GeneratorFunction;
-    GeneratorFunctionPrototype[toStringTagSymbol] = GeneratorFunction.displayName = "GeneratorFunction"; // Helper for defining the .next, .throw, and .return methods of the
+    GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"); // Helper for defining the .next, .throw, and .return methods of the
     // Iterator interface in terms of a single ._invoke method.
 
     function defineIteratorMethods(prototype) {
       ["next", "throw", "return"].forEach(function (method) {
-        prototype[method] = function (arg) {
+        define(prototype, method, function (arg) {
           return this._invoke(method, arg);
-        };
+        });
       });
     }
 
@@ -6075,10 +6094,7 @@ var runtime_1 = createCommonjsModule(function (module) {
         Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
       } else {
         genFun.__proto__ = GeneratorFunctionPrototype;
-
-        if (!(toStringTagSymbol in genFun)) {
-          genFun[toStringTagSymbol] = "GeneratorFunction";
-        }
+        define(genFun, toStringTagSymbol, "GeneratorFunction");
       }
 
       genFun.prototype = Object.create(Gp);
@@ -6334,7 +6350,7 @@ var runtime_1 = createCommonjsModule(function (module) {
 
 
     defineIteratorMethods(Gp);
-    Gp[toStringTagSymbol] = "Generator"; // A Generator should always return itself as the iterator object when the
+    define(Gp, toStringTagSymbol, "Generator"); // A Generator should always return itself as the iterator object when the
     // @@iterator function is called on it. Some browsers' implementations of the
     // iterator prototype chain incorrectly implement this, causing the Generator
     // object to not be returned from this call. This ensures that doesn't happen.
