@@ -89,7 +89,7 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "7.0.2",
     "semantic-release": "17.1.2",
-    "sinon": "9.0.3",
+    "sinon": "9.1.0",
     "snap-shot-it": "7.9.3",
     "test-console": "1.1.0",
     "uuid": "8.3.0",
