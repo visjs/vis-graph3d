@@ -69,7 +69,7 @@
   },
   "devDependencies": {
     "component-emitter": "1.3.0",
-    "eslint": "7.12.1",
+    "eslint": "7.13.0",
     "git-authors-cli": "1.0.31",
     "hammerjs": "2.0.8",
     "husky": "4.3.0",
