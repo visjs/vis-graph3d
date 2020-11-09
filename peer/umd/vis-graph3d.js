@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2020-11-07T03:44:07.743Z
+ * @date    2020-11-09T23:50:20.332Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -52,7 +52,9 @@
 
 	var global_1 = // eslint-disable-next-line no-undef
 	check(typeof globalThis == 'object' && globalThis) || check(typeof window == 'object' && window) || check(typeof self == 'object' && self) || check(typeof commonjsGlobal == 'object' && commonjsGlobal) || // eslint-disable-next-line no-new-func
-	Function('return this')();
+	function () {
+	  return this;
+	}() || Function('return this')();
 
 	var fails = function (exec) {
 	  try {
@@ -602,7 +604,7 @@
 	  (module.exports = function (key, value) {
 	    return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	  })('versions', []).push({
-	    version: '3.6.4',
+	    version: '3.7.0',
 	    mode:  'pure' ,
 	    copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 	  });
@@ -876,12 +878,13 @@
 	};
 
 	if (nativeWeakMap) {
-	  var store$1 = new WeakMap$1();
+	  var store$1 = sharedStore.state || (sharedStore.state = new WeakMap$1());
 	  var wmget = store$1.get;
 	  var wmhas = store$1.has;
 	  var wmset = store$1.set;
 
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    wmset.call(store$1, it, metadata);
 	    return metadata;
 	  };
@@ -898,6 +901,7 @@
 	  hiddenKeys[STATE] = true;
 
 	  set = function (it, metadata) {
+	    metadata.facade = it;
 	    createNonEnumerableProperty(it, STATE, metadata);
 	    return metadata;
 	  };
@@ -1877,10 +1881,6 @@
 
 	defineWellKnownSymbol('unscopables');
 
-	// https://tc39.github.io/ecma262/#sec-math-@@tostringtag
-
-	setToStringTag(Math, 'Math', true);
-
 	// https://tc39.github.io/ecma262/#sec-json-@@tostringtag
 
 	setToStringTag(global_1.JSON, 'JSON', true);
@@ -2506,12 +2506,19 @@
 	  if (it != undefined) return it[ITERATOR$2] || it['@@iterator'] || iterators[classof(it)];
 	};
 
+	var iteratorClose = function (iterator) {
+	  var returnMethod = iterator['return'];
+
+	  if (returnMethod !== undefined) {
+	    return anObject(returnMethod.call(iterator)).value;
+	  }
+	};
+
 	var callWithSafeIterationClosing = function (iterator, fn, value, ENTRIES) {
 	  try {
 	    return ENTRIES ? fn(anObject(value)[0], value[1]) : fn(value); // 7.4.6 IteratorClose(iterator, completion)
 	  } catch (error) {
-	    var returnMethod = iterator['return'];
-	    if (returnMethod !== undefined) anObject(returnMethod.call(iterator));
+	    iteratorClose(iterator);
 	    throw error;
 	  }
 	};
