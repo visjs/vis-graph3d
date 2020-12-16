@@ -6,6 +6,7 @@ exports['package exported files 1'] = {
     "        declarations/entry-esnext.d.ts",
     "        declarations/entry-peer.d.ts",
     "        declarations/entry-standalone.d.ts",
+    "        declarations/index.d.ts",
     "        dist/esm.js",
     "        dist/esm.js.map",
     "        dist/vis-graph3d.min.js",
