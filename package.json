@@ -94,7 +94,7 @@
     "test-console": "1.1.0",
     "uuid": "8.3.2",
     "vis-data": "7.1.1",
-    "vis-dev-utils": "2.9.1",
+    "vis-dev-utils": "2.9.2",
     "vis-util": "4.3.4"
   },
   "collective": {
