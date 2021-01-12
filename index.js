@@ -21,5 +21,5 @@ exports.graph3d = {
 };
 
 // bundled external libraries
-exports.Hammer = require('./lib/module/hammer');
+exports.Hammer = require('vis-util/esnext').Hammer;
 exports.keycharm = require('keycharm');

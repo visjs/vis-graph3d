@@ -4,11 +4,10 @@ import { generateRollupConfiguration } from "vis-dev-utils";
 export default generateRollupConfiguration({
   externalForPeerBuild: ["vis-data"],
   globals: {
+    "@egjs/hammerjs": "Hammer",
     "component-emitter": "Emitter",
-    "propagating-hammerjs": "propagating",
     "vis-data": "vis",
     "vis-util": "vis",
-    hammerjs: "Hammer",
     keycharm: "keycharm",
     uuid: "uuidv4"
   },
