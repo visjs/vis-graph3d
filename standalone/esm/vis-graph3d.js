@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-01-21T03:40:02.103Z
+ * @date    2021-01-22T18:17:49.362Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -933,7 +933,7 @@ var objectGetPrototypeOf = correctPrototypeGetter ? Object.getPrototypeOf : func
   return O instanceof Object ? ObjectPrototype : null;
 };
 
-var ITERATOR = wellKnownSymbol('iterator');
+wellKnownSymbol('iterator');
 var BUGGY_SAFARI_ITERATORS = false;
 // https://tc39.es/ecma262/#sec-%iteratorprototype%-object
 
@@ -1166,7 +1166,7 @@ var redefine = function (target, key, value, options) {
 
 var IteratorPrototype$2 = iteratorsCore.IteratorPrototype;
 var BUGGY_SAFARI_ITERATORS$1 = iteratorsCore.BUGGY_SAFARI_ITERATORS;
-var ITERATOR$1 = wellKnownSymbol('iterator');
+var ITERATOR = wellKnownSymbol('iterator');
 var KEYS = 'keys';
 var VALUES = 'values';
 var ENTRIES = 'entries';
@@ -1207,7 +1207,7 @@ var defineIterator = function (Iterable, NAME, IteratorConstructor, next, DEFAUL
   var TO_STRING_TAG = NAME + ' Iterator';
   var INCORRECT_VALUES_NAME = false;
   var IterablePrototype = Iterable.prototype;
-  var nativeIterator = IterablePrototype[ITERATOR$1] || IterablePrototype['@@iterator'] || DEFAULT && IterablePrototype[DEFAULT];
+  var nativeIterator = IterablePrototype[ITERATOR] || IterablePrototype['@@iterator'] || DEFAULT && IterablePrototype[DEFAULT];
   var defaultIterator = !BUGGY_SAFARI_ITERATORS$1 && nativeIterator || getIterationMethod(DEFAULT);
   var anyNativeIterator = NAME == 'Array' ? IterablePrototype.entries || nativeIterator : nativeIterator;
   var CurrentIteratorPrototype, methods, KEY; // fix native
@@ -1233,8 +1233,8 @@ var defineIterator = function (Iterable, NAME, IteratorConstructor, next, DEFAUL
   } // define iterator
 
 
-  if (( FORCED) && IterablePrototype[ITERATOR$1] !== defaultIterator) {
-    createNonEnumerableProperty(IterablePrototype, ITERATOR$1, defaultIterator);
+  if (( FORCED) && IterablePrototype[ITERATOR] !== defaultIterator) {
+    createNonEnumerableProperty(IterablePrototype, ITERATOR, defaultIterator);
   }
 
   iterators[NAME] = defaultIterator; // export additional methods
@@ -1302,7 +1302,7 @@ var getInternalState$1 = internalState.getterFor(ARRAY_ITERATOR); // `Array.prot
 // `CreateArrayIterator` internal method
 // https://tc39.es/ecma262/#sec-createarrayiterator
 
-var es_array_iterator = defineIterator(Array, 'Array', function (iterated, kind) {
+defineIterator(Array, 'Array', function (iterated, kind) {
   setInternalState$1(this, {
     type: ARRAY_ITERATOR,
     target: toIndexedObject(iterated),
@@ -2520,10 +2520,10 @@ var getOwnPropertySymbols$1 = getOwnPropertySymbols;
 
 var getOwnPropertySymbols$2 = getOwnPropertySymbols$1;
 
-var ITERATOR$2 = wellKnownSymbol('iterator');
+var ITERATOR$1 = wellKnownSymbol('iterator');
 
 var getIteratorMethod = function (it) {
-  if (it != undefined) return it[ITERATOR$2] || it['@@iterator'] || iterators[classof(it)];
+  if (it != undefined) return it[ITERATOR$1] || it['@@iterator'] || iterators[classof(it)];
 };
 
 var getIterator = function (it) {
@@ -2561,11 +2561,11 @@ var callWithSafeIterationClosing = function (iterator, fn, value, ENTRIES) {
   }
 };
 
-var ITERATOR$3 = wellKnownSymbol('iterator');
+var ITERATOR$2 = wellKnownSymbol('iterator');
 var ArrayPrototype$7 = Array.prototype; // check on default Array iterator
 
 var isArrayIteratorMethod = function (it) {
-  return it !== undefined && (iterators.Array === it || ArrayPrototype$7[ITERATOR$3] === it);
+  return it !== undefined && (iterators.Array === it || ArrayPrototype$7[ITERATOR$2] === it);
 };
 
 // https://tc39.es/ecma262/#sec-array.from
@@ -2607,7 +2607,7 @@ var arrayFrom = function from(arrayLike
   return result;
 };
 
-var ITERATOR$4 = wellKnownSymbol('iterator');
+var ITERATOR$3 = wellKnownSymbol('iterator');
 var SAFE_CLOSING = false;
 
 try {
@@ -2623,7 +2623,7 @@ try {
     }
   };
 
-  iteratorWithReturn[ITERATOR$4] = function () {
+  iteratorWithReturn[ITERATOR$3] = function () {
     return this;
   }; // eslint-disable-next-line no-throw-literal
 
@@ -2642,7 +2642,7 @@ var checkCorrectnessOfIteration = function (exec, SKIP_CLOSING) {
   try {
     var object = {};
 
-    object[ITERATOR$4] = function () {
+    object[ITERATOR$3] = function () {
       return {
         next: function () {
           return {
@@ -2742,16 +2742,16 @@ _export({
   }
 });
 
-var trim$1 = entryVirtual('String').trim;
+entryVirtual('String').trim;
 
-var trim$2 = stringTrim.trim;
+var trim$1 = stringTrim.trim;
 var $parseInt = global$1.parseInt;
 var hex = /^[+-]?0[Xx]/;
 var FORCED$4 = $parseInt(whitespaces + '08') !== 8 || $parseInt(whitespaces + '0x16') !== 22; // `parseInt` method
 // https://tc39.es/ecma262/#sec-parseint-string-radix
 
 var numberParseInt = FORCED$4 ? function parseInt(string, radix) {
-  var S = trim$2(String(string));
+  var S = trim$1(String(string));
   return $parseInt(S, radix >>> 0 || (hex.test(S) ? 16 : 10));
 } : $parseInt;
 
@@ -2814,7 +2814,7 @@ _export({
   }
 });
 
-var values$3 = path.Object.values;
+path.Object.values;
 
 var FAILS_ON_PRIMITIVES$1 = fails(function () {
   objectGetPrototypeOf(1);
@@ -2848,11 +2848,11 @@ function _arrayWithHoles(arr) {
 
 var arrayWithHoles = _arrayWithHoles;
 
-var ITERATOR$5 = wellKnownSymbol('iterator');
+var ITERATOR$4 = wellKnownSymbol('iterator');
 
 var isIterable = function (it) {
   var O = Object(it);
-  return O[ITERATOR$5] !== undefined || '@@iterator' in O // eslint-disable-next-line no-prototype-builtins
+  return O[ITERATOR$4] !== undefined || '@@iterator' in O // eslint-disable-next-line no-prototype-builtins
   || iterators.hasOwnProperty(classof(O));
 };
 
@@ -3005,7 +3005,7 @@ _export({
   }
 });
 
-var now = path.Date.now;
+path.Date.now;
 
 var FAILS_ON_PRIMITIVES$2 = fails(function () {
   objectKeys(1);
@@ -6524,7 +6524,7 @@ var collectionStrong = {
 // https://tc39.es/ecma262/#sec-set-objects
 
 
-var es_set = collection('Set', function (init) {
+collection('Set', function (init) {
   return function Set() {
     return init(this, arguments.length ? arguments[0] : undefined);
   };
@@ -6539,7 +6539,7 @@ var set$3 = set$2;
 // https://tc39.es/ecma262/#sec-map-objects
 
 
-var es_map = collection('Map', function (init) {
+collection('Map', function (init) {
   return function Map() {
     return init(this, arguments.length ? arguments[0] : undefined);
   };
