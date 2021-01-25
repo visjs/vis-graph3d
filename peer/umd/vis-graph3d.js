@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-01-23T11:36:49.490Z
+ * @date    2021-01-25T22:09:06.264Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -595,7 +595,7 @@
 	  (module.exports = function (key, value) {
 	    return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	  })('versions', []).push({
-	    version: '3.8.2',
+	    version: '3.8.3',
 	    mode:  'pure' ,
 	    copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 	  });
@@ -938,8 +938,12 @@
 	  return O instanceof Object ? ObjectPrototype : null;
 	};
 
-	wellKnownSymbol('iterator');
+	var ITERATOR = wellKnownSymbol('iterator');
 	var BUGGY_SAFARI_ITERATORS = false;
+
+	var returnThis = function () {
+	  return this;
+	}; // `%IteratorPrototype%` object
 	// https://tc39.es/ecma262/#sec-%iteratorprototype%-object
 
 
@@ -954,7 +958,16 @@
 	  }
 	}
 
-	if (IteratorPrototype == undefined) IteratorPrototype = {}; // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+	var NEW_ITERATOR_PROTOTYPE = IteratorPrototype == undefined || fails(function () {
+	  var test = {}; // FF44- legacy iterators case
+
+	  return IteratorPrototype[ITERATOR].call(test) !== test;
+	});
+	if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype = {}; // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+
+	if (( NEW_ITERATOR_PROTOTYPE) && !has(IteratorPrototype, ITERATOR)) {
+	  createNonEnumerableProperty(IteratorPrototype, ITERATOR, returnThis);
+	}
 
 	var iteratorsCore = {
 	  IteratorPrototype: IteratorPrototype,
@@ -1117,7 +1130,7 @@
 
 	var IteratorPrototype$1 = iteratorsCore.IteratorPrototype;
 
-	var returnThis = function () {
+	var returnThis$1 = function () {
 	  return this;
 	};
 
@@ -1127,7 +1140,7 @@
 	    next: createPropertyDescriptor(1, next)
 	  });
 	  setToStringTag(IteratorConstructor, TO_STRING_TAG, false, true);
-	  iterators[TO_STRING_TAG] = returnThis;
+	  iterators[TO_STRING_TAG] = returnThis$1;
 	  return IteratorConstructor;
 	};
 
@@ -1171,12 +1184,12 @@
 
 	var IteratorPrototype$2 = iteratorsCore.IteratorPrototype;
 	var BUGGY_SAFARI_ITERATORS$1 = iteratorsCore.BUGGY_SAFARI_ITERATORS;
-	var ITERATOR = wellKnownSymbol('iterator');
+	var ITERATOR$1 = wellKnownSymbol('iterator');
 	var KEYS = 'keys';
 	var VALUES = 'values';
 	var ENTRIES = 'entries';
 
-	var returnThis$1 = function () {
+	var returnThis$2 = function () {
 	  return this;
 	};
 
@@ -1212,7 +1225,7 @@
 	  var TO_STRING_TAG = NAME + ' Iterator';
 	  var INCORRECT_VALUES_NAME = false;
 	  var IterablePrototype = Iterable.prototype;
-	  var nativeIterator = IterablePrototype[ITERATOR] || IterablePrototype['@@iterator'] || DEFAULT && IterablePrototype[DEFAULT];
+	  var nativeIterator = IterablePrototype[ITERATOR$1] || IterablePrototype['@@iterator'] || DEFAULT && IterablePrototype[DEFAULT];
 	  var defaultIterator = !BUGGY_SAFARI_ITERATORS$1 && nativeIterator || getIterationMethod(DEFAULT);
 	  var anyNativeIterator = NAME == 'Array' ? IterablePrototype.entries || nativeIterator : nativeIterator;
 	  var CurrentIteratorPrototype, methods, KEY; // fix native
@@ -1224,7 +1237,7 @@
 
 
 	      setToStringTag(CurrentIteratorPrototype, TO_STRING_TAG, true, true);
-	      iterators[TO_STRING_TAG] = returnThis$1;
+	      iterators[TO_STRING_TAG] = returnThis$2;
 	    }
 	  } // fix Array#{values, @@iterator}.name in V8 / FF
 
@@ -1238,8 +1251,8 @@
 	  } // define iterator
 
 
-	  if (( FORCED) && IterablePrototype[ITERATOR] !== defaultIterator) {
-	    createNonEnumerableProperty(IterablePrototype, ITERATOR, defaultIterator);
+	  if (( FORCED) && IterablePrototype[ITERATOR$1] !== defaultIterator) {
+	    createNonEnumerableProperty(IterablePrototype, ITERATOR$1, defaultIterator);
 	  }
 
 	  iterators[NAME] = defaultIterator; // export additional methods
@@ -2505,10 +2518,10 @@
 
 	path.Object.getOwnPropertySymbols;
 
-	var ITERATOR$1 = wellKnownSymbol('iterator');
+	var ITERATOR$2 = wellKnownSymbol('iterator');
 
 	var getIteratorMethod = function (it) {
-	  if (it != undefined) return it[ITERATOR$1] || it['@@iterator'] || iterators[classof(it)];
+	  if (it != undefined) return it[ITERATOR$2] || it['@@iterator'] || iterators[classof(it)];
 	};
 
 	var iteratorClose = function (iterator) {
@@ -2528,11 +2541,11 @@
 	  }
 	};
 
-	var ITERATOR$2 = wellKnownSymbol('iterator');
+	var ITERATOR$3 = wellKnownSymbol('iterator');
 	var ArrayPrototype$7 = Array.prototype; // check on default Array iterator
 
 	var isArrayIteratorMethod = function (it) {
-	  return it !== undefined && (iterators.Array === it || ArrayPrototype$7[ITERATOR$2] === it);
+	  return it !== undefined && (iterators.Array === it || ArrayPrototype$7[ITERATOR$3] === it);
 	};
 
 	// https://tc39.es/ecma262/#sec-array.from
@@ -2574,7 +2587,7 @@
 	  return result;
 	};
 
-	var ITERATOR$3 = wellKnownSymbol('iterator');
+	var ITERATOR$4 = wellKnownSymbol('iterator');
 	var SAFE_CLOSING = false;
 
 	try {
@@ -2590,7 +2603,7 @@
 	    }
 	  };
 
-	  iteratorWithReturn[ITERATOR$3] = function () {
+	  iteratorWithReturn[ITERATOR$4] = function () {
 	    return this;
 	  }; // eslint-disable-next-line no-throw-literal
 
@@ -2609,7 +2622,7 @@
 	  try {
 	    var object = {};
 
-	    object[ITERATOR$3] = function () {
+	    object[ITERATOR$4] = function () {
 	      return {
 	        next: function () {
 	          return {
@@ -2778,11 +2791,11 @@
 
 	var isArray$5 = isArray$4;
 
-	var ITERATOR$4 = wellKnownSymbol('iterator');
+	var ITERATOR$5 = wellKnownSymbol('iterator');
 
 	var isIterable = function (it) {
 	  var O = Object(it);
-	  return O[ITERATOR$4] !== undefined || '@@iterator' in O // eslint-disable-next-line no-prototype-builtins
+	  return O[ITERATOR$5] !== undefined || '@@iterator' in O // eslint-disable-next-line no-prototype-builtins
 	  || iterators.hasOwnProperty(classof(O));
 	};
 
