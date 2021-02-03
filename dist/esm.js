@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-02-02T21:42:29.875Z
+ * @date    2021-02-03T07:10:17.875Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -5208,16 +5208,6 @@ DOMutil.getDOMElement;
 DOMutil.drawPoint;
 DOMutil.drawBar;
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-var assertThisInitialized = _assertThisInitialized;
-
 var slice$5 = [].slice;
 var factories = {};
 
@@ -5323,6 +5313,16 @@ var construct$1 = path.Reflect.construct;
 var construct$2 = construct$1;
 
 var construct$3 = construct$2;
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+var assertThisInitialized = _assertThisInitialized;
 
 var entries = entryVirtual('Array').entries;
 
@@ -7139,7 +7139,7 @@ function v4(options, buf, offset) {
 
 function ownKeys$5(object, enumerableOnly) { var keys = keys$3(object); if (getOwnPropertySymbols$2) { var symbols = getOwnPropertySymbols$2(object); if (enumerableOnly) symbols = filter$2(symbols).call(symbols, function (sym) { return getOwnPropertyDescriptor$3(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { var _context28; forEach$2(_context28 = ownKeys$5(Object(source), true)).call(_context28, function (key) { defineProperty$6(target, key, source[key]); }); } else if (getOwnPropertyDescriptors$2) { defineProperties$1(target, getOwnPropertyDescriptors$2(source)); } else { var _context29; forEach$2(_context29 = ownKeys$5(Object(source))).call(_context29, function (key) { defineProperty$1(target, key, getOwnPropertyDescriptor$3(source, key)); }); } } return target; }
+function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { var _context32; forEach$2(_context32 = ownKeys$5(Object(source), true)).call(_context32, function (key) { defineProperty$6(target, key, source[key]); }); } else if (getOwnPropertyDescriptors$2) { defineProperties$1(target, getOwnPropertyDescriptors$2(source)); } else { var _context33; forEach$2(_context33 = ownKeys$5(Object(source))).call(_context33, function (key) { defineProperty$1(target, key, getOwnPropertyDescriptor$3(source, key)); }); } } return target; }
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf$5(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf$5(this).constructor; result = construct$3(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn(this, result); }; }
 
@@ -7147,7 +7147,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !co
 
 function _createForOfIteratorHelper$1(o, allowArrayLike) { var it; if (typeof symbol$4 === "undefined" || getIteratorMethod$1(o) == null) { if (isArray$5(o) || (it = _unsupportedIterableToArray$2(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = getIterator$1(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
-function _unsupportedIterableToArray$2(o, minLen) { var _context19; if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = slice$4(_context19 = Object.prototype.toString.call(o)).call(_context19, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_1$2(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
+function _unsupportedIterableToArray$2(o, minLen) { var _context31; if (!o) return; if (typeof o === "string") return _arrayLikeToArray$2(o, minLen); var n = slice$4(_context31 = Object.prototype.toString.call(o)).call(_context31, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from_1$2(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$2(o, minLen); }
 
 function _arrayLikeToArray$2(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 /**
@@ -7505,11 +7505,11 @@ var Queue = /*#__PURE__*/function () {
 
   }, {
     key: "destroy",
-
+    value:
     /**
      * Destroy the queue. The queue will first flush all queued actions, and in case it has extended an object, will restore the original object.
      */
-    value: function destroy() {
+    function destroy() {
       this.flush();
 
       if (this._extended) {
@@ -7781,7 +7781,9 @@ var DataStream = /*#__PURE__*/function () {
 
   createClass(DataStream, [{
     key: iterator$4,
-    value: /*#__PURE__*/regenerator.mark(function value() {
+    value:
+    /*#__PURE__*/
+    regenerator.mark(function value() {
       var _iterator, _step, _step$value, id, item;
 
       return regenerator.wrap(function value$(_context10) {
@@ -7837,7 +7839,9 @@ var DataStream = /*#__PURE__*/function () {
 
   }, {
     key: "entries",
-    value: /*#__PURE__*/regenerator.mark(function entries() {
+    value:
+    /*#__PURE__*/
+    regenerator.mark(function entries() {
       var _iterator2, _step2, _step2$value, id, item;
 
       return regenerator.wrap(function entries$(_context11) {
@@ -7893,7 +7897,9 @@ var DataStream = /*#__PURE__*/function () {
 
   }, {
     key: "keys",
-    value: /*#__PURE__*/regenerator.mark(function keys() {
+    value:
+    /*#__PURE__*/
+    regenerator.mark(function keys() {
       var _iterator3, _step3, _step3$value, id;
 
       return regenerator.wrap(function keys$(_context12) {
@@ -7949,7 +7955,9 @@ var DataStream = /*#__PURE__*/function () {
 
   }, {
     key: "values",
-    value: /*#__PURE__*/regenerator.mark(function values() {
+    value:
+    /*#__PURE__*/
+    regenerator.mark(function values() {
       var _iterator4, _step4, _step4$value, item;
 
       return regenerator.wrap(function values$(_context13) {
@@ -8607,13 +8615,18 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
 
 
   createClass(DataSet, [{
-    key: "setOptions",
-
+    key: "idProp",
+    get: function get() {
+      return this._idProp;
+    }
     /**
      * Set new options.
      *
      * @param options - The new options.
      */
+
+  }, {
+    key: "setOptions",
     value: function setOptions(options) {
       if (options && options.queue !== undefined) {
         if (options.queue === false) {
@@ -8858,14 +8871,14 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
   }, {
     key: "updateOnly",
     value: function updateOnly(data, senderId) {
-      var _context20,
+      var _context19,
           _this6 = this;
 
       if (!isArray$5(data)) {
         data = [data];
       }
 
-      var updateEventData = map$2(_context20 = map$2(data).call(data, function (update) {
+      var updateEventData = map$2(_context19 = map$2(data).call(data, function (update) {
         var oldData = _this6._data.get(update[_this6._idProp]);
 
         if (oldData == null) {
@@ -8876,7 +8889,7 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
           oldData: oldData,
           update: update
         };
-      })).call(_context20, function (_ref5) {
+      })).call(_context19, function (_ref5) {
         var oldData = _ref5.oldData,
             update = _ref5.update;
         var id = oldData[_this6._idProp];
@@ -8979,10 +8992,10 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
           }
         }
       } else {
-        var _context21;
+        var _context20;
 
         // return all items
-        itemIds = toConsumableArray(keys$6(_context21 = this._data).call(_context21));
+        itemIds = toConsumableArray(keys$6(_context20 = this._data).call(_context20));
 
         for (var _i = 0, _len2 = itemIds.length; _i < _len2; _i++) {
           itemId = itemIds[_i];
@@ -9202,16 +9215,16 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
   }, {
     key: "_filterFields",
     value: function _filterFields(item, fields) {
-      var _context22;
+      var _context21;
 
       if (!item) {
         // item is null
         return item;
       }
 
-      return reduce$2(_context22 = isArray$5(fields) ? // Use the supplied array
+      return reduce$2(_context21 = isArray$5(fields) ? // Use the supplied array
       fields : // Use the keys of the supplied object
-      keys$3(fields)).call(_context22, function (filteredItem, field) {
+      keys$3(fields)).call(_context21, function (filteredItem, field) {
         filteredItem[field] = item[field];
         return filteredItem;
       }, {});
@@ -9351,9 +9364,9 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
   }, {
     key: "clear",
     value: function clear(senderId) {
-      var _context23;
+      var _context22;
 
-      var ids = toConsumableArray(keys$6(_context23 = this._data).call(_context23));
+      var ids = toConsumableArray(keys$6(_context22 = this._data).call(_context22));
 
       var items = [];
 
@@ -9383,12 +9396,12 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
   }, {
     key: "max",
     value: function max(field) {
-      var _context24;
+      var _context23;
 
       var max = null;
       var maxField = null;
 
-      var _iterator11 = _createForOfIteratorHelper$1(values$5(_context24 = this._data).call(_context24)),
+      var _iterator11 = _createForOfIteratorHelper$1(values$5(_context23 = this._data).call(_context23)),
           _step11;
 
       try {
@@ -9420,12 +9433,12 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
   }, {
     key: "min",
     value: function min(field) {
-      var _context25;
+      var _context24;
 
       var min = null;
       var minField = null;
 
-      var _iterator12 = _createForOfIteratorHelper$1(values$5(_context25 = this._data).call(_context25)),
+      var _iterator12 = _createForOfIteratorHelper$1(values$5(_context24 = this._data).call(_context24)),
           _step12;
 
       try {
@@ -9548,18 +9561,18 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
         return new DataStream(defineProperty$6({}, iterator$4, /*#__PURE__*/regenerator.mark(function _callee3() {
           var _iterator13, _step13, id, item;
 
-          return regenerator.wrap(function _callee3$(_context26) {
+          return regenerator.wrap(function _callee3$(_context25) {
             while (1) {
-              switch (_context26.prev = _context26.next) {
+              switch (_context25.prev = _context25.next) {
                 case 0:
                   _iterator13 = _createForOfIteratorHelper$1(ids);
-                  _context26.prev = 1;
+                  _context25.prev = 1;
 
                   _iterator13.s();
 
                 case 3:
                   if ((_step13 = _iterator13.n()).done) {
-                    _context26.next = 11;
+                    _context25.next = 11;
                     break;
                   }
 
@@ -9567,51 +9580,46 @@ var DataSet = /*#__PURE__*/function (_DataSetPart) {
                   item = data.get(id);
 
                   if (!(item != null)) {
-                    _context26.next = 9;
+                    _context25.next = 9;
                     break;
                   }
 
-                  _context26.next = 9;
+                  _context25.next = 9;
                   return [id, item];
 
                 case 9:
-                  _context26.next = 3;
+                  _context25.next = 3;
                   break;
 
                 case 11:
-                  _context26.next = 16;
+                  _context25.next = 16;
                   break;
 
                 case 13:
-                  _context26.prev = 13;
-                  _context26.t0 = _context26["catch"](1);
+                  _context25.prev = 13;
+                  _context25.t0 = _context25["catch"](1);
 
-                  _iterator13.e(_context26.t0);
+                  _iterator13.e(_context25.t0);
 
                 case 16:
-                  _context26.prev = 16;
+                  _context25.prev = 16;
 
                   _iterator13.f();
 
-                  return _context26.finish(16);
+                  return _context25.finish(16);
 
                 case 19:
                 case "end":
-                  return _context26.stop();
+                  return _context25.stop();
               }
             }
           }, _callee3, null, [[1, 13, 16, 19]]);
         })));
       } else {
-        var _context27;
+        var _context26;
 
-        return new DataStream(defineProperty$6({}, iterator$4, bind$2(_context27 = entries$2(this._data)).call(_context27, this._data)));
+        return new DataStream(defineProperty$6({}, iterator$4, bind$2(_context26 = entries$2(this._data)).call(_context26, this._data)));
       }
-    }
-  }, {
-    key: "idProp",
-    get: function get() {
-      return this._idProp;
     }
   }]);
 
@@ -9676,7 +9684,7 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
    * @param options - Options to configure this data view.
    */
   function DataView(data, options) {
-    var _context30;
+    var _context27;
 
     var _this7;
 
@@ -9689,7 +9697,7 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
     _this7._ids = new set$3(); // ids of the items currently in memory (just contains a boolean true)
 
     _this7._options = options || {};
-    _this7._listener = bind$2(_context30 = _this7._onEvent).call(_context30, assertThisInitialized(_this7));
+    _this7._listener = bind$2(_context27 = _this7._onEvent).call(_context27, assertThisInitialized(_this7));
 
     _this7.setData(data);
 
@@ -9699,8 +9707,10 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
 
 
   createClass(DataView, [{
-    key: "setData",
-    // TODO: implement a function .config() to dynamically update things like configured filter
+    key: "idProp",
+    get: function get() {
+      return this.getDataSet().idProp;
+    } // TODO: implement a function .config() to dynamically update things like configured filter
     // and trigger changes accordingly
 
     /**
@@ -9714,6 +9724,9 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
      * `dataView.dispose()` to enable garbage collection before you lose the last
      * reference.
      */
+
+  }, {
+    key: "setData",
     value: function setData(data) {
       if (this._data) {
         // unsubscribe from current dataset
@@ -9907,7 +9920,7 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
     key: "forEach",
     value: function forEach(callback, options) {
       if (this._data) {
-        var _context31;
+        var _context28;
 
         var defaultFilter = filter$2(this._options);
 
@@ -9927,7 +9940,7 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
           filter = defaultFilter;
         }
 
-        forEach$2(_context31 = this._data).call(_context31, callback, {
+        forEach$2(_context28 = this._data).call(_context28, callback, {
           filter: filter,
           order: options && options.order
         });
@@ -9939,7 +9952,7 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
     key: "map",
     value: function map(callback, options) {
       if (this._data) {
-        var _context32;
+        var _context29;
 
         var defaultFilter = filter$2(this._options);
 
@@ -9959,7 +9972,7 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
           filter = defaultFilter;
         }
 
-        return map$2(_context32 = this._data).call(_context32, callback, {
+        return map$2(_context29 = this._data).call(_context29, callback, {
           filter: filter,
           order: options && options.order
         });
@@ -9979,9 +9992,9 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
   }, {
     key: "stream",
     value: function stream(ids) {
-      var _context33;
+      var _context30;
 
-      return this._data.stream(ids || defineProperty$6({}, iterator$4, bind$2(_context33 = keys$6(this._ids)).call(_context33, this._ids)));
+      return this._data.stream(ids || defineProperty$6({}, iterator$4, bind$2(_context30 = keys$6(this._ids)).call(_context30, this._ids)));
     }
     /**
      * Render the instance unusable prior to garbage collection.
@@ -10134,11 +10147,6 @@ var DataView = /*#__PURE__*/function (_DataSetPart2) {
           oldData: removedItems
         }, senderId);
       }
-    }
-  }, {
-    key: "idProp",
-    get: function get() {
-      return this.getDataSet().idProp;
     }
   }]);
 
