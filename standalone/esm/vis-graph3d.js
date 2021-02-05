@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-02-05T02:09:33.367Z
+ * @date    2021-02-05T08:21:25.101Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -591,7 +591,7 @@ var shared = createCommonjsModule(function (module) {
     return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
   })('versions', []).push({
     version: '3.8.3',
-    mode:  'pure' ,
+    mode: 'pure' ,
     copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
   });
 });
@@ -960,7 +960,7 @@ var NEW_ITERATOR_PROTOTYPE = IteratorPrototype == undefined || fails(function ()
 });
 if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype = {}; // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
 
-if (( NEW_ITERATOR_PROTOTYPE) && !has(IteratorPrototype, ITERATOR)) {
+if ((NEW_ITERATOR_PROTOTYPE) && !has(IteratorPrototype, ITERATOR)) {
   createNonEnumerableProperty(IteratorPrototype, ITERATOR, returnThis);
 }
 
@@ -1246,7 +1246,7 @@ var defineIterator = function (Iterable, NAME, IteratorConstructor, next, DEFAUL
   } // define iterator
 
 
-  if (( FORCED) && IterablePrototype[ITERATOR$1] !== defaultIterator) {
+  if ((FORCED) && IterablePrototype[ITERATOR$1] !== defaultIterator) {
     createNonEnumerableProperty(IterablePrototype, ITERATOR$1, defaultIterator);
   }
 
@@ -7270,7 +7270,7 @@ var runtime_1 = createCommonjsModule(function (module) {
   // as the regeneratorRuntime namespace. Otherwise create a new empty
   // object. Either way, the resulting object will be used to initialize
   // the regeneratorRuntime variable at the top of this file.
-   module.exports );
+  module.exports );
 
   try {
     regeneratorRuntime = runtime;
