@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-02-26T09:08:49.497Z
+ * @date    2021-02-26T17:15:57.719Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -1477,7 +1477,7 @@ function setCameraPosition(cameraPosition, dst) {
 }
 
 let errorFound = false;
-let allOptions;
+let allOptions$1;
 let printStyle = 'background: #FFeeee; color: #dd0000';
 /**
  *  Used to validate options.
@@ -1499,7 +1499,7 @@ class Validator {
    */
   static validate(options, referenceOptions, subObject) {
     errorFound = false;
-    allOptions = referenceOptions;
+    allOptions$1 = referenceOptions;
     let usedOptions = referenceOptions;
     if (subObject !== undefined) {
       usedOptions = referenceOptions[subObject];
@@ -1662,7 +1662,7 @@ class Validator {
    */
   static getSuggestion(option, options, path) {
     let localSearch = Validator.findInOptions(option,options,path,false);
-    let globalSearch = Validator.findInOptions(option,allOptions,[],true);
+    let globalSearch = Validator.findInOptions(option,allOptions$1,[],true);
 
     let localSearchThreshold = 8;
     let globalSearchThreshold = 4;
@@ -1875,7 +1875,7 @@ let colormapOptions = {
  *   - __type__ always at end
  *   - globals at end
  */
-let allOptions$1 = {
+let allOptions = {
   animationAutoStart: { boolean: bool, 'undefined': 'undefined' },
   animationInterval : { number },
   animationPreload  : { boolean: bool },
@@ -3398,7 +3398,7 @@ Graph3d.prototype.setData = function (data) {
 Graph3d.prototype.setOptions = function (options) {
   if (options === undefined) return;
 
-  let errorFound = Validator.validate(options, allOptions$1);
+  let errorFound = Validator.validate(options, allOptions);
   if (errorFound === true) {
     console.log('%cErrors have been found in the supplied options object.', printStyle);
   }
