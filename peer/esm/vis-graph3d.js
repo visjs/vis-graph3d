@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-03-02T00:38:13.471Z
+ * @date    2021-03-02T04:20:24.896Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -406,7 +406,7 @@ var shared = createCommonjsModule(function (module) {
   (module.exports = function (key, value) {
     return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.9.0',
+    version: '3.9.1',
     mode: 'pure' ,
     copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
   });
@@ -419,46 +419,7 @@ var uid = function (key) {
   return 'Symbol(' + String(key === undefined ? '' : key) + ')_' + (++id + postfix).toString(36);
 };
 
-var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
-  // Chrome 38 Symbol has incorrect toString conversion
-
-  /* global Symbol -- required for testing */
-  return !String(Symbol());
-});
-
-var useSymbolAsUid = nativeSymbol
-/* global Symbol -- safe */
-&& !Symbol.sham && typeof Symbol.iterator == 'symbol';
-
-var WellKnownSymbolsStore$1 = shared('wks');
-var Symbol$1 = global$1.Symbol;
-var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid;
-
-var wellKnownSymbol = function (name) {
-  if (!has$1(WellKnownSymbolsStore$1, name)) {
-    if (nativeSymbol && has$1(Symbol$1, name)) WellKnownSymbolsStore$1[name] = Symbol$1[name];else WellKnownSymbolsStore$1[name] = createWellKnownSymbol('Symbol.' + name);
-  }
-
-  return WellKnownSymbolsStore$1[name];
-};
-
-var SPECIES$2 = wellKnownSymbol('species'); // `ArraySpeciesCreate` abstract operation
-// https://tc39.es/ecma262/#sec-arrayspeciescreate
-
-var arraySpeciesCreate = function (originalArray, length) {
-  var C;
-
-  if (isArray$5(originalArray)) {
-    C = originalArray.constructor; // cross-realm fallback
-
-    if (typeof C == 'function' && (C === Array || isArray$5(C.prototype))) C = undefined;else if (isObject(C)) {
-      C = C[SPECIES$2];
-      if (C === null) C = undefined;
-    }
-  }
-
-  return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
-};
+var engineIsNode = classofRaw(global$1.process) == 'process';
 
 var aFunction = function (variable) {
   return typeof variable == 'function' ? variable : undefined;
@@ -488,6 +449,51 @@ if (v8) {
 }
 
 var engineV8Version = version && +version;
+
+var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
+  /* global Symbol -- required for testing */
+  return !Symbol.sham && ( // Chrome 38 Symbol has incorrect toString conversion
+  // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
+  engineIsNode ? engineV8Version === 38 : engineV8Version > 37 && engineV8Version < 41);
+});
+
+var useSymbolAsUid = nativeSymbol
+/* global Symbol -- safe */
+&& !Symbol.sham && typeof Symbol.iterator == 'symbol';
+
+var WellKnownSymbolsStore$1 = shared('wks');
+var Symbol$1 = global$1.Symbol;
+var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : Symbol$1 && Symbol$1.withoutSetter || uid;
+
+var wellKnownSymbol = function (name) {
+  if (!has$1(WellKnownSymbolsStore$1, name) || !(nativeSymbol || typeof WellKnownSymbolsStore$1[name] == 'string')) {
+    if (nativeSymbol && has$1(Symbol$1, name)) {
+      WellKnownSymbolsStore$1[name] = Symbol$1[name];
+    } else {
+      WellKnownSymbolsStore$1[name] = createWellKnownSymbol('Symbol.' + name);
+    }
+  }
+
+  return WellKnownSymbolsStore$1[name];
+};
+
+var SPECIES$2 = wellKnownSymbol('species'); // `ArraySpeciesCreate` abstract operation
+// https://tc39.es/ecma262/#sec-arrayspeciescreate
+
+var arraySpeciesCreate = function (originalArray, length) {
+  var C;
+
+  if (isArray$5(originalArray)) {
+    C = originalArray.constructor; // cross-realm fallback
+
+    if (typeof C == 'function' && (C === Array || isArray$5(C.prototype))) C = undefined;else if (isObject(C)) {
+      C = C[SPECIES$2];
+      if (C === null) C = undefined;
+    }
+  }
+
+  return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
+};
 
 var SPECIES$1 = wellKnownSymbol('species');
 
