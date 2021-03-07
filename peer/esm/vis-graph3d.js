@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-03-06T11:58:01.332Z
+ * @date    2021-03-07T09:42:06.488Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -376,11 +376,11 @@ var toInteger = function (argument) {
   return isNaN(argument = +argument) ? 0 : (argument > 0 ? floor : ceil)(argument);
 };
 
-var min$1 = Math.min; // `ToLength` abstract operation
+var min$2 = Math.min; // `ToLength` abstract operation
 // https://tc39.es/ecma262/#sec-tolength
 
 var toLength = function (argument) {
-  return argument > 0 ? min$1(toInteger(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
+  return argument > 0 ? min$2(toInteger(argument), 0x1FFFFFFFFFFFFF) : 0; // 2 ** 53 - 1 == 9007199254740991
 };
 
 var createProperty = function (object, key, value) {
@@ -516,7 +516,7 @@ var arrayMethodHasSpeciesSupport = function (METHOD_NAME) {
 };
 
 var IS_CONCAT_SPREADABLE = wellKnownSymbol('isConcatSpreadable');
-var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+var MAX_SAFE_INTEGER$1 = 0x1FFFFFFFFFFFFF;
 var MAXIMUM_ALLOWED_INDEX_EXCEEDED = 'Maximum allowed index exceeded'; // We can't use this feature detection in V8 since it causes
 // deoptimization and serious performance degradation
 // https://github.com/zloirock/core-js/issues/679
@@ -555,11 +555,11 @@ _export({
 
       if (isConcatSpreadable(E)) {
         len = toLength(E.length);
-        if (n + len > MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+        if (n + len > MAX_SAFE_INTEGER$1) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
 
         for (k = 0; k < len; k++, n++) if (k in E) createProperty(A, n, E[k]);
       } else {
-        if (n >= MAX_SAFE_INTEGER) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
+        if (n >= MAX_SAFE_INTEGER$1) throw TypeError(MAXIMUM_ALLOWED_INDEX_EXCEEDED);
         createProperty(A, n++, E);
       }
     }
@@ -569,14 +569,14 @@ _export({
   }
 });
 
-var max$1 = Math.max;
-var min = Math.min; // Helper for a popular repeating case of the spec:
+var max$2 = Math.max;
+var min$1 = Math.min; // Helper for a popular repeating case of the spec:
 // Let integer be ? ToInteger(index).
 // If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
 
 var toAbsoluteIndex = function (index, length) {
   var integer = toInteger(index);
-  return integer < 0 ? max$1(integer + length, 0) : min(integer, length);
+  return integer < 0 ? max$2(integer + length, 0) : min$1(integer, length);
 };
 
 var createMethod$4 = function (IS_INCLUDES) {
@@ -1833,11 +1833,11 @@ var entryVirtual = function (CONSTRUCTOR) {
 
 var sort$2 = entryVirtual('Array').sort;
 
-var ArrayPrototype$a = Array.prototype;
+var ArrayPrototype$c = Array.prototype;
 
 var sort_1 = function (it) {
   var own = it.sort;
-  return it === ArrayPrototype$a || it instanceof Array && own === ArrayPrototype$a.sort ? sort$2 : own;
+  return it === ArrayPrototype$c || it instanceof Array && own === ArrayPrototype$c.sort ? sort$2 : own;
 };
 
 var sort$1 = sort_1;
@@ -1865,11 +1865,11 @@ _export({
 
 var indexOf$2 = entryVirtual('Array').indexOf;
 
-var ArrayPrototype$9 = Array.prototype;
+var ArrayPrototype$b = Array.prototype;
 
 var indexOf_1 = function (it) {
   var own = it.indexOf;
-  return it === ArrayPrototype$9 || it instanceof Array && own === ArrayPrototype$9.indexOf ? indexOf$2 : own;
+  return it === ArrayPrototype$b || it instanceof Array && own === ArrayPrototype$b.indexOf ? indexOf$2 : own;
 };
 
 var indexOf$1 = indexOf_1;
@@ -1877,14 +1877,14 @@ var indexOf$1 = indexOf_1;
 var indexOf = indexOf$1;
 
 var $filter = arrayIteration.filter;
-var HAS_SPECIES_SUPPORT$2 = arrayMethodHasSpeciesSupport('filter'); // `Array.prototype.filter` method
+var HAS_SPECIES_SUPPORT$3 = arrayMethodHasSpeciesSupport('filter'); // `Array.prototype.filter` method
 // https://tc39.es/ecma262/#sec-array.prototype.filter
 // with adding support of @@species
 
 _export({
   target: 'Array',
   proto: true,
-  forced: !HAS_SPECIES_SUPPORT$2
+  forced: !HAS_SPECIES_SUPPORT$3
 }, {
   filter: function filter(callbackfn
   /* , thisArg */
@@ -1895,11 +1895,11 @@ _export({
 
 var filter$2 = entryVirtual('Array').filter;
 
-var ArrayPrototype$8 = Array.prototype;
+var ArrayPrototype$a = Array.prototype;
 
 var filter_1 = function (it) {
   var own = it.filter;
-  return it === ArrayPrototype$8 || it instanceof Array && own === ArrayPrototype$8.filter ? filter$2 : own;
+  return it === ArrayPrototype$a || it instanceof Array && own === ArrayPrototype$a.filter ? filter$2 : own;
 };
 
 var filter$1 = filter_1;
@@ -1989,11 +1989,11 @@ _export({
 
 var fill$2 = entryVirtual('Array').fill;
 
-var ArrayPrototype$7 = Array.prototype;
+var ArrayPrototype$9 = Array.prototype;
 
 var fill_1 = function (it) {
   var own = it.fill;
-  return it === ArrayPrototype$7 || it instanceof Array && own === ArrayPrototype$7.fill ? fill$2 : own;
+  return it === ArrayPrototype$9 || it instanceof Array && own === ArrayPrototype$9.fill ? fill$2 : own;
 };
 
 var fill$1 = fill_1;
@@ -2004,7 +2004,7 @@ var values$2 = entryVirtual('Array').values;
 
 var values$1 = values$2;
 
-var ArrayPrototype$6 = Array.prototype;
+var ArrayPrototype$8 = Array.prototype;
 var DOMIterables$1 = {
   DOMTokenList: true,
   NodeList: true
@@ -2012,7 +2012,7 @@ var DOMIterables$1 = {
 
 var values_1 = function (it) {
   var own = it.values;
-  return it === ArrayPrototype$6 || it instanceof Array && own === ArrayPrototype$6.values // eslint-disable-next-line no-prototype-builtins -- safe
+  return it === ArrayPrototype$8 || it instanceof Array && own === ArrayPrototype$8.values // eslint-disable-next-line no-prototype-builtins -- safe
   || DOMIterables$1.hasOwnProperty(classof(it)) ? values$1 : own;
 };
 
@@ -2043,7 +2043,7 @@ var forEach$2 = entryVirtual('Array').forEach;
 
 var forEach$1 = forEach$2;
 
-var ArrayPrototype$5 = Array.prototype;
+var ArrayPrototype$7 = Array.prototype;
 var DOMIterables = {
   DOMTokenList: true,
   NodeList: true
@@ -2051,7 +2051,7 @@ var DOMIterables = {
 
 var forEach_1 = function (it) {
   var own = it.forEach;
-  return it === ArrayPrototype$5 || it instanceof Array && own === ArrayPrototype$5.forEach // eslint-disable-next-line no-prototype-builtins -- safe
+  return it === ArrayPrototype$7 || it instanceof Array && own === ArrayPrototype$7.forEach // eslint-disable-next-line no-prototype-builtins -- safe
   || DOMIterables.hasOwnProperty(classof(it)) ? forEach$1 : own;
 };
 
@@ -2092,18 +2092,18 @@ var isNan = isNan$1;
 
 var concat$2 = entryVirtual('Array').concat;
 
-var ArrayPrototype$4 = Array.prototype;
+var ArrayPrototype$6 = Array.prototype;
 
 var concat_1 = function (it) {
   var own = it.concat;
-  return it === ArrayPrototype$4 || it instanceof Array && own === ArrayPrototype$4.concat ? concat$2 : own;
+  return it === ArrayPrototype$6 || it instanceof Array && own === ArrayPrototype$6.concat ? concat$2 : own;
 };
 
 var concat$1 = concat_1;
 
 var concat = concat$1;
 
-var slice$5 = [].slice;
+var slice$6 = [].slice;
 var MSIE = /MSIE .\./.test(engineUserAgent); // <- dirty ie9- check
 
 var wrap = function (scheduler) {
@@ -2111,7 +2111,7 @@ var wrap = function (scheduler) {
   /* , ...arguments */
   ) {
     var boundArgs = arguments.length > 2;
-    var args = boundArgs ? slice$5.call(arguments, 2) : undefined;
+    var args = boundArgs ? slice$6.call(arguments, 2) : undefined;
     return scheduler(boundArgs ? function () {
       // eslint-disable-next-line no-new-func -- spec requirement
       (typeof handler == 'function' ? handler : Function(handler)).apply(this, args);
@@ -2134,9 +2134,9 @@ _export({
   setInterval: wrap(global$1.setInterval)
 });
 
-var setTimeout$1 = path.setTimeout;
+var setTimeout$2 = path.setTimeout;
 
-var setTimeout = setTimeout$1;
+var setTimeout$1 = setTimeout$2;
 
 var nativeAssign = Object.assign;
 var defineProperty$2 = Object.defineProperty; // `Object.assign` method
@@ -2203,11 +2203,11 @@ _export({
   assign: objectAssign
 });
 
-var assign$2 = path.Object.assign;
+var assign$4 = path.Object.assign;
 
-var assign$1 = assign$2;
+var assign$3 = assign$4;
 
-var assign = assign$1;
+var assign$2 = assign$3;
 
 var componentEmitter = createCommonjsModule(function (module) {
   /**
@@ -2398,15 +2398,15 @@ var callWithSafeIterationClosing = function (iterator, fn, value, ENTRIES) {
 };
 
 var ITERATOR$3 = wellKnownSymbol('iterator');
-var ArrayPrototype$3 = Array.prototype; // check on default Array iterator
+var ArrayPrototype$5 = Array.prototype; // check on default Array iterator
 
 var isArrayIteratorMethod = function (it) {
-  return it !== undefined && (iterators.Array === it || ArrayPrototype$3[ITERATOR$3] === it);
+  return it !== undefined && (iterators.Array === it || ArrayPrototype$5[ITERATOR$3] === it);
 };
 
 var ITERATOR$2 = wellKnownSymbol('iterator');
 
-var getIteratorMethod = function (it) {
+var getIteratorMethod$1 = function (it) {
   if (it != undefined) return it[ITERATOR$2] || it['@@iterator'] || iterators[classof(it)];
 };
 
@@ -2421,7 +2421,7 @@ var arrayFrom = function from(arrayLike
   var argumentsLength = arguments.length;
   var mapfn = argumentsLength > 1 ? arguments[1] : undefined;
   var mapping = mapfn !== undefined;
-  var iteratorMethod = getIteratorMethod(O);
+  var iteratorMethod = getIteratorMethod$1(O);
   var index = 0;
   var length, result, step, iterator, next, value;
   if (mapping) mapfn = functionBindContext(mapfn, argumentsLength > 2 ? arguments[2] : undefined, 2); // if the target is not iterable or it's an array with the default iterator - use a simple case
@@ -2515,7 +2515,29 @@ _export({
   from: arrayFrom
 });
 
-var from$2 = path.Array.from;
+var from$4 = path.Array.from;
+
+var from$3 = from$4;
+
+var from$2 = from$3;
+
+var getIteratorMethod_1 = getIteratorMethod$1;
+
+var getIteratorMethod = getIteratorMethod_1;
+
+var getIterator$1 = function (it) {
+  var iteratorMethod = getIteratorMethod$1(it);
+
+  if (typeof iteratorMethod != 'function') {
+    throw TypeError(String(it) + ' is not iterable');
+  }
+
+  return anObject(iteratorMethod.call(it));
+};
+
+var getIterator_1 = getIterator$1;
+
+var getIterator = getIterator_1;
 
 path.Object.getOwnPropertySymbols;
 
@@ -2621,9 +2643,32 @@ var defineProperty_1 = createCommonjsModule(function (module) {
   if (Object.defineProperty.sham) defineProperty.sham = true;
 });
 
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
 var defineProperty$1 = defineProperty_1;
 
 var defineProperty = defineProperty$1;
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+
+    defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
 
 var isArray$1 = isArray$4;
 
@@ -2641,17 +2686,17 @@ var isIterable_1 = isIterable$1;
 
 var isIterable = isIterable_1;
 
-var HAS_SPECIES_SUPPORT$1 = arrayMethodHasSpeciesSupport('slice');
+var HAS_SPECIES_SUPPORT$2 = arrayMethodHasSpeciesSupport('slice');
 var SPECIES = wellKnownSymbol('species');
 var nativeSlice = [].slice;
-var max = Math.max; // `Array.prototype.slice` method
+var max$1 = Math.max; // `Array.prototype.slice` method
 // https://tc39.es/ecma262/#sec-array.prototype.slice
 // fallback for not array-like ES3 strings and DOM objects
 
 _export({
   target: 'Array',
   proto: true,
-  forced: !HAS_SPECIES_SUPPORT$1
+  forced: !HAS_SPECIES_SUPPORT$2
 }, {
   slice: function slice(start, end) {
     var O = toIndexedObject(this);
@@ -2676,7 +2721,7 @@ _export({
       }
     }
 
-    result = new (Constructor === undefined ? Array : Constructor)(max(fin - k, 0));
+    result = new (Constructor === undefined ? Array : Constructor)(max$1(fin - k, 0));
 
     for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
 
@@ -2685,24 +2730,24 @@ _export({
   }
 });
 
-var slice$4 = entryVirtual('Array').slice;
+var slice$5 = entryVirtual('Array').slice;
 
-var ArrayPrototype$2 = Array.prototype;
+var ArrayPrototype$4 = Array.prototype;
 
 var slice_1 = function (it) {
   var own = it.slice;
-  return it === ArrayPrototype$2 || it instanceof Array && own === ArrayPrototype$2.slice ? slice$4 : own;
+  return it === ArrayPrototype$4 || it instanceof Array && own === ArrayPrototype$4.slice ? slice$5 : own;
 };
 
-var slice$3 = slice_1;
+var slice$4 = slice_1;
 
-var slice$2 = slice$3;
+var slice$3 = slice$4;
 
-var from$1 = from$2;
+var from$1 = from$4;
 
 var from = from$1;
 
-function _arrayLikeToArray(arr, len) {
+function _arrayLikeToArray$1(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
 
   for (var i = 0, arr2 = new Array(len); i < len; i++) {
@@ -2712,21 +2757,21 @@ function _arrayLikeToArray(arr, len) {
   return arr2;
 }
 
-function _unsupportedIterableToArray(o, minLen) {
+function _unsupportedIterableToArray$1(o, minLen) {
   var _context;
 
   if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  if (typeof o === "string") return _arrayLikeToArray$1(o, minLen);
 
-  var n = slice$2(_context = Object.prototype.toString.call(o)).call(_context, 8, -1);
+  var n = slice$3(_context = Object.prototype.toString.call(o)).call(_context, 8, -1);
 
   if (n === "Object" && o.constructor) n = o.constructor.name;
   if (n === "Map" || n === "Set") return from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray$1(o, minLen);
 }
 
 function _arrayWithoutHoles(arr) {
-  if (isArray(arr)) return _arrayLikeToArray(arr);
+  if (isArray(arr)) return _arrayLikeToArray$1(arr);
 }
 
 function _iterableToArray(iter) {
@@ -2738,16 +2783,16 @@ function _nonIterableSpread() {
 }
 
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray$1(arr) || _nonIterableSpread();
 }
 
 var symbol$1 = symbol$4;
 
 var symbol = symbol$1;
 
-var slice$1 = slice_1;
+var slice$2 = slice_1;
 
-var slice = slice$1;
+var slice$1 = slice$2;
 
 // https://tc39.es/ecma262/#sec-reflect.ownkeys
 
@@ -2761,14 +2806,14 @@ _export({
 path.Reflect.ownKeys;
 
 var $map = arrayIteration.map;
-var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map'); // `Array.prototype.map` method
+var HAS_SPECIES_SUPPORT$1 = arrayMethodHasSpeciesSupport('map'); // `Array.prototype.map` method
 // https://tc39.es/ecma262/#sec-array.prototype.map
 // with adding support of @@species
 
 _export({
   target: 'Array',
   proto: true,
-  forced: !HAS_SPECIES_SUPPORT
+  forced: !HAS_SPECIES_SUPPORT$1
 }, {
   map: function map(callbackfn
   /* , thisArg */
@@ -2779,11 +2824,11 @@ _export({
 
 var map$2 = entryVirtual('Array').map;
 
-var ArrayPrototype$1 = Array.prototype;
+var ArrayPrototype$3 = Array.prototype;
 
 var map_1 = function (it) {
   var own = it.map;
-  return it === ArrayPrototype$1 || it instanceof Array && own === ArrayPrototype$1.map ? map$2 : own;
+  return it === ArrayPrototype$3 || it instanceof Array && own === ArrayPrototype$3.map ? map$2 : own;
 };
 
 var map$1 = map_1;
@@ -2823,6 +2868,261 @@ _export({
 });
 
 path.Date.now;
+
+var slice = [].slice;
+var factories = {};
+
+var construct = function (C, argsLength, args) {
+  if (!(argsLength in factories)) {
+    for (var list = [], i = 0; i < argsLength; i++) list[i] = 'a[' + i + ']'; // eslint-disable-next-line no-new-func -- we have no proper alternatives, IE8- only
+
+
+    factories[argsLength] = Function('C,a', 'return new C(' + list.join(',') + ')');
+  }
+
+  return factories[argsLength](C, args);
+}; // `Function.prototype.bind` method implementation
+// https://tc39.es/ecma262/#sec-function.prototype.bind
+
+
+var functionBind = Function.bind || function bind(that
+/* , ...args */
+) {
+  var fn = aFunction$1(this);
+  var partArgs = slice.call(arguments, 1);
+
+  var boundFunction = function bound()
+  /* args... */
+  {
+    var args = partArgs.concat(slice.call(arguments));
+    return this instanceof boundFunction ? construct(fn, args.length, args) : fn.apply(that, args);
+  };
+
+  if (isObject(fn.prototype)) boundFunction.prototype = fn.prototype;
+  return boundFunction;
+};
+
+// https://tc39.es/ecma262/#sec-function.prototype.bind
+
+_export({
+  target: 'Function',
+  proto: true
+}, {
+  bind: functionBind
+});
+
+var bind$2 = entryVirtual('Function').bind;
+
+var FunctionPrototype = Function.prototype;
+
+var bind_1 = function (it) {
+  var own = it.bind;
+  return it === FunctionPrototype || it instanceof Function && own === FunctionPrototype.bind ? bind$2 : own;
+};
+
+var bind$1 = bind_1;
+
+var bind = bind$1;
+
+var nativeReverse = [].reverse;
+var test = [1, 2]; // `Array.prototype.reverse` method
+// https://tc39.es/ecma262/#sec-array.prototype.reverse
+// fix for Safari 12.0 bug
+// https://bugs.webkit.org/show_bug.cgi?id=188794
+
+_export({
+  target: 'Array',
+  proto: true,
+  forced: String(test) === String(test.reverse())
+}, {
+  reverse: function reverse() {
+    // eslint-disable-next-line no-self-assign -- dirty hack
+    if (isArray$5(this)) this.length = this.length;
+    return nativeReverse.call(this);
+  }
+});
+
+var reverse$2 = entryVirtual('Array').reverse;
+
+var ArrayPrototype$2 = Array.prototype;
+
+var reverse_1 = function (it) {
+  var own = it.reverse;
+  return it === ArrayPrototype$2 || it instanceof Array && own === ArrayPrototype$2.reverse ? reverse$2 : own;
+};
+
+var reverse$1 = reverse_1;
+
+var reverse = reverse$1;
+
+var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('splice');
+var max = Math.max;
+var min = Math.min;
+var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+var MAXIMUM_ALLOWED_LENGTH_EXCEEDED = 'Maximum allowed length exceeded'; // `Array.prototype.splice` method
+// https://tc39.es/ecma262/#sec-array.prototype.splice
+// with adding support of @@species
+
+_export({
+  target: 'Array',
+  proto: true,
+  forced: !HAS_SPECIES_SUPPORT
+}, {
+  splice: function splice(start, deleteCount
+  /* , ...items */
+  ) {
+    var O = toObject(this);
+    var len = toLength(O.length);
+    var actualStart = toAbsoluteIndex(start, len);
+    var argumentsLength = arguments.length;
+    var insertCount, actualDeleteCount, A, k, from, to;
+
+    if (argumentsLength === 0) {
+      insertCount = actualDeleteCount = 0;
+    } else if (argumentsLength === 1) {
+      insertCount = 0;
+      actualDeleteCount = len - actualStart;
+    } else {
+      insertCount = argumentsLength - 2;
+      actualDeleteCount = min(max(toInteger(deleteCount), 0), len - actualStart);
+    }
+
+    if (len + insertCount - actualDeleteCount > MAX_SAFE_INTEGER) {
+      throw TypeError(MAXIMUM_ALLOWED_LENGTH_EXCEEDED);
+    }
+
+    A = arraySpeciesCreate(O, actualDeleteCount);
+
+    for (k = 0; k < actualDeleteCount; k++) {
+      from = actualStart + k;
+      if (from in O) createProperty(A, k, O[from]);
+    }
+
+    A.length = actualDeleteCount;
+
+    if (insertCount < actualDeleteCount) {
+      for (k = actualStart; k < len - actualDeleteCount; k++) {
+        from = k + actualDeleteCount;
+        to = k + insertCount;
+        if (from in O) O[to] = O[from];else delete O[to];
+      }
+
+      for (k = len; k > len - actualDeleteCount + insertCount; k--) delete O[k - 1];
+    } else if (insertCount > actualDeleteCount) {
+      for (k = len - actualDeleteCount; k > actualStart; k--) {
+        from = k + actualDeleteCount - 1;
+        to = k + insertCount - 1;
+        if (from in O) O[to] = O[from];else delete O[to];
+      }
+    }
+
+    for (k = 0; k < insertCount; k++) {
+      O[k + actualStart] = arguments[k + 2];
+    }
+
+    O.length = len - actualDeleteCount + insertCount;
+    return A;
+  }
+});
+
+var splice$2 = entryVirtual('Array').splice;
+
+var ArrayPrototype$1 = Array.prototype;
+
+var splice_1 = function (it) {
+  var own = it.splice;
+  return it === ArrayPrototype$1 || it instanceof Array && own === ArrayPrototype$1.splice ? splice$2 : own;
+};
+
+var splice$1 = splice_1;
+
+var splice = splice$1;
+
+var $includes = arrayIncludes.includes; // `Array.prototype.includes` method
+// https://tc39.es/ecma262/#sec-array.prototype.includes
+
+_export({
+  target: 'Array',
+  proto: true
+}, {
+  includes: function includes(el
+  /* , fromIndex = 0 */
+  ) {
+    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
+  }
+}); // https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+
+var includes$4 = entryVirtual('Array').includes;
+
+var MATCH$1 = wellKnownSymbol('match'); // `IsRegExp` abstract operation
+// https://tc39.es/ecma262/#sec-isregexp
+
+var isRegexp = function (it) {
+  var isRegExp;
+  return isObject(it) && ((isRegExp = it[MATCH$1]) !== undefined ? !!isRegExp : classofRaw(it) == 'RegExp');
+};
+
+var notARegexp = function (it) {
+  if (isRegexp(it)) {
+    throw TypeError("The method doesn't accept regular expressions");
+  }
+
+  return it;
+};
+
+var MATCH = wellKnownSymbol('match');
+
+var correctIsRegexpLogic = function (METHOD_NAME) {
+  var regexp = /./;
+
+  try {
+    '/./'[METHOD_NAME](regexp);
+  } catch (error1) {
+    try {
+      regexp[MATCH] = false;
+      return '/./'[METHOD_NAME](regexp);
+    } catch (error2) {
+      /* empty */
+    }
+  }
+
+  return false;
+};
+
+// https://tc39.es/ecma262/#sec-string.prototype.includes
+
+
+_export({
+  target: 'String',
+  proto: true,
+  forced: !correctIsRegexpLogic('includes')
+}, {
+  includes: function includes(searchString
+  /* , position = 0 */
+  ) {
+    return !!~String(requireObjectCoercible(this)).indexOf(notARegexp(searchString), arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+var includes$3 = entryVirtual('String').includes;
+
+var ArrayPrototype = Array.prototype;
+var StringPrototype = String.prototype;
+
+var includes$2 = function (it) {
+  var own = it.includes;
+  if (it === ArrayPrototype || it instanceof Array && own === ArrayPrototype.includes) return includes$4;
+
+  if (typeof it === 'string' || it === StringPrototype || it instanceof String && own === StringPrototype.includes) {
+    return includes$3;
+  }
+
+  return own;
+};
+
+var includes$1 = includes$2;
+
+var includes = includes$1;
 
 var FAILS_ON_PRIMITIVES = fails(function () {
   objectGetPrototypeOf(1);
@@ -2952,36 +3252,3227 @@ _export({
   create: objectCreate
 });
 
+var $stringify = getBuiltIn('JSON', 'stringify');
+var re = /[\uD800-\uDFFF]/g;
+var low = /^[\uD800-\uDBFF]$/;
+var hi = /^[\uDC00-\uDFFF]$/;
+
+var fix = function (match, offset, string) {
+  var prev = string.charAt(offset - 1);
+  var next = string.charAt(offset + 1);
+
+  if (low.test(match) && !hi.test(next) || hi.test(match) && !low.test(prev)) {
+    return '\\u' + match.charCodeAt(0).toString(16);
+  }
+
+  return match;
+};
+
+var FORCED = fails(function () {
+  return $stringify('\uDF06\uD834') !== '"\\udf06\\ud834"' || $stringify('\uDEAD') !== '"\\udead"';
+});
+
+if ($stringify) {
+  // `JSON.stringify` method
+  // https://tc39.es/ecma262/#sec-json.stringify
+  // https://github.com/tc39/proposal-well-formed-stringify
+  _export({
+    target: 'JSON',
+    stat: true,
+    forced: FORCED
+  }, {
+    // eslint-disable-next-line no-unused-vars -- required for `.length`
+    stringify: function stringify(it, replacer, space) {
+      var result = $stringify.apply(null, arguments);
+      return typeof result == 'string' ? result.replace(re, fix) : result;
+    }
+  });
+}
+
+if (!path.JSON) path.JSON = {
+  stringify: JSON.stringify
+}; // eslint-disable-next-line no-unused-vars -- required for `.length`
+
+var stringify$2 = function stringify(it, replacer, space) {
+  return path.JSON.stringify.apply(null, arguments);
+};
+
+var stringify$1 = stringify$2;
+
+var stringify = stringify$1;
+
+/*! Hammer.JS - v2.0.17-rc - 2019-12-16
+ * http://naver.github.io/egjs
+ *
+ * Forked By Naver egjs
+ * Copyright (c) hammerjs
+ * Licensed under the MIT license */
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
 /**
- * vis-util
- * https://github.com/visjs/vis-util
+ * @private
+ * extend object.
+ * means that properties in dest will be overwritten by the ones in src.
+ * @param {Object} target
+ * @param {...Object} objects_to_assign
+ * @returns {Object} target
+ */
+
+
+var assign;
+
+if (typeof Object.assign !== 'function') {
+  assign = function assign(target) {
+    if (target === undefined || target === null) {
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    var output = Object(target);
+
+    for (var index = 1; index < arguments.length; index++) {
+      var source = arguments[index];
+
+      if (source !== undefined && source !== null) {
+        for (var nextKey in source) {
+          if (source.hasOwnProperty(nextKey)) {
+            output[nextKey] = source[nextKey];
+          }
+        }
+      }
+    }
+
+    return output;
+  };
+} else {
+  assign = Object.assign;
+}
+
+var assign$1 = assign;
+var VENDOR_PREFIXES = ['', 'webkit', 'Moz', 'MS', 'ms', 'o'];
+var TEST_ELEMENT = typeof document === "undefined" ? {
+  style: {}
+} : document.createElement('div');
+var TYPE_FUNCTION = 'function';
+var round = Math.round,
+    abs = Math.abs;
+var now = Date.now;
+/**
+ * @private
+ * get the prefixed property
+ * @param {Object} obj
+ * @param {String} property
+ * @returns {String|Undefined} prefixed
+ */
+
+function prefixed(obj, property) {
+  var prefix;
+  var prop;
+  var camelProp = property[0].toUpperCase() + property.slice(1);
+  var i = 0;
+
+  while (i < VENDOR_PREFIXES.length) {
+    prefix = VENDOR_PREFIXES[i];
+    prop = prefix ? prefix + camelProp : property;
+
+    if (prop in obj) {
+      return prop;
+    }
+
+    i++;
+  }
+
+  return undefined;
+}
+/* eslint-disable no-new-func, no-nested-ternary */
+
+
+var win;
+
+if (typeof window === "undefined") {
+  // window is undefined in node.js
+  win = {};
+} else {
+  win = window;
+}
+
+var PREFIXED_TOUCH_ACTION = prefixed(TEST_ELEMENT.style, 'touchAction');
+var NATIVE_TOUCH_ACTION = PREFIXED_TOUCH_ACTION !== undefined;
+
+function getTouchActionProps() {
+  if (!NATIVE_TOUCH_ACTION) {
+    return false;
+  }
+
+  var touchMap = {};
+  var cssSupports = win.CSS && win.CSS.supports;
+  ['auto', 'manipulation', 'pan-y', 'pan-x', 'pan-x pan-y', 'none'].forEach(function (val) {
+    // If css.supports is not supported but there is native touch-action assume it supports
+    // all values. This is the case for IE 10 and 11.
+    return touchMap[val] = cssSupports ? win.CSS.supports('touch-action', val) : true;
+  });
+  return touchMap;
+}
+
+var TOUCH_ACTION_COMPUTE = 'compute';
+var TOUCH_ACTION_AUTO = 'auto';
+var TOUCH_ACTION_MANIPULATION = 'manipulation'; // not implemented
+
+var TOUCH_ACTION_NONE = 'none';
+var TOUCH_ACTION_PAN_X = 'pan-x';
+var TOUCH_ACTION_PAN_Y = 'pan-y';
+var TOUCH_ACTION_MAP = getTouchActionProps();
+var MOBILE_REGEX = /mobile|tablet|ip(ad|hone|od)|android/i;
+var SUPPORT_TOUCH = ('ontouchstart' in win);
+var SUPPORT_POINTER_EVENTS = prefixed(win, 'PointerEvent') !== undefined;
+var SUPPORT_ONLY_TOUCH = SUPPORT_TOUCH && MOBILE_REGEX.test(navigator.userAgent);
+var INPUT_TYPE_TOUCH = 'touch';
+var INPUT_TYPE_PEN = 'pen';
+var INPUT_TYPE_MOUSE = 'mouse';
+var INPUT_TYPE_KINECT = 'kinect';
+var COMPUTE_INTERVAL = 25;
+var INPUT_START = 1;
+var INPUT_MOVE = 2;
+var INPUT_END = 4;
+var INPUT_CANCEL = 8;
+var DIRECTION_NONE = 1;
+var DIRECTION_LEFT = 2;
+var DIRECTION_RIGHT = 4;
+var DIRECTION_UP = 8;
+var DIRECTION_DOWN = 16;
+var DIRECTION_HORIZONTAL = DIRECTION_LEFT | DIRECTION_RIGHT;
+var DIRECTION_VERTICAL = DIRECTION_UP | DIRECTION_DOWN;
+var DIRECTION_ALL = DIRECTION_HORIZONTAL | DIRECTION_VERTICAL;
+var PROPS_XY = ['x', 'y'];
+var PROPS_CLIENT_XY = ['clientX', 'clientY'];
+/**
+ * @private
+ * walk objects and arrays
+ * @param {Object} obj
+ * @param {Function} iterator
+ * @param {Object} context
+ */
+
+function each(obj, iterator, context) {
+  var i;
+
+  if (!obj) {
+    return;
+  }
+
+  if (obj.forEach) {
+    obj.forEach(iterator, context);
+  } else if (obj.length !== undefined) {
+    i = 0;
+
+    while (i < obj.length) {
+      iterator.call(context, obj[i], i, obj);
+      i++;
+    }
+  } else {
+    for (i in obj) {
+      obj.hasOwnProperty(i) && iterator.call(context, obj[i], i, obj);
+    }
+  }
+}
+/**
+ * @private
+ * let a boolean value also be a function that must return a boolean
+ * this first item in args will be used as the context
+ * @param {Boolean|Function} val
+ * @param {Array} [args]
+ * @returns {Boolean}
+ */
+
+
+function boolOrFn(val, args) {
+  if (typeof val === TYPE_FUNCTION) {
+    return val.apply(args ? args[0] || undefined : undefined, args);
+  }
+
+  return val;
+}
+/**
+ * @private
+ * small indexOf wrapper
+ * @param {String} str
+ * @param {String} find
+ * @returns {Boolean} found
+ */
+
+
+function inStr(str, find) {
+  return str.indexOf(find) > -1;
+}
+/**
+ * @private
+ * when the touchActions are collected they are not a valid value, so we need to clean things up. *
+ * @param {String} actions
+ * @returns {*}
+ */
+
+
+function cleanTouchActions(actions) {
+  // none
+  if (inStr(actions, TOUCH_ACTION_NONE)) {
+    return TOUCH_ACTION_NONE;
+  }
+
+  var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X);
+  var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y); // if both pan-x and pan-y are set (different recognizers
+  // for different directions, e.g. horizontal pan but vertical swipe?)
+  // we need none (as otherwise with pan-x pan-y combined none of these
+  // recognizers will work, since the browser would handle all panning
+
+  if (hasPanX && hasPanY) {
+    return TOUCH_ACTION_NONE;
+  } // pan-x OR pan-y
+
+
+  if (hasPanX || hasPanY) {
+    return hasPanX ? TOUCH_ACTION_PAN_X : TOUCH_ACTION_PAN_Y;
+  } // manipulation
+
+
+  if (inStr(actions, TOUCH_ACTION_MANIPULATION)) {
+    return TOUCH_ACTION_MANIPULATION;
+  }
+
+  return TOUCH_ACTION_AUTO;
+}
+/**
+ * @private
+ * Touch Action
+ * sets the touchAction property or uses the js alternative
+ * @param {Manager} manager
+ * @param {String} value
+ * @constructor
+ */
+
+
+var TouchAction = /*#__PURE__*/function () {
+  function TouchAction(manager, value) {
+    this.manager = manager;
+    this.set(value);
+  }
+  /**
+   * @private
+   * set the touchAction value on the element or enable the polyfill
+   * @param {String} value
+   */
+
+
+  var _proto = TouchAction.prototype;
+
+  _proto.set = function set(value) {
+    // find out the touch-action by the event handlers
+    if (value === TOUCH_ACTION_COMPUTE) {
+      value = this.compute();
+    }
+
+    if (NATIVE_TOUCH_ACTION && this.manager.element.style && TOUCH_ACTION_MAP[value]) {
+      this.manager.element.style[PREFIXED_TOUCH_ACTION] = value;
+    }
+
+    this.actions = value.toLowerCase().trim();
+  };
+  /**
+   * @private
+   * just re-set the touchAction value
+   */
+
+
+  _proto.update = function update() {
+    this.set(this.manager.options.touchAction);
+  };
+  /**
+   * @private
+   * compute the value for the touchAction property based on the recognizer's settings
+   * @returns {String} value
+   */
+
+
+  _proto.compute = function compute() {
+    var actions = [];
+    each(this.manager.recognizers, function (recognizer) {
+      if (boolOrFn(recognizer.options.enable, [recognizer])) {
+        actions = actions.concat(recognizer.getTouchAction());
+      }
+    });
+    return cleanTouchActions(actions.join(' '));
+  };
+  /**
+   * @private
+   * this method is called on each input cycle and provides the preventing of the browser behavior
+   * @param {Object} input
+   */
+
+
+  _proto.preventDefaults = function preventDefaults(input) {
+    var srcEvent = input.srcEvent;
+    var direction = input.offsetDirection; // if the touch action did prevented once this session
+
+    if (this.manager.session.prevented) {
+      srcEvent.preventDefault();
+      return;
+    }
+
+    var actions = this.actions;
+    var hasNone = inStr(actions, TOUCH_ACTION_NONE) && !TOUCH_ACTION_MAP[TOUCH_ACTION_NONE];
+    var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y) && !TOUCH_ACTION_MAP[TOUCH_ACTION_PAN_Y];
+    var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X) && !TOUCH_ACTION_MAP[TOUCH_ACTION_PAN_X];
+
+    if (hasNone) {
+      // do not prevent defaults if this is a tap gesture
+      var isTapPointer = input.pointers.length === 1;
+      var isTapMovement = input.distance < 2;
+      var isTapTouchTime = input.deltaTime < 250;
+
+      if (isTapPointer && isTapMovement && isTapTouchTime) {
+        return;
+      }
+    }
+
+    if (hasPanX && hasPanY) {
+      // `pan-x pan-y` means browser handles all scrolling/panning, do not prevent
+      return;
+    }
+
+    if (hasNone || hasPanY && direction & DIRECTION_HORIZONTAL || hasPanX && direction & DIRECTION_VERTICAL) {
+      return this.preventSrc(srcEvent);
+    }
+  };
+  /**
+   * @private
+   * call preventDefault to prevent the browser's default behavior (scrolling in most cases)
+   * @param {Object} srcEvent
+   */
+
+
+  _proto.preventSrc = function preventSrc(srcEvent) {
+    this.manager.session.prevented = true;
+    srcEvent.preventDefault();
+  };
+
+  return TouchAction;
+}();
+/**
+ * @private
+ * find if a node is in the given parent
+ * @method hasParent
+ * @param {HTMLElement} node
+ * @param {HTMLElement} parent
+ * @return {Boolean} found
+ */
+
+
+function hasParent(node, parent) {
+  while (node) {
+    if (node === parent) {
+      return true;
+    }
+
+    node = node.parentNode;
+  }
+
+  return false;
+}
+/**
+ * @private
+ * get the center of all the pointers
+ * @param {Array} pointers
+ * @return {Object} center contains `x` and `y` properties
+ */
+
+
+function getCenter(pointers) {
+  var pointersLength = pointers.length; // no need to loop when only one touch
+
+  if (pointersLength === 1) {
+    return {
+      x: round(pointers[0].clientX),
+      y: round(pointers[0].clientY)
+    };
+  }
+
+  var x = 0;
+  var y = 0;
+  var i = 0;
+
+  while (i < pointersLength) {
+    x += pointers[i].clientX;
+    y += pointers[i].clientY;
+    i++;
+  }
+
+  return {
+    x: round(x / pointersLength),
+    y: round(y / pointersLength)
+  };
+}
+/**
+ * @private
+ * create a simple clone from the input used for storage of firstInput and firstMultiple
+ * @param {Object} input
+ * @returns {Object} clonedInputData
+ */
+
+
+function simpleCloneInputData(input) {
+  // make a simple copy of the pointers because we will get a reference if we don't
+  // we only need clientXY for the calculations
+  var pointers = [];
+  var i = 0;
+
+  while (i < input.pointers.length) {
+    pointers[i] = {
+      clientX: round(input.pointers[i].clientX),
+      clientY: round(input.pointers[i].clientY)
+    };
+    i++;
+  }
+
+  return {
+    timeStamp: now(),
+    pointers: pointers,
+    center: getCenter(pointers),
+    deltaX: input.deltaX,
+    deltaY: input.deltaY
+  };
+}
+/**
+ * @private
+ * calculate the absolute distance between two points
+ * @param {Object} p1 {x, y}
+ * @param {Object} p2 {x, y}
+ * @param {Array} [props] containing x and y keys
+ * @return {Number} distance
+ */
+
+
+function getDistance(p1, p2, props) {
+  if (!props) {
+    props = PROPS_XY;
+  }
+
+  var x = p2[props[0]] - p1[props[0]];
+  var y = p2[props[1]] - p1[props[1]];
+  return Math.sqrt(x * x + y * y);
+}
+/**
+ * @private
+ * calculate the angle between two coordinates
+ * @param {Object} p1
+ * @param {Object} p2
+ * @param {Array} [props] containing x and y keys
+ * @return {Number} angle
+ */
+
+
+function getAngle(p1, p2, props) {
+  if (!props) {
+    props = PROPS_XY;
+  }
+
+  var x = p2[props[0]] - p1[props[0]];
+  var y = p2[props[1]] - p1[props[1]];
+  return Math.atan2(y, x) * 180 / Math.PI;
+}
+/**
+ * @private
+ * get the direction between two points
+ * @param {Number} x
+ * @param {Number} y
+ * @return {Number} direction
+ */
+
+
+function getDirection(x, y) {
+  if (x === y) {
+    return DIRECTION_NONE;
+  }
+
+  if (abs(x) >= abs(y)) {
+    return x < 0 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+  }
+
+  return y < 0 ? DIRECTION_UP : DIRECTION_DOWN;
+}
+
+function computeDeltaXY(session, input) {
+  var center = input.center; // let { offsetDelta:offset = {}, prevDelta = {}, prevInput = {} } = session;
+  // jscs throwing error on defalut destructured values and without defaults tests fail
+
+  var offset = session.offsetDelta || {};
+  var prevDelta = session.prevDelta || {};
+  var prevInput = session.prevInput || {};
+
+  if (input.eventType === INPUT_START || prevInput.eventType === INPUT_END) {
+    prevDelta = session.prevDelta = {
+      x: prevInput.deltaX || 0,
+      y: prevInput.deltaY || 0
+    };
+    offset = session.offsetDelta = {
+      x: center.x,
+      y: center.y
+    };
+  }
+
+  input.deltaX = prevDelta.x + (center.x - offset.x);
+  input.deltaY = prevDelta.y + (center.y - offset.y);
+}
+/**
+ * @private
+ * calculate the velocity between two points. unit is in px per ms.
+ * @param {Number} deltaTime
+ * @param {Number} x
+ * @param {Number} y
+ * @return {Object} velocity `x` and `y`
+ */
+
+
+function getVelocity(deltaTime, x, y) {
+  return {
+    x: x / deltaTime || 0,
+    y: y / deltaTime || 0
+  };
+}
+/**
+ * @private
+ * calculate the scale factor between two pointersets
+ * no scale is 1, and goes down to 0 when pinched together, and bigger when pinched out
+ * @param {Array} start array of pointers
+ * @param {Array} end array of pointers
+ * @return {Number} scale
+ */
+
+
+function getScale(start, end) {
+  return getDistance(end[0], end[1], PROPS_CLIENT_XY) / getDistance(start[0], start[1], PROPS_CLIENT_XY);
+}
+/**
+ * @private
+ * calculate the rotation degrees between two pointersets
+ * @param {Array} start array of pointers
+ * @param {Array} end array of pointers
+ * @return {Number} rotation
+ */
+
+
+function getRotation(start, end) {
+  return getAngle(end[1], end[0], PROPS_CLIENT_XY) + getAngle(start[1], start[0], PROPS_CLIENT_XY);
+}
+/**
+ * @private
+ * velocity is calculated every x ms
+ * @param {Object} session
+ * @param {Object} input
+ */
+
+
+function computeIntervalInputData(session, input) {
+  var last = session.lastInterval || input;
+  var deltaTime = input.timeStamp - last.timeStamp;
+  var velocity;
+  var velocityX;
+  var velocityY;
+  var direction;
+
+  if (input.eventType !== INPUT_CANCEL && (deltaTime > COMPUTE_INTERVAL || last.velocity === undefined)) {
+    var deltaX = input.deltaX - last.deltaX;
+    var deltaY = input.deltaY - last.deltaY;
+    var v = getVelocity(deltaTime, deltaX, deltaY);
+    velocityX = v.x;
+    velocityY = v.y;
+    velocity = abs(v.x) > abs(v.y) ? v.x : v.y;
+    direction = getDirection(deltaX, deltaY);
+    session.lastInterval = input;
+  } else {
+    // use latest velocity info if it doesn't overtake a minimum period
+    velocity = last.velocity;
+    velocityX = last.velocityX;
+    velocityY = last.velocityY;
+    direction = last.direction;
+  }
+
+  input.velocity = velocity;
+  input.velocityX = velocityX;
+  input.velocityY = velocityY;
+  input.direction = direction;
+}
+/**
+* @private
+ * extend the data with some usable properties like scale, rotate, velocity etc
+ * @param {Object} manager
+ * @param {Object} input
+ */
+
+
+function computeInputData(manager, input) {
+  var session = manager.session;
+  var pointers = input.pointers;
+  var pointersLength = pointers.length; // store the first input to calculate the distance and direction
+
+  if (!session.firstInput) {
+    session.firstInput = simpleCloneInputData(input);
+  } // to compute scale and rotation we need to store the multiple touches
+
+
+  if (pointersLength > 1 && !session.firstMultiple) {
+    session.firstMultiple = simpleCloneInputData(input);
+  } else if (pointersLength === 1) {
+    session.firstMultiple = false;
+  }
+
+  var firstInput = session.firstInput,
+      firstMultiple = session.firstMultiple;
+  var offsetCenter = firstMultiple ? firstMultiple.center : firstInput.center;
+  var center = input.center = getCenter(pointers);
+  input.timeStamp = now();
+  input.deltaTime = input.timeStamp - firstInput.timeStamp;
+  input.angle = getAngle(offsetCenter, center);
+  input.distance = getDistance(offsetCenter, center);
+  computeDeltaXY(session, input);
+  input.offsetDirection = getDirection(input.deltaX, input.deltaY);
+  var overallVelocity = getVelocity(input.deltaTime, input.deltaX, input.deltaY);
+  input.overallVelocityX = overallVelocity.x;
+  input.overallVelocityY = overallVelocity.y;
+  input.overallVelocity = abs(overallVelocity.x) > abs(overallVelocity.y) ? overallVelocity.x : overallVelocity.y;
+  input.scale = firstMultiple ? getScale(firstMultiple.pointers, pointers) : 1;
+  input.rotation = firstMultiple ? getRotation(firstMultiple.pointers, pointers) : 0;
+  input.maxPointers = !session.prevInput ? input.pointers.length : input.pointers.length > session.prevInput.maxPointers ? input.pointers.length : session.prevInput.maxPointers;
+  computeIntervalInputData(session, input); // find the correct target
+
+  var target = manager.element;
+  var srcEvent = input.srcEvent;
+  var srcEventTarget;
+
+  if (srcEvent.composedPath) {
+    srcEventTarget = srcEvent.composedPath()[0];
+  } else if (srcEvent.path) {
+    srcEventTarget = srcEvent.path[0];
+  } else {
+    srcEventTarget = srcEvent.target;
+  }
+
+  if (hasParent(srcEventTarget, target)) {
+    target = srcEventTarget;
+  }
+
+  input.target = target;
+}
+/**
+ * @private
+ * handle input events
+ * @param {Manager} manager
+ * @param {String} eventType
+ * @param {Object} input
+ */
+
+
+function inputHandler(manager, eventType, input) {
+  var pointersLen = input.pointers.length;
+  var changedPointersLen = input.changedPointers.length;
+  var isFirst = eventType & INPUT_START && pointersLen - changedPointersLen === 0;
+  var isFinal = eventType & (INPUT_END | INPUT_CANCEL) && pointersLen - changedPointersLen === 0;
+  input.isFirst = !!isFirst;
+  input.isFinal = !!isFinal;
+
+  if (isFirst) {
+    manager.session = {};
+  } // source event is the normalized value of the domEvents
+  // like 'touchstart, mouseup, pointerdown'
+
+
+  input.eventType = eventType; // compute scale, rotation etc
+
+  computeInputData(manager, input); // emit secret event
+
+  manager.emit('hammer.input', input);
+  manager.recognize(input);
+  manager.session.prevInput = input;
+}
+/**
+ * @private
+ * split string on whitespace
+ * @param {String} str
+ * @returns {Array} words
+ */
+
+
+function splitStr(str) {
+  return str.trim().split(/\s+/g);
+}
+/**
+ * @private
+ * addEventListener with multiple events at once
+ * @param {EventTarget} target
+ * @param {String} types
+ * @param {Function} handler
+ */
+
+
+function addEventListeners(target, types, handler) {
+  each(splitStr(types), function (type) {
+    target.addEventListener(type, handler, false);
+  });
+}
+/**
+ * @private
+ * removeEventListener with multiple events at once
+ * @param {EventTarget} target
+ * @param {String} types
+ * @param {Function} handler
+ */
+
+
+function removeEventListeners(target, types, handler) {
+  each(splitStr(types), function (type) {
+    target.removeEventListener(type, handler, false);
+  });
+}
+/**
+ * @private
+ * get the window object of an element
+ * @param {HTMLElement} element
+ * @returns {DocumentView|Window}
+ */
+
+
+function getWindowForElement(element) {
+  var doc = element.ownerDocument || element;
+  return doc.defaultView || doc.parentWindow || window;
+}
+/**
+ * @private
+ * create new input type manager
+ * @param {Manager} manager
+ * @param {Function} callback
+ * @returns {Input}
+ * @constructor
+ */
+
+
+var Input = /*#__PURE__*/function () {
+  function Input(manager, callback) {
+    var self = this;
+    this.manager = manager;
+    this.callback = callback;
+    this.element = manager.element;
+    this.target = manager.options.inputTarget; // smaller wrapper around the handler, for the scope and the enabled state of the manager,
+    // so when disabled the input events are completely bypassed.
+
+    this.domHandler = function (ev) {
+      if (boolOrFn(manager.options.enable, [manager])) {
+        self.handler(ev);
+      }
+    };
+
+    this.init();
+  }
+  /**
+   * @private
+   * should handle the inputEvent data and trigger the callback
+   * @virtual
+   */
+
+
+  var _proto = Input.prototype;
+
+  _proto.handler = function handler() {};
+  /**
+   * @private
+   * bind the events
+   */
+
+
+  _proto.init = function init() {
+    this.evEl && addEventListeners(this.element, this.evEl, this.domHandler);
+    this.evTarget && addEventListeners(this.target, this.evTarget, this.domHandler);
+    this.evWin && addEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+  };
+  /**
+   * @private
+   * unbind the events
+   */
+
+
+  _proto.destroy = function destroy() {
+    this.evEl && removeEventListeners(this.element, this.evEl, this.domHandler);
+    this.evTarget && removeEventListeners(this.target, this.evTarget, this.domHandler);
+    this.evWin && removeEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+  };
+
+  return Input;
+}();
+/**
+ * @private
+ * find if a array contains the object using indexOf or a simple polyFill
+ * @param {Array} src
+ * @param {String} find
+ * @param {String} [findByKey]
+ * @return {Boolean|Number} false when not found, or the index
+ */
+
+
+function inArray(src, find, findByKey) {
+  if (src.indexOf && !findByKey) {
+    return src.indexOf(find);
+  } else {
+    var i = 0;
+
+    while (i < src.length) {
+      if (findByKey && src[i][findByKey] == find || !findByKey && src[i] === find) {
+        // do not use === here, test fails
+        return i;
+      }
+
+      i++;
+    }
+
+    return -1;
+  }
+}
+
+var POINTER_INPUT_MAP = {
+  pointerdown: INPUT_START,
+  pointermove: INPUT_MOVE,
+  pointerup: INPUT_END,
+  pointercancel: INPUT_CANCEL,
+  pointerout: INPUT_CANCEL
+}; // in IE10 the pointer types is defined as an enum
+
+var IE10_POINTER_TYPE_ENUM = {
+  2: INPUT_TYPE_TOUCH,
+  3: INPUT_TYPE_PEN,
+  4: INPUT_TYPE_MOUSE,
+  5: INPUT_TYPE_KINECT // see https://twitter.com/jacobrossi/status/480596438489890816
+
+};
+var POINTER_ELEMENT_EVENTS = 'pointerdown';
+var POINTER_WINDOW_EVENTS = 'pointermove pointerup pointercancel'; // IE10 has prefixed support, and case-sensitive
+
+if (win.MSPointerEvent && !win.PointerEvent) {
+  POINTER_ELEMENT_EVENTS = 'MSPointerDown';
+  POINTER_WINDOW_EVENTS = 'MSPointerMove MSPointerUp MSPointerCancel';
+}
+/**
+ * @private
+ * Pointer events input
+ * @constructor
+ * @extends Input
+ */
+
+
+var PointerEventInput = /*#__PURE__*/function (_Input) {
+  _inheritsLoose(PointerEventInput, _Input);
+
+  function PointerEventInput() {
+    var _this;
+
+    var proto = PointerEventInput.prototype;
+    proto.evEl = POINTER_ELEMENT_EVENTS;
+    proto.evWin = POINTER_WINDOW_EVENTS;
+    _this = _Input.apply(this, arguments) || this;
+    _this.store = _this.manager.session.pointerEvents = [];
+    return _this;
+  }
+  /**
+   * @private
+   * handle mouse events
+   * @param {Object} ev
+   */
+
+
+  var _proto = PointerEventInput.prototype;
+
+  _proto.handler = function handler(ev) {
+    var store = this.store;
+    var removePointer = false;
+    var eventTypeNormalized = ev.type.toLowerCase().replace('ms', '');
+    var eventType = POINTER_INPUT_MAP[eventTypeNormalized];
+    var pointerType = IE10_POINTER_TYPE_ENUM[ev.pointerType] || ev.pointerType;
+    var isTouch = pointerType === INPUT_TYPE_TOUCH; // get index of the event in the store
+
+    var storeIndex = inArray(store, ev.pointerId, 'pointerId'); // start and mouse must be down
+
+    if (eventType & INPUT_START && (ev.button === 0 || isTouch)) {
+      if (storeIndex < 0) {
+        store.push(ev);
+        storeIndex = store.length - 1;
+      }
+    } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+      removePointer = true;
+    } // it not found, so the pointer hasn't been down (so it's probably a hover)
+
+
+    if (storeIndex < 0) {
+      return;
+    } // update the event in the store
+
+
+    store[storeIndex] = ev;
+    this.callback(this.manager, eventType, {
+      pointers: store,
+      changedPointers: [ev],
+      pointerType: pointerType,
+      srcEvent: ev
+    });
+
+    if (removePointer) {
+      // remove from the store
+      store.splice(storeIndex, 1);
+    }
+  };
+
+  return PointerEventInput;
+}(Input);
+/**
+ * @private
+ * convert array-like objects to real arrays
+ * @param {Object} obj
+ * @returns {Array}
+ */
+
+
+function toArray(obj) {
+  return Array.prototype.slice.call(obj, 0);
+}
+/**
+ * @private
+ * unique array with objects based on a key (like 'id') or just by the array's value
+ * @param {Array} src [{id:1},{id:2},{id:1}]
+ * @param {String} [key]
+ * @param {Boolean} [sort=False]
+ * @returns {Array} [{id:1},{id:2}]
+ */
+
+
+function uniqueArray(src, key, sort) {
+  var results = [];
+  var values = [];
+  var i = 0;
+
+  while (i < src.length) {
+    var val = key ? src[i][key] : src[i];
+
+    if (inArray(values, val) < 0) {
+      results.push(src[i]);
+    }
+
+    values[i] = val;
+    i++;
+  }
+
+  if (sort) {
+    if (!key) {
+      results = results.sort();
+    } else {
+      results = results.sort(function (a, b) {
+        return a[key] > b[key];
+      });
+    }
+  }
+
+  return results;
+}
+
+var TOUCH_INPUT_MAP = {
+  touchstart: INPUT_START,
+  touchmove: INPUT_MOVE,
+  touchend: INPUT_END,
+  touchcancel: INPUT_CANCEL
+};
+var TOUCH_TARGET_EVENTS = 'touchstart touchmove touchend touchcancel';
+/**
+ * @private
+ * Multi-user touch events input
+ * @constructor
+ * @extends Input
+ */
+
+var TouchInput = /*#__PURE__*/function (_Input) {
+  _inheritsLoose(TouchInput, _Input);
+
+  function TouchInput() {
+    var _this;
+
+    TouchInput.prototype.evTarget = TOUCH_TARGET_EVENTS;
+    _this = _Input.apply(this, arguments) || this;
+    _this.targetIds = {}; // this.evTarget = TOUCH_TARGET_EVENTS;
+
+    return _this;
+  }
+
+  var _proto = TouchInput.prototype;
+
+  _proto.handler = function handler(ev) {
+    var type = TOUCH_INPUT_MAP[ev.type];
+    var touches = getTouches.call(this, ev, type);
+
+    if (!touches) {
+      return;
+    }
+
+    this.callback(this.manager, type, {
+      pointers: touches[0],
+      changedPointers: touches[1],
+      pointerType: INPUT_TYPE_TOUCH,
+      srcEvent: ev
+    });
+  };
+
+  return TouchInput;
+}(Input);
+
+function getTouches(ev, type) {
+  var allTouches = toArray(ev.touches);
+  var targetIds = this.targetIds; // when there is only one touch, the process can be simplified
+
+  if (type & (INPUT_START | INPUT_MOVE) && allTouches.length === 1) {
+    targetIds[allTouches[0].identifier] = true;
+    return [allTouches, allTouches];
+  }
+
+  var i;
+  var targetTouches;
+  var changedTouches = toArray(ev.changedTouches);
+  var changedTargetTouches = [];
+  var target = this.target; // get target touches from touches
+
+  targetTouches = allTouches.filter(function (touch) {
+    return hasParent(touch.target, target);
+  }); // collect touches
+
+  if (type === INPUT_START) {
+    i = 0;
+
+    while (i < targetTouches.length) {
+      targetIds[targetTouches[i].identifier] = true;
+      i++;
+    }
+  } // filter changed touches to only contain touches that exist in the collected target ids
+
+
+  i = 0;
+
+  while (i < changedTouches.length) {
+    if (targetIds[changedTouches[i].identifier]) {
+      changedTargetTouches.push(changedTouches[i]);
+    } // cleanup removed touches
+
+
+    if (type & (INPUT_END | INPUT_CANCEL)) {
+      delete targetIds[changedTouches[i].identifier];
+    }
+
+    i++;
+  }
+
+  if (!changedTargetTouches.length) {
+    return;
+  }
+
+  return [// merge targetTouches with changedTargetTouches so it contains ALL touches, including 'end' and 'cancel'
+  uniqueArray(targetTouches.concat(changedTargetTouches), 'identifier', true), changedTargetTouches];
+}
+
+var MOUSE_INPUT_MAP = {
+  mousedown: INPUT_START,
+  mousemove: INPUT_MOVE,
+  mouseup: INPUT_END
+};
+var MOUSE_ELEMENT_EVENTS = 'mousedown';
+var MOUSE_WINDOW_EVENTS = 'mousemove mouseup';
+/**
+ * @private
+ * Mouse events input
+ * @constructor
+ * @extends Input
+ */
+
+var MouseInput = /*#__PURE__*/function (_Input) {
+  _inheritsLoose(MouseInput, _Input);
+
+  function MouseInput() {
+    var _this;
+
+    var proto = MouseInput.prototype;
+    proto.evEl = MOUSE_ELEMENT_EVENTS;
+    proto.evWin = MOUSE_WINDOW_EVENTS;
+    _this = _Input.apply(this, arguments) || this;
+    _this.pressed = false; // mousedown state
+
+    return _this;
+  }
+  /**
+   * @private
+   * handle mouse events
+   * @param {Object} ev
+   */
+
+
+  var _proto = MouseInput.prototype;
+
+  _proto.handler = function handler(ev) {
+    var eventType = MOUSE_INPUT_MAP[ev.type]; // on start we want to have the left mouse button down
+
+    if (eventType & INPUT_START && ev.button === 0) {
+      this.pressed = true;
+    }
+
+    if (eventType & INPUT_MOVE && ev.which !== 1) {
+      eventType = INPUT_END;
+    } // mouse must be down
+
+
+    if (!this.pressed) {
+      return;
+    }
+
+    if (eventType & INPUT_END) {
+      this.pressed = false;
+    }
+
+    this.callback(this.manager, eventType, {
+      pointers: [ev],
+      changedPointers: [ev],
+      pointerType: INPUT_TYPE_MOUSE,
+      srcEvent: ev
+    });
+  };
+
+  return MouseInput;
+}(Input);
+/**
+ * @private
+ * Combined touch and mouse input
  *
- * utilitie collection for visjs
+ * Touch has a higher priority then mouse, and while touching no mouse events are allowed.
+ * This because touch devices also emit mouse events while doing a touch.
  *
- * @version 4.3.4
- * @date    2020-08-01T15:11:53.524Z
+ * @constructor
+ * @extends Input
+ */
+
+
+var DEDUP_TIMEOUT = 2500;
+var DEDUP_DISTANCE = 25;
+
+function setLastTouch(eventData) {
+  var _eventData$changedPoi = eventData.changedPointers,
+      touch = _eventData$changedPoi[0];
+
+  if (touch.identifier === this.primaryTouch) {
+    var lastTouch = {
+      x: touch.clientX,
+      y: touch.clientY
+    };
+    var lts = this.lastTouches;
+    this.lastTouches.push(lastTouch);
+
+    var removeLastTouch = function removeLastTouch() {
+      var i = lts.indexOf(lastTouch);
+
+      if (i > -1) {
+        lts.splice(i, 1);
+      }
+    };
+
+    setTimeout(removeLastTouch, DEDUP_TIMEOUT);
+  }
+}
+
+function recordTouches(eventType, eventData) {
+  if (eventType & INPUT_START) {
+    this.primaryTouch = eventData.changedPointers[0].identifier;
+    setLastTouch.call(this, eventData);
+  } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+    setLastTouch.call(this, eventData);
+  }
+}
+
+function isSyntheticEvent(eventData) {
+  var x = eventData.srcEvent.clientX;
+  var y = eventData.srcEvent.clientY;
+
+  for (var i = 0; i < this.lastTouches.length; i++) {
+    var t = this.lastTouches[i];
+    var dx = Math.abs(x - t.x);
+    var dy = Math.abs(y - t.y);
+
+    if (dx <= DEDUP_DISTANCE && dy <= DEDUP_DISTANCE) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+var TouchMouseInput = /*#__PURE__*/function () {
+  var TouchMouseInput = /*#__PURE__*/function (_Input) {
+    _inheritsLoose(TouchMouseInput, _Input);
+
+    function TouchMouseInput(_manager, callback) {
+      var _this;
+
+      _this = _Input.call(this, _manager, callback) || this;
+
+      _this.handler = function (manager, inputEvent, inputData) {
+        var isTouch = inputData.pointerType === INPUT_TYPE_TOUCH;
+        var isMouse = inputData.pointerType === INPUT_TYPE_MOUSE;
+
+        if (isMouse && inputData.sourceCapabilities && inputData.sourceCapabilities.firesTouchEvents) {
+          return;
+        } // when we're in a touch event, record touches to  de-dupe synthetic mouse event
+
+
+        if (isTouch) {
+          recordTouches.call(_assertThisInitialized(_assertThisInitialized(_this)), inputEvent, inputData);
+        } else if (isMouse && isSyntheticEvent.call(_assertThisInitialized(_assertThisInitialized(_this)), inputData)) {
+          return;
+        }
+
+        _this.callback(manager, inputEvent, inputData);
+      };
+
+      _this.touch = new TouchInput(_this.manager, _this.handler);
+      _this.mouse = new MouseInput(_this.manager, _this.handler);
+      _this.primaryTouch = null;
+      _this.lastTouches = [];
+      return _this;
+    }
+    /**
+     * @private
+     * handle mouse and touch events
+     * @param {Hammer} manager
+     * @param {String} inputEvent
+     * @param {Object} inputData
+     */
+
+
+    var _proto = TouchMouseInput.prototype;
+    /**
+     * @private
+     * remove the event listeners
+     */
+
+    _proto.destroy = function destroy() {
+      this.touch.destroy();
+      this.mouse.destroy();
+    };
+
+    return TouchMouseInput;
+  }(Input);
+
+  return TouchMouseInput;
+}();
+/**
+ * @private
+ * create new input type manager
+ * called by the Manager constructor
+ * @param {Hammer} manager
+ * @returns {Input}
+ */
+
+
+function createInputInstance(manager) {
+  var Type; // let inputClass = manager.options.inputClass;
+
+  var inputClass = manager.options.inputClass;
+
+  if (inputClass) {
+    Type = inputClass;
+  } else if (SUPPORT_POINTER_EVENTS) {
+    Type = PointerEventInput;
+  } else if (SUPPORT_ONLY_TOUCH) {
+    Type = TouchInput;
+  } else if (!SUPPORT_TOUCH) {
+    Type = MouseInput;
+  } else {
+    Type = TouchMouseInput;
+  }
+
+  return new Type(manager, inputHandler);
+}
+/**
+ * @private
+ * if the argument is an array, we want to execute the fn on each entry
+ * if it aint an array we don't want to do a thing.
+ * this is used by all the methods that accept a single and array argument.
+ * @param {*|Array} arg
+ * @param {String} fn
+ * @param {Object} [context]
+ * @returns {Boolean}
+ */
+
+
+function invokeArrayArg(arg, fn, context) {
+  if (Array.isArray(arg)) {
+    each(arg, context[fn], context);
+    return true;
+  }
+
+  return false;
+}
+
+var STATE_POSSIBLE = 1;
+var STATE_BEGAN = 2;
+var STATE_CHANGED = 4;
+var STATE_ENDED = 8;
+var STATE_RECOGNIZED = STATE_ENDED;
+var STATE_CANCELLED = 16;
+var STATE_FAILED = 32;
+/**
+ * @private
+ * get a unique id
+ * @returns {number} uniqueId
+ */
+
+var _uniqueId = 1;
+
+function uniqueId() {
+  return _uniqueId++;
+}
+/**
+ * @private
+ * get a recognizer by name if it is bound to a manager
+ * @param {Recognizer|String} otherRecognizer
+ * @param {Recognizer} recognizer
+ * @returns {Recognizer}
+ */
+
+
+function getRecognizerByNameIfManager(otherRecognizer, recognizer) {
+  var manager = recognizer.manager;
+
+  if (manager) {
+    return manager.get(otherRecognizer);
+  }
+
+  return otherRecognizer;
+}
+/**
+ * @private
+ * get a usable string, used as event postfix
+ * @param {constant} state
+ * @returns {String} state
+ */
+
+
+function stateStr(state) {
+  if (state & STATE_CANCELLED) {
+    return 'cancel';
+  } else if (state & STATE_ENDED) {
+    return 'end';
+  } else if (state & STATE_CHANGED) {
+    return 'move';
+  } else if (state & STATE_BEGAN) {
+    return 'start';
+  }
+
+  return '';
+}
+/**
+ * @private
+ * Recognizer flow explained; *
+ * All recognizers have the initial state of POSSIBLE when a input session starts.
+ * The definition of a input session is from the first input until the last input, with all it's movement in it. *
+ * Example session for mouse-input: mousedown -> mousemove -> mouseup
  *
- * @copyright (c) 2011-2017 Almende B.V, http://almende.com
- * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
+ * On each recognizing cycle (see Manager.recognize) the .recognize() method is executed
+ * which determines with state it should be.
  *
- * @license
- * vis.js is dual licensed under both
+ * If the recognizer has the state FAILED, CANCELLED or RECOGNIZED (equals ENDED), it is reset to
+ * POSSIBLE to give it another change on the next cycle.
  *
- *   1. The Apache 2.0 License
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *   and
- *
- *   2. The MIT License
- *      http://opensource.org/licenses/MIT
- *
- * vis.js may be distributed under either license.
+ *               Possible
+ *                  |
+ *            +-----+---------------+
+ *            |                     |
+ *      +-----+-----+               |
+ *      |           |               |
+ *   Failed      Cancelled          |
+ *                          +-------+------+
+ *                          |              |
+ *                      Recognized       Began
+ *                                         |
+ *                                      Changed
+ *                                         |
+ *                                  Ended/Recognized
  */
 
 /**
+ * @private
+ * Recognizer
+ * Every recognizer needs to extend from this class.
+ * @constructor
+ * @param {Object} options
+ */
+
+
+var Recognizer = /*#__PURE__*/function () {
+  function Recognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    this.options = _extends({
+      enable: true
+    }, options);
+    this.id = uniqueId();
+    this.manager = null; // default is enable true
+
+    this.state = STATE_POSSIBLE;
+    this.simultaneous = {};
+    this.requireFail = [];
+  }
+  /**
+   * @private
+   * set options
+   * @param {Object} options
+   * @return {Recognizer}
+   */
+
+
+  var _proto = Recognizer.prototype;
+
+  _proto.set = function set(options) {
+    assign$1(this.options, options); // also update the touchAction, in case something changed about the directions/enabled state
+
+    this.manager && this.manager.touchAction.update();
+    return this;
+  };
+  /**
+   * @private
+   * recognize simultaneous with an other recognizer.
+   * @param {Recognizer} otherRecognizer
+   * @returns {Recognizer} this
+   */
+
+
+  _proto.recognizeWith = function recognizeWith(otherRecognizer) {
+    if (invokeArrayArg(otherRecognizer, 'recognizeWith', this)) {
+      return this;
+    }
+
+    var simultaneous = this.simultaneous;
+    otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+
+    if (!simultaneous[otherRecognizer.id]) {
+      simultaneous[otherRecognizer.id] = otherRecognizer;
+      otherRecognizer.recognizeWith(this);
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * drop the simultaneous link. it doesnt remove the link on the other recognizer.
+   * @param {Recognizer} otherRecognizer
+   * @returns {Recognizer} this
+   */
+
+
+  _proto.dropRecognizeWith = function dropRecognizeWith(otherRecognizer) {
+    if (invokeArrayArg(otherRecognizer, 'dropRecognizeWith', this)) {
+      return this;
+    }
+
+    otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+    delete this.simultaneous[otherRecognizer.id];
+    return this;
+  };
+  /**
+   * @private
+   * recognizer can only run when an other is failing
+   * @param {Recognizer} otherRecognizer
+   * @returns {Recognizer} this
+   */
+
+
+  _proto.requireFailure = function requireFailure(otherRecognizer) {
+    if (invokeArrayArg(otherRecognizer, 'requireFailure', this)) {
+      return this;
+    }
+
+    var requireFail = this.requireFail;
+    otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+
+    if (inArray(requireFail, otherRecognizer) === -1) {
+      requireFail.push(otherRecognizer);
+      otherRecognizer.requireFailure(this);
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * drop the requireFailure link. it does not remove the link on the other recognizer.
+   * @param {Recognizer} otherRecognizer
+   * @returns {Recognizer} this
+   */
+
+
+  _proto.dropRequireFailure = function dropRequireFailure(otherRecognizer) {
+    if (invokeArrayArg(otherRecognizer, 'dropRequireFailure', this)) {
+      return this;
+    }
+
+    otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+    var index = inArray(this.requireFail, otherRecognizer);
+
+    if (index > -1) {
+      this.requireFail.splice(index, 1);
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * has require failures boolean
+   * @returns {boolean}
+   */
+
+
+  _proto.hasRequireFailures = function hasRequireFailures() {
+    return this.requireFail.length > 0;
+  };
+  /**
+   * @private
+   * if the recognizer can recognize simultaneous with an other recognizer
+   * @param {Recognizer} otherRecognizer
+   * @returns {Boolean}
+   */
+
+
+  _proto.canRecognizeWith = function canRecognizeWith(otherRecognizer) {
+    return !!this.simultaneous[otherRecognizer.id];
+  };
+  /**
+   * @private
+   * You should use `tryEmit` instead of `emit` directly to check
+   * that all the needed recognizers has failed before emitting.
+   * @param {Object} input
+   */
+
+
+  _proto.emit = function emit(input) {
+    var self = this;
+    var state = this.state;
+
+    function emit(event) {
+      self.manager.emit(event, input);
+    } // 'panstart' and 'panmove'
+
+
+    if (state < STATE_ENDED) {
+      emit(self.options.event + stateStr(state));
+    }
+
+    emit(self.options.event); // simple 'eventName' events
+
+    if (input.additionalEvent) {
+      // additional event(panleft, panright, pinchin, pinchout...)
+      emit(input.additionalEvent);
+    } // panend and pancancel
+
+
+    if (state >= STATE_ENDED) {
+      emit(self.options.event + stateStr(state));
+    }
+  };
+  /**
+   * @private
+   * Check that all the require failure recognizers has failed,
+   * if true, it emits a gesture event,
+   * otherwise, setup the state to FAILED.
+   * @param {Object} input
+   */
+
+
+  _proto.tryEmit = function tryEmit(input) {
+    if (this.canEmit()) {
+      return this.emit(input);
+    } // it's failing anyway
+
+
+    this.state = STATE_FAILED;
+  };
+  /**
+   * @private
+   * can we emit?
+   * @returns {boolean}
+   */
+
+
+  _proto.canEmit = function canEmit() {
+    var i = 0;
+
+    while (i < this.requireFail.length) {
+      if (!(this.requireFail[i].state & (STATE_FAILED | STATE_POSSIBLE))) {
+        return false;
+      }
+
+      i++;
+    }
+
+    return true;
+  };
+  /**
+   * @private
+   * update the recognizer
+   * @param {Object} inputData
+   */
+
+
+  _proto.recognize = function recognize(inputData) {
+    // make a new copy of the inputData
+    // so we can change the inputData without messing up the other recognizers
+    var inputDataClone = assign$1({}, inputData); // is is enabled and allow recognizing?
+
+    if (!boolOrFn(this.options.enable, [this, inputDataClone])) {
+      this.reset();
+      this.state = STATE_FAILED;
+      return;
+    } // reset when we've reached the end
+
+
+    if (this.state & (STATE_RECOGNIZED | STATE_CANCELLED | STATE_FAILED)) {
+      this.state = STATE_POSSIBLE;
+    }
+
+    this.state = this.process(inputDataClone); // the recognizer has recognized a gesture
+    // so trigger an event
+
+    if (this.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED | STATE_CANCELLED)) {
+      this.tryEmit(inputDataClone);
+    }
+  };
+  /**
+   * @private
+   * return the state of the recognizer
+   * the actual recognizing happens in this method
+   * @virtual
+   * @param {Object} inputData
+   * @returns {constant} STATE
+   */
+
+  /* jshint ignore:start */
+
+
+  _proto.process = function process(inputData) {};
+  /* jshint ignore:end */
+
+  /**
+   * @private
+   * return the preferred touch-action
+   * @virtual
+   * @returns {Array}
+   */
+
+
+  _proto.getTouchAction = function getTouchAction() {};
+  /**
+   * @private
+   * called when the gesture isn't allowed to recognize
+   * like when another is being recognized or it is disabled
+   * @virtual
+   */
+
+
+  _proto.reset = function reset() {};
+
+  return Recognizer;
+}();
+/**
+ * @private
+ * A tap is recognized when the pointer is doing a small tap/click. Multiple taps are recognized if they occur
+ * between the given interval and position. The delay option can be used to recognize multi-taps without firing
+ * a single tap.
+ *
+ * The eventData from the emitted event contains the property `tapCount`, which contains the amount of
+ * multi-taps being recognized.
+ * @constructor
+ * @extends Recognizer
+ */
+
+
+var TapRecognizer = /*#__PURE__*/function (_Recognizer) {
+  _inheritsLoose(TapRecognizer, _Recognizer);
+
+  function TapRecognizer(options) {
+    var _this;
+
+    if (options === void 0) {
+      options = {};
+    }
+
+    _this = _Recognizer.call(this, _extends({
+      event: 'tap',
+      pointers: 1,
+      taps: 1,
+      interval: 300,
+      // max time between the multi-tap taps
+      time: 250,
+      // max time of the pointer to be down (like finger on the screen)
+      threshold: 9,
+      // a minimal movement is ok, but keep it low
+      posThreshold: 10
+    }, options)) || this; // previous time and center,
+    // used for tap counting
+
+    _this.pTime = false;
+    _this.pCenter = false;
+    _this._timer = null;
+    _this._input = null;
+    _this.count = 0;
+    return _this;
+  }
+
+  var _proto = TapRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return [TOUCH_ACTION_MANIPULATION];
+  };
+
+  _proto.process = function process(input) {
+    var _this2 = this;
+
+    var options = this.options;
+    var validPointers = input.pointers.length === options.pointers;
+    var validMovement = input.distance < options.threshold;
+    var validTouchTime = input.deltaTime < options.time;
+    this.reset();
+
+    if (input.eventType & INPUT_START && this.count === 0) {
+      return this.failTimeout();
+    } // we only allow little movement
+    // and we've reached an end event, so a tap is possible
+
+
+    if (validMovement && validTouchTime && validPointers) {
+      if (input.eventType !== INPUT_END) {
+        return this.failTimeout();
+      }
+
+      var validInterval = this.pTime ? input.timeStamp - this.pTime < options.interval : true;
+      var validMultiTap = !this.pCenter || getDistance(this.pCenter, input.center) < options.posThreshold;
+      this.pTime = input.timeStamp;
+      this.pCenter = input.center;
+
+      if (!validMultiTap || !validInterval) {
+        this.count = 1;
+      } else {
+        this.count += 1;
+      }
+
+      this._input = input; // if tap count matches we have recognized it,
+      // else it has began recognizing...
+
+      var tapCount = this.count % options.taps;
+
+      if (tapCount === 0) {
+        // no failing requirements, immediately trigger the tap event
+        // or wait as long as the multitap interval to trigger
+        if (!this.hasRequireFailures()) {
+          return STATE_RECOGNIZED;
+        } else {
+          this._timer = setTimeout(function () {
+            _this2.state = STATE_RECOGNIZED;
+
+            _this2.tryEmit();
+          }, options.interval);
+          return STATE_BEGAN;
+        }
+      }
+    }
+
+    return STATE_FAILED;
+  };
+
+  _proto.failTimeout = function failTimeout() {
+    var _this3 = this;
+
+    this._timer = setTimeout(function () {
+      _this3.state = STATE_FAILED;
+    }, this.options.interval);
+    return STATE_FAILED;
+  };
+
+  _proto.reset = function reset() {
+    clearTimeout(this._timer);
+  };
+
+  _proto.emit = function emit() {
+    if (this.state === STATE_RECOGNIZED) {
+      this._input.tapCount = this.count;
+      this.manager.emit(this.options.event, this._input);
+    }
+  };
+
+  return TapRecognizer;
+}(Recognizer);
+/**
+ * @private
+ * This recognizer is just used as a base for the simple attribute recognizers.
+ * @constructor
+ * @extends Recognizer
+ */
+
+
+var AttrRecognizer = /*#__PURE__*/function (_Recognizer) {
+  _inheritsLoose(AttrRecognizer, _Recognizer);
+
+  function AttrRecognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _Recognizer.call(this, _extends({
+      pointers: 1
+    }, options)) || this;
+  }
+  /**
+   * @private
+   * Used to check if it the recognizer receives valid input, like input.distance > 10.
+   * @memberof AttrRecognizer
+   * @param {Object} input
+   * @returns {Boolean} recognized
+   */
+
+
+  var _proto = AttrRecognizer.prototype;
+
+  _proto.attrTest = function attrTest(input) {
+    var optionPointers = this.options.pointers;
+    return optionPointers === 0 || input.pointers.length === optionPointers;
+  };
+  /**
+   * @private
+   * Process the input and return the state for the recognizer
+   * @memberof AttrRecognizer
+   * @param {Object} input
+   * @returns {*} State
+   */
+
+
+  _proto.process = function process(input) {
+    var state = this.state;
+    var eventType = input.eventType;
+    var isRecognized = state & (STATE_BEGAN | STATE_CHANGED);
+    var isValid = this.attrTest(input); // on cancel input and we've recognized before, return STATE_CANCELLED
+
+    if (isRecognized && (eventType & INPUT_CANCEL || !isValid)) {
+      return state | STATE_CANCELLED;
+    } else if (isRecognized || isValid) {
+      if (eventType & INPUT_END) {
+        return state | STATE_ENDED;
+      } else if (!(state & STATE_BEGAN)) {
+        return STATE_BEGAN;
+      }
+
+      return state | STATE_CHANGED;
+    }
+
+    return STATE_FAILED;
+  };
+
+  return AttrRecognizer;
+}(Recognizer);
+/**
+ * @private
+ * direction cons to string
+ * @param {constant} direction
+ * @returns {String}
+ */
+
+
+function directionStr(direction) {
+  if (direction === DIRECTION_DOWN) {
+    return 'down';
+  } else if (direction === DIRECTION_UP) {
+    return 'up';
+  } else if (direction === DIRECTION_LEFT) {
+    return 'left';
+  } else if (direction === DIRECTION_RIGHT) {
+    return 'right';
+  }
+
+  return '';
+}
+/**
+ * @private
+ * Pan
+ * Recognized when the pointer is down and moved in the allowed direction.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+
+
+var PanRecognizer = /*#__PURE__*/function (_AttrRecognizer) {
+  _inheritsLoose(PanRecognizer, _AttrRecognizer);
+
+  function PanRecognizer(options) {
+    var _this;
+
+    if (options === void 0) {
+      options = {};
+    }
+
+    _this = _AttrRecognizer.call(this, _extends({
+      event: 'pan',
+      threshold: 10,
+      pointers: 1,
+      direction: DIRECTION_ALL
+    }, options)) || this;
+    _this.pX = null;
+    _this.pY = null;
+    return _this;
+  }
+
+  var _proto = PanRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    var direction = this.options.direction;
+    var actions = [];
+
+    if (direction & DIRECTION_HORIZONTAL) {
+      actions.push(TOUCH_ACTION_PAN_Y);
+    }
+
+    if (direction & DIRECTION_VERTICAL) {
+      actions.push(TOUCH_ACTION_PAN_X);
+    }
+
+    return actions;
+  };
+
+  _proto.directionTest = function directionTest(input) {
+    var options = this.options;
+    var hasMoved = true;
+    var distance = input.distance;
+    var direction = input.direction;
+    var x = input.deltaX;
+    var y = input.deltaY; // lock to axis?
+
+    if (!(direction & options.direction)) {
+      if (options.direction & DIRECTION_HORIZONTAL) {
+        direction = x === 0 ? DIRECTION_NONE : x < 0 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+        hasMoved = x !== this.pX;
+        distance = Math.abs(input.deltaX);
+      } else {
+        direction = y === 0 ? DIRECTION_NONE : y < 0 ? DIRECTION_UP : DIRECTION_DOWN;
+        hasMoved = y !== this.pY;
+        distance = Math.abs(input.deltaY);
+      }
+    }
+
+    input.direction = direction;
+    return hasMoved && distance > options.threshold && direction & options.direction;
+  };
+
+  _proto.attrTest = function attrTest(input) {
+    return AttrRecognizer.prototype.attrTest.call(this, input) && ( // replace with a super call
+    this.state & STATE_BEGAN || !(this.state & STATE_BEGAN) && this.directionTest(input));
+  };
+
+  _proto.emit = function emit(input) {
+    this.pX = input.deltaX;
+    this.pY = input.deltaY;
+    var direction = directionStr(input.direction);
+
+    if (direction) {
+      input.additionalEvent = this.options.event + direction;
+    }
+
+    _AttrRecognizer.prototype.emit.call(this, input);
+  };
+
+  return PanRecognizer;
+}(AttrRecognizer);
+/**
+ * @private
+ * Swipe
+ * Recognized when the pointer is moving fast (velocity), with enough distance in the allowed direction.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+
+
+var SwipeRecognizer = /*#__PURE__*/function (_AttrRecognizer) {
+  _inheritsLoose(SwipeRecognizer, _AttrRecognizer);
+
+  function SwipeRecognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _AttrRecognizer.call(this, _extends({
+      event: 'swipe',
+      threshold: 10,
+      velocity: 0.3,
+      direction: DIRECTION_HORIZONTAL | DIRECTION_VERTICAL,
+      pointers: 1
+    }, options)) || this;
+  }
+
+  var _proto = SwipeRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return PanRecognizer.prototype.getTouchAction.call(this);
+  };
+
+  _proto.attrTest = function attrTest(input) {
+    var direction = this.options.direction;
+    var velocity;
+
+    if (direction & (DIRECTION_HORIZONTAL | DIRECTION_VERTICAL)) {
+      velocity = input.overallVelocity;
+    } else if (direction & DIRECTION_HORIZONTAL) {
+      velocity = input.overallVelocityX;
+    } else if (direction & DIRECTION_VERTICAL) {
+      velocity = input.overallVelocityY;
+    }
+
+    return _AttrRecognizer.prototype.attrTest.call(this, input) && direction & input.offsetDirection && input.distance > this.options.threshold && input.maxPointers === this.options.pointers && abs(velocity) > this.options.velocity && input.eventType & INPUT_END;
+  };
+
+  _proto.emit = function emit(input) {
+    var direction = directionStr(input.offsetDirection);
+
+    if (direction) {
+      this.manager.emit(this.options.event + direction, input);
+    }
+
+    this.manager.emit(this.options.event, input);
+  };
+
+  return SwipeRecognizer;
+}(AttrRecognizer);
+/**
+ * @private
+ * Pinch
+ * Recognized when two or more pointers are moving toward (zoom-in) or away from each other (zoom-out).
+ * @constructor
+ * @extends AttrRecognizer
+ */
+
+
+var PinchRecognizer = /*#__PURE__*/function (_AttrRecognizer) {
+  _inheritsLoose(PinchRecognizer, _AttrRecognizer);
+
+  function PinchRecognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _AttrRecognizer.call(this, _extends({
+      event: 'pinch',
+      threshold: 0,
+      pointers: 2
+    }, options)) || this;
+  }
+
+  var _proto = PinchRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return [TOUCH_ACTION_NONE];
+  };
+
+  _proto.attrTest = function attrTest(input) {
+    return _AttrRecognizer.prototype.attrTest.call(this, input) && (Math.abs(input.scale - 1) > this.options.threshold || this.state & STATE_BEGAN);
+  };
+
+  _proto.emit = function emit(input) {
+    if (input.scale !== 1) {
+      var inOut = input.scale < 1 ? 'in' : 'out';
+      input.additionalEvent = this.options.event + inOut;
+    }
+
+    _AttrRecognizer.prototype.emit.call(this, input);
+  };
+
+  return PinchRecognizer;
+}(AttrRecognizer);
+/**
+ * @private
+ * Rotate
+ * Recognized when two or more pointer are moving in a circular motion.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+
+
+var RotateRecognizer = /*#__PURE__*/function (_AttrRecognizer) {
+  _inheritsLoose(RotateRecognizer, _AttrRecognizer);
+
+  function RotateRecognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _AttrRecognizer.call(this, _extends({
+      event: 'rotate',
+      threshold: 0,
+      pointers: 2
+    }, options)) || this;
+  }
+
+  var _proto = RotateRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return [TOUCH_ACTION_NONE];
+  };
+
+  _proto.attrTest = function attrTest(input) {
+    return _AttrRecognizer.prototype.attrTest.call(this, input) && (Math.abs(input.rotation) > this.options.threshold || this.state & STATE_BEGAN);
+  };
+
+  return RotateRecognizer;
+}(AttrRecognizer);
+/**
+ * @private
+ * Press
+ * Recognized when the pointer is down for x ms without any movement.
+ * @constructor
+ * @extends Recognizer
+ */
+
+
+var PressRecognizer = /*#__PURE__*/function (_Recognizer) {
+  _inheritsLoose(PressRecognizer, _Recognizer);
+
+  function PressRecognizer(options) {
+    var _this;
+
+    if (options === void 0) {
+      options = {};
+    }
+
+    _this = _Recognizer.call(this, _extends({
+      event: 'press',
+      pointers: 1,
+      time: 251,
+      // minimal time of the pointer to be pressed
+      threshold: 9
+    }, options)) || this;
+    _this._timer = null;
+    _this._input = null;
+    return _this;
+  }
+
+  var _proto = PressRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return [TOUCH_ACTION_AUTO];
+  };
+
+  _proto.process = function process(input) {
+    var _this2 = this;
+
+    var options = this.options;
+    var validPointers = input.pointers.length === options.pointers;
+    var validMovement = input.distance < options.threshold;
+    var validTime = input.deltaTime > options.time;
+    this._input = input; // we only allow little movement
+    // and we've reached an end event, so a tap is possible
+
+    if (!validMovement || !validPointers || input.eventType & (INPUT_END | INPUT_CANCEL) && !validTime) {
+      this.reset();
+    } else if (input.eventType & INPUT_START) {
+      this.reset();
+      this._timer = setTimeout(function () {
+        _this2.state = STATE_RECOGNIZED;
+
+        _this2.tryEmit();
+      }, options.time);
+    } else if (input.eventType & INPUT_END) {
+      return STATE_RECOGNIZED;
+    }
+
+    return STATE_FAILED;
+  };
+
+  _proto.reset = function reset() {
+    clearTimeout(this._timer);
+  };
+
+  _proto.emit = function emit(input) {
+    if (this.state !== STATE_RECOGNIZED) {
+      return;
+    }
+
+    if (input && input.eventType & INPUT_END) {
+      this.manager.emit(this.options.event + "up", input);
+    } else {
+      this._input.timeStamp = now();
+      this.manager.emit(this.options.event, this._input);
+    }
+  };
+
+  return PressRecognizer;
+}(Recognizer);
+
+var defaults = {
+  /**
+   * @private
+   * set if DOM events are being triggered.
+   * But this is slower and unused by simple implementations, so disabled by default.
+   * @type {Boolean}
+   * @default false
+   */
+  domEvents: false,
+
+  /**
+   * @private
+   * The value for the touchAction property/fallback.
+   * When set to `compute` it will magically set the correct value based on the added recognizers.
+   * @type {String}
+   * @default compute
+   */
+  touchAction: TOUCH_ACTION_COMPUTE,
+
+  /**
+   * @private
+   * @type {Boolean}
+   * @default true
+   */
+  enable: true,
+
+  /**
+   * @private
+   * EXPERIMENTAL FEATURE -- can be removed/changed
+   * Change the parent input target element.
+   * If Null, then it is being set the to main element.
+   * @type {Null|EventTarget}
+   * @default null
+   */
+  inputTarget: null,
+
+  /**
+   * @private
+   * force an input class
+   * @type {Null|Function}
+   * @default null
+   */
+  inputClass: null,
+
+  /**
+   * @private
+   * Some CSS properties can be used to improve the working of Hammer.
+   * Add them to this method and they will be set when creating a new Manager.
+   * @namespace
+   */
+  cssProps: {
+    /**
+     * @private
+     * Disables text selection to improve the dragging gesture. Mainly for desktop browsers.
+     * @type {String}
+     * @default 'none'
+     */
+    userSelect: "none",
+
+    /**
+     * @private
+     * Disable the Windows Phone grippers when pressing an element.
+     * @type {String}
+     * @default 'none'
+     */
+    touchSelect: "none",
+
+    /**
+     * @private
+     * Disables the default callout shown when you touch and hold a touch target.
+     * On iOS, when you touch and hold a touch target such as a link, Safari displays
+     * a callout containing information about the link. This property allows you to disable that callout.
+     * @type {String}
+     * @default 'none'
+     */
+    touchCallout: "none",
+
+    /**
+     * @private
+     * Specifies whether zooming is enabled. Used by IE10>
+     * @type {String}
+     * @default 'none'
+     */
+    contentZooming: "none",
+
+    /**
+     * @private
+     * Specifies that an entire element should be draggable instead of its contents. Mainly for desktop browsers.
+     * @type {String}
+     * @default 'none'
+     */
+    userDrag: "none",
+
+    /**
+     * @private
+     * Overrides the highlight color shown when the user taps a link or a JavaScript
+     * clickable element in iOS. This property obeys the alpha value, if specified.
+     * @type {String}
+     * @default 'rgba(0,0,0,0)'
+     */
+    tapHighlightColor: "rgba(0,0,0,0)"
+  }
+};
+/**
+ * @private
+ * Default recognizer setup when calling `Hammer()`
+ * When creating a new Manager these will be skipped.
+ * This is separated with other defaults because of tree-shaking.
+ * @type {Array}
+ */
+
+var preset = [[RotateRecognizer, {
+  enable: false
+}], [PinchRecognizer, {
+  enable: false
+}, ['rotate']], [SwipeRecognizer, {
+  direction: DIRECTION_HORIZONTAL
+}], [PanRecognizer, {
+  direction: DIRECTION_HORIZONTAL
+}, ['swipe']], [TapRecognizer], [TapRecognizer, {
+  event: 'doubletap',
+  taps: 2
+}, ['tap']], [PressRecognizer]];
+var STOP = 1;
+var FORCED_STOP = 2;
+/**
+ * @private
+ * add/remove the css properties as defined in manager.options.cssProps
+ * @param {Manager} manager
+ * @param {Boolean} add
+ */
+
+function toggleCssProps(manager, add) {
+  var element = manager.element;
+
+  if (!element.style) {
+    return;
+  }
+
+  var prop;
+  each(manager.options.cssProps, function (value, name) {
+    prop = prefixed(element.style, name);
+
+    if (add) {
+      manager.oldCssProps[prop] = element.style[prop];
+      element.style[prop] = value;
+    } else {
+      element.style[prop] = manager.oldCssProps[prop] || "";
+    }
+  });
+
+  if (!add) {
+    manager.oldCssProps = {};
+  }
+}
+/**
+ * @private
+ * trigger dom event
+ * @param {String} event
+ * @param {Object} data
+ */
+
+
+function triggerDomEvent(event, data) {
+  var gestureEvent = document.createEvent("Event");
+  gestureEvent.initEvent(event, true, true);
+  gestureEvent.gesture = data;
+  data.target.dispatchEvent(gestureEvent);
+}
+/**
+* @private
+ * Manager
+ * @param {HTMLElement} element
+ * @param {Object} [options]
+ * @constructor
+ */
+
+
+var Manager = /*#__PURE__*/function () {
+  function Manager(element, options) {
+    var _this = this;
+
+    this.options = assign$1({}, defaults, options || {});
+    this.options.inputTarget = this.options.inputTarget || element;
+    this.handlers = {};
+    this.session = {};
+    this.recognizers = [];
+    this.oldCssProps = {};
+    this.element = element;
+    this.input = createInputInstance(this);
+    this.touchAction = new TouchAction(this, this.options.touchAction);
+    toggleCssProps(this, true);
+    each(this.options.recognizers, function (item) {
+      var recognizer = _this.add(new item[0](item[1]));
+
+      item[2] && recognizer.recognizeWith(item[2]);
+      item[3] && recognizer.requireFailure(item[3]);
+    }, this);
+  }
+  /**
+   * @private
+   * set options
+   * @param {Object} options
+   * @returns {Manager}
+   */
+
+
+  var _proto = Manager.prototype;
+
+  _proto.set = function set(options) {
+    assign$1(this.options, options); // Options that need a little more setup
+
+    if (options.touchAction) {
+      this.touchAction.update();
+    }
+
+    if (options.inputTarget) {
+      // Clean up existing event listeners and reinitialize
+      this.input.destroy();
+      this.input.target = options.inputTarget;
+      this.input.init();
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * stop recognizing for this session.
+   * This session will be discarded, when a new [input]start event is fired.
+   * When forced, the recognizer cycle is stopped immediately.
+   * @param {Boolean} [force]
+   */
+
+
+  _proto.stop = function stop(force) {
+    this.session.stopped = force ? FORCED_STOP : STOP;
+  };
+  /**
+   * @private
+   * run the recognizers!
+   * called by the inputHandler function on every movement of the pointers (touches)
+   * it walks through all the recognizers and tries to detect the gesture that is being made
+   * @param {Object} inputData
+   */
+
+
+  _proto.recognize = function recognize(inputData) {
+    var session = this.session;
+
+    if (session.stopped) {
+      return;
+    } // run the touch-action polyfill
+
+
+    this.touchAction.preventDefaults(inputData);
+    var recognizer;
+    var recognizers = this.recognizers; // this holds the recognizer that is being recognized.
+    // so the recognizer's state needs to be BEGAN, CHANGED, ENDED or RECOGNIZED
+    // if no recognizer is detecting a thing, it is set to `null`
+
+    var curRecognizer = session.curRecognizer; // reset when the last recognizer is recognized
+    // or when we're in a new session
+
+    if (!curRecognizer || curRecognizer && curRecognizer.state & STATE_RECOGNIZED) {
+      session.curRecognizer = null;
+      curRecognizer = null;
+    }
+
+    var i = 0;
+
+    while (i < recognizers.length) {
+      recognizer = recognizers[i]; // find out if we are allowed try to recognize the input for this one.
+      // 1.   allow if the session is NOT forced stopped (see the .stop() method)
+      // 2.   allow if we still haven't recognized a gesture in this session, or the this recognizer is the one
+      //      that is being recognized.
+      // 3.   allow if the recognizer is allowed to run simultaneous with the current recognized recognizer.
+      //      this can be setup with the `recognizeWith()` method on the recognizer.
+
+      if (session.stopped !== FORCED_STOP && ( // 1
+      !curRecognizer || recognizer === curRecognizer || // 2
+      recognizer.canRecognizeWith(curRecognizer))) {
+        // 3
+        recognizer.recognize(inputData);
+      } else {
+        recognizer.reset();
+      } // if the recognizer has been recognizing the input as a valid gesture, we want to store this one as the
+      // current active recognizer. but only if we don't already have an active recognizer
+
+
+      if (!curRecognizer && recognizer.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED)) {
+        session.curRecognizer = recognizer;
+        curRecognizer = recognizer;
+      }
+
+      i++;
+    }
+  };
+  /**
+   * @private
+   * get a recognizer by its event name.
+   * @param {Recognizer|String} recognizer
+   * @returns {Recognizer|Null}
+   */
+
+
+  _proto.get = function get(recognizer) {
+    if (recognizer instanceof Recognizer) {
+      return recognizer;
+    }
+
+    var recognizers = this.recognizers;
+
+    for (var i = 0; i < recognizers.length; i++) {
+      if (recognizers[i].options.event === recognizer) {
+        return recognizers[i];
+      }
+    }
+
+    return null;
+  };
+  /**
+   * @private add a recognizer to the manager
+   * existing recognizers with the same event name will be removed
+   * @param {Recognizer} recognizer
+   * @returns {Recognizer|Manager}
+   */
+
+
+  _proto.add = function add(recognizer) {
+    if (invokeArrayArg(recognizer, "add", this)) {
+      return this;
+    } // remove existing
+
+
+    var existing = this.get(recognizer.options.event);
+
+    if (existing) {
+      this.remove(existing);
+    }
+
+    this.recognizers.push(recognizer);
+    recognizer.manager = this;
+    this.touchAction.update();
+    return recognizer;
+  };
+  /**
+   * @private
+   * remove a recognizer by name or instance
+   * @param {Recognizer|String} recognizer
+   * @returns {Manager}
+   */
+
+
+  _proto.remove = function remove(recognizer) {
+    if (invokeArrayArg(recognizer, "remove", this)) {
+      return this;
+    }
+
+    var targetRecognizer = this.get(recognizer); // let's make sure this recognizer exists
+
+    if (recognizer) {
+      var recognizers = this.recognizers;
+      var index = inArray(recognizers, targetRecognizer);
+
+      if (index !== -1) {
+        recognizers.splice(index, 1);
+        this.touchAction.update();
+      }
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * bind event
+   * @param {String} events
+   * @param {Function} handler
+   * @returns {EventEmitter} this
+   */
+
+
+  _proto.on = function on(events, handler) {
+    if (events === undefined || handler === undefined) {
+      return this;
+    }
+
+    var handlers = this.handlers;
+    each(splitStr(events), function (event) {
+      handlers[event] = handlers[event] || [];
+      handlers[event].push(handler);
+    });
+    return this;
+  };
+  /**
+   * @private unbind event, leave emit blank to remove all handlers
+   * @param {String} events
+   * @param {Function} [handler]
+   * @returns {EventEmitter} this
+   */
+
+
+  _proto.off = function off(events, handler) {
+    if (events === undefined) {
+      return this;
+    }
+
+    var handlers = this.handlers;
+    each(splitStr(events), function (event) {
+      if (!handler) {
+        delete handlers[event];
+      } else {
+        handlers[event] && handlers[event].splice(inArray(handlers[event], handler), 1);
+      }
+    });
+    return this;
+  };
+  /**
+   * @private emit event to the listeners
+   * @param {String} event
+   * @param {Object} data
+   */
+
+
+  _proto.emit = function emit(event, data) {
+    // we also want to trigger dom events
+    if (this.options.domEvents) {
+      triggerDomEvent(event, data);
+    } // no handlers, so skip it all
+
+
+    var handlers = this.handlers[event] && this.handlers[event].slice();
+
+    if (!handlers || !handlers.length) {
+      return;
+    }
+
+    data.type = event;
+
+    data.preventDefault = function () {
+      data.srcEvent.preventDefault();
+    };
+
+    var i = 0;
+
+    while (i < handlers.length) {
+      handlers[i](data);
+      i++;
+    }
+  };
+  /**
+   * @private
+   * destroy the manager and unbinds all events
+   * it doesn't unbind dom events, that is the user own responsibility
+   */
+
+
+  _proto.destroy = function destroy() {
+    this.element && toggleCssProps(this, false);
+    this.handlers = {};
+    this.session = {};
+    this.input.destroy();
+    this.element = null;
+  };
+
+  return Manager;
+}();
+
+var SINGLE_TOUCH_INPUT_MAP = {
+  touchstart: INPUT_START,
+  touchmove: INPUT_MOVE,
+  touchend: INPUT_END,
+  touchcancel: INPUT_CANCEL
+};
+var SINGLE_TOUCH_TARGET_EVENTS = 'touchstart';
+var SINGLE_TOUCH_WINDOW_EVENTS = 'touchstart touchmove touchend touchcancel';
+/**
+ * @private
+ * Touch events input
+ * @constructor
+ * @extends Input
+ */
+
+var SingleTouchInput = /*#__PURE__*/function (_Input) {
+  _inheritsLoose(SingleTouchInput, _Input);
+
+  function SingleTouchInput() {
+    var _this;
+
+    var proto = SingleTouchInput.prototype;
+    proto.evTarget = SINGLE_TOUCH_TARGET_EVENTS;
+    proto.evWin = SINGLE_TOUCH_WINDOW_EVENTS;
+    _this = _Input.apply(this, arguments) || this;
+    _this.started = false;
+    return _this;
+  }
+
+  var _proto = SingleTouchInput.prototype;
+
+  _proto.handler = function handler(ev) {
+    var type = SINGLE_TOUCH_INPUT_MAP[ev.type]; // should we handle the touch events?
+
+    if (type === INPUT_START) {
+      this.started = true;
+    }
+
+    if (!this.started) {
+      return;
+    }
+
+    var touches = normalizeSingleTouches.call(this, ev, type); // when done, reset the started state
+
+    if (type & (INPUT_END | INPUT_CANCEL) && touches[0].length - touches[1].length === 0) {
+      this.started = false;
+    }
+
+    this.callback(this.manager, type, {
+      pointers: touches[0],
+      changedPointers: touches[1],
+      pointerType: INPUT_TYPE_TOUCH,
+      srcEvent: ev
+    });
+  };
+
+  return SingleTouchInput;
+}(Input);
+
+function normalizeSingleTouches(ev, type) {
+  var all = toArray(ev.touches);
+  var changed = toArray(ev.changedTouches);
+
+  if (type & (INPUT_END | INPUT_CANCEL)) {
+    all = uniqueArray(all.concat(changed), 'identifier', true);
+  }
+
+  return [all, changed];
+}
+/**
+ * @private
+ * wrap a method with a deprecation warning and stack trace
+ * @param {Function} method
+ * @param {String} name
+ * @param {String} message
+ * @returns {Function} A new function wrapping the supplied method.
+ */
+
+
+function deprecate(method, name, message) {
+  var deprecationMessage = "DEPRECATED METHOD: " + name + "\n" + message + " AT \n";
+  return function () {
+    var e = new Error('get-stack-trace');
+    var stack = e && e.stack ? e.stack.replace(/^[^\(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@') : 'Unknown Stack Trace';
+    var log = window.console && (window.console.warn || window.console.log);
+
+    if (log) {
+      log.call(window.console, deprecationMessage, stack);
+    }
+
+    return method.apply(this, arguments);
+  };
+}
+/**
+ * @private
+ * extend object.
+ * means that properties in dest will be overwritten by the ones in src.
+ * @param {Object} dest
+ * @param {Object} src
+ * @param {Boolean} [merge=false]
+ * @returns {Object} dest
+ */
+
+
+var extend = deprecate(function (dest, src, merge) {
+  var keys = Object.keys(src);
+  var i = 0;
+
+  while (i < keys.length) {
+    if (!merge || merge && dest[keys[i]] === undefined) {
+      dest[keys[i]] = src[keys[i]];
+    }
+
+    i++;
+  }
+
+  return dest;
+}, 'extend', 'Use `assign`.');
+/**
+ * @private
+ * merge the values from src in the dest.
+ * means that properties that exist in dest will not be overwritten by src
+ * @param {Object} dest
+ * @param {Object} src
+ * @returns {Object} dest
+ */
+
+var merge = deprecate(function (dest, src) {
+  return extend(dest, src, true);
+}, 'merge', 'Use `assign`.');
+/**
+ * @private
+ * simple class inheritance
+ * @param {Function} child
+ * @param {Function} base
+ * @param {Object} [properties]
+ */
+
+function inherit(child, base, properties) {
+  var baseP = base.prototype;
+  var childP;
+  childP = child.prototype = Object.create(baseP);
+  childP.constructor = child;
+  childP._super = baseP;
+
+  if (properties) {
+    assign$1(childP, properties);
+  }
+}
+/**
+ * @private
+ * simple function bind
+ * @param {Function} fn
+ * @param {Object} context
+ * @returns {Function}
+ */
+
+
+function bindFn(fn, context) {
+  return function boundFn() {
+    return fn.apply(context, arguments);
+  };
+}
+/**
+ * @private
+ * Simple way to create a manager with a default set of recognizers.
+ * @param {HTMLElement} element
+ * @param {Object} [options]
+ * @constructor
+ */
+
+
+var Hammer$1 = /*#__PURE__*/function () {
+  var Hammer =
+  /**
+    * @private
+    * @const {string}
+    */
+  function Hammer(element, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return new Manager(element, _extends({
+      recognizers: preset.concat()
+    }, options));
+  };
+
+  Hammer.VERSION = "2.0.17-rc";
+  Hammer.DIRECTION_ALL = DIRECTION_ALL;
+  Hammer.DIRECTION_DOWN = DIRECTION_DOWN;
+  Hammer.DIRECTION_LEFT = DIRECTION_LEFT;
+  Hammer.DIRECTION_RIGHT = DIRECTION_RIGHT;
+  Hammer.DIRECTION_UP = DIRECTION_UP;
+  Hammer.DIRECTION_HORIZONTAL = DIRECTION_HORIZONTAL;
+  Hammer.DIRECTION_VERTICAL = DIRECTION_VERTICAL;
+  Hammer.DIRECTION_NONE = DIRECTION_NONE;
+  Hammer.DIRECTION_DOWN = DIRECTION_DOWN;
+  Hammer.INPUT_START = INPUT_START;
+  Hammer.INPUT_MOVE = INPUT_MOVE;
+  Hammer.INPUT_END = INPUT_END;
+  Hammer.INPUT_CANCEL = INPUT_CANCEL;
+  Hammer.STATE_POSSIBLE = STATE_POSSIBLE;
+  Hammer.STATE_BEGAN = STATE_BEGAN;
+  Hammer.STATE_CHANGED = STATE_CHANGED;
+  Hammer.STATE_ENDED = STATE_ENDED;
+  Hammer.STATE_RECOGNIZED = STATE_RECOGNIZED;
+  Hammer.STATE_CANCELLED = STATE_CANCELLED;
+  Hammer.STATE_FAILED = STATE_FAILED;
+  Hammer.Manager = Manager;
+  Hammer.Input = Input;
+  Hammer.TouchAction = TouchAction;
+  Hammer.TouchInput = TouchInput;
+  Hammer.MouseInput = MouseInput;
+  Hammer.PointerEventInput = PointerEventInput;
+  Hammer.TouchMouseInput = TouchMouseInput;
+  Hammer.SingleTouchInput = SingleTouchInput;
+  Hammer.Recognizer = Recognizer;
+  Hammer.AttrRecognizer = AttrRecognizer;
+  Hammer.Tap = TapRecognizer;
+  Hammer.Pan = PanRecognizer;
+  Hammer.Swipe = SwipeRecognizer;
+  Hammer.Pinch = PinchRecognizer;
+  Hammer.Rotate = RotateRecognizer;
+  Hammer.Press = PressRecognizer;
+  Hammer.on = addEventListeners;
+  Hammer.off = removeEventListeners;
+  Hammer.each = each;
+  Hammer.merge = merge;
+  Hammer.extend = extend;
+  Hammer.bindFn = bindFn;
+  Hammer.assign = assign$1;
+  Hammer.inherit = inherit;
+  Hammer.bindFn = bindFn;
+  Hammer.prefixed = prefixed;
+  Hammer.toArray = toArray;
+  Hammer.inArray = inArray;
+  Hammer.uniqueArray = uniqueArray;
+  Hammer.splitStr = splitStr;
+  Hammer.boolOrFn = boolOrFn;
+  Hammer.hasParent = hasParent;
+  Hammer.addEventListeners = addEventListeners;
+  Hammer.removeEventListeners = removeEventListeners;
+  Hammer.defaults = assign$1({}, defaults, {
+    preset: preset
+  });
+  return Hammer;
+}(); //  style loader but by script tag, not by the loader.
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof symbol === "undefined" || getIteratorMethod(o) == null) { if (isArray$2(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = getIterator(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { var _context21; if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = slice$1(_context21 = Object.prototype.toString.call(o)).call(_context21, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from$2(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+/**
  * Use this symbol to delete properies in deepObjectAssign.
  */
+
 symbol("DELETE");
+/**
+ * Setup a mock hammer.js object, for unit testing.
+ *
+ * Inspiration: https://github.com/uber/deck.gl/pull/658
+ *
+ * @returns {{on: noop, off: noop, destroy: noop, emit: noop, get: get}}
+ */
+
+
+function hammerMock() {
+  var noop = function noop() {};
+
+  return {
+    on: noop,
+    off: noop,
+    destroy: noop,
+    emit: noop,
+    get: function get() {
+      return {
+        set: noop
+      };
+    }
+  };
+}
+
+var Hammer = typeof window !== "undefined" ? window.Hammer || Hammer$1 : function () {
+  // hammer.js is only available in a browser, not in node.js. Replacing it with a mock object.
+  return hammerMock();
+};
+/**
+ * Turn an element into an clickToUse element.
+ * When not active, the element has a transparent overlay. When the overlay is
+ * clicked, the mode is changed to active.
+ * When active, the element is displayed with a blue border around it, and
+ * the interactive contents of the element can be used. When clicked outside
+ * the element, the elements mode is changed to inactive.
+ *
+ * @param {Element} container
+ * @class Activator
+ */
+
+function Activator(container) {
+  var _this = this,
+      _context3;
+
+  this._cleanupQueue = [];
+  this.active = false;
+  this._dom = {
+    container: container,
+    overlay: document.createElement("div")
+  };
+
+  this._dom.overlay.classList.add("vis-overlay");
+
+  this._dom.container.appendChild(this._dom.overlay);
+
+  this._cleanupQueue.push(function () {
+    _this._dom.overlay.parentNode.removeChild(_this._dom.overlay);
+  });
+
+  var hammer = Hammer(this._dom.overlay);
+  hammer.on("tap", bind(_context3 = this._onTapOverlay).call(_context3, this));
+
+  this._cleanupQueue.push(function () {
+    hammer.destroy(); // FIXME: cleaning up hammer instances doesn't work (Timeline not removed
+    // from memory)
+  }); // block all touch events (except tap)
+
+
+  var events = ["tap", "doubletap", "press", "pinch", "pan", "panstart", "panmove", "panend"];
+
+  forEach(events).call(events, function (event) {
+    hammer.on(event, function (event) {
+      event.srcEvent.stopPropagation();
+    });
+  }); // attach a click event to the window, in order to deactivate when clicking outside the timeline
+
+
+  if (document && document.body) {
+    this._onClick = function (event) {
+      if (!_hasParent(event.target, container)) {
+        _this.deactivate();
+      }
+    };
+
+    document.body.addEventListener("click", this._onClick);
+
+    this._cleanupQueue.push(function () {
+      document.body.removeEventListener("click", _this._onClick);
+    });
+  } // prepare escape key listener for deactivating when active
+
+
+  this._escListener = function (event) {
+    if ("key" in event ? event.key === "Escape" : event.keyCode === 27
+    /* the keyCode is for IE11 */
+    ) {
+        _this.deactivate();
+      }
+  };
+} // turn into an event emitter
+
+
+componentEmitter(Activator.prototype); // The currently active activator
+
+Activator.current = null;
+/**
+ * Destroy the activator. Cleans up all created DOM and event listeners
+ */
+
+Activator.prototype.destroy = function () {
+  var _context4, _context5;
+
+  this.deactivate();
+
+  var _iterator2 = _createForOfIteratorHelper(reverse(_context4 = splice(_context5 = this._cleanupQueue).call(_context5, 0)).call(_context4)),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var callback = _step2.value;
+      callback();
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+};
+/**
+ * Activate the element
+ * Overlay is hidden, element is decorated with a blue shadow border
+ */
+
+
+Activator.prototype.activate = function () {
+  // we allow only one active activator at a time
+  if (Activator.current) {
+    Activator.current.deactivate();
+  }
+
+  Activator.current = this;
+  this.active = true;
+  this._dom.overlay.style.display = "none";
+
+  this._dom.container.classList.add("vis-active");
+
+  this.emit("change");
+  this.emit("activate"); // ugly hack: bind ESC after emitting the events, as the Network rebinds all
+  // keyboard events on a 'change' event
+
+  document.body.addEventListener("keydown", this._escListener);
+};
+/**
+ * Deactivate the element
+ * Overlay is displayed on top of the element
+ */
+
+
+Activator.prototype.deactivate = function () {
+  this.active = false;
+  this._dom.overlay.style.display = "block";
+
+  this._dom.container.classList.remove("vis-active");
+
+  document.body.removeEventListener("keydown", this._escListener);
+  this.emit("change");
+  this.emit("deactivate");
+};
+/**
+ * Handle a tap event: activate the container
+ *
+ * @param {Event}  event   The event
+ * @private
+ */
+
+
+Activator.prototype._onTapOverlay = function (event) {
+  // activate the container
+  this.activate();
+  event.srcEvent.stopPropagation();
+};
+/**
+ * Test whether the element has the requested parent element somewhere in
+ * its chain of parent nodes.
+ *
+ * @param {HTMLElement} element
+ * @param {HTMLElement} parent
+ * @returns {boolean} Returns true when the parent is found somewhere in the
+ *                    chain of parent nodes.
+ * @private
+ */
+
+
+function _hasParent(element, parent) {
+  while (element) {
+    if (element === parent) {
+      return true;
+    }
+
+    element = element.parentNode;
+  }
+
+  return false;
+} // utility functions
 
 var fullHexRE = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
 var shortHexRE = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -3090,9 +6581,9 @@ function deepExtend(a, b) {
           copyOrDelete(a, b, prop, allowDeletion);
         }
       } else if (isArray$2(b[prop])) {
-        var _context3;
+        var _context6;
 
-        a[prop] = slice(_context3 = b[prop]).call(_context3);
+        a[prop] = slice$1(_context6 = b[prop]).call(_context6);
       } else {
         copyOrDelete(a, b, prop, allowDeletion);
       }
@@ -3112,9 +6603,9 @@ function deepExtend(a, b) {
 
 
 function copyAndExtendArray(arr, newValue) {
-  var _context4;
+  var _context7;
 
-  return concat(_context4 = []).call(_context4, _toConsumableArray(arr), [newValue]);
+  return concat(_context7 = []).call(_context7, _toConsumableArray(arr), [newValue]);
 }
 /**
  * Used to extend an array and copy it. This is used to propagate paths recursively.
@@ -3126,7 +6617,7 @@ function copyAndExtendArray(arr, newValue) {
 
 
 function copyArray(arr) {
-  return slice(arr).call(arr);
+  return slice$1(arr).call(arr);
 }
 /**
  * Add and event listener. Works for all browsers.
@@ -3140,13 +6631,13 @@ function copyArray(arr) {
 
 function addEventListener(element, action, listener, useCapture) {
   if (element.addEventListener) {
-    var _context5;
+    var _context8;
 
     if (useCapture === undefined) {
       useCapture = false;
     }
 
-    if (action === "mousewheel" && indexOf(_context5 = navigator.userAgent).call(_context5, "Firefox") >= 0) {
+    if (action === "mousewheel" && includes(_context8 = navigator.userAgent).call(_context8, "Firefox")) {
       action = "DOMMouseScroll"; // For Firefox
     }
 
@@ -3168,14 +6659,14 @@ function addEventListener(element, action, listener, useCapture) {
 
 function removeEventListener(element, action, listener, useCapture) {
   if (element.removeEventListener) {
-    var _context6;
+    var _context9;
 
     // non-IE browsers
     if (useCapture === undefined) {
       useCapture = false;
     }
 
-    if (action === "mousewheel" && indexOf(_context6 = navigator.userAgent).call(_context6, "Firefox") >= 0) {
+    if (action === "mousewheel" && includes(_context9 = navigator.userAgent).call(_context9, "Firefox")) {
       action = "DOMMouseScroll"; // For Firefox
     }
 
@@ -3310,6 +6801,389 @@ function isValidHex(hex) {
   var isOk = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(hex);
   return isOk;
 }
+
+var errorFound = false;
+var allOptions$1;
+var VALIDATOR_PRINT_STYLE = "background: #FFeeee; color: #dd0000";
+/**
+ *  Used to validate options.
+ */
+
+var Validator = /*#__PURE__*/function () {
+  function Validator() {
+    _classCallCheck(this, Validator);
+  }
+
+  _createClass(Validator, null, [{
+    key: "validate",
+    value:
+    /**
+     * Main function to be called
+     *
+     * @param {object} options
+     * @param {object} referenceOptions
+     * @param {object} subObject
+     * @returns {boolean}
+     * @static
+     */
+    function validate(options, referenceOptions, subObject) {
+      errorFound = false;
+      allOptions$1 = referenceOptions;
+      var usedOptions = referenceOptions;
+
+      if (subObject !== undefined) {
+        usedOptions = referenceOptions[subObject];
+      }
+
+      Validator.parse(options, usedOptions, []);
+      return errorFound;
+    }
+    /**
+     * Will traverse an object recursively and check every value
+     *
+     * @param {object} options
+     * @param {object} referenceOptions
+     * @param {Array} path    | where to look for the actual option
+     * @static
+     */
+
+  }, {
+    key: "parse",
+    value: function parse(options, referenceOptions, path) {
+      for (var _option3 in options) {
+        if (Object.prototype.hasOwnProperty.call(options, _option3)) {
+          Validator.check(_option3, options, referenceOptions, path);
+        }
+      }
+    }
+    /**
+     * Check every value. If the value is an object, call the parse function on that object.
+     *
+     * @param {string} option
+     * @param {object} options
+     * @param {object} referenceOptions
+     * @param {Array} path    | where to look for the actual option
+     * @static
+     */
+
+  }, {
+    key: "check",
+    value: function check(option, options, referenceOptions, path) {
+      if (referenceOptions[option] === undefined && referenceOptions.__any__ === undefined) {
+        Validator.getSuggestion(option, referenceOptions, path);
+        return;
+      }
+
+      var referenceOption = option;
+      var is_object = true;
+
+      if (referenceOptions[option] === undefined && referenceOptions.__any__ !== undefined) {
+        // NOTE: This only triggers if the __any__ is in the top level of the options object.
+        //       THAT'S A REALLY BAD PLACE TO ALLOW IT!!!!
+        // TODO: Examine if needed, remove if possible
+        // __any__ is a wildcard. Any value is accepted and will be further analysed by reference.
+        referenceOption = "__any__"; // if the any-subgroup is not a predefined object in the configurator,
+        // we do not look deeper into the object.
+
+        is_object = Validator.getType(options[option]) === "object";
+      }
+
+      var refOptionObj = referenceOptions[referenceOption];
+
+      if (is_object && refOptionObj.__type__ !== undefined) {
+        refOptionObj = refOptionObj.__type__;
+      }
+
+      Validator.checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path);
+    }
+    /**
+     *
+     * @param {string}  option           | the option property
+     * @param {object}  options          | The supplied options object
+     * @param {object}  referenceOptions | The reference options containing all options and their allowed formats
+     * @param {string}  referenceOption  | Usually this is the same as option, except when handling an __any__ tag.
+     * @param {string}  refOptionObj     | This is the type object from the reference options
+     * @param {Array}   path             | where in the object is the option
+     * @static
+     */
+
+  }, {
+    key: "checkFields",
+    value: function checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path) {
+      var log = function log(message) {
+        console.error("%c" + message + Validator.printLocation(path, option), VALIDATOR_PRINT_STYLE);
+      };
+
+      var optionType = Validator.getType(options[option]);
+      var refOptionType = refOptionObj[optionType];
+
+      if (refOptionType !== undefined) {
+        // if the type is correct, we check if it is supposed to be one of a few select values
+        if (Validator.getType(refOptionType) === "array" && indexOf(refOptionType).call(refOptionType, options[option]) === -1) {
+          log('Invalid option detected in "' + option + '".' + " Allowed values are:" + Validator.print(refOptionType) + ' not "' + options[option] + '". ');
+          errorFound = true;
+        } else if (optionType === "object" && referenceOption !== "__any__") {
+          path = copyAndExtendArray(path, option);
+          Validator.parse(options[option], referenceOptions[referenceOption], path);
+        }
+      } else if (refOptionObj["any"] === undefined) {
+        // type of the field is incorrect and the field cannot be any
+        log('Invalid type received for "' + option + '". Expected: ' + Validator.print(keys(refOptionObj)) + ". Received [" + optionType + '] "' + options[option] + '"');
+        errorFound = true;
+      }
+    }
+    /**
+     *
+     * @param {object | boolean | number | string | Array.<number> | Date | Node | Moment | undefined | null} object
+     * @returns {string}
+     * @static
+     */
+
+  }, {
+    key: "getType",
+    value: function getType(object) {
+      var type = _typeof(object);
+
+      if (type === "object") {
+        if (object === null) {
+          return "null";
+        }
+
+        if (object instanceof Boolean) {
+          return "boolean";
+        }
+
+        if (object instanceof Number) {
+          return "number";
+        }
+
+        if (object instanceof String) {
+          return "string";
+        }
+
+        if (isArray$2(object)) {
+          return "array";
+        }
+
+        if (object instanceof Date) {
+          return "date";
+        }
+
+        if (object.nodeType !== undefined) {
+          return "dom";
+        }
+
+        if (object._isAMomentObject === true) {
+          return "moment";
+        }
+
+        return "object";
+      } else if (type === "number") {
+        return "number";
+      } else if (type === "boolean") {
+        return "boolean";
+      } else if (type === "string") {
+        return "string";
+      } else if (type === undefined) {
+        return "undefined";
+      }
+
+      return type;
+    }
+    /**
+     * @param {string} option
+     * @param {object} options
+     * @param {Array.<string>} path
+     * @static
+     */
+
+  }, {
+    key: "getSuggestion",
+    value: function getSuggestion(option, options, path) {
+      var localSearch = Validator.findInOptions(option, options, path, false);
+      var globalSearch = Validator.findInOptions(option, allOptions$1, [], true);
+      var localSearchThreshold = 8;
+      var globalSearchThreshold = 4;
+      var msg;
+
+      if (localSearch.indexMatch !== undefined) {
+        msg = " in " + Validator.printLocation(localSearch.path, option, "") + 'Perhaps it was incomplete? Did you mean: "' + localSearch.indexMatch + '"?\n\n';
+      } else if (globalSearch.distance <= globalSearchThreshold && localSearch.distance > globalSearch.distance) {
+        msg = " in " + Validator.printLocation(localSearch.path, option, "") + "Perhaps it was misplaced? Matching option found at: " + Validator.printLocation(globalSearch.path, globalSearch.closestMatch, "");
+      } else if (localSearch.distance <= localSearchThreshold) {
+        msg = '. Did you mean "' + localSearch.closestMatch + '"?' + Validator.printLocation(localSearch.path, option);
+      } else {
+        msg = ". Did you mean one of these: " + Validator.print(keys(options)) + Validator.printLocation(path, option);
+      }
+
+      console.error('%cUnknown option detected: "' + option + '"' + msg, VALIDATOR_PRINT_STYLE);
+      errorFound = true;
+    }
+    /**
+     * traverse the options in search for a match.
+     *
+     * @param {string} option
+     * @param {object} options
+     * @param {Array} path    | where to look for the actual option
+     * @param {boolean} [recursive=false]
+     * @returns {{closestMatch: string, path: Array, distance: number}}
+     * @static
+     */
+
+  }, {
+    key: "findInOptions",
+    value: function findInOptions(option, options, path) {
+      var recursive = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+      var min = 1e9;
+      var closestMatch = "";
+      var closestMatchPath = [];
+      var lowerCaseOption = option.toLowerCase();
+      var indexMatch = undefined;
+
+      for (var op in options) {
+        var distance = void 0;
+
+        if (options[op].__type__ !== undefined && recursive === true) {
+          var result = Validator.findInOptions(option, options[op], copyAndExtendArray(path, op));
+
+          if (min > result.distance) {
+            closestMatch = result.closestMatch;
+            closestMatchPath = result.path;
+            min = result.distance;
+            indexMatch = result.indexMatch;
+          }
+        } else {
+          var _context20;
+
+          if (indexOf(_context20 = op.toLowerCase()).call(_context20, lowerCaseOption) !== -1) {
+            indexMatch = op;
+          }
+
+          distance = Validator.levenshteinDistance(option, op);
+
+          if (min > distance) {
+            closestMatch = op;
+            closestMatchPath = copyArray(path);
+            min = distance;
+          }
+        }
+      }
+
+      return {
+        closestMatch: closestMatch,
+        path: closestMatchPath,
+        distance: min,
+        indexMatch: indexMatch
+      };
+    }
+    /**
+     * @param {Array.<string>} path
+     * @param {object} option
+     * @param {string} prefix
+     * @returns {string}
+     * @static
+     */
+
+  }, {
+    key: "printLocation",
+    value: function printLocation(path, option) {
+      var prefix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Problem value found at: \n";
+      var str = "\n\n" + prefix + "options = {\n";
+
+      for (var i = 0; i < path.length; i++) {
+        for (var j = 0; j < i + 1; j++) {
+          str += "  ";
+        }
+
+        str += path[i] + ": {\n";
+      }
+
+      for (var _j = 0; _j < path.length + 1; _j++) {
+        str += "  ";
+      }
+
+      str += option + "\n";
+
+      for (var _i3 = 0; _i3 < path.length + 1; _i3++) {
+        for (var _j2 = 0; _j2 < path.length - _i3; _j2++) {
+          str += "  ";
+        }
+
+        str += "}\n";
+      }
+
+      return str + "\n\n";
+    }
+    /**
+     * @param {object} options
+     * @returns {string}
+     * @static
+     */
+
+  }, {
+    key: "print",
+    value: function print(options) {
+      return stringify(options).replace(/(")|(\[)|(\])|(,"__type__")/g, "").replace(/(,)/g, ", ");
+    }
+    /**
+     *  Compute the edit distance between the two given strings
+     * http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#JavaScript
+     *
+     * Copyright (c) 2011 Andrei Mackenzie
+     *
+     * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+     *
+     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+     *
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+     *
+     * @param {string} a
+     * @param {string} b
+     * @returns {Array.<Array.<number>>}}
+     * @static
+     */
+
+  }, {
+    key: "levenshteinDistance",
+    value: function levenshteinDistance(a, b) {
+      if (a.length === 0) return b.length;
+      if (b.length === 0) return a.length;
+      var matrix = []; // increment along the first column of each row
+
+      var i;
+
+      for (i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+      } // increment each column in the first row
+
+
+      var j;
+
+      for (j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+      } // Fill in the rest of the matrix
+
+
+      for (i = 1; i <= b.length; i++) {
+        for (j = 1; j <= a.length; j++) {
+          if (b.charAt(i - 1) == a.charAt(j - 1)) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, // substitution
+            Math.min(matrix[i][j - 1] + 1, // insertion
+            matrix[i - 1][j] + 1)); // deletion
+          }
+        }
+      }
+
+      return matrix[b.length][a.length];
+    }
+  }]);
+
+  return Validator;
+}();
+var VALIDATOR_PRINT_STYLE$1 = VALIDATOR_PRINT_STYLE;
+var Validator$1 = Validator;
 
 /**
  * @prototype Point3d
@@ -3568,7 +7442,7 @@ Slider.prototype.playNext = function () {
   var interval = Math.max(this.playInterval - diff, 0); // document.title = diff // TODO: cleanup
 
   var me = this;
-  this.playTimeout = setTimeout(function () {
+  this.playTimeout = setTimeout$1(function () {
     me.playNext();
   }, interval);
 };
@@ -3961,37 +7835,6 @@ StepNumber.prototype.end = function () {
 
 var StepNumber_1 = StepNumber;
 
-var nativeReverse = [].reverse;
-var test = [1, 2]; // `Array.prototype.reverse` method
-// https://tc39.es/ecma262/#sec-array.prototype.reverse
-// fix for Safari 12.0 bug
-// https://bugs.webkit.org/show_bug.cgi?id=188794
-
-_export({
-  target: 'Array',
-  proto: true,
-  forced: String(test) === String(test.reverse())
-}, {
-  reverse: function reverse() {
-    // eslint-disable-next-line no-self-assign -- dirty hack
-    if (isArray$5(this)) this.length = this.length;
-    return nativeReverse.call(this);
-  }
-});
-
-var reverse$2 = entryVirtual('Array').reverse;
-
-var ArrayPrototype = Array.prototype;
-
-var reverse_1 = function (it) {
-  var own = it.reverse;
-  return it === ArrayPrototype || it instanceof Array && own === ArrayPrototype.reverse ? reverse$2 : own;
-};
-
-var reverse$1 = reverse_1;
-
-var reverse = reverse$1;
-
 // `Math.sign` method implementation
 // https://tc39.es/ecma262/#sec-math.sign
 var mathSign = Math.sign || function sign(x) {
@@ -4266,7 +8109,7 @@ function capitalize(str) {
     return str;
   }
 
-  return str.charAt(0).toUpperCase() + slice(str).call(str, 1);
+  return str.charAt(0).toUpperCase() + slice$1(str).call(str, 1);
 }
 /**
  * Add a prefix to a field name, taking style guide into account
@@ -4741,459 +8584,6 @@ function setCameraPosition(cameraPosition, dst) {
   dst.camera.setArmRotation(camPos.horizontal, camPos.vertical);
   dst.camera.setArmLength(camPos.distance);
 }
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-
-    defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-var $stringify = getBuiltIn('JSON', 'stringify');
-var re = /[\uD800-\uDFFF]/g;
-var low = /^[\uD800-\uDBFF]$/;
-var hi = /^[\uDC00-\uDFFF]$/;
-
-var fix = function (match, offset, string) {
-  var prev = string.charAt(offset - 1);
-  var next = string.charAt(offset + 1);
-
-  if (low.test(match) && !hi.test(next) || hi.test(match) && !low.test(prev)) {
-    return '\\u' + match.charCodeAt(0).toString(16);
-  }
-
-  return match;
-};
-
-var FORCED = fails(function () {
-  return $stringify('\uDF06\uD834') !== '"\\udf06\\ud834"' || $stringify('\uDEAD') !== '"\\udead"';
-});
-
-if ($stringify) {
-  // `JSON.stringify` method
-  // https://tc39.es/ecma262/#sec-json.stringify
-  // https://github.com/tc39/proposal-well-formed-stringify
-  _export({
-    target: 'JSON',
-    stat: true,
-    forced: FORCED
-  }, {
-    // eslint-disable-next-line no-unused-vars -- required for `.length`
-    stringify: function stringify(it, replacer, space) {
-      var result = $stringify.apply(null, arguments);
-      return typeof result == 'string' ? result.replace(re, fix) : result;
-    }
-  });
-}
-
-if (!path.JSON) path.JSON = {
-  stringify: JSON.stringify
-}; // eslint-disable-next-line no-unused-vars -- required for `.length`
-
-var stringify$2 = function stringify(it, replacer, space) {
-  return path.JSON.stringify.apply(null, arguments);
-};
-
-var stringify$1 = stringify$2;
-
-var stringify = stringify$1;
-
-var errorFound = false;
-var allOptions$1;
-var printStyle = 'background: #FFeeee; color: #dd0000';
-/**
- *  Used to validate options.
- */
-
-var Validator = /*#__PURE__*/function () {
-  /**
-   * @ignore
-   */
-  function Validator() {
-    _classCallCheck(this, Validator);
-  }
-  /**
-   * Main function to be called
-   * @param {Object} options
-   * @param {Object} referenceOptions
-   * @param {Object} subObject
-   * @returns {boolean}
-   * @static
-   */
-
-
-  _createClass(Validator, null, [{
-    key: "validate",
-    value: function validate(options, referenceOptions, subObject) {
-      errorFound = false;
-      allOptions$1 = referenceOptions;
-      var usedOptions = referenceOptions;
-
-      if (subObject !== undefined) {
-        usedOptions = referenceOptions[subObject];
-      }
-
-      Validator.parse(options, usedOptions, []);
-      return errorFound;
-    }
-    /**
-     * Will traverse an object recursively and check every value
-     * @param {Object} options
-     * @param {Object} referenceOptions
-     * @param {array} path    | where to look for the actual option
-     * @static
-     */
-
-  }, {
-    key: "parse",
-    value: function parse(options, referenceOptions, path) {
-      for (var option in options) {
-        if (options.hasOwnProperty(option)) {
-          Validator.check(option, options, referenceOptions, path);
-        }
-      }
-    }
-    /**
-     * Check every value. If the value is an object, call the parse function on that object.
-     * @param {string} option
-     * @param {Object} options
-     * @param {Object} referenceOptions
-     * @param {array} path    | where to look for the actual option
-     * @static
-     */
-
-  }, {
-    key: "check",
-    value: function check(option, options, referenceOptions, path) {
-      if (referenceOptions[option] === undefined && referenceOptions.__any__ === undefined) {
-        Validator.getSuggestion(option, referenceOptions, path);
-        return;
-      }
-
-      var referenceOption = option;
-      var is_object = true;
-
-      if (referenceOptions[option] === undefined && referenceOptions.__any__ !== undefined) {
-        // NOTE: This only triggers if the __any__ is in the top level of the options object.
-        //       THAT'S A REALLY BAD PLACE TO ALLOW IT!!!!
-        // TODO: Examine if needed, remove if possible
-        // __any__ is a wildcard. Any value is accepted and will be further analysed by reference.
-        referenceOption = '__any__'; // if the any-subgroup is not a predefined object in the configurator,
-        // we do not look deeper into the object.
-
-        is_object = Validator.getType(options[option]) === 'object';
-      }
-
-      var refOptionObj = referenceOptions[referenceOption];
-
-      if (is_object && refOptionObj.__type__ !== undefined) {
-        refOptionObj = refOptionObj.__type__;
-      }
-
-      Validator.checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path);
-    }
-    /**
-     *
-     * @param {string}  option           | the option property
-     * @param {Object}  options          | The supplied options object
-     * @param {Object}  referenceOptions | The reference options containing all options and their allowed formats
-     * @param {string}  referenceOption  | Usually this is the same as option, except when handling an __any__ tag.
-     * @param {string}  refOptionObj     | This is the type object from the reference options
-     * @param {Array}   path             | where in the object is the option
-     * @static
-     */
-
-  }, {
-    key: "checkFields",
-    value: function checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path) {
-      var log = function log(message) {
-        console.log('%c' + message + Validator.printLocation(path, option), printStyle);
-      };
-
-      var optionType = Validator.getType(options[option]);
-      var refOptionType = refOptionObj[optionType];
-
-      if (refOptionType !== undefined) {
-        // if the type is correct, we check if it is supposed to be one of a few select values
-        if (Validator.getType(refOptionType) === 'array' && indexOf(refOptionType).call(refOptionType, options[option]) === -1) {
-          log('Invalid option detected in "' + option + '".' + ' Allowed values are:' + Validator.print(refOptionType) + ' not "' + options[option] + '". ');
-          errorFound = true;
-        } else if (optionType === 'object' && referenceOption !== "__any__") {
-          path = copyAndExtendArray(path, option);
-          Validator.parse(options[option], referenceOptions[referenceOption], path);
-        }
-      } else if (refOptionObj['any'] === undefined) {
-        // type of the field is incorrect and the field cannot be any
-        log('Invalid type received for "' + option + '". Expected: ' + Validator.print(keys(refOptionObj)) + '. Received [' + optionType + '] "' + options[option] + '"');
-        errorFound = true;
-      }
-    }
-    /**
-     *
-     * @param {Object|boolean|number|string|Array.<number>|Date|Node|Moment|undefined|null} object
-     * @returns {string}
-     * @static
-     */
-
-  }, {
-    key: "getType",
-    value: function getType(object) {
-      var type = _typeof(object);
-
-      if (type === 'object') {
-        if (object === null) {
-          return 'null';
-        }
-
-        if (object instanceof Boolean) {
-          return 'boolean';
-        }
-
-        if (object instanceof Number) {
-          return 'number';
-        }
-
-        if (object instanceof String) {
-          return 'string';
-        }
-
-        if (isArray$2(object)) {
-          return 'array';
-        }
-
-        if (object instanceof Date) {
-          return 'date';
-        }
-
-        if (object.nodeType !== undefined) {
-          return 'dom';
-        }
-
-        if (object._isAMomentObject === true) {
-          return 'moment';
-        }
-
-        return 'object';
-      } else if (type === 'number') {
-        return 'number';
-      } else if (type === 'boolean') {
-        return 'boolean';
-      } else if (type === 'string') {
-        return 'string';
-      } else if (type === undefined) {
-        return 'undefined';
-      }
-
-      return type;
-    }
-    /**
-     * @param {string} option
-     * @param {Object} options
-     * @param {Array.<string>} path
-     * @static
-     */
-
-  }, {
-    key: "getSuggestion",
-    value: function getSuggestion(option, options, path) {
-      var localSearch = Validator.findInOptions(option, options, path, false);
-      var globalSearch = Validator.findInOptions(option, allOptions$1, [], true);
-      var localSearchThreshold = 8;
-      var globalSearchThreshold = 4;
-      var msg;
-
-      if (localSearch.indexMatch !== undefined) {
-        msg = ' in ' + Validator.printLocation(localSearch.path, option, '') + 'Perhaps it was incomplete? Did you mean: "' + localSearch.indexMatch + '"?\n\n';
-      } else if (globalSearch.distance <= globalSearchThreshold && localSearch.distance > globalSearch.distance) {
-        msg = ' in ' + Validator.printLocation(localSearch.path, option, '') + 'Perhaps it was misplaced? Matching option found at: ' + Validator.printLocation(globalSearch.path, globalSearch.closestMatch, '');
-      } else if (localSearch.distance <= localSearchThreshold) {
-        msg = '. Did you mean "' + localSearch.closestMatch + '"?' + Validator.printLocation(localSearch.path, option);
-      } else {
-        msg = '. Did you mean one of these: ' + Validator.print(keys(options)) + Validator.printLocation(path, option);
-      }
-
-      console.log('%cUnknown option detected: "' + option + '"' + msg, printStyle);
-      errorFound = true;
-    }
-    /**
-     * traverse the options in search for a match.
-     * @param {string} option
-     * @param {Object} options
-     * @param {Array} path    | where to look for the actual option
-     * @param {boolean} [recursive=false]
-     * @returns {{closestMatch: string, path: Array, distance: number}}
-     * @static
-     */
-
-  }, {
-    key: "findInOptions",
-    value: function findInOptions(option, options, path) {
-      var recursive = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-      var min = 1e9;
-      var closestMatch = '';
-      var closestMatchPath = [];
-      var lowerCaseOption = option.toLowerCase();
-      var indexMatch = undefined;
-
-      for (var op in options) {
-        // eslint-disable-line guard-for-in
-        var distance = void 0;
-
-        if (options[op].__type__ !== undefined && recursive === true) {
-          var result = Validator.findInOptions(option, options[op], copyAndExtendArray(path, op));
-
-          if (min > result.distance) {
-            closestMatch = result.closestMatch;
-            closestMatchPath = result.path;
-            min = result.distance;
-            indexMatch = result.indexMatch;
-          }
-        } else {
-          var _context;
-
-          if (indexOf(_context = op.toLowerCase()).call(_context, lowerCaseOption) !== -1) {
-            indexMatch = op;
-          }
-
-          distance = Validator.levenshteinDistance(option, op);
-
-          if (min > distance) {
-            closestMatch = op;
-            closestMatchPath = copyArray(path);
-            min = distance;
-          }
-        }
-      }
-
-      return {
-        closestMatch: closestMatch,
-        path: closestMatchPath,
-        distance: min,
-        indexMatch: indexMatch
-      };
-    }
-    /**
-     * @param {Array.<string>} path
-     * @param {Object} option
-     * @param {string} prefix
-     * @returns {String}
-     * @static
-     */
-
-  }, {
-    key: "printLocation",
-    value: function printLocation(path, option) {
-      var prefix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Problem value found at: \n';
-      var str = '\n\n' + prefix + 'options = {\n';
-
-      for (var i = 0; i < path.length; i++) {
-        for (var j = 0; j < i + 1; j++) {
-          str += '  ';
-        }
-
-        str += path[i] + ': {\n';
-      }
-
-      for (var _j = 0; _j < path.length + 1; _j++) {
-        str += '  ';
-      }
-
-      str += option + '\n';
-
-      for (var _i = 0; _i < path.length + 1; _i++) {
-        for (var _j2 = 0; _j2 < path.length - _i; _j2++) {
-          str += '  ';
-        }
-
-        str += '}\n';
-      }
-
-      return str + '\n\n';
-    }
-    /**
-     * @param {Object} options
-     * @returns {String}
-     * @static
-     */
-
-  }, {
-    key: "print",
-    value: function print(options) {
-      return stringify(options).replace(/(\")|(\[)|(\])|(,"__type__")/g, "").replace(/(\,)/g, ', ');
-    }
-    /**
-     *  Compute the edit distance between the two given strings
-     * http://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#JavaScript
-     *
-     * Copyright (c) 2011 Andrei Mackenzie
-     *
-     * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-     *
-     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-     *
-     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-     *
-     * @param {string} a
-     * @param {string} b
-     * @returns {Array.<Array.<number>>}}
-     * @static
-     */
-
-  }, {
-    key: "levenshteinDistance",
-    value: function levenshteinDistance(a, b) {
-      if (a.length === 0) return b.length;
-      if (b.length === 0) return a.length;
-      var matrix = []; // increment along the first column of each row
-
-      var i;
-
-      for (i = 0; i <= b.length; i++) {
-        matrix[i] = [i];
-      } // increment each column in the first row
-
-
-      var j;
-
-      for (j = 0; j <= a.length; j++) {
-        matrix[0][j] = j;
-      } // Fill in the rest of the matrix
-
-
-      for (i = 1; i <= b.length; i++) {
-        for (j = 1; j <= a.length; j++) {
-          if (b.charAt(i - 1) == a.charAt(j - 1)) {
-            matrix[i][j] = matrix[i - 1][j - 1];
-          } else {
-            matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, // substitution
-            Math.min(matrix[i][j - 1] + 1, // insertion
-            matrix[i - 1][j] + 1)); // deletion
-          }
-        }
-      }
-
-      return matrix[b.length][a.length];
-    }
-  }]);
-
-  return Validator;
-}();
 
 /**
  * This object contains all possible options. It will check if the types are correct, if required if the option is one
@@ -5845,7 +9235,7 @@ Filter.prototype.loadInBackground = function (index) {
     frame.progress.style.left = 10 + 'px';
     var me = this;
 
-    setTimeout(function () {
+    setTimeout$1(function () {
       me.loadInBackground(index + 1);
     }, 10);
 
@@ -6938,10 +10328,10 @@ Graph3d.prototype.setData = function (data) {
 
 Graph3d.prototype.setOptions = function (options) {
   if (options === undefined) return;
-  var errorFound = Validator.validate(options, allOptions);
+  var errorFound = Validator$1.validate(options, allOptions);
 
   if (errorFound === true) {
-    console.log('%cErrors have been found in the supplied options object.', printStyle);
+    console.log("%cErrors have been found in the supplied options object.", VALIDATOR_PRINT_STYLE$1);
   }
 
   this.animationStop();
@@ -8525,7 +11915,7 @@ Graph3d.prototype._onTooltip = function (event) {
   } else {
     // tooltip is currently not visible
     var me = this;
-    this.tooltipTimeout = setTimeout(function () {
+    this.tooltipTimeout = setTimeout$1(function () {
       me.tooltipTimeout = null; // show a tooltip if we have a data point
 
       var dataPoint = me._dataPointFromXY(mouseX, mouseY);
@@ -8745,17 +12135,17 @@ Graph3d.prototype._showTooltip = function (dataPoint) {
   if (!this.tooltip) {
     content = document.createElement('div');
 
-    assign(content.style, {}, this.tooltipStyle.content);
+    assign$2(content.style, {}, this.tooltipStyle.content);
 
     content.style.position = 'absolute';
     line = document.createElement('div');
 
-    assign(line.style, {}, this.tooltipStyle.line);
+    assign$2(line.style, {}, this.tooltipStyle.line);
 
     line.style.position = 'absolute';
     dot = document.createElement('div');
 
-    assign(dot.style, {}, this.tooltipStyle.dot);
+    assign$2(dot.style, {}, this.tooltipStyle.dot);
 
     dot.style.position = 'absolute';
     this.tooltip = {
