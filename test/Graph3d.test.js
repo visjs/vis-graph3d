@@ -2,8 +2,7 @@ var assert = require('assert');
 import Graph3d from '../lib/graph3d/Graph3d';
 var canvasMockify = require('./canvas-mock');
 var stdout = require('test-console').stdout;
-var Validator = require("./../lib/shared/Validator").Validator;
-//var {printStyle} = require('./../lib/shared/Validator');
+var {Validator} = require("vis-util/esnext");
 var {allOptions} = require('./../lib/graph3d/options.js');
 
 describe('Graph3d', function () {
