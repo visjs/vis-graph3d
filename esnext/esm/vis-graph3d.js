@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-03-16T14:15:08.699Z
+ * @date    2021-03-16T18:35:55.791Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -25,7 +25,8 @@
  */
 
 import Emitter from 'component-emitter';
-import { addEventListener, preventDefault, removeEventListener, selectiveDeepExtend, isValidHex, hexToRGB, HSVToRGB, Validator, VALIDATOR_PRINT_STYLE } from 'vis-util/esnext/esm/vis-util.js';
+import * as util from 'vis-util/esnext/esm/vis-util.js';
+import { Validator, VALIDATOR_PRINT_STYLE } from 'vis-util/esnext/esm/vis-util.js';
 import { DataView, DataSet } from 'vis-data/esnext/esm/vis-data.js';
 
 /**
@@ -451,9 +452,9 @@ Slider.prototype._onMouseDown = function(event) {
   var me = this;
   this.onmousemove = function (event) {me._onMouseMove(event);};
   this.onmouseup   = function (event) {me._onMouseUp(event);};
-  addEventListener(document, 'mousemove', this.onmousemove);
-  addEventListener(document, 'mouseup',   this.onmouseup);
-  preventDefault(event);
+  util.addEventListener(document, 'mousemove', this.onmousemove);
+  util.addEventListener(document, 'mouseup',   this.onmouseup);
+  util.preventDefault(event);
 };
 
 
@@ -489,7 +490,7 @@ Slider.prototype._onMouseMove = function (event) {
 
   this.setIndex(index);
 
-  preventDefault();
+  util.preventDefault();
 };
 
 
@@ -497,10 +498,10 @@ Slider.prototype._onMouseUp = function (event) {  // eslint-disable-line no-unus
   this.frame.style.cursor = 'auto';
 
   // remove event listeners
-  removeEventListener(document, 'mousemove', this.onmousemove);
-  removeEventListener(document, 'mouseup', this.onmouseup);
+  util.removeEventListener(document, 'mousemove', this.onmousemove);
+  util.removeEventListener(document, 'mouseup', this.onmouseup);
 
-  preventDefault();
+  util.preventDefault();
 };
 
 /**
@@ -1187,7 +1188,7 @@ function setSpecialSettings(src, dst) {
   }
 
   if (src.tooltipStyle !== undefined) {
-    selectiveDeepExtend(['tooltipStyle'], dst, src);
+    util.selectiveDeepExtend(['tooltipStyle'], dst, src);
   }
 }
 
@@ -1412,10 +1413,10 @@ function parseColorArray(colormap) {
     throw new Error('Colormap array length must be 2 or above.');
   }
   return colormap.map(function(colorCode){
-    if(!isValidHex(colorCode)) {
+    if(!util.isValidHex(colorCode)) {
       throw new Error(`Invalid hex color code supplied to colormap.`);
     }
-    return hexToRGB(colorCode);
+    return util.hexToRGB(colorCode);
   });
 }
 
@@ -1446,7 +1447,7 @@ function parseColorObject(hues) {
   for (let i = 0; i < hues.colorStops; ++i) {
     let hue = (hues.start + hueStep * i) % 360 / 360;
     rgbColors.push(
-      HSVToRGB(
+      util.HSVToRGB(
         hue < 0 ? hue + 1 : hue,
         hues.saturation/100,
         hues.brightness/100
@@ -2910,11 +2911,11 @@ Graph3d.prototype.create = function () {
   var onclick = function(event) {me._onClick(event);};
   // TODO: these events are never cleaned up... can give a 'memory leakage'
 
-  addEventListener(this.frame.canvas, 'mousedown', onmousedown);
-  addEventListener(this.frame.canvas, 'touchstart', ontouchstart);
-  addEventListener(this.frame.canvas, 'mousewheel', onmousewheel);
-  addEventListener(this.frame.canvas, 'mousemove', ontooltip);
-  addEventListener(this.frame.canvas, 'click', onclick);
+  util.addEventListener(this.frame.canvas, 'mousedown', onmousedown);
+  util.addEventListener(this.frame.canvas, 'touchstart', ontouchstart);
+  util.addEventListener(this.frame.canvas, 'mousewheel', onmousewheel);
+  util.addEventListener(this.frame.canvas, 'mousemove', ontooltip);
+  util.addEventListener(this.frame.canvas, 'click', onclick);
 
   // add the new graph to the container element
   this.containerElement.appendChild(this.frame);
@@ -4060,7 +4061,7 @@ Graph3d.prototype._colormap = function(x, v=1) {
     ({r, g, b, a} = colormap(x));
   } else {
     const hue = (1 - x) * 240;
-    ({r, g, b} = HSVToRGB(hue/360, 1, 1));
+    ({r, g, b} = util.HSVToRGB(hue/360, 1, 1));
   }
   if (typeof a === 'number' && !Number.isNaN(a)) {
     return `RGBA(${Math.round(r*v)}, ${Math.round(g*v)}, ${Math.round(b*v)}, ${a})`;
@@ -4420,9 +4421,9 @@ Graph3d.prototype._onMouseDown = function(event) {
   var me = this;
   this.onmousemove = function (event) {me._onMouseMove(event);};
   this.onmouseup   = function (event) {me._onMouseUp(event);};
-  addEventListener(document, 'mousemove', me.onmousemove);
-  addEventListener(document, 'mouseup', me.onmouseup);
-  preventDefault(event);
+  util.addEventListener(document, 'mousemove', me.onmousemove);
+  util.addEventListener(document, 'mouseup', me.onmouseup);
+  util.preventDefault(event);
 };
 
 
@@ -4482,7 +4483,7 @@ Graph3d.prototype._onMouseMove = function (event) {
   var parameters = this.getCameraPosition();
   this.emit('cameraPositionChange', parameters);
 
-  preventDefault(event);
+  util.preventDefault(event);
 };
 
 
@@ -4496,9 +4497,9 @@ Graph3d.prototype._onMouseUp = function (event) {
   this.leftButtonDown = false;
 
   // remove event listeners here
-  removeEventListener(document, 'mousemove', this.onmousemove);
-  removeEventListener(document, 'mouseup',   this.onmouseup);
-  preventDefault(event);
+  util.removeEventListener(document, 'mousemove', this.onmousemove);
+  util.removeEventListener(document, 'mouseup',   this.onmouseup);
+  util.preventDefault(event);
 };
 
 /**
@@ -4522,7 +4523,7 @@ Graph3d.prototype._onClick = function (event) {
   else { // disable onclick callback, if it came immediately after rotate/pan
     this.moving = false;
   }
-  preventDefault(event);
+  util.preventDefault(event);
 };
 
 /**
@@ -4587,8 +4588,8 @@ Graph3d.prototype._onTouchStart = function(event) {
   var me = this;
   this.ontouchmove = function (event) {me._onTouchMove(event);};
   this.ontouchend  = function (event) {me._onTouchEnd(event);};
-  addEventListener(document, 'touchmove', me.ontouchmove);
-  addEventListener(document, 'touchend', me.ontouchend);
+  util.addEventListener(document, 'touchmove', me.ontouchmove);
+  util.addEventListener(document, 'touchend', me.ontouchend);
 
   this._onMouseDown(event);
 };
@@ -4608,8 +4609,8 @@ Graph3d.prototype._onTouchMove = function(event) {
 Graph3d.prototype._onTouchEnd = function(event) {
   this.touchDown = false;
 
-  removeEventListener(document, 'touchmove', this.ontouchmove);
-  removeEventListener(document, 'touchend',   this.ontouchend);
+  util.removeEventListener(document, 'touchmove', this.ontouchmove);
+  util.removeEventListener(document, 'touchend',   this.ontouchend);
 
   this._onMouseUp(event);
 };
@@ -4655,7 +4656,7 @@ Graph3d.prototype._onWheel = function(event) {
     // Prevent default actions caused by mouse wheel.
     // That might be ugly, but we handle scrolls somehow
     // anyway, so don't bother here..
-    preventDefault(event);
+    util.preventDefault(event);
   }
 };
 

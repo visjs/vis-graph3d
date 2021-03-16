@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-03-16T14:15:08.699Z
+ * @date    2021-03-16T18:35:55.791Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -31,7 +31,28 @@
 }(this, (function (exports, Emitter, util, esnext) {
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+  function _interopNamespace(e) {
+    if (e && e.__esModule) return e;
+    var n = Object.create(null);
+    if (e) {
+      Object.keys(e).forEach(function (k) {
+        if (k !== 'default') {
+          var d = Object.getOwnPropertyDescriptor(e, k);
+          Object.defineProperty(n, k, d.get ? d : {
+            enumerable: true,
+            get: function () {
+              return e[k];
+            }
+          });
+        }
+      });
+    }
+    n['default'] = e;
+    return Object.freeze(n);
+  }
+
   var Emitter__default = /*#__PURE__*/_interopDefaultLegacy(Emitter);
+  var util__namespace = /*#__PURE__*/_interopNamespace(util);
 
   /**
    * @prototype Point3d
@@ -456,9 +477,9 @@
     var me = this;
     this.onmousemove = function (event) {me._onMouseMove(event);};
     this.onmouseup   = function (event) {me._onMouseUp(event);};
-    util.addEventListener(document, 'mousemove', this.onmousemove);
-    util.addEventListener(document, 'mouseup',   this.onmouseup);
-    util.preventDefault(event);
+    util__namespace.addEventListener(document, 'mousemove', this.onmousemove);
+    util__namespace.addEventListener(document, 'mouseup',   this.onmouseup);
+    util__namespace.preventDefault(event);
   };
 
 
@@ -494,7 +515,7 @@
 
     this.setIndex(index);
 
-    util.preventDefault();
+    util__namespace.preventDefault();
   };
 
 
@@ -502,10 +523,10 @@
     this.frame.style.cursor = 'auto';
 
     // remove event listeners
-    util.removeEventListener(document, 'mousemove', this.onmousemove);
-    util.removeEventListener(document, 'mouseup', this.onmouseup);
+    util__namespace.removeEventListener(document, 'mousemove', this.onmousemove);
+    util__namespace.removeEventListener(document, 'mouseup', this.onmouseup);
 
-    util.preventDefault();
+    util__namespace.preventDefault();
   };
 
   /**
@@ -1192,7 +1213,7 @@
     }
 
     if (src.tooltipStyle !== undefined) {
-      util.selectiveDeepExtend(['tooltipStyle'], dst, src);
+      util__namespace.selectiveDeepExtend(['tooltipStyle'], dst, src);
     }
   }
 
@@ -1417,10 +1438,10 @@
       throw new Error('Colormap array length must be 2 or above.');
     }
     return colormap.map(function(colorCode){
-      if(!util.isValidHex(colorCode)) {
+      if(!util__namespace.isValidHex(colorCode)) {
         throw new Error(`Invalid hex color code supplied to colormap.`);
       }
-      return util.hexToRGB(colorCode);
+      return util__namespace.hexToRGB(colorCode);
     });
   }
 
@@ -1451,7 +1472,7 @@
     for (let i = 0; i < hues.colorStops; ++i) {
       let hue = (hues.start + hueStep * i) % 360 / 360;
       rgbColors.push(
-        util.HSVToRGB(
+        util__namespace.HSVToRGB(
           hue < 0 ? hue + 1 : hue,
           hues.saturation/100,
           hues.brightness/100
@@ -2915,11 +2936,11 @@
     var onclick = function(event) {me._onClick(event);};
     // TODO: these events are never cleaned up... can give a 'memory leakage'
 
-    util.addEventListener(this.frame.canvas, 'mousedown', onmousedown);
-    util.addEventListener(this.frame.canvas, 'touchstart', ontouchstart);
-    util.addEventListener(this.frame.canvas, 'mousewheel', onmousewheel);
-    util.addEventListener(this.frame.canvas, 'mousemove', ontooltip);
-    util.addEventListener(this.frame.canvas, 'click', onclick);
+    util__namespace.addEventListener(this.frame.canvas, 'mousedown', onmousedown);
+    util__namespace.addEventListener(this.frame.canvas, 'touchstart', ontouchstart);
+    util__namespace.addEventListener(this.frame.canvas, 'mousewheel', onmousewheel);
+    util__namespace.addEventListener(this.frame.canvas, 'mousemove', ontooltip);
+    util__namespace.addEventListener(this.frame.canvas, 'click', onclick);
 
     // add the new graph to the container element
     this.containerElement.appendChild(this.frame);
@@ -4065,7 +4086,7 @@
       ({r, g, b, a} = colormap(x));
     } else {
       const hue = (1 - x) * 240;
-      ({r, g, b} = util.HSVToRGB(hue/360, 1, 1));
+      ({r, g, b} = util__namespace.HSVToRGB(hue/360, 1, 1));
     }
     if (typeof a === 'number' && !Number.isNaN(a)) {
       return `RGBA(${Math.round(r*v)}, ${Math.round(g*v)}, ${Math.round(b*v)}, ${a})`;
@@ -4425,9 +4446,9 @@
     var me = this;
     this.onmousemove = function (event) {me._onMouseMove(event);};
     this.onmouseup   = function (event) {me._onMouseUp(event);};
-    util.addEventListener(document, 'mousemove', me.onmousemove);
-    util.addEventListener(document, 'mouseup', me.onmouseup);
-    util.preventDefault(event);
+    util__namespace.addEventListener(document, 'mousemove', me.onmousemove);
+    util__namespace.addEventListener(document, 'mouseup', me.onmouseup);
+    util__namespace.preventDefault(event);
   };
 
 
@@ -4487,7 +4508,7 @@
     var parameters = this.getCameraPosition();
     this.emit('cameraPositionChange', parameters);
 
-    util.preventDefault(event);
+    util__namespace.preventDefault(event);
   };
 
 
@@ -4501,9 +4522,9 @@
     this.leftButtonDown = false;
 
     // remove event listeners here
-    util.removeEventListener(document, 'mousemove', this.onmousemove);
-    util.removeEventListener(document, 'mouseup',   this.onmouseup);
-    util.preventDefault(event);
+    util__namespace.removeEventListener(document, 'mousemove', this.onmousemove);
+    util__namespace.removeEventListener(document, 'mouseup',   this.onmouseup);
+    util__namespace.preventDefault(event);
   };
 
   /**
@@ -4527,7 +4548,7 @@
     else { // disable onclick callback, if it came immediately after rotate/pan
       this.moving = false;
     }
-    util.preventDefault(event);
+    util__namespace.preventDefault(event);
   };
 
   /**
@@ -4592,8 +4613,8 @@
     var me = this;
     this.ontouchmove = function (event) {me._onTouchMove(event);};
     this.ontouchend  = function (event) {me._onTouchEnd(event);};
-    util.addEventListener(document, 'touchmove', me.ontouchmove);
-    util.addEventListener(document, 'touchend', me.ontouchend);
+    util__namespace.addEventListener(document, 'touchmove', me.ontouchmove);
+    util__namespace.addEventListener(document, 'touchend', me.ontouchend);
 
     this._onMouseDown(event);
   };
@@ -4613,8 +4634,8 @@
   Graph3d.prototype._onTouchEnd = function(event) {
     this.touchDown = false;
 
-    util.removeEventListener(document, 'touchmove', this.ontouchmove);
-    util.removeEventListener(document, 'touchend',   this.ontouchend);
+    util__namespace.removeEventListener(document, 'touchmove', this.ontouchmove);
+    util__namespace.removeEventListener(document, 'touchend',   this.ontouchend);
 
     this._onMouseUp(event);
   };
@@ -4660,7 +4681,7 @@
       // Prevent default actions caused by mouse wheel.
       // That might be ugly, but we handle scrolls somehow
       // anyway, so don't bother here..
-      util.preventDefault(event);
+      util__namespace.preventDefault(event);
     }
   };
 
