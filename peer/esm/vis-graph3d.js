@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-04-19T19:58:00.858Z
+ * @date    2021-04-20T16:42:53.189Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -38,9 +38,9 @@ var check = function (it) {
 }; // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 
 
-var global$1 =
-/* global globalThis -- safe */
-check(typeof globalThis == 'object' && globalThis) || check(typeof window == 'object' && window) || check(typeof self == 'object' && self) || check(typeof commonjsGlobal == 'object' && commonjsGlobal) || // eslint-disable-next-line no-new-func -- fallback
+var global$1 = // eslint-disable-next-line es/no-global-this -- safe
+check(typeof globalThis == 'object' && globalThis) || check(typeof window == 'object' && window) || // eslint-disable-next-line no-restricted-globals -- safe
+check(typeof self == 'object' && self) || check(typeof commonjsGlobal == 'object' && commonjsGlobal) || // eslint-disable-next-line no-new-func -- fallback
 function () {
   return this;
 }() || Function('return this')();
@@ -54,6 +54,7 @@ var fails = function (exec) {
 };
 
 var descriptors = !fails(function () {
+  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   return Object.defineProperty({}, 1, {
     get: function () {
       return 7;
@@ -61,10 +62,11 @@ var descriptors = !fails(function () {
   })[1] != 7;
 });
 
-var nativePropertyIsEnumerable$1 = {}.propertyIsEnumerable;
+var $propertyIsEnumerable$1 = {}.propertyIsEnumerable; // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+
 var getOwnPropertyDescriptor$1 = Object.getOwnPropertyDescriptor; // Nashorn ~ JDK8 bug
 
-var NASHORN_BUG = getOwnPropertyDescriptor$1 && !nativePropertyIsEnumerable$1.call({
+var NASHORN_BUG = getOwnPropertyDescriptor$1 && !$propertyIsEnumerable$1.call({
   1: 2
 }, 1); // `Object.prototype.propertyIsEnumerable` method implementation
 // https://tc39.es/ecma262/#sec-object.prototype.propertyisenumerable
@@ -72,7 +74,7 @@ var NASHORN_BUG = getOwnPropertyDescriptor$1 && !nativePropertyIsEnumerable$1.ca
 var f$6 = NASHORN_BUG ? function propertyIsEnumerable(V) {
   var descriptor = getOwnPropertyDescriptor$1(this, V);
   return !!descriptor && descriptor.enumerable;
-} : nativePropertyIsEnumerable$1;
+} : $propertyIsEnumerable$1;
 var objectPropertyIsEnumerable = {
   f: f$6
 };
@@ -145,6 +147,7 @@ var documentCreateElement = function (it) {
 };
 
 var ie8DomDefine = !descriptors && !fails(function () {
+  // eslint-disable-next-line es/no-object-defineproperty -- requied for testing
   return Object.defineProperty(documentCreateElement('div'), 'a', {
     get: function () {
       return 7;
@@ -152,14 +155,14 @@ var ie8DomDefine = !descriptors && !fails(function () {
   }).a != 7;
 });
 
-var nativeGetOwnPropertyDescriptor$2 = Object.getOwnPropertyDescriptor; // `Object.getOwnPropertyDescriptor` method
+var $getOwnPropertyDescriptor$1 = Object.getOwnPropertyDescriptor; // `Object.getOwnPropertyDescriptor` method
 // https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
 
-var f$5 = descriptors ? nativeGetOwnPropertyDescriptor$2 : function getOwnPropertyDescriptor(O, P) {
+var f$5 = descriptors ? $getOwnPropertyDescriptor$1 : function getOwnPropertyDescriptor(O, P) {
   O = toIndexedObject(O);
   P = toPrimitive(P, true);
   if (ie8DomDefine) try {
-    return nativeGetOwnPropertyDescriptor$2(O, P);
+    return $getOwnPropertyDescriptor$1(O, P);
   } catch (error) {
     /* empty */
   }
@@ -236,15 +239,15 @@ var anObject = function (it) {
   return it;
 };
 
-var nativeDefineProperty$1 = Object.defineProperty; // `Object.defineProperty` method
+var $defineProperty$1 = Object.defineProperty; // `Object.defineProperty` method
 // https://tc39.es/ecma262/#sec-object.defineproperty
 
-var f$4 = descriptors ? nativeDefineProperty$1 : function defineProperty(O, P, Attributes) {
+var f$4 = descriptors ? $defineProperty$1 : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
   if (ie8DomDefine) try {
-    return nativeDefineProperty$1(O, P, Attributes);
+    return $defineProperty$1(O, P, Attributes);
   } catch (error) {
     /* empty */
   }
@@ -357,6 +360,7 @@ var _export = function (options, source) {
 };
 
 // https://tc39.es/ecma262/#sec-isarray
+// eslint-disable-next-line es/no-array-isarray -- safe
 
 var isArray$5 = Array.isArray || function isArray(arg) {
   return classofRaw(arg) == 'Array';
@@ -406,7 +410,7 @@ var shared = createCommonjsModule(function (module) {
   (module.exports = function (key, value) {
     return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.9.1',
+    version: '3.10.2',
     mode: 'pure' ,
     copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
   });
@@ -451,15 +455,14 @@ if (v8) {
 var engineV8Version = version && +version;
 
 var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
-  /* global Symbol -- required for testing */
+  // eslint-disable-next-line es/no-symbol -- required for testing
   return !Symbol.sham && ( // Chrome 38 Symbol has incorrect toString conversion
   // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
   engineIsNode ? engineV8Version === 38 : engineV8Version > 37 && engineV8Version < 41);
 });
 
-var useSymbolAsUid = nativeSymbol
-/* global Symbol -- safe */
-&& !Symbol.sham && typeof Symbol.iterator == 'symbol';
+/* eslint-disable es/no-symbol -- required for testing */
+var useSymbolAsUid = nativeSymbol && !Symbol.sham && typeof Symbol.iterator == 'symbol';
 
 var WellKnownSymbolsStore$1 = shared('wks');
 var Symbol$1 = global$1.Symbol;
@@ -631,12 +634,14 @@ var objectKeysInternal = function (object, names) {
 var enumBugKeys = ['constructor', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'valueOf'];
 
 // https://tc39.es/ecma262/#sec-object.keys
+// eslint-disable-next-line es/no-object-keys -- safe
 
 var objectKeys = Object.keys || function keys(O) {
   return objectKeysInternal(O, enumBugKeys);
 };
 
 // https://tc39.es/ecma262/#sec-object.defineproperties
+// eslint-disable-next-line es/no-object-defineproperties -- safe
 
 var objectDefineProperties = descriptors ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
@@ -741,6 +746,7 @@ var objectCreate = Object.create || function create(O, Properties) {
 
 var hiddenKeys = enumBugKeys.concat('length', 'prototype'); // `Object.getOwnPropertyNames` method
 // https://tc39.es/ecma262/#sec-object.getownpropertynames
+// eslint-disable-next-line es/no-object-getownpropertynames -- safe
 
 var f$3 = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return objectKeysInternal(O, hiddenKeys);
@@ -750,13 +756,14 @@ var objectGetOwnPropertyNames = {
   f: f$3
 };
 
-var nativeGetOwnPropertyNames$1 = objectGetOwnPropertyNames.f;
+/* eslint-disable es/no-object-getownpropertynames -- safe */
+var $getOwnPropertyNames$1 = objectGetOwnPropertyNames.f;
 var toString = {}.toString;
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames ? Object.getOwnPropertyNames(window) : [];
 
 var getWindowNames = function (it) {
   try {
-    return nativeGetOwnPropertyNames$1(it);
+    return $getOwnPropertyNames$1(it);
   } catch (error) {
     return windowNames.slice();
   }
@@ -764,13 +771,14 @@ var getWindowNames = function (it) {
 
 
 var f$2 = function getOwnPropertyNames(it) {
-  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : nativeGetOwnPropertyNames$1(toIndexedObject(it));
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : $getOwnPropertyNames$1(toIndexedObject(it));
 };
 
 var objectGetOwnPropertyNamesExternal = {
   f: f$2
 };
 
+// eslint-disable-next-line es/no-object-getownpropertysymbols -- safe
 var f$1 = Object.getOwnPropertySymbols;
 var objectGetOwnPropertySymbols = {
   f: f$1
@@ -862,6 +870,7 @@ var inspectSource = sharedStore.inspectSource;
 var WeakMap$1 = global$1.WeakMap;
 var nativeWeakMap = typeof WeakMap$1 === 'function' && /native code/.test(inspectSource(WeakMap$1));
 
+var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
 var WeakMap = global$1.WeakMap;
 var set, get, has;
 
@@ -888,6 +897,7 @@ if (nativeWeakMap) {
   var wmset = store.set;
 
   set = function (it, metadata) {
+    if (wmhas.call(store, it)) throw new TypeError(OBJECT_ALREADY_INITIALIZED);
     metadata.facade = it;
     wmset.call(store, it, metadata);
     return metadata;
@@ -905,6 +915,7 @@ if (nativeWeakMap) {
   hiddenKeys$1[STATE] = true;
 
   set = function (it, metadata) {
+    if (has$1(it, STATE)) throw new TypeError(OBJECT_ALREADY_INITIALIZED);
     metadata.facade = it;
     createNonEnumerableProperty(it, STATE, metadata);
     return metadata;
@@ -1434,13 +1445,15 @@ var correctPrototypeGetter = !fails(function () {
     /* empty */
   }
 
-  F.prototype.constructor = null;
+  F.prototype.constructor = null; // eslint-disable-next-line es/no-object-getprototypeof -- required for testing
+
   return Object.getPrototypeOf(new F()) !== F.prototype;
 });
 
 var IE_PROTO = sharedKey('IE_PROTO');
 var ObjectPrototype = Object.prototype; // `Object.getPrototypeOf` method
 // https://tc39.es/ecma262/#sec-object.getprototypeof
+// eslint-disable-next-line es/no-object-getprototypeof -- safe
 
 var objectGetPrototypeOf = correctPrototypeGetter ? Object.getPrototypeOf : function (O) {
   O = toObject(O);
@@ -1453,7 +1466,7 @@ var objectGetPrototypeOf = correctPrototypeGetter ? Object.getPrototypeOf : func
   return O instanceof Object ? ObjectPrototype : null;
 };
 
-var ITERATOR$5 = wellKnownSymbol('iterator');
+var ITERATOR$4 = wellKnownSymbol('iterator');
 var BUGGY_SAFARI_ITERATORS$1 = false;
 
 var returnThis$2 = function () {
@@ -1463,6 +1476,7 @@ var returnThis$2 = function () {
 
 
 var IteratorPrototype$2, PrototypeOfArrayIteratorPrototype, arrayIterator;
+/* eslint-disable es/no-array-prototype-keys -- safe */
 
 if ([].keys) {
   arrayIterator = [].keys(); // Safari 8 has buggy iterators w/o `next`
@@ -1476,12 +1490,12 @@ if ([].keys) {
 var NEW_ITERATOR_PROTOTYPE = IteratorPrototype$2 == undefined || fails(function () {
   var test = {}; // FF44- legacy iterators case
 
-  return IteratorPrototype$2[ITERATOR$5].call(test) !== test;
+  return IteratorPrototype$2[ITERATOR$4].call(test) !== test;
 });
 if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype$2 = {}; // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
 
-if ((NEW_ITERATOR_PROTOTYPE) && !has$1(IteratorPrototype$2, ITERATOR$5)) {
-  createNonEnumerableProperty(IteratorPrototype$2, ITERATOR$5, returnThis$2);
+if ((NEW_ITERATOR_PROTOTYPE) && !has$1(IteratorPrototype$2, ITERATOR$4)) {
+  createNonEnumerableProperty(IteratorPrototype$2, ITERATOR$4, returnThis$2);
 }
 
 var iteratorsCore = {
@@ -1518,6 +1532,7 @@ var aPossiblePrototype = function (it) {
 /* eslint-disable no-proto -- safe */
 // https://tc39.es/ecma262/#sec-object.setprototypeof
 // Works with __proto__ only. Old v8 can't work with null proto objects.
+// eslint-disable-next-line es/no-object-setprototypeof -- safe
 
 Object.setPrototypeOf || ('__proto__' in {} ? function () {
   var CORRECT_SETTER = false;
@@ -1525,6 +1540,7 @@ Object.setPrototypeOf || ('__proto__' in {} ? function () {
   var setter;
 
   try {
+    // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
     setter = Object.getOwnPropertyDescriptor(Object.prototype, '__proto__').set;
     setter.call(test, []);
     CORRECT_SETTER = test instanceof Array;
@@ -1542,7 +1558,7 @@ Object.setPrototypeOf || ('__proto__' in {} ? function () {
 
 var IteratorPrototype = iteratorsCore.IteratorPrototype;
 var BUGGY_SAFARI_ITERATORS = iteratorsCore.BUGGY_SAFARI_ITERATORS;
-var ITERATOR$4 = wellKnownSymbol('iterator');
+var ITERATOR$3 = wellKnownSymbol('iterator');
 var KEYS = 'keys';
 var VALUES = 'values';
 var ENTRIES = 'entries';
@@ -1583,7 +1599,7 @@ var defineIterator = function (Iterable, NAME, IteratorConstructor, next, DEFAUL
   var TO_STRING_TAG = NAME + ' Iterator';
   var INCORRECT_VALUES_NAME = false;
   var IterablePrototype = Iterable.prototype;
-  var nativeIterator = IterablePrototype[ITERATOR$4] || IterablePrototype['@@iterator'] || DEFAULT && IterablePrototype[DEFAULT];
+  var nativeIterator = IterablePrototype[ITERATOR$3] || IterablePrototype['@@iterator'] || DEFAULT && IterablePrototype[DEFAULT];
   var defaultIterator = !BUGGY_SAFARI_ITERATORS && nativeIterator || getIterationMethod(DEFAULT);
   var anyNativeIterator = NAME == 'Array' ? IterablePrototype.entries || nativeIterator : nativeIterator;
   var CurrentIteratorPrototype, methods, KEY; // fix native
@@ -1609,8 +1625,8 @@ var defineIterator = function (Iterable, NAME, IteratorConstructor, next, DEFAUL
   } // define iterator
 
 
-  if ((FORCED) && IterablePrototype[ITERATOR$4] !== defaultIterator) {
-    createNonEnumerableProperty(IterablePrototype, ITERATOR$4, defaultIterator);
+  if ((FORCED) && IterablePrototype[ITERATOR$3] !== defaultIterator) {
+    createNonEnumerableProperty(IterablePrototype, ITERATOR$3, defaultIterator);
   }
 
   iterators[NAME] = defaultIterator; // export additional methods
@@ -1844,6 +1860,9 @@ var sort$1 = sort_1;
 
 var sort = sort$1;
 
+/* eslint-disable es/no-array-prototype-indexof -- required for testing */
+
+
 var $indexOf = arrayIncludes.indexOf;
 var nativeIndexOf = [].indexOf;
 var NEGATIVE_ZERO = !!nativeIndexOf && 1 / [1].indexOf(1, -0) < 0;
@@ -2025,10 +2044,11 @@ var STRICT_METHOD = arrayMethodIsStrict('forEach'); // `Array.prototype.forEach`
 var arrayForEach = !STRICT_METHOD ? function forEach(callbackfn
 /* , thisArg */
 ) {
-  return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined); // eslint-disable-next-line es/no-array-prototype-foreach -- safe
 } : [].forEach;
 
 // https://tc39.es/ecma262/#sec-array.prototype.foreach
+// eslint-disable-next-line es/no-array-prototype-foreach -- safe
 
 
 _export({
@@ -2138,15 +2158,16 @@ var setTimeout$2 = path.setTimeout;
 
 var setTimeout$1 = setTimeout$2;
 
-var nativeAssign = Object.assign;
+var $assign = Object.assign; // eslint-disable-next-line es/no-object-defineproperty -- required for testing
+
 var defineProperty$2 = Object.defineProperty; // `Object.assign` method
 // https://tc39.es/ecma262/#sec-object.assign
 
-var objectAssign = !nativeAssign || fails(function () {
+var objectAssign = !$assign || fails(function () {
   // should have correct order of operations (Edge bug)
-  if (descriptors && nativeAssign({
+  if (descriptors && $assign({
     b: 1
-  }, nativeAssign(defineProperty$2({}, 'a', {
+  }, $assign(defineProperty$2({}, 'a', {
     enumerable: true,
     get: function () {
       defineProperty$2(this, 'b', {
@@ -2159,8 +2180,7 @@ var objectAssign = !nativeAssign || fails(function () {
   })).b !== 1) return true; // should work with symbols and should have deterministic property order (V8 bug)
 
   var A = {};
-  var B = {};
-  /* global Symbol -- required for testing */
+  var B = {}; // eslint-disable-next-line es/no-symbol -- safe
 
   var symbol = Symbol();
   var alphabet = 'abcdefghijklmnopqrst';
@@ -2168,7 +2188,7 @@ var objectAssign = !nativeAssign || fails(function () {
   alphabet.split('').forEach(function (chr) {
     B[chr] = chr;
   });
-  return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
+  return $assign({}, A)[symbol] != 7 || objectKeys($assign({}, B)).join('') != alphabet;
 }) ? function assign(target, source) {
   // eslint-disable-line no-unused-vars -- required for `.length`
   var T = toObject(target);
@@ -2191,9 +2211,10 @@ var objectAssign = !nativeAssign || fails(function () {
   }
 
   return T;
-} : nativeAssign;
+} : $assign;
 
 // https://tc39.es/ecma262/#sec-object.assign
+// eslint-disable-next-line es/no-object-assign -- required for testing
 
 _export({
   target: 'Object',
@@ -2397,17 +2418,17 @@ var callWithSafeIterationClosing = function (iterator, fn, value, ENTRIES) {
   }
 };
 
-var ITERATOR$3 = wellKnownSymbol('iterator');
+var ITERATOR$2 = wellKnownSymbol('iterator');
 var ArrayPrototype$5 = Array.prototype; // check on default Array iterator
 
 var isArrayIteratorMethod = function (it) {
-  return it !== undefined && (iterators.Array === it || ArrayPrototype$5[ITERATOR$3] === it);
+  return it !== undefined && (iterators.Array === it || ArrayPrototype$5[ITERATOR$2] === it);
 };
 
-var ITERATOR$2 = wellKnownSymbol('iterator');
+var ITERATOR$1 = wellKnownSymbol('iterator');
 
 var getIteratorMethod$1 = function (it) {
-  if (it != undefined) return it[ITERATOR$2] || it['@@iterator'] || iterators[classof(it)];
+  if (it != undefined) return it[ITERATOR$1] || it['@@iterator'] || iterators[classof(it)];
 };
 
 // https://tc39.es/ecma262/#sec-array.from
@@ -2449,7 +2470,7 @@ var arrayFrom = function from(arrayLike
   return result;
 };
 
-var ITERATOR$1 = wellKnownSymbol('iterator');
+var ITERATOR = wellKnownSymbol('iterator');
 var SAFE_CLOSING = false;
 
 try {
@@ -2465,9 +2486,9 @@ try {
     }
   };
 
-  iteratorWithReturn[ITERATOR$1] = function () {
+  iteratorWithReturn[ITERATOR] = function () {
     return this;
-  }; // eslint-disable-next-line no-throw-literal -- required for testing
+  }; // eslint-disable-next-line es/no-array-from, no-throw-literal -- required for testing
 
 
   Array.from(iteratorWithReturn, function () {
@@ -2484,7 +2505,7 @@ var checkCorrectnessOfIteration = function (exec, SKIP_CLOSING) {
   try {
     var object = {};
 
-    object[ITERATOR$1] = function () {
+    object[ITERATOR] = function () {
       return {
         next: function () {
           return {
@@ -2503,6 +2524,7 @@ var checkCorrectnessOfIteration = function (exec, SKIP_CLOSING) {
 };
 
 var INCORRECT_ITERATION = !checkCorrectnessOfIteration(function (iterable) {
+  // eslint-disable-next-line es/no-array-from -- required for testing
   Array.from(iterable);
 }); // `Array.from` method
 // https://tc39.es/ecma262/#sec-array.from
@@ -2524,20 +2546,6 @@ var from$2 = from$3;
 var getIteratorMethod_1 = getIteratorMethod$1;
 
 var getIteratorMethod = getIteratorMethod_1;
-
-var getIterator$1 = function (it) {
-  var iteratorMethod = getIteratorMethod$1(it);
-
-  if (typeof iteratorMethod != 'function') {
-    throw TypeError(String(it) + ' is not iterable');
-  }
-
-  return anObject(iteratorMethod.call(it));
-};
-
-var getIterator_1 = getIterator$1;
-
-var getIterator = getIterator_1;
 
 path.Object.getOwnPropertySymbols;
 
@@ -2674,18 +2682,6 @@ var isArray$1 = isArray$4;
 
 var isArray = isArray$1;
 
-var ITERATOR = wellKnownSymbol('iterator');
-
-var isIterable$1 = function (it) {
-  var O = Object(it);
-  return O[ITERATOR] !== undefined || '@@iterator' in O // eslint-disable-next-line no-prototype-builtins -- safe
-  || iterators.hasOwnProperty(classof(O));
-};
-
-var isIterable_1 = isIterable$1;
-
-var isIterable = isIterable_1;
-
 var HAS_SPECIES_SUPPORT$2 = arrayMethodHasSpeciesSupport('slice');
 var SPECIES = wellKnownSymbol('species');
 var nativeSlice = [].slice;
@@ -2775,7 +2771,7 @@ function _arrayWithoutHoles(arr) {
 }
 
 function _iterableToArray(iter) {
-  if (typeof symbol$2 !== "undefined" && isIterable(Object(iter))) return from(iter);
+  if (typeof symbol$2 !== "undefined" && getIteratorMethod(iter) != null || iter["@@iterator"] != null) return from(iter);
 }
 
 function _nonIterableSpread() {
@@ -6258,7 +6254,7 @@ var Hammer$1 = /*#__PURE__*/function () {
   return Hammer;
 }(); //  style loader but by script tag, not by the loader.
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof symbol === "undefined" || getIteratorMethod(o) == null) { if (isArray$2(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = getIterator(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof symbol !== "undefined" && getIteratorMethod(o) || o["@@iterator"]; if (!it) { if (isArray$2(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { var _context21; if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = slice$1(_context21 = Object.prototype.toString.call(o)).call(_context21, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return from$2(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -7837,6 +7833,7 @@ var StepNumber_1 = StepNumber;
 
 // `Math.sign` method implementation
 // https://tc39.es/ecma262/#sec-math.sign
+// eslint-disable-next-line es/no-math-sign -- safe
 var mathSign = Math.sign || function sign(x) {
   // eslint-disable-next-line no-self-compare -- NaN check
   return (x = +x) == 0 || x != x ? x : x < 0 ? -1 : 1;
