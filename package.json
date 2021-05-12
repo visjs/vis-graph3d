@@ -86,7 +86,7 @@
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "7.0.2",
-    "semantic-release": "17.4.2",
+    "semantic-release": "17.4.3",
     "sinon": "9.2.4",
     "snap-shot-it": "7.9.6",
     "test-console": "1.1.0",
