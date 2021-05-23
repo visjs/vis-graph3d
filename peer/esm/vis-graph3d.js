@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-05-22T06:42:48.164Z
+ * @date    2021-05-23T08:40:07.068Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -3247,6 +3247,8 @@ _export({
 }, {
   create: objectCreate
 });
+
+path.Object;
 
 var $stringify = getBuiltIn('JSON', 'stringify');
 var re = /[\uD800-\uDFFF]/g;
