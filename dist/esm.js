@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-06-08T08:26:09.697Z
+ * @date    2021-06-10T07:35:57.159Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -25,11 +25,11 @@
  */
 
 var ceil = Math.ceil;
-var floor = Math.floor; // `ToInteger` abstract operation
+var floor$1 = Math.floor; // `ToInteger` abstract operation
 // https://tc39.es/ecma262/#sec-tointeger
 
 var toInteger = function (argument) {
-  return isNaN(argument = +argument) ? 0 : (argument > 0 ? floor : ceil)(argument);
+  return isNaN(argument = +argument) ? 0 : (argument > 0 ? floor$1 : ceil)(argument);
 };
 
 // `RequireObjectCoercible` abstract operation
@@ -191,7 +191,7 @@ var SHARED = '__core-js_shared__';
 var store$1 = global_1[SHARED] || setGlobal(SHARED, {});
 var sharedStore = store$1;
 
-var functionToString = Function.toString; // this helper broken in `3.4.1-3.4.4`, so we can't use `shared` helper
+var functionToString = Function.toString; // this helper broken in `core-js@3.4.1-3.4.4`, so we can't use `shared` helper
 
 if (typeof sharedStore.inspectSource != 'function') {
   sharedStore.inspectSource = function (it) {
@@ -212,7 +212,7 @@ var toObject = function (argument) {
 
 var hasOwnProperty = {}.hasOwnProperty;
 
-var has$1 = function hasOwn(it, key) {
+var has$1 = Object.hasOwn || function hasOwn(it, key) {
   return hasOwnProperty.call(toObject(it), key);
 };
 
@@ -220,7 +220,7 @@ var shared = createCommonjsModule(function (module) {
   (module.exports = function (key, value) {
     return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.11.1',
+    version: '3.14.0',
     mode: 'pure' ,
     copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
   });
@@ -261,7 +261,7 @@ var getterFor = function (TYPE) {
   };
 };
 
-if (nativeWeakMap) {
+if (nativeWeakMap || sharedStore.state) {
   var store = sharedStore.state || (sharedStore.state = new WeakMap());
   var wmget = store.get;
   var wmhas = store.has;
@@ -541,8 +541,6 @@ var objectGetPrototypeOf = correctPrototypeGetter ? Object.getPrototypeOf : func
   return O instanceof Object ? ObjectPrototype$1 : null;
 };
 
-var engineIsNode = classofRaw(global_1.process) == 'process';
-
 var aFunction = function (variable) {
   return typeof variable == 'function' ? variable : undefined;
 };
@@ -560,7 +558,7 @@ var match, version;
 
 if (v8) {
   match = v8.split('.');
-  version = match[0] + match[1];
+  version = match[0] < 4 ? 1 : match[0] + match[1];
 } else if (engineUserAgent) {
   match = engineUserAgent.match(/Edge\/(\d+)/);
 
@@ -572,11 +570,15 @@ if (v8) {
 
 var engineV8Version = version && +version;
 
+/* eslint-disable es/no-symbol -- required for testing */
+// eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
+
 var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
-  // eslint-disable-next-line es/no-symbol -- required for testing
-  return !Symbol.sham && ( // Chrome 38 Symbol has incorrect toString conversion
-  // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
-  engineIsNode ? engineV8Version === 38 : engineV8Version > 37 && engineV8Version < 41);
+  var symbol = Symbol(); // Chrome 38 Symbol has incorrect toString conversion
+  // `get-own-property-symbols` polyfill symbols converted to object are not Symbol instances
+
+  return !String(symbol) || !(Object(symbol) instanceof Symbol) || // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
+  !Symbol.sham && engineV8Version && engineV8Version < 41;
 });
 
 /* eslint-disable es/no-symbol -- required for testing */
@@ -625,7 +627,8 @@ var NEW_ITERATOR_PROTOTYPE = IteratorPrototype$2 == undefined || fails(function 
 
   return IteratorPrototype$2[ITERATOR$4].call(test) !== test;
 });
-if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype$2 = {}; // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype$2 = {}; // `%IteratorPrototype%[@@iterator]()` method
+// https://tc39.es/ecma262/#sec-%iteratorprototype%-@@iterator
 
 if ((NEW_ITERATOR_PROTOTYPE) && !has$1(IteratorPrototype$2, ITERATOR$4)) {
   createNonEnumerableProperty(IteratorPrototype$2, ITERATOR$4, returnThis$2);
@@ -977,7 +980,7 @@ var defineIterator = function (Iterable, NAME, IteratorConstructor, next, DEFAUL
       setToStringTag(CurrentIteratorPrototype, TO_STRING_TAG, true, true);
       iterators[TO_STRING_TAG] = returnThis;
     }
-  } // fix Array#{values, @@iterator}.name in V8 / FF
+  } // fix Array.prototype.{ values, @@iterator }.name in V8 / FF
 
 
   if (DEFAULT == VALUES && nativeIterator && nativeIterator.name !== VALUES) {
@@ -1055,7 +1058,7 @@ var iteratorClose = function (iterator) {
 
 var callWithSafeIterationClosing = function (iterator, fn, value, ENTRIES) {
   try {
-    return ENTRIES ? fn(anObject(value)[0], value[1]) : fn(value); // 7.4.6 IteratorClose(iterator, completion)
+    return ENTRIES ? fn(anObject(value)[0], value[1]) : fn(value);
   } catch (error) {
     iteratorClose(iterator);
     throw error;
@@ -2131,15 +2134,26 @@ defineWellKnownSymbol('asyncDispose');
 
 defineWellKnownSymbol('dispose');
 
+// https://github.com/tc39/proposal-pattern-matching
+
+defineWellKnownSymbol('matcher');
+
+// https://github.com/tc39/proposal-decorators
+
+defineWellKnownSymbol('metadata');
+
 // https://github.com/tc39/proposal-observable
 
 defineWellKnownSymbol('observable');
 
+// `Symbol.patternMatch` well-known symbol
 // https://github.com/tc39/proposal-pattern-matching
 
 defineWellKnownSymbol('patternMatch');
 
 defineWellKnownSymbol('replaceAll');
+
+// TODO: Remove from `core-js@4`
 
 var symbol$3 = symbol$4;
 
@@ -6235,7 +6249,7 @@ var extend$1 = deprecate(function (dest, src, merge) {
  * @returns {Object} dest
  */
 
-var merge = deprecate(function (dest, src) {
+var merge$1 = deprecate(function (dest, src) {
   return extend$1(dest, src, true);
 }, 'merge', 'Use `assign`.');
 /**
@@ -6336,7 +6350,7 @@ var Hammer$2 = /*#__PURE__*/function () {
   Hammer.on = addEventListeners;
   Hammer.off = removeEventListeners;
   Hammer.each = each;
-  Hammer.merge = merge;
+  Hammer.merge = merge$1;
   Hammer.extend = extend$1;
   Hammer.bindFn = bindFn;
   Hammer.assign = assign$1;
@@ -12184,6 +12198,8 @@ var arrayReduce = {
   right: createMethod(true)
 };
 
+var engineIsNode = classofRaw(global_1.process) == 'process';
+
 var $reduce = arrayReduce.left;
 var STRICT_METHOD$2 = arrayMethodIsStrict('reduce'); // Chrome 80-82 has a critical bug
 // https://bugs.chromium.org/p/chromium/issues/detail?id=1049982
@@ -12574,8 +12590,9 @@ var collectionStrong = {
     };
 
     redefineAll(C.prototype, {
-      // 23.1.3.1 Map.prototype.clear()
-      // 23.2.3.2 Set.prototype.clear()
+      // `{ Map, Set }.prototype.clear()` methods
+      // https://tc39.es/ecma262/#sec-map.prototype.clear
+      // https://tc39.es/ecma262/#sec-set.prototype.clear
       clear: function clear() {
         var that = this;
         var state = getInternalState(that);
@@ -12592,8 +12609,9 @@ var collectionStrong = {
         state.first = state.last = undefined;
         if (descriptors) state.size = 0;else that.size = 0;
       },
-      // 23.1.3.3 Map.prototype.delete(key)
-      // 23.2.3.4 Set.prototype.delete(value)
+      // `{ Map, Set }.prototype.delete(key)` methods
+      // https://tc39.es/ecma262/#sec-map.prototype.delete
+      // https://tc39.es/ecma262/#sec-set.prototype.delete
       'delete': function (key) {
         var that = this;
         var state = getInternalState(that);
@@ -12613,8 +12631,9 @@ var collectionStrong = {
 
         return !!entry;
       },
-      // 23.2.3.6 Set.prototype.forEach(callbackfn, thisArg = undefined)
-      // 23.1.3.5 Map.prototype.forEach(callbackfn, thisArg = undefined)
+      // `{ Map, Set }.prototype.forEach(callbackfn, thisArg = undefined)` methods
+      // https://tc39.es/ecma262/#sec-map.prototype.foreach
+      // https://tc39.es/ecma262/#sec-set.prototype.foreach
       forEach: function forEach(callbackfn
       /* , that = undefined */
       ) {
@@ -12628,24 +12647,28 @@ var collectionStrong = {
           while (entry && entry.removed) entry = entry.previous;
         }
       },
-      // 23.1.3.7 Map.prototype.has(key)
-      // 23.2.3.7 Set.prototype.has(value)
+      // `{ Map, Set}.prototype.has(key)` methods
+      // https://tc39.es/ecma262/#sec-map.prototype.has
+      // https://tc39.es/ecma262/#sec-set.prototype.has
       has: function has(key) {
         return !!getEntry(this, key);
       }
     });
     redefineAll(C.prototype, IS_MAP ? {
-      // 23.1.3.6 Map.prototype.get(key)
+      // `Map.prototype.get(key)` method
+      // https://tc39.es/ecma262/#sec-map.prototype.get
       get: function get(key) {
         var entry = getEntry(this, key);
         return entry && entry.value;
       },
-      // 23.1.3.9 Map.prototype.set(key, value)
+      // `Map.prototype.set(key, value)` method
+      // https://tc39.es/ecma262/#sec-map.prototype.set
       set: function set(key, value) {
         return define(this, key === 0 ? 0 : key, value);
       }
     } : {
-      // 23.2.3.1 Set.prototype.add(value)
+      // `Set.prototype.add(value)` method
+      // https://tc39.es/ecma262/#sec-set.prototype.add
       add: function add(value) {
         return define(this, value = value === 0 ? 0 : value, value);
       }
@@ -12660,8 +12683,15 @@ var collectionStrong = {
   setStrong: function (C, CONSTRUCTOR_NAME, IS_MAP) {
     var ITERATOR_NAME = CONSTRUCTOR_NAME + ' Iterator';
     var getInternalCollectionState = internalStateGetterFor(CONSTRUCTOR_NAME);
-    var getInternalIteratorState = internalStateGetterFor(ITERATOR_NAME); // add .keys, .values, .entries, [@@iterator]
-    // 23.1.3.4, 23.1.3.8, 23.1.3.11, 23.1.3.12, 23.2.3.5, 23.2.3.8, 23.2.3.10, 23.2.3.11
+    var getInternalIteratorState = internalStateGetterFor(ITERATOR_NAME); // `{ Map, Set }.prototype.{ keys, values, entries, @@iterator }()` methods
+    // https://tc39.es/ecma262/#sec-map.prototype.entries
+    // https://tc39.es/ecma262/#sec-map.prototype.keys
+    // https://tc39.es/ecma262/#sec-map.prototype.values
+    // https://tc39.es/ecma262/#sec-map.prototype-@@iterator
+    // https://tc39.es/ecma262/#sec-set.prototype.entries
+    // https://tc39.es/ecma262/#sec-set.prototype.keys
+    // https://tc39.es/ecma262/#sec-set.prototype.values
+    // https://tc39.es/ecma262/#sec-set.prototype-@@iterator
 
     defineIterator(C, CONSTRUCTOR_NAME, function (iterated, kind) {
       setInternalState(this, {
@@ -12701,7 +12731,9 @@ var collectionStrong = {
         value: [entry.key, entry.value],
         done: false
       };
-    }, IS_MAP ? 'entries' : 'values', !IS_MAP, true); // add [@@species], 23.1.2.2, 23.2.2.2
+    }, IS_MAP ? 'entries' : 'values', !IS_MAP, true); // `{ Map, Set }.prototype[@@species]` accessors
+    // https://tc39.es/ecma262/#sec-get-map-@@species
+    // https://tc39.es/ecma262/#sec-get-set-@@species
 
     setSpecies(CONSTRUCTOR_NAME);
   }
@@ -12753,6 +12785,62 @@ var getIterator_1 = getIterator$1;
 
 var getIterator = getIterator_1;
 
+// TODO: use something more complex like timsort?
+var floor = Math.floor;
+
+var mergeSort = function (array, comparefn) {
+  var length = array.length;
+  var middle = floor(length / 2);
+  return length < 8 ? insertionSort(array, comparefn) : merge(mergeSort(array.slice(0, middle), comparefn), mergeSort(array.slice(middle), comparefn), comparefn);
+};
+
+var insertionSort = function (array, comparefn) {
+  var length = array.length;
+  var i = 1;
+  var element, j;
+
+  while (i < length) {
+    j = i;
+    element = array[i];
+
+    while (j && comparefn(array[j - 1], element) > 0) {
+      array[j] = array[--j];
+    }
+
+    if (j !== i++) array[j] = element;
+  }
+
+  return array;
+};
+
+var merge = function (left, right, comparefn) {
+  var llength = left.length;
+  var rlength = right.length;
+  var lindex = 0;
+  var rindex = 0;
+  var result = [];
+
+  while (lindex < llength || rindex < rlength) {
+    if (lindex < llength && rindex < rlength) {
+      result.push(comparefn(left[lindex], right[rindex]) <= 0 ? left[lindex++] : right[rindex++]);
+    } else {
+      result.push(lindex < llength ? left[lindex++] : right[rindex++]);
+    }
+  }
+
+  return result;
+};
+
+var arraySort = mergeSort;
+
+var firefox = engineUserAgent.match(/firefox\/(\d+)/i);
+var engineFfVersion = !!firefox && +firefox[1];
+
+var engineIsIeOrEdge = /MSIE|Trident/.test(engineUserAgent);
+
+var webkit = engineUserAgent.match(/AppleWebKit\/(\d+)\./);
+var engineWebkitVersion = !!webkit && +webkit[1];
+
 var test = [];
 var nativeSort = test.sort; // IE8-
 
@@ -12765,8 +12853,66 @@ var FAILS_ON_NULL = fails(function () {
 }); // Old WebKit
 
 var STRICT_METHOD$1 = arrayMethodIsStrict('sort');
-var FORCED$1 = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || !STRICT_METHOD$1; // `Array.prototype.sort` method
+var STABLE_SORT = !fails(function () {
+  // feature detection can be too slow, so check engines versions
+  if (engineV8Version) return engineV8Version < 70;
+  if (engineFfVersion && engineFfVersion > 3) return;
+  if (engineIsIeOrEdge) return true;
+  if (engineWebkitVersion) return engineWebkitVersion < 603;
+  var result = '';
+  var code, chr, value, index; // generate an array with more 512 elements (Chakra and old V8 fails only in this case)
+
+  for (code = 65; code < 76; code++) {
+    chr = String.fromCharCode(code);
+
+    switch (code) {
+      case 66:
+      case 69:
+      case 70:
+      case 72:
+        value = 3;
+        break;
+
+      case 68:
+      case 71:
+        value = 4;
+        break;
+
+      default:
+        value = 2;
+    }
+
+    for (index = 0; index < 47; index++) {
+      test.push({
+        k: chr + index,
+        v: value
+      });
+    }
+  }
+
+  test.sort(function (a, b) {
+    return b.v - a.v;
+  });
+
+  for (index = 0; index < test.length; index++) {
+    chr = test[index].k.charAt(0);
+    if (result.charAt(result.length - 1) !== chr) result += chr;
+  }
+
+  return result !== 'DGBEFHACIJK';
+});
+var FORCED$1 = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || !STRICT_METHOD$1 || !STABLE_SORT;
+
+var getSortCompare = function (comparefn) {
+  return function (x, y) {
+    if (y === undefined) return -1;
+    if (x === undefined) return 1;
+    if (comparefn !== undefined) return +comparefn(x, y) || 0;
+    return String(x) > String(y) ? 1 : -1;
+  };
+}; // `Array.prototype.sort` method
 // https://tc39.es/ecma262/#sec-array.prototype.sort
+
 
 _export({
   target: 'Array',
@@ -12774,7 +12920,26 @@ _export({
   forced: FORCED$1
 }, {
   sort: function sort(comparefn) {
-    return comparefn === undefined ? nativeSort.call(toObject(this)) : nativeSort.call(toObject(this), aFunction$1(comparefn));
+    if (comparefn !== undefined) aFunction$1(comparefn);
+    var array = toObject(this);
+    if (STABLE_SORT) return comparefn === undefined ? nativeSort.call(array) : nativeSort.call(array, comparefn);
+    var items = [];
+    var arrayLength = toLength(array.length);
+    var itemsLength, index;
+
+    for (index = 0; index < arrayLength; index++) {
+      if (index in array) items.push(array[index]);
+    }
+
+    items = arraySort(items, getSortCompare(comparefn));
+    itemsLength = items.length;
+    index = 0;
+
+    while (index < itemsLength) array[index] = items[index++];
+
+    while (index < arrayLength) delete array[index++];
+
+    return array;
   }
 });
 
