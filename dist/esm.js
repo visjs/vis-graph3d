@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-06-16T08:51:50.521Z
+ * @date    2021-06-16T18:08:30.909Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -2161,7 +2161,7 @@ var symbol$2 = symbol$3;
 
 var iterableToArrayLimit = createCommonjsModule(function (module) {
   function _iterableToArrayLimit(arr, i) {
-    var _i = arr && (typeof symbol$2 !== "undefined" && getIteratorMethod(arr) || arr["@@iterator"]);
+    var _i = arr == null ? null : typeof symbol$2 !== "undefined" && getIteratorMethod(arr) || arr["@@iterator"];
 
     if (_i == null) return;
     var _arr = [];
