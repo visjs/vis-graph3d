@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-07-19T22:07:35.748Z
+ * @date    2021-07-21T02:37:12.044Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -233,9 +233,7 @@
 	      };
 	  }
 
-	  return function ()
-	  /* ...args */
-	  {
+	  return function () {
 	    return fn.apply(that, arguments);
 	  };
 	};
@@ -342,8 +340,8 @@
 
 	    if (options.bind && USE_NATIVE) resultProperty = functionBindContext(sourceProperty, global$1); // wrap global constructors for prevent changs in this version
 	    else if (options.wrap && USE_NATIVE) resultProperty = wrapConstructor(sourceProperty); // make static versions for prototype methods
-	      else if (PROTO && typeof sourceProperty == 'function') resultProperty = functionBindContext(Function.call, sourceProperty); // default case
-	        else resultProperty = sourceProperty; // add a flag to not completely full polyfills
+	    else if (PROTO && typeof sourceProperty == 'function') resultProperty = functionBindContext(Function.call, sourceProperty); // default case
+	    else resultProperty = sourceProperty; // add a flag to not completely full polyfills
 
 	    if (options.sham || sourceProperty && sourceProperty.sham || targetProperty && targetProperty.sham) {
 	      createNonEnumerableProperty(resultProperty, 'sham', true);
@@ -413,7 +411,7 @@
 	  (module.exports = function (key, value) {
 	    return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
 	  })('versions', []).push({
-	    version: '3.15.0',
+	    version: '3.15.2',
 	    mode: 'pure' ,
 	    copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 	  });
@@ -969,30 +967,30 @@
 	      if (TYPE) {
 	        if (IS_MAP) target[index] = result; // map
 	        else if (result) switch (TYPE) {
-	            case 3:
-	              return true;
-	            // some
+	          case 3:
+	            return true;
+	          // some
 
-	            case 5:
-	              return value;
-	            // find
+	          case 5:
+	            return value;
+	          // find
 
-	            case 6:
-	              return index;
-	            // findIndex
+	          case 6:
+	            return index;
+	          // findIndex
 
-	            case 2:
-	              push.call(target, value);
-	            // filter
-	          } else switch (TYPE) {
-	            case 4:
-	              return false;
-	            // every
+	          case 2:
+	            push.call(target, value);
+	          // filter
+	        } else switch (TYPE) {
+	          case 4:
+	            return false;
+	          // every
 
-	            case 7:
-	              push.call(target, value);
-	            // filterOut
-	          }
+	          case 7:
+	            push.call(target, value);
+	          // filterOut
+	        }
 	      }
 	    }
 
@@ -3036,9 +3034,7 @@
 	  var fn = aFunction$1(this);
 	  var partArgs = slice.call(arguments, 1);
 
-	  var boundFunction = function bound()
-	  /* args... */
-	  {
+	  var boundFunction = function bound() {
 	    var args = partArgs.concat(slice.call(arguments));
 	    return this instanceof boundFunction ? construct(fn, args.length, args) : fn.apply(that, args);
 	  };
@@ -6512,8 +6508,8 @@
 	    if ("key" in event ? event.key === "Escape" : event.keyCode === 27
 	    /* the keyCode is for IE11 */
 	    ) {
-	        _this.deactivate();
-	      }
+	      _this.deactivate();
+	    }
 	  };
 	} // turn into an event emitter
 
@@ -10656,8 +10652,8 @@
 
 	  if (this.style === Graph3d.STYLE.LINE || this.style === Graph3d.STYLE.BARSIZE //TODO add legend support for BARSIZE
 	  ) {
-	      return;
-	    } // Legend types - size and color. Determine if size legend.
+	    return;
+	  } // Legend types - size and color. Determine if size legend.
 
 
 	  var isSizeLegend = this.style === Graph3d.STYLE.BARSIZE || this.style === Graph3d.STYLE.DOTSIZE; // Legend is either tracking z values or style values. This flag if false means use z values.
