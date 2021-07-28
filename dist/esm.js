@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-07-26T22:31:06.054Z
+ * @date    2021-07-28T09:12:00.208Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -6366,6 +6366,7 @@ var Hammer$2 = /*#__PURE__*/function () {
   });
   return Hammer;
 }(); //  style loader but by script tag, not by the loader.
+var RealHammer = Hammer$2;
 
 function ownKeys$1(object, enumerableOnly) { var keys = keys$3(object); if (getOwnPropertySymbols) { var symbols = getOwnPropertySymbols(object); if (enumerableOnly) { symbols = filter(symbols).call(symbols, function (sym) { return getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
@@ -6659,7 +6660,7 @@ function hammerMock() {
   };
 }
 
-var Hammer$1 = typeof window !== "undefined" ? window.Hammer || Hammer$2 : function () {
+var Hammer$1 = typeof window !== "undefined" ? window.Hammer || RealHammer : function () {
   // hammer.js is only available in a browser, not in node.js. Replacing it with a mock object.
   return hammerMock();
 };
@@ -21620,6 +21621,5 @@ var repo = {
   keycharm: keycharm
 };
 
-export default repo;
-export { DOMutil, DataSet_1 as DataSet, DataView_1 as DataView, Graph3d, Hammer, Queue_1 as Queue, graph3d, keycharm, util_1 as util };
+export { DOMutil, DataSet_1 as DataSet, DataView_1 as DataView, Graph3d, Hammer, Queue_1 as Queue, repo as default, graph3d, keycharm, util_1 as util };
 //# sourceMappingURL=esm.js.map
