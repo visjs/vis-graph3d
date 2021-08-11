@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-08-10T10:34:15.508Z
+ * @date    2021-08-11T13:01:03.055Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -202,7 +202,7 @@ var shared = createCommonjsModule(function (module) {
   (module.exports = function (key, value) {
     return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});
   })('versions', []).push({
-    version: '3.16.0',
+    version: '3.16.1',
     mode: 'pure' ,
     copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
   });
@@ -1440,39 +1440,6 @@ setToStringTag(global$1.JSON, 'JSON', true);
 
 var symbol$4 = path.Symbol;
 
-// https://github.com/tc39/proposal-using-statement
-
-defineWellKnownSymbol('asyncDispose');
-
-// https://github.com/tc39/proposal-using-statement
-
-defineWellKnownSymbol('dispose');
-
-// https://github.com/tc39/proposal-pattern-matching
-
-defineWellKnownSymbol('matcher');
-
-// https://github.com/tc39/proposal-decorators
-
-defineWellKnownSymbol('metadata');
-
-// https://github.com/tc39/proposal-observable
-
-defineWellKnownSymbol('observable');
-
-// `Symbol.patternMatch` well-known symbol
-// https://github.com/tc39/proposal-pattern-matching
-
-defineWellKnownSymbol('patternMatch');
-
-defineWellKnownSymbol('replaceAll');
-
-// TODO: Remove from `core-js@4`
-
-var symbol$3 = symbol$4;
-
-var symbol$2 = symbol$3;
-
 var iterators = {};
 
 var correctPrototypeGetter = !fails(function () {
@@ -1741,6 +1708,90 @@ defineIterator(Array, 'Array', function (iterated, kind) {
 
 iterators.Arguments = iterators.Array; // https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
 
+// iterable DOM collections
+// flag - `iterable` interface - 'entries', 'keys', 'values', 'forEach' methods
+var domIterables = {
+  CSSRuleList: 0,
+  CSSStyleDeclaration: 0,
+  CSSValueList: 0,
+  ClientRectList: 0,
+  DOMRectList: 0,
+  DOMStringList: 0,
+  DOMTokenList: 1,
+  DataTransferItemList: 0,
+  FileList: 0,
+  HTMLAllCollection: 0,
+  HTMLCollection: 0,
+  HTMLFormElement: 0,
+  HTMLSelectElement: 0,
+  MediaList: 0,
+  MimeTypeArray: 0,
+  NamedNodeMap: 0,
+  NodeList: 1,
+  PaintRequestList: 0,
+  Plugin: 0,
+  PluginArray: 0,
+  SVGLengthList: 0,
+  SVGNumberList: 0,
+  SVGPathSegList: 0,
+  SVGPointList: 0,
+  SVGStringList: 0,
+  SVGTransformList: 0,
+  SourceBufferList: 0,
+  StyleSheetList: 0,
+  TextTrackCueList: 0,
+  TextTrackList: 0,
+  TouchList: 0
+};
+
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+
+for (var COLLECTION_NAME in domIterables) {
+  var Collection = global$1[COLLECTION_NAME];
+  var CollectionPrototype = Collection && Collection.prototype;
+
+  if (CollectionPrototype && classof(CollectionPrototype) !== TO_STRING_TAG) {
+    createNonEnumerableProperty(CollectionPrototype, TO_STRING_TAG, COLLECTION_NAME);
+  }
+
+  iterators[COLLECTION_NAME] = iterators.Array;
+}
+
+var symbol$3 = symbol$4;
+
+// https://github.com/tc39/proposal-using-statement
+
+defineWellKnownSymbol('asyncDispose');
+
+// https://github.com/tc39/proposal-using-statement
+
+defineWellKnownSymbol('dispose');
+
+// https://github.com/tc39/proposal-pattern-matching
+
+defineWellKnownSymbol('matcher');
+
+// https://github.com/tc39/proposal-decorators
+
+defineWellKnownSymbol('metadata');
+
+// https://github.com/tc39/proposal-observable
+
+defineWellKnownSymbol('observable');
+
+// `Symbol.patternMatch` well-known symbol
+// https://github.com/tc39/proposal-pattern-matching
+
+defineWellKnownSymbol('patternMatch');
+
+defineWellKnownSymbol('replaceAll');
+
+// TODO: Remove from `core-js@4`
+
+var symbol$2 = symbol$3;
+
+var symbol$1 = symbol$2;
+
 var createMethod$3 = function (CONVERT_TO_STRING) {
   return function ($this, pos) {
     var S = toString$1(requireObjectCoercible($this));
@@ -1798,16 +1849,18 @@ var iterator$3 = iterator$4;
 
 var iterator$2 = iterator$3;
 
+var iterator$1 = iterator$2;
+
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  if (typeof symbol$2 === "function" && typeof iterator$2 === "symbol") {
+  if (typeof symbol$1 === "function" && typeof iterator$1 === "symbol") {
     _typeof = function _typeof(obj) {
       return typeof obj;
     };
   } else {
     _typeof = function _typeof(obj) {
-      return obj && typeof symbol$2 === "function" && obj.constructor === symbol$2 && obj !== symbol$2.prototype ? "symbol" : typeof obj;
+      return obj && typeof symbol$1 === "function" && obj.constructor === symbol$1 && obj !== symbol$1.prototype ? "symbol" : typeof obj;
     };
   }
 
@@ -2157,55 +2210,6 @@ var fill_1 = function (it) {
 var fill$1 = fill_1;
 
 var fill = fill$1;
-
-// iterable DOM collections
-// flag - `iterable` interface - 'entries', 'keys', 'values', 'forEach' methods
-var domIterables = {
-  CSSRuleList: 0,
-  CSSStyleDeclaration: 0,
-  CSSValueList: 0,
-  ClientRectList: 0,
-  DOMRectList: 0,
-  DOMStringList: 0,
-  DOMTokenList: 1,
-  DataTransferItemList: 0,
-  FileList: 0,
-  HTMLAllCollection: 0,
-  HTMLCollection: 0,
-  HTMLFormElement: 0,
-  HTMLSelectElement: 0,
-  MediaList: 0,
-  MimeTypeArray: 0,
-  NamedNodeMap: 0,
-  NodeList: 1,
-  PaintRequestList: 0,
-  Plugin: 0,
-  PluginArray: 0,
-  SVGLengthList: 0,
-  SVGNumberList: 0,
-  SVGPathSegList: 0,
-  SVGPointList: 0,
-  SVGStringList: 0,
-  SVGTransformList: 0,
-  SourceBufferList: 0,
-  StyleSheetList: 0,
-  TextTrackCueList: 0,
-  TextTrackList: 0,
-  TouchList: 0
-};
-
-var TO_STRING_TAG = wellKnownSymbol('toStringTag');
-
-for (var COLLECTION_NAME in domIterables) {
-  var Collection = global$1[COLLECTION_NAME];
-  var CollectionPrototype = Collection && Collection.prototype;
-
-  if (CollectionPrototype && classof(CollectionPrototype) !== TO_STRING_TAG) {
-    createNonEnumerableProperty(CollectionPrototype, TO_STRING_TAG, COLLECTION_NAME);
-  }
-
-  iterators[COLLECTION_NAME] = iterators.Array;
-}
 
 var values$2 = entryVirtual('Array').values;
 
@@ -2615,7 +2619,7 @@ var isArrayIteratorMethod = function (it) {
 
 var ITERATOR$1 = wellKnownSymbol('iterator');
 
-var getIteratorMethod$1 = function (it) {
+var getIteratorMethod$3 = function (it) {
   if (it != undefined) return it[ITERATOR$1] || it['@@iterator'] || iterators[classof(it)];
 };
 
@@ -2630,7 +2634,7 @@ var arrayFrom = function from(arrayLike
   var argumentsLength = arguments.length;
   var mapfn = argumentsLength > 1 ? arguments[1] : undefined;
   var mapping = mapfn !== undefined;
-  var iteratorMethod = getIteratorMethod$1(O);
+  var iteratorMethod = getIteratorMethod$3(O);
   var index = 0;
   var length, result, step, iterator, next, value;
   if (mapping) mapfn = functionBindContext(mapfn, argumentsLength > 2 ? arguments[2] : undefined, 2); // if the target is not iterable or it's an array with the default iterator - use a simple case
@@ -2731,9 +2735,13 @@ var from$3 = from$4;
 
 var from$2 = from$3;
 
-var getIteratorMethod_1 = getIteratorMethod$1;
+var getIteratorMethod_1 = getIteratorMethod$3;
 
-var getIteratorMethod = getIteratorMethod_1;
+var getIteratorMethod$2 = getIteratorMethod_1;
+
+var getIteratorMethod$1 = getIteratorMethod$2;
+
+var getIteratorMethod = getIteratorMethod$1;
 
 var getOwnPropertySymbols$2 = path.Object.getOwnPropertySymbols;
 
@@ -2865,7 +2873,7 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var defineProperty$3 = defineProperty_1;
+var defineProperty$3 = defineProperty$5;
 
 var defineProperty$2 = defineProperty$3;
 
@@ -2901,7 +2909,7 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-var isArray$1 = isArray$4;
+var isArray$1 = isArray$3;
 
 var isArray = isArray$1;
 
@@ -2910,7 +2918,7 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  var _i = arr == null ? null : typeof symbol$2 !== "undefined" && getIteratorMethod(arr) || arr["@@iterator"];
+  var _i = arr == null ? null : typeof symbol$1 !== "undefined" && getIteratorMethod(arr) || arr["@@iterator"];
 
   if (_i == null) return;
   var _arr = [];
@@ -2996,7 +3004,9 @@ var slice$4 = slice_1;
 
 var slice$3 = slice$4;
 
-var from$1 = from$4;
+var slice$2 = slice$3;
+
+var from$1 = from$3;
 
 var from = from$1;
 
@@ -3016,7 +3026,7 @@ function _unsupportedIterableToArray$2(o, minLen) {
   if (!o) return;
   if (typeof o === "string") return _arrayLikeToArray$2(o, minLen);
 
-  var n = slice$3(_context = Object.prototype.toString.call(o)).call(_context, 8, -1);
+  var n = slice$2(_context = Object.prototype.toString.call(o)).call(_context, 8, -1);
 
   if (n === "Object" && o.constructor) n = o.constructor.name;
   if (n === "Map" || n === "Set") return from(o);
@@ -3036,7 +3046,7 @@ function _arrayWithoutHoles(arr) {
 }
 
 function _iterableToArray(iter) {
-  if (typeof symbol$2 !== "undefined" && getIteratorMethod(iter) != null || iter["@@iterator"] != null) return from(iter);
+  if (typeof symbol$1 !== "undefined" && getIteratorMethod(iter) != null || iter["@@iterator"] != null) return from(iter);
 }
 
 function _nonIterableSpread() {
@@ -3047,13 +3057,9 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray$2(arr) || _nonIterableSpread();
 }
 
-var symbol$1 = symbol$4;
+var symbol = symbol$3;
 
-var symbol = symbol$1;
-
-var slice$2 = slice_1;
-
-var slice$1 = slice$2;
+var slice$1 = slice$4;
 
 // https://tc39.es/ecma262/#sec-reflect.ownkeys
 
@@ -9428,7 +9434,7 @@ function _assertThisInitialized(self) {
   return self;
 }
 
-var create$1 = create$4;
+var create$1 = create$3;
 
 var create = create$1;
 
@@ -9441,7 +9447,9 @@ _export({
   setPrototypeOf: objectSetPrototypeOf
 });
 
-var setPrototypeOf$2 = path.Object.setPrototypeOf;
+var setPrototypeOf$3 = path.Object.setPrototypeOf;
+
+var setPrototypeOf$2 = setPrototypeOf$3;
 
 var setPrototypeOf$1 = setPrototypeOf$2;
 
@@ -9474,12 +9482,14 @@ function _inherits(subClass, superClass) {
 function _possibleConstructorReturn(self, call) {
   if (call && (_typeof(call) === "object" || typeof call === "function")) {
     return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
   }
 
   return _assertThisInitialized(self);
 }
 
-var getPrototypeOf$1 = getPrototypeOf$4;
+var getPrototypeOf$1 = getPrototypeOf$3;
 
 var getPrototypeOf = getPrototypeOf$1;
 
@@ -10488,7 +10498,7 @@ var iterate = function (iterable, unboundFunction, options) {
   if (IS_ITERATOR) {
     iterator = iterable;
   } else {
-    iterFn = getIteratorMethod$1(iterable);
+    iterFn = getIteratorMethod$3(iterable);
     if (typeof iterFn != 'function') throw TypeError('Target is not iterable'); // optimisation for array iterators
 
     if (isArrayIteratorMethod(iterFn)) {
@@ -10854,12 +10864,10 @@ var set$1 = set$2;
 
 var set = set$1;
 
-var iterator$1 = iterator$4;
+var iterator = iterator$3;
 
-var iterator = iterator$1;
-
-var getIterator$1 = function (it) {
-  var iteratorMethod = getIteratorMethod$1(it);
+var getIterator$3 = function (it) {
+  var iteratorMethod = getIteratorMethod$3(it);
 
   if (typeof iteratorMethod != 'function') {
     throw TypeError(String(it) + ' is not iterable');
@@ -10868,9 +10876,13 @@ var getIterator$1 = function (it) {
   return anObject(iteratorMethod.call(it));
 };
 
-var getIterator_1 = getIterator$1;
+var getIterator_1 = getIterator$3;
 
-var getIterator = getIterator_1;
+var getIterator$2 = getIterator_1;
+
+var getIterator$1 = getIterator$2;
+
+var getIterator = getIterator$1;
 
 var $some = arrayIteration.some;
 var STRICT_METHOD = arrayMethodIsStrict('some'); // `Array.prototype.some` method
