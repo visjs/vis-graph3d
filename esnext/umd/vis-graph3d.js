@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-08-11T13:01:03.055Z
+ * @date    2021-08-11T21:10:13.002Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -60,6 +60,7 @@
    * @param {number} [y]
    * @param {number} [z]
    */
+
   function Point3d(x, y, z) {
     this.x = x !== undefined ? x : 0;
     this.y = y !== undefined ? y : 0;
@@ -176,6 +177,7 @@
    * @param {number} [x]
    * @param {number} [y]
    */
+
   function Point2d (x, y) {
     this.x = x !== undefined ? x : 0;
     this.y = y !== undefined ? y : 0;
@@ -554,6 +556,7 @@
    * @param {boolean} prettyStep Optional. If true, the step size is rounded
    *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
    */
+
   function StepNumber(start, end, step, prettyStep) {
     // set default values
     this._start = 0;
@@ -1676,6 +1679,7 @@
    *
    *    this.min <= value <= this.max
    */
+
   function Range() {
     this.min = undefined;
     this.max = undefined;
