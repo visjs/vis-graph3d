@@ -90,7 +90,7 @@
     "semantic-release": "17.4.7",
     "sinon": "11.1.2",
     "snap-shot-it": "7.9.6",
-    "test-console": "1.1.0",
+    "test-console": "2.0.0",
     "uuid": "8.3.2",
     "vis-data": "7.1.2",
     "vis-dev-utils": "2.9.83",
