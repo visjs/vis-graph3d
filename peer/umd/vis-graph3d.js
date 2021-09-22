@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2021-09-16T11:46:55.195Z
+ * @date    2021-09-22T08:33:20.167Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -28,7 +28,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('vis-data/peer/umd/vis-data.js')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'vis-data/peer/umd/vis-data.js'], factory) :
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.vis = global.vis || {}, global.vis));
-}(this, (function (exports, esnext) {
+})(this, (function (exports, esnext) {
 	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 	var check = function (it) {
@@ -12954,5 +12954,5 @@
 
 	Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=vis-graph3d.js.map
