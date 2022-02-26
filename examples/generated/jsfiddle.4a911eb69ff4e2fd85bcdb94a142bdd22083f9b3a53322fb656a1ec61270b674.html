@@ -21,9 +21,9 @@
       <input
         type="hidden"
         name="html"
-        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+        value='<div id="mygraph"></div>
 
-&lt;div id="info"&gt;&lt;/div&gt;
+<div id="info"></div>
 '
       />
       <input
@@ -46,7 +46,7 @@ function drawVisualization() {
   var tmax = 2.0 * pi;
   var tstep = tmax / 75;
   var dotCount = 1; // set this to 1, 2, 3, 4, ...
-  for (var t = 0; t &lt; tmax; t += tstep) {
+  for (var t = 0; t < tmax; t += tstep) {
     var tgroup = parseFloat(t.toFixed(2));
     var value = t;
 
@@ -54,7 +54,7 @@ function drawVisualization() {
     data.add({ x: 0, y: 0, z: 0, filter: tgroup, style: value });
 
     // one or multiple dots moving around the center
-    for (var dot = 0; dot &lt; dotCount; dot++) {
+    for (var dot = 0; dot < dotCount; dot++) {
       var tdot = t + (2 * pi * dot) / dotCount;
       data.add({
         x: sin(tdot),
@@ -98,7 +98,7 @@ function drawVisualization() {
   graph = new vis.Graph3d(container, data, options);
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

@@ -21,9 +21,9 @@
       <input
         type="hidden"
         name="html"
-        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+        value='<div id="mygraph"></div>
 
-&lt;div id="info"&gt;&lt;/div&gt;
+<div id="info"></div>
 '
       />
       <input
@@ -41,8 +41,8 @@ function drawVisualization() {
   var steps = 50; // number of datapoints will be steps*steps
   var axisMax = 314;
   var axisStep = axisMax / steps;
-  for (var x = 0; x &lt; axisMax; x += axisStep) {
-    for (var y = 0; y &lt; axisMax; y += axisStep) {
+  for (var x = 0; x < axisMax; x += axisStep) {
+    for (var y = 0; y < axisMax; y += axisStep) {
       var height = Math.sin(x / 50) * Math.cos(y / 50) * 50 + 50;
       var value = Math.sin(x / 20) * Math.cos(y / 20);
       data.add({ id: counter++, x: x, y: y, z: height, style: value });
@@ -66,7 +66,7 @@ function drawVisualization() {
   graph = new vis.Graph3d(container, data, options);
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

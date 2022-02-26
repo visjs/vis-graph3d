@@ -21,50 +21,50 @@
       <input
         type="hidden"
         name="html"
-        value='&lt;p&gt;
-  &lt;label for="style"&gt;
+        value='<p>
+  <label for="style">
     Style:
-    &lt;select id="style"&gt;
-      &lt;option value="bar"&gt;bar&lt;/option&gt;
-      &lt;option value="bar-color" selected&gt;bar-color&lt;/option&gt;
-      &lt;option value="bar-size"&gt;bar-size&lt;/option&gt;
+    <select id="style">
+      <option value="bar">bar</option>
+      <option value="bar-color" selected="">bar-color</option>
+      <option value="bar-size">bar-size</option>
 
-      &lt;option value="dot"&gt;dot&lt;/option&gt;
-      &lt;option value="dot-line"&gt;dot-line&lt;/option&gt;
-      &lt;option value="dot-color"&gt;dot-color&lt;/option&gt;
-      &lt;option value="dot-size"&gt;dot-size&lt;/option&gt;
+      <option value="dot">dot</option>
+      <option value="dot-line">dot-line</option>
+      <option value="dot-color">dot-color</option>
+      <option value="dot-size">dot-size</option>
 
-      &lt;option value="grid"&gt;grid&lt;/option&gt;
-      &lt;option value="line"&gt;line&lt;/option&gt;
-      &lt;option value="surface"&gt;surface&lt;/option&gt;
-    &lt;/select&gt;
-  &lt;/label&gt;
-&lt;/p&gt;
+      <option value="grid">grid</option>
+      <option value="line">line</option>
+      <option value="surface">surface</option>
+    </select>
+  </label>
+</p>
 
-&lt;p&gt;
-  &lt;label for="perspective"&gt;
-    &lt;input type="checkbox" id="perspective" checked /&gt; Show perspective
-  &lt;/label&gt;
-&lt;/p&gt;
+<p>
+  <label for="perspective">
+    <input type="checkbox" id="perspective" checked="" /> Show perspective
+  </label>
+</p>
 
-&lt;p&gt;
-  &lt;label for="xBarWidth"&gt;
+<p>
+  <label for="xBarWidth">
     Bar width X:
-    &lt;input type="text" id="xBarWidth" value style="width: 50px" /&gt; (only
-    applicable for styles &amp;quot;bar&amp;quot; and &amp;quot;bar-color&amp;quot;)
-  &lt;/label&gt;
-&lt;/p&gt;
-&lt;p&gt;
-  &lt;label for="yBarWidth"&gt;
+    <input type="text" id="xBarWidth" value="" style="width: 50px" /> (only
+    applicable for styles "bar" and "bar-color")
+  </label>
+</p>
+<p>
+  <label for="yBarWidth">
     Bar width Y:
-    &lt;input type="text" id="yBarWidth" value style="width: 50px" /&gt; (only
-    applicable for styles &amp;quot;bar&amp;quot; and &amp;quot;bar-color&amp;quot;)
-  &lt;/label&gt;
-&lt;/p&gt;
+    <input type="text" id="yBarWidth" value="" style="width: 50px" /> (only
+    applicable for styles "bar" and "bar-color")
+  </label>
+</p>
 
-&lt;div id="mygraph"&gt;&lt;/div&gt;
+<div id="mygraph"></div>
 
-&lt;div id="info"&gt;&lt;/div&gt;
+<div id="info"></div>
 '
       />
       <input
@@ -96,8 +96,8 @@ function drawVisualization() {
   var steps = 7; // number of datapoints will be steps*steps
   var axisMax = 12;
   var axisStep = axisMax / steps;
-  for (var x = 0; x &lt;= axisMax; x += axisStep) {
-    for (var y = 0; y &lt;= axisMax; y += axisStep) {
+  for (var x = 0; x <= axisMax; x += axisStep) {
+    for (var y = 0; y <= axisMax; y += axisStep) {
       var z = custom(x, y);
       if (withValue) {
         data.push({
@@ -143,7 +143,7 @@ function drawVisualization() {
   document.getElementById("yBarWidth").onchange = drawVisualization;
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

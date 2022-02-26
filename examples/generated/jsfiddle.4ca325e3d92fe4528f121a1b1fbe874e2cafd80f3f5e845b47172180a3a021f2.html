@@ -35,24 +35,24 @@ span#endTime {
       <input
         type="hidden"
         name="html"
-        value='&lt;p&gt;
-  &lt;label for="style"&gt;
+        value='<p>
+  <label for="style">
     Style:
-    &lt;select id="style"&gt;
-      &lt;option value="bar"&gt;bar&lt;/option&gt;
-      &lt;option value="dot"&gt;dot&lt;/option&gt;
-      &lt;option value="dot-line"&gt;dot-line&lt;/option&gt;
-    &lt;/select&gt;
-  &lt;/label&gt;
-&lt;/p&gt;
-&lt;div style="text-align: center; width: 1024px"&gt;
-  &lt;span id="graphHead"&gt;WORLD INDEXES BY COUNTRY 2018 MID-YEAR&lt;/span&gt;&lt;br /&gt;
-  &lt;span id="updateTime"&gt;&lt;/span&gt;&lt;br /&gt;
-  &lt;span id="startTime"&gt;&lt;/span&gt;&lt;br /&gt;
-  &lt;span id="endTime"&gt;&lt;/span&gt;&lt;br /&gt;
-  &lt;div id="mygraph" height="470px"&gt;&lt;/div&gt;
-  &lt;div id="info"&gt;Hover the mouse cursor over the graph to see tooltips.&lt;/div&gt;
-&lt;/div&gt;
+    <select id="style">
+      <option value="bar">bar</option>
+      <option value="dot">dot</option>
+      <option value="dot-line">dot-line</option>
+    </select>
+  </label>
+</p>
+<div style="text-align: center; width: 1024px">
+  <span id="graphHead">WORLD INDEXES BY COUNTRY 2018 MID-YEAR</span><br />
+  <span id="updateTime"></span><br />
+  <span id="startTime"></span><br />
+  <span id="endTime"></span><br />
+  <div id="mygraph" height="470px"></div>
+  <div id="info">Hover the mouse cursor over the graph to see tooltips.</div>
+</div>
 '
       />
       <input
@@ -91,7 +91,7 @@ function drawVisualization() {
   }
 
   request.onload = function () {
-    if (request.status &gt;= 200 &amp;&amp; request.status &lt; 400) {
+    if (request.status >= 200 &amp;&amp; request.status < 400) {
       var result = JSON.parse(request.responseText);
       axisLoad(result.graph3d, function (object, i) {
         data.add(object);
@@ -142,11 +142,11 @@ function drawVisualization() {
     },
     tooltip: function (point) {
       return (
-        "value: &lt;b&gt;" +
+        "value: <b>" +
         point.z +
-        "%&lt;/b&gt;&lt;br&gt;" +
+        "%</b><br>" +
         axis_x[point.x] +
-        "&lt;/b&gt;&lt;br&gt;" +
+        "</b><br>" +
         axis_y[point.y]
       );
     },
@@ -189,7 +189,7 @@ function drawVisualization() {
   document.getElementById("style").onchange = drawVisualization;
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

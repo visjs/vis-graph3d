@@ -32,7 +32,7 @@ body {
       <input
         type="hidden"
         name="html"
-        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+        value='<div id="mygraph"></div>
 '
       />
       <input
@@ -54,8 +54,8 @@ function drawVisualization() {
   var steps = 10; // number of datapoints will be steps*steps
   var axisMax = 314;
   var axisStep = axisMax / steps;
-  for (var x = 0; x &lt; axisMax; x += axisStep) {
-    for (var y = 0; y &lt; axisMax; y += axisStep) {
+  for (var x = 0; x < axisMax; x += axisStep) {
+    for (var y = 0; y < axisMax; y += axisStep) {
       var value = custom(x, y);
       data.add([{ x: x, y: y, z: value }]);
     }
@@ -81,10 +81,10 @@ function drawVisualization() {
   graph = new vis.Graph3d(container, data, options);
 }
 
-window.addEventListener("resize", () =&gt; {
+window.addEventListener("resize", () => {
   graph.redraw();
 });
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

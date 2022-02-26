@@ -21,9 +21,9 @@
       <input
         type="hidden"
         name="html"
-        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+        value='<div id="mygraph"></div>
 
-&lt;div id="info"&gt;&lt;/div&gt;
+<div id="info"></div>
 '
       />
       <input
@@ -42,7 +42,7 @@ function drawVisualization() {
   var axisMax = 314;
   var tmax = 4 * 2 * Math.PI;
   var axisStep = axisMax / steps;
-  for (var t = 0; t &lt; tmax; t += tmax / steps) {
+  for (var t = 0; t < tmax; t += tmax / steps) {
     var r = 1;
     var x = r * Math.sin(t);
     var y = r * Math.cos(t);
@@ -68,7 +68,7 @@ function drawVisualization() {
   graph.setCameraPosition(0.4, undefined, undefined);
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

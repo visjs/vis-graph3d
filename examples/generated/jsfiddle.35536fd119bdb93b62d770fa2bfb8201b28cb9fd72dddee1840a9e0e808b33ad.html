@@ -24,33 +24,33 @@ td {
       <input
         type="hidden"
         name="html"
-        value='&lt;h1&gt;Graph 3d camera position&lt;/h1&gt;
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Horizontal angle (0 to 2*pi)&lt;/td&gt;
-      &lt;td&gt;&lt;input type="text" id="horizontal" value="1.0" /&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Vertical angle (0 to 0.5*pi)&lt;/td&gt;
-      &lt;td&gt;&lt;input type="text" id="vertical" value="0.5" /&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Distance (0.71 to 5.0)&lt;/td&gt;
-      &lt;td&gt;&lt;input type="text" id="distance" value="1.7" /&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;/td&gt;
-      &lt;td&gt;
-        &lt;input type="button" value="Set" onclick="setCameraPosition();" /&gt;
-      &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+        value='<h1>Graph 3d camera position</h1>
+<table>
+  <tbody>
+    <tr>
+      <td>Horizontal angle (0 to 2*pi)</td>
+      <td><input type="text" id="horizontal" value="1.0" /></td>
+    </tr>
+    <tr>
+      <td>Vertical angle (0 to 0.5*pi)</td>
+      <td><input type="text" id="vertical" value="0.5" /></td>
+    </tr>
+    <tr>
+      <td>Distance (0.71 to 5.0)</td>
+      <td><input type="text" id="distance" value="1.7" /></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <input type="button" value="Set" onclick="setCameraPosition();" />
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-&lt;div id="mygraph"&gt;&lt;/div&gt;
+<div id="mygraph"></div>
 
-&lt;div id="info"&gt;&lt;/div&gt;
+<div id="info"></div>
 '
       />
       <input
@@ -102,8 +102,8 @@ function drawVisualization() {
   var steps = 50; // number of datapoints will be steps*steps
   var axisMax = 314;
   var axisStep = axisMax / steps;
-  for (var x = 0; x &lt; axisMax; x += axisStep) {
-    for (var y = 0; y &lt; axisMax; y += axisStep) {
+  for (var x = 0; x < axisMax; x += axisStep) {
+    for (var y = 0; y < axisMax; y += axisStep) {
       var value = custom(x, y);
       data.add([{ x: x, y: y, z: value, t: 0, style: value }]);
     }
@@ -128,7 +128,7 @@ function drawVisualization() {
   graph.on("cameraPositionChange", onCameraPositionChange);
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

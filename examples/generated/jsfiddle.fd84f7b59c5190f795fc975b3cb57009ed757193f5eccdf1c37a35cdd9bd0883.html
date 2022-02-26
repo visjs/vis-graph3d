@@ -21,9 +21,9 @@
       <input
         type="hidden"
         name="html"
-        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+        value='<div id="mygraph"></div>
 
-&lt;div id="info"&gt;&lt;/div&gt;
+<div id="info"></div>
 '
       />
       <input
@@ -44,7 +44,7 @@ function drawVisualization() {
 
   // create the animation data
   var imax = 100;
-  for (var i = 0; i &lt; imax; i++) {
+  for (var i = 0; i < imax; i++) {
     var x = pow(random(), 2);
     var y = pow(random(), 2);
     var z = pow(random(), 2);
@@ -79,7 +79,7 @@ function drawVisualization() {
   graph = new vis.Graph3d(container, data, options);
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

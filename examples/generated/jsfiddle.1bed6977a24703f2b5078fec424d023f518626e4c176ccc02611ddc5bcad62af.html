@@ -21,29 +21,29 @@
       <input
         type="hidden"
         name="html"
-        value='&lt;p&gt;
-  &lt;label for="style"&gt;
+        value='<p>
+  <label for="style">
     Style:
-    &lt;select id="style"&gt;
-      &lt;option value="bar"&gt;bar&lt;/option&gt;
-      &lt;option value="bar-color"&gt;bar-color&lt;/option&gt;
-      &lt;option value="bar-size"&gt;bar-size&lt;/option&gt;
+    <select id="style">
+      <option value="bar">bar</option>
+      <option value="bar-color">bar-color</option>
+      <option value="bar-size">bar-size</option>
 
-      &lt;option value="dot"&gt;dot&lt;/option&gt;
-      &lt;option value="dot-line"&gt;dot-line&lt;/option&gt;
-      &lt;option value="dot-color"&gt;dot-color&lt;/option&gt;
-      &lt;option value="dot-size"&gt;dot-size&lt;/option&gt;
+      <option value="dot">dot</option>
+      <option value="dot-line">dot-line</option>
+      <option value="dot-color">dot-color</option>
+      <option value="dot-size">dot-size</option>
 
-      &lt;option value="grid"&gt;grid&lt;/option&gt;
-      &lt;option value="line"&gt;line&lt;/option&gt;
-      &lt;option value="surface"&gt;surface&lt;/option&gt;
-    &lt;/select&gt;
-  &lt;/label&gt;
-&lt;/p&gt;
+      <option value="grid">grid</option>
+      <option value="line">line</option>
+      <option value="surface">surface</option>
+    </select>
+  </label>
+</p>
 
-&lt;div id="mygraph"&gt;&lt;/div&gt;
+<div id="mygraph"></div>
 
-&lt;div id="info"&gt;&lt;/div&gt;
+<div id="info"></div>
 '
       />
       <input
@@ -69,8 +69,8 @@ function drawVisualization() {
   var steps = 5; // number of datapoints will be steps*steps
   var axisMax = 10;
   var axisStep = axisMax / steps;
-  for (var x = 0; x &lt;= axisMax; x += axisStep) {
-    for (var y = 0; y &lt;= axisMax; y += axisStep) {
+  for (var x = 0; x <= axisMax; x += axisStep) {
+    for (var y = 0; y <= axisMax; y += axisStep) {
       var z = custom(x, y);
       if (withValue) {
         var value = y - x;
@@ -94,7 +94,7 @@ function drawVisualization() {
     //tooltip: true,
     tooltip: function (point) {
       // parameter point contains properties x, y, z
-      return "value: &lt;b&gt;" + point.z + "&lt;/b&gt;";
+      return "value: <b>" + point.z + "</b>";
     },
 
     xValueLabel: function (value) {
@@ -124,7 +124,7 @@ function drawVisualization() {
   document.getElementById("style").onchange = drawVisualization;
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

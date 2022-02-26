@@ -21,9 +21,9 @@
       <input
         type="hidden"
         name="html"
-        value='&lt;div id="mygraph"&gt;&lt;/div&gt;
+        value='<div id="mygraph"></div>
 
-&lt;div id="info"&gt;&lt;/div&gt;
+<div id="info"></div>
 '
       />
       <input
@@ -45,9 +45,9 @@ function drawVisualization() {
   var axisMax = 314;
   var tMax = 31;
   var axisStep = axisMax / steps;
-  for (var t = 0; t &lt; tMax; t++) {
-    for (var x = 0; x &lt; axisMax; x += axisStep) {
-      for (var y = 0; y &lt; axisMax; y += axisStep) {
+  for (var t = 0; t < tMax; t++) {
+    for (var x = 0; x < axisMax; x += axisStep) {
+      for (var y = 0; y < axisMax; y += axisStep) {
         var value = custom(x, y, t);
         data.add([{ x: x, y: y, z: value, filter: t, style: value }]);
       }
@@ -74,7 +74,7 @@ function drawVisualization() {
   graph = new vis.Graph3d(container, data, options);
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '

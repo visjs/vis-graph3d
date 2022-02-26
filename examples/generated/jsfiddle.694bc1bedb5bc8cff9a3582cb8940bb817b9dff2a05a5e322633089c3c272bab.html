@@ -21,11 +21,11 @@ fieldset {
   width: fit-content;
 }
 
-fieldset &gt; div {
+fieldset > div {
   float: left;
 }
 
-fieldset &gt; div + div {
+fieldset > div + div {
   margin-left: 100px;
 }
 "
@@ -33,60 +33,60 @@ fieldset &gt; div + div {
       <input
         type="hidden"
         name="html"
-        value='&lt;fieldset&gt;
-  &lt;legend&gt;Select Style&lt;/legend&gt;
-  &lt;div&gt;
-    &lt;input
+        value='<fieldset>
+  <legend>Select Style</legend>
+  <div>
+    <input
       type="radio"
       name="style"
       id="defaultStyle"
       value="default"
       checked="checked"
       onchange="drawVisualization();"
-    /&gt;
-    &lt;label for="defaultStyle"&gt;Default Configuration: &lt;/label&gt;
-    &lt;code&gt;
-      &lt;pre&gt;
+    />
+    <label for="defaultStyle">Default Configuration: </label>
+    <code>
+      <pre>
 colormap: [
-  &amp;apos;#000FFF&amp;apos;,
-  &amp;apos;#68E8FB&amp;apos;,
-  &amp;apos;#00FF00&amp;apos;,
-  &amp;apos;#FFF000&amp;apos;,
-  &amp;apos;#FF0000&amp;apos;,
-]&lt;/pre
-      &gt;
-    &lt;/code&gt;
-  &lt;/div&gt;
+  &apos;#000FFF&apos;,
+  &apos;#68E8FB&apos;,
+  &apos;#00FF00&apos;,
+  &apos;#FFF000&apos;,
+  &apos;#FF0000&apos;,
+]</pre
+      >
+    </code>
+  </div>
 
-  &lt;div&gt;
-    &lt;input
+  <div>
+    <input
       type="radio"
       name="style"
       id="functionStyle"
       value="function"
       onchange="drawVisualization();"
-    /&gt;
-    &lt;label for="functionStyle"&gt;Function Configuration:&lt;/label&gt;
-    &lt;code&gt;
-      &lt;pre&gt;
+    />
+    <label for="functionStyle">Function Configuration:</label>
+    <code>
+      <pre>
 colormap: function(x) {
   return {r: 255*x, g: 0, b: 0, a: (1+x)/2};
-}&lt;/pre
-      &gt;
-    &lt;/code&gt;
-  &lt;/div&gt;
+}</pre
+      >
+    </code>
+  </div>
 
-  &lt;div&gt;
-    &lt;input
+  <div>
+    <input
       type="radio"
       name="style"
       id="hueStyle"
       value="hue"
       onchange="drawVisualization();"
-    /&gt;
-    &lt;label for="hueStyle"&gt;Hue Configuration:&lt;/label&gt;
-    &lt;code&gt;
-      &lt;pre&gt;
+    />
+    <label for="hueStyle">Hue Configuration:</label>
+    <code>
+      <pre>
 colormap: {
   hue: {
     start: 360,
@@ -95,33 +95,33 @@ colormap: {
     brightness: 100,
     colorStops: 8,
   }
-}&lt;/pre
-      &gt;
-    &lt;/code&gt;
-  &lt;/div&gt;
+}</pre
+      >
+    </code>
+  </div>
 
-  &lt;div&gt;
-    &lt;input
+  <div>
+    <input
       type="radio"
       name="style"
       id="htmlStyle"
       value="html"
       onchange="drawVisualization();"
-    /&gt;
-    &lt;label for="htmlStyle"&gt;HTML Hex Configuration:&lt;/label&gt;
-    &lt;code&gt;
-      &lt;pre&gt;
+    />
+    <label for="htmlStyle">HTML Hex Configuration:</label>
+    <code>
+      <pre>
 colormap: [
-  &amp;apos;#000000&amp;apos;,
-  &amp;apos;#6A0DAD&amp;apos;,
-  &amp;apos;#FFFFFF&amp;apos;,
-]&lt;/pre
-      &gt;
-    &lt;/code&gt;
-  &lt;/div&gt;
-&lt;/fieldset&gt;
+  &apos;#000000&apos;,
+  &apos;#6A0DAD&apos;,
+  &apos;#FFFFFF&apos;,
+]</pre
+      >
+    </code>
+  </div>
+</fieldset>
 
-&lt;div id="mygraph"&gt;&lt;/div&gt;
+<div id="mygraph"></div>
 '
       />
       <input
@@ -152,8 +152,8 @@ function drawVisualization() {
   var steps = 50; // number of datapoints will be steps*steps
   var axisMax = 314;
   var axisStep = axisMax / steps;
-  for (var x = 0; x &lt; axisMax; x += axisStep) {
-    for (var y = 0; y &lt; axisMax; y += axisStep) {
+  for (var x = 0; x < axisMax; x += axisStep) {
+    for (var y = 0; y < axisMax; y += axisStep) {
       var value = custom(x, y);
       data.add({ id: counter++, x: x, y: y, z: value, style: value });
     }
@@ -198,7 +198,7 @@ function drawVisualization() {
   graph = new vis.Graph3d(container, data, options);
 }
 
-window.addEventListener("load", () =&gt; {
+window.addEventListener("load", () => {
   drawVisualization();
 });
 '
