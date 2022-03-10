@@ -84,7 +84,7 @@
     "semantic-release": "19.0.2",
     "sinon": "13.0.1",
     "snap-shot-it": "7.9.6",
-    "test-console": "1.1.0",
+    "test-console": "2.0.0",
     "uuid": "8.3.2",
     "vis-data": "7.1.2",
     "vis-dev-utils": "3.0.0",
