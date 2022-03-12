@@ -78,7 +78,6 @@
     "opencollective": "1.0.3",
     "postcss": "8.4.7",
     "rimraf": "3.0.2",
-    "rollup": "2.67.1",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
     "semantic-release": "19.0.2",
