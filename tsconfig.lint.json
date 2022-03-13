@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": ["*.js", ".*.js", "docs", "lib", "scripts", "src", "test"],
+  "exclude": ["*.min.js"]
+}

@@ -1,0 +1,11 @@
+!/.eslintrc.js
+*.min.js
+/__snapshots__/
+/coverage/
+/declarations/
+/dist/
+/esnext/
+/examples/
+/node_modules/
+/peer/
+/standalone/

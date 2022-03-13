@@ -9,10 +9,10 @@ export default generateRollupConfiguration({
     "vis-data": "vis",
     "vis-util": "vis",
     keycharm: "keycharm",
-    uuid: "uuidv4"
+    uuid: "uuidv4",
   },
   header: { name: "vis-graph3d" },
   libraryFilename: "vis-graph3d",
   entryPoints: "./lib",
-  packageJSON
+  packageJSON,
 });

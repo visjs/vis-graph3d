@@ -1,9 +1,9 @@
 ---
 name: Feature Request
 about: Use this issue for features request
-title: ''
-labels: 'enhancement'
-assignees: ''
+title: ""
+labels: "enhancement"
+assignees: ""
 ---
 
 _Please describe in detail what feature you are missing_

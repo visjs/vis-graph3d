@@ -1,5 +1,3 @@
-/* global window: false */
-
 /**
  * Force size of the graph to the size of the screenshot.
  */
@@ -18,6 +16,6 @@
     },
     set(value) {
       Graph3d = value;
-    }
+    },
   });
 })();

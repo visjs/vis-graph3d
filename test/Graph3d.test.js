@@ -1,29 +1,27 @@
-var assert = require('assert');
-import Graph3d from '../lib/graph3d/Graph3d';
-var canvasMockify = require('./canvas-mock');
-var stdout = require('test-console').stdout;
-var {Validator} = require("vis-util/esnext");
-var {allOptions} = require('./../lib/graph3d/options.js');
+const assert = require("assert");
+import Graph3d from "../lib/graph3d/Graph3d";
+const canvasMockify = require("./canvas-mock");
+const stdout = require("test-console").stdout;
+const { Validator } = require("vis-util/esnext");
+const { allOptions } = require("./../lib/graph3d/options.js");
 
-describe('Graph3d', function () {
-  before(function() {
+describe("Graph3d", function () {
+  before(function () {
     this.jsdom_global = canvasMockify("<div id='mygraph'></div>");
-    this.container = document.getElementById('mygraph');
+    this.container = document.getElementById("mygraph");
   });
 
-
-  after(function() {
+  after(function () {
     this.jsdom_global();
   });
 
-
-  it('should pass validation for the default options', function () {
+  it("should pass validation for the default options", function () {
     assert(Graph3d.DEFAULTS !== undefined);
 
     let errorFound;
     // Useful during debugging:
     // const output =
-    stdout.inspectSync(function() {
+    stdout.inspectSync(function () {
       errorFound = Validator.validate(Graph3d.DEFAULTS, allOptions);
     });
 
@@ -31,31 +29,30 @@ describe('Graph3d', function () {
     //if (errorFound === true) {
     //  console.log(JSON.stringify(output, null, 2));
     //}
-    assert(!errorFound, 'DEFAULTS options object does not pass validation');
+    assert(!errorFound, "DEFAULTS options object does not pass validation");
   });
 
+  it("accepts new option values on defined instance", function () {
+    assert(this.container !== null, "Container div not found");
 
-  it('accepts new option values on defined instance', function () {
-    assert(this.container !== null, 'Container div not found');
+    const BAR_STYLE = 0; // from var STYLE in Settings.js
+    const DOT_STYLE = 3; // idem
 
-    var BAR_STYLE = 0;  // from var STYLE in Settings.js
-    var DOT_STYLE = 3;  // idem
-
-    var data = [
-      {x:0, y:0, z: 10},
-      {x:0, y:1, z: 20},
-      {x:1, y:0, z: 30},
-      {x:1, y:1, z: 40},
+    const data = [
+      { x: 0, y: 0, z: 10 },
+      { x: 0, y: 1, z: 20 },
+      { x: 1, y: 0, z: 30 },
+      { x: 1, y: 1, z: 40 },
     ];
 
-    var options = {
-      style: 'dot'
+    const options = {
+      style: "dot",
     };
 
-    var graph = new Graph3d(this.container, data, options);
+    const graph = new Graph3d(this.container, data, options);
     assert.equal(graph.style, DOT_STYLE, "Style not set to expected 'dot'");
 
-    graph.setOptions({ style: 'bar'});  // Call should just work, no exception thrown
+    graph.setOptions({ style: "bar" }); // Call should just work, no exception thrown
     assert.equal(graph.style, BAR_STYLE, "Style not set to expected 'bar'");
   });
 });
