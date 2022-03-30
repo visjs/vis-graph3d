@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2022-03-30T01:16:00.068Z
+ * @date    2022-03-30T04:06:34.863Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -7398,7 +7398,7 @@
 	 */
 
 
-	var Hammer$1 = /*#__PURE__*/function () {
+	var Hammer = /*#__PURE__*/function () {
 	  var Hammer =
 	  /**
 	    * @private
@@ -7474,7 +7474,7 @@
 	  });
 	  return Hammer;
 	}(); //  style loader but by script tag, not by the loader.
-	var RealHammer = Hammer$1;
+	var RealHammer = Hammer;
 
 	function _createForOfIteratorHelper$1(o, allowArrayLike) { var it = typeof symbol !== "undefined" && getIteratorMethod$1(o) || o["@@iterator"]; if (!it) { if (isArray$6(o) || (it = _unsupportedIterableToArray$1(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -7491,7 +7491,6 @@
 	 *
 	 * @param base - The base object that fullfils the whole interface T.
 	 * @param updates - Updates that may change or delete props.
-	 *
 	 * @returns A brand new instance with all the supplied objects deeply merged.
 	 */
 
@@ -7509,7 +7508,6 @@
 	 * Deep version of object assign with additional deleting by the DELETE symbol.
 	 *
 	 * @param values - Objects to be deeply merged.
-	 *
 	 * @returns The first object from values.
 	 */
 
@@ -7524,9 +7522,7 @@
 	 *
 	 * @remarks
 	 * This doesn't strip the DELETE symbols so they may end up in the final object.
-	 *
 	 * @param values - Objects to be deeply merged.
-	 *
 	 * @returns The first object from values.
 	 */
 
@@ -7573,7 +7569,6 @@
 	 * Deep clone given object or array. In case of primitive simply return.
 	 *
 	 * @param a - Anything.
-	 *
 	 * @returns Deep cloned object/array or unchanged a.
 	 */
 
@@ -7632,7 +7627,7 @@
 	  };
 	}
 
-	var Hammer = typeof window !== "undefined" ? window.Hammer || RealHammer : function () {
+	var Hammer$1 = typeof window !== "undefined" ? window.Hammer || RealHammer : function () {
 	  // hammer.js is only available in a browser, not in node.js. Replacing it with a mock object.
 	  return hammerMock();
 	};
@@ -7648,7 +7643,7 @@
 	 * @class Activator
 	 */
 
-	function Activator(container) {
+	function Activator$1(container) {
 	  var _this = this,
 	      _context3;
 
@@ -7667,7 +7662,7 @@
 	    _this._dom.overlay.parentNode.removeChild(_this._dom.overlay);
 	  });
 
-	  var hammer = Hammer(this._dom.overlay);
+	  var hammer = Hammer$1(this._dom.overlay);
 	  hammer.on("tap", bind$4(_context3 = this._onTapOverlay).call(_context3, this));
 
 	  this._cleanupQueue.push(function () {
@@ -7710,14 +7705,14 @@
 	} // turn into an event emitter
 
 
-	Emitter(Activator.prototype); // The currently active activator
+	Emitter(Activator$1.prototype); // The currently active activator
 
-	Activator.current = null;
+	Activator$1.current = null;
 	/**
 	 * Destroy the activator. Cleans up all created DOM and event listeners
 	 */
 
-	Activator.prototype.destroy = function () {
+	Activator$1.prototype.destroy = function () {
 	  var _context4, _context5;
 
 	  this.deactivate();
@@ -7742,13 +7737,13 @@
 	 */
 
 
-	Activator.prototype.activate = function () {
+	Activator$1.prototype.activate = function () {
 	  // we allow only one active activator at a time
-	  if (Activator.current) {
-	    Activator.current.deactivate();
+	  if (Activator$1.current) {
+	    Activator$1.current.deactivate();
 	  }
 
-	  Activator.current = this;
+	  Activator$1.current = this;
 	  this.active = true;
 	  this._dom.overlay.style.display = "none";
 
@@ -7766,7 +7761,7 @@
 	 */
 
 
-	Activator.prototype.deactivate = function () {
+	Activator$1.prototype.deactivate = function () {
 	  this.active = false;
 	  this._dom.overlay.style.display = "block";
 
@@ -7784,7 +7779,7 @@
 	 */
 
 
-	Activator.prototype._onTapOverlay = function (event) {
+	Activator$1.prototype._onTapOverlay = function (event) {
 	  // activate the container
 	  this.activate();
 	  event.srcEvent.stopPropagation();
@@ -7849,12 +7844,10 @@
 	 * Previous version of this routine implied that multiple source objects could
 	 * be used; however, the implementation was **wrong**. Since multiple (\>1)
 	 * sources weren't used anywhere in the `vis.js` code, this has been removed
-	 *
 	 * @param props - Names of first-level properties to copy over.
 	 * @param a - Target object.
 	 * @param b - Source object.
 	 * @param allowDeletion - If true, delete property in a if explicitly set to null in b.
-	 *
 	 * @returns Argument a.
 	 */
 
@@ -7900,7 +7893,6 @@
 	 * (That is the options objects that inherit from others will also get the
 	 * inherited options).
 	 * @param allowDeletion - If true, the values of fields that are null will be deleted.
-	 *
 	 * @returns Argument a.
 	 */
 
@@ -7936,7 +7928,6 @@
 	 *
 	 * @param arr - First part.
 	 * @param newValue - The value to be aadded into the array.
-	 *
 	 * @returns A new array with all items from arr and newValue (which is last).
 	 */
 
@@ -7950,7 +7941,6 @@
 	 * Used to extend an array and copy it. This is used to propagate paths recursively.
 	 *
 	 * @param arr - The array to be copied.
-	 *
 	 * @returns Shallow copy of arr.
 	 */
 
@@ -8039,9 +8029,7 @@
 	 *
 	 * @remarks
 	 * {@link http://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb}
-	 *
 	 * @param hex - Hex color string (3 or 6 digits, with or without #).
-	 *
 	 * @returns RGB color object.
 	 */
 
@@ -8076,11 +8064,9 @@
 	 *
 	 * @remarks
 	 * {@link https://gist.github.com/mjijackson/5311256}
-	 *
 	 * @param h - Hue.
 	 * @param s - Saturation.
 	 * @param v - Value.
-	 *
 	 * @returns RGB color object.
 	 */
 
@@ -8131,7 +8117,6 @@
 	 * Validate hex color string.
 	 *
 	 * @param hex - Unknown string that may contain a color.
-	 *
 	 * @returns True if the string is valid, false otherwise.
 	 */
 
@@ -8143,17 +8128,17 @@
 
 	var errorFound = false;
 	var allOptions$1;
-	var VALIDATOR_PRINT_STYLE = "background: #FFeeee; color: #dd0000";
+	var VALIDATOR_PRINT_STYLE$1 = "background: #FFeeee; color: #dd0000";
 	/**
 	 *  Used to validate options.
 	 */
 
-	var Validator = /*#__PURE__*/function () {
-	  function Validator() {
-	    _classCallCheck(this, Validator);
+	var Validator$1 = /*#__PURE__*/function () {
+	  function Validator$1() {
+	    _classCallCheck(this, Validator$1);
 	  }
 
-	  _createClass(Validator, null, [{
+	  _createClass(Validator$1, null, [{
 	    key: "validate",
 	    value:
 	    /**
@@ -8174,7 +8159,7 @@
 	        usedOptions = referenceOptions[subObject];
 	      }
 
-	      Validator.parse(options, usedOptions, []);
+	      Validator$1.parse(options, usedOptions, []);
 	      return errorFound;
 	    }
 	    /**
@@ -8191,7 +8176,7 @@
 	    value: function parse(options, referenceOptions, path) {
 	      for (var _option3 in options) {
 	        if (Object.prototype.hasOwnProperty.call(options, _option3)) {
-	          Validator.check(_option3, options, referenceOptions, path);
+	          Validator$1.check(_option3, options, referenceOptions, path);
 	        }
 	      }
 	    }
@@ -8209,7 +8194,7 @@
 	    key: "check",
 	    value: function check(option, options, referenceOptions, path) {
 	      if (referenceOptions[option] === undefined && referenceOptions.__any__ === undefined) {
-	        Validator.getSuggestion(option, referenceOptions, path);
+	        Validator$1.getSuggestion(option, referenceOptions, path);
 	        return;
 	      }
 
@@ -8224,7 +8209,7 @@
 	        referenceOption = "__any__"; // if the any-subgroup is not a predefined object in the configurator,
 	        // we do not look deeper into the object.
 
-	        is_object = Validator.getType(options[option]) === "object";
+	        is_object = Validator$1.getType(options[option]) === "object";
 	      }
 
 	      var refOptionObj = referenceOptions[referenceOption];
@@ -8233,7 +8218,7 @@
 	        refOptionObj = refOptionObj.__type__;
 	      }
 
-	      Validator.checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path);
+	      Validator$1.checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path);
 	    }
 	    /**
 	     *
@@ -8250,24 +8235,24 @@
 	    key: "checkFields",
 	    value: function checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path) {
 	      var log = function log(message) {
-	        console.error("%c" + message + Validator.printLocation(path, option), VALIDATOR_PRINT_STYLE);
+	        console.error("%c" + message + Validator$1.printLocation(path, option), VALIDATOR_PRINT_STYLE$1);
 	      };
 
-	      var optionType = Validator.getType(options[option]);
+	      var optionType = Validator$1.getType(options[option]);
 	      var refOptionType = refOptionObj[optionType];
 
 	      if (refOptionType !== undefined) {
 	        // if the type is correct, we check if it is supposed to be one of a few select values
-	        if (Validator.getType(refOptionType) === "array" && indexOf(refOptionType).call(refOptionType, options[option]) === -1) {
-	          log('Invalid option detected in "' + option + '".' + " Allowed values are:" + Validator.print(refOptionType) + ' not "' + options[option] + '". ');
+	        if (Validator$1.getType(refOptionType) === "array" && indexOf(refOptionType).call(refOptionType, options[option]) === -1) {
+	          log('Invalid option detected in "' + option + '".' + " Allowed values are:" + Validator$1.print(refOptionType) + ' not "' + options[option] + '". ');
 	          errorFound = true;
 	        } else if (optionType === "object" && referenceOption !== "__any__") {
 	          path = copyAndExtendArray(path, option);
-	          Validator.parse(options[option], referenceOptions[referenceOption], path);
+	          Validator$1.parse(options[option], referenceOptions[referenceOption], path);
 	        }
 	      } else if (refOptionObj["any"] === undefined) {
 	        // type of the field is incorrect and the field cannot be any
-	        log('Invalid type received for "' + option + '". Expected: ' + Validator.print(keys$4(refOptionObj)) + ". Received [" + optionType + '] "' + options[option] + '"');
+	        log('Invalid type received for "' + option + '". Expected: ' + Validator$1.print(keys$4(refOptionObj)) + ". Received [" + optionType + '] "' + options[option] + '"');
 	        errorFound = true;
 	      }
 	    }
@@ -8339,23 +8324,23 @@
 	  }, {
 	    key: "getSuggestion",
 	    value: function getSuggestion(option, options, path) {
-	      var localSearch = Validator.findInOptions(option, options, path, false);
-	      var globalSearch = Validator.findInOptions(option, allOptions$1, [], true);
+	      var localSearch = Validator$1.findInOptions(option, options, path, false);
+	      var globalSearch = Validator$1.findInOptions(option, allOptions$1, [], true);
 	      var localSearchThreshold = 8;
 	      var globalSearchThreshold = 4;
 	      var msg;
 
 	      if (localSearch.indexMatch !== undefined) {
-	        msg = " in " + Validator.printLocation(localSearch.path, option, "") + 'Perhaps it was incomplete? Did you mean: "' + localSearch.indexMatch + '"?\n\n';
+	        msg = " in " + Validator$1.printLocation(localSearch.path, option, "") + 'Perhaps it was incomplete? Did you mean: "' + localSearch.indexMatch + '"?\n\n';
 	      } else if (globalSearch.distance <= globalSearchThreshold && localSearch.distance > globalSearch.distance) {
-	        msg = " in " + Validator.printLocation(localSearch.path, option, "") + "Perhaps it was misplaced? Matching option found at: " + Validator.printLocation(globalSearch.path, globalSearch.closestMatch, "");
+	        msg = " in " + Validator$1.printLocation(localSearch.path, option, "") + "Perhaps it was misplaced? Matching option found at: " + Validator$1.printLocation(globalSearch.path, globalSearch.closestMatch, "");
 	      } else if (localSearch.distance <= localSearchThreshold) {
-	        msg = '. Did you mean "' + localSearch.closestMatch + '"?' + Validator.printLocation(localSearch.path, option);
+	        msg = '. Did you mean "' + localSearch.closestMatch + '"?' + Validator$1.printLocation(localSearch.path, option);
 	      } else {
-	        msg = ". Did you mean one of these: " + Validator.print(keys$4(options)) + Validator.printLocation(path, option);
+	        msg = ". Did you mean one of these: " + Validator$1.print(keys$4(options)) + Validator$1.printLocation(path, option);
 	      }
 
-	      console.error('%cUnknown option detected: "' + option + '"' + msg, VALIDATOR_PRINT_STYLE);
+	      console.error('%cUnknown option detected: "' + option + '"' + msg, VALIDATOR_PRINT_STYLE$1);
 	      errorFound = true;
 	    }
 	    /**
@@ -8383,7 +8368,7 @@
 	        var distance = void 0;
 
 	        if (options[op].__type__ !== undefined && recursive === true) {
-	          var result = Validator.findInOptions(option, options[op], copyAndExtendArray(path, op));
+	          var result = Validator$1.findInOptions(option, options[op], copyAndExtendArray(path, op));
 
 	          if (min > result.distance) {
 	            closestMatch = result.closestMatch;
@@ -8398,7 +8383,7 @@
 	            indexMatch = op;
 	          }
 
-	          distance = Validator.levenshteinDistance(option, op);
+	          distance = Validator$1.levenshteinDistance(option, op);
 
 	          if (min > distance) {
 	            closestMatch = op;
@@ -8519,10 +8504,10 @@
 	    }
 	  }]);
 
-	  return Validator;
+	  return Validator$1;
 	}();
-	var VALIDATOR_PRINT_STYLE$1 = VALIDATOR_PRINT_STYLE;
-	var Validator$1 = Validator;
+	var VALIDATOR_PRINT_STYLE = VALIDATOR_PRINT_STYLE$1;
+	var Validator = Validator$1;
 
 	/**
 	 * @param {number} [x]
@@ -16565,10 +16550,10 @@
 
 	Graph3d.prototype.setOptions = function (options) {
 	  if (options === undefined) return;
-	  var errorFound = Validator$1.validate(options, allOptions);
+	  var errorFound = Validator.validate(options, allOptions);
 
 	  if (errorFound === true) {
-	    console.error("%cErrors have been found in the supplied options object.", VALIDATOR_PRINT_STYLE$1);
+	    console.error("%cErrors have been found in the supplied options object.", VALIDATOR_PRINT_STYLE);
 	  }
 
 	  this.animationStop();
