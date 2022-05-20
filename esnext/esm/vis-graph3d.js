@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2022-05-20T00:57:42.504Z
+ * @date    2022-05-20T05:50:33.202Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -3524,9 +3524,6 @@ Graph3d.prototype.drawAxisLabelXRotate = function (
   armAngle,
   yMargin
 ) {
-  if (yMargin === undefined) {
-    yMargin = 0;
-  }
 
   const point2d = this._convert3Dto2D(point3d);
   if (Math.cos(armAngle * 2) > 0) {
@@ -3566,9 +3563,6 @@ Graph3d.prototype.drawAxisLabelYRotate = function (
   armAngle,
   yMargin
 ) {
-  if (yMargin === undefined) {
-    yMargin = 0;
-  }
 
   const point2d = this._convert3Dto2D(point3d);
   if (Math.cos(armAngle * 2) < 0) {
