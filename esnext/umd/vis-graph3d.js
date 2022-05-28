@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2022-05-28T11:57:28.817Z
+ * @date    2022-05-28T20:12:16.199Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -3547,6 +3547,9 @@
     armAngle,
     yMargin
   ) {
+    if (yMargin === undefined) {
+      yMargin = 0;
+    }
 
     const point2d = this._convert3Dto2D(point3d);
     if (Math.cos(armAngle * 2) > 0) {
@@ -3586,6 +3589,9 @@
     armAngle,
     yMargin
   ) {
+    if (yMargin === undefined) {
+      yMargin = 0;
+    }
 
     const point2d = this._convert3Dto2D(point3d);
     if (Math.cos(armAngle * 2) < 0) {
