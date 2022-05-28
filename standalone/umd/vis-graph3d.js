@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2022-05-25T01:07:23.248Z
+ * @date    2022-05-28T11:57:28.817Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -78,9 +78,9 @@
 
 	var NATIVE_BIND$3 = functionBindNative;
 	var FunctionPrototype$2 = Function.prototype;
-	var bind$g = FunctionPrototype$2.bind;
+	var bind$j = FunctionPrototype$2.bind;
 	var call$e = FunctionPrototype$2.call;
-	var uncurryThis$v = NATIVE_BIND$3 && bind$g.bind(call$e, call$e);
+	var uncurryThis$v = NATIVE_BIND$3 && bind$j.bind(call$e, call$e);
 	var functionUncurryThis = NATIVE_BIND$3 ? function (fn) {
 	  return fn && uncurryThis$v(fn);
 	} : function (fn) {
@@ -501,11 +501,11 @@
 	var uncurryThis$p = functionUncurryThis;
 	var aCallable$9 = aCallable$b;
 	var NATIVE_BIND$1 = functionBindNative;
-	var bind$f = uncurryThis$p(uncurryThis$p.bind); // optional / simple context binding
+	var bind$i = uncurryThis$p(uncurryThis$p.bind); // optional / simple context binding
 
 	var functionBindContext = function (fn, that) {
 	  aCallable$9(fn);
-	  return that === undefined ? fn : NATIVE_BIND$1 ? bind$f(fn, that) : function
+	  return that === undefined ? fn : NATIVE_BIND$1 ? bind$i(fn, that) : function
 	    /* ...args */
 	  () {
 	    return fn.apply(that, arguments);
@@ -604,7 +604,7 @@
 	var getOwnPropertyDescriptor$5 = objectGetOwnPropertyDescriptor.f;
 	var isForced$1 = isForced_1;
 	var path$s = path$u;
-	var bind$e = functionBindContext;
+	var bind$h = functionBindContext;
 	var createNonEnumerableProperty$7 = createNonEnumerableProperty$8;
 	var hasOwn$f = hasOwnProperty_1;
 
@@ -672,7 +672,7 @@
 	    sourceProperty = USE_NATIVE && nativeProperty ? nativeProperty : source[key];
 	    if (USE_NATIVE && typeof targetProperty == typeof sourceProperty) continue; // bind timers to global for call from export context
 
-	    if (options.bind && USE_NATIVE) resultProperty = bind$e(sourceProperty, global$D); // wrap global constructors for prevent changs in this version
+	    if (options.bind && USE_NATIVE) resultProperty = bind$h(sourceProperty, global$D); // wrap global constructors for prevent changs in this version
 	    else if (options.wrap && USE_NATIVE) resultProperty = wrapConstructor(sourceProperty); // make static versions for prototype methods
 	    else if (PROTO && isCallable$d(sourceProperty)) resultProperty = uncurryThis$o(sourceProperty); // default case
 	    else resultProperty = sourceProperty; // add a flag to not completely full polyfills
@@ -1382,7 +1382,7 @@
 	  getterFor: getterFor
 	};
 
-	var bind$d = functionBindContext;
+	var bind$g = functionBindContext;
 	var uncurryThis$i = functionUncurryThis;
 	var IndexedObject$2 = indexedObject;
 	var toObject$b = toObject$e;
@@ -1401,7 +1401,7 @@
 	  return function ($this, callbackfn, that, specificCreate) {
 	    var O = toObject$b($this);
 	    var self = IndexedObject$2(O);
-	    var boundFunction = bind$d(callbackfn, that);
+	    var boundFunction = bind$g(callbackfn, that);
 	    var length = lengthOfArrayLike$9(self);
 	    var index = 0;
 	    var create = specificCreate || arraySpeciesCreate$2;
@@ -2283,11 +2283,11 @@
 	  Iterators$2[COLLECTION_NAME] = Iterators$2.Array;
 	}
 
-	var parent$1a = symbol$4;
-	var symbol$3 = parent$1a;
+	var parent$1c = symbol$4;
+	var symbol$3 = parent$1c;
 
-	var parent$19 = symbol$3;
-	var symbol$2 = parent$19;
+	var parent$1b = symbol$3;
+	var symbol$2 = parent$1b;
 
 	var defineWellKnownSymbol$6 = defineWellKnownSymbol$l; // `Symbol.asyncDispose` well-known symbol
 	// https://github.com/tc39/proposal-using-statement
@@ -2322,10 +2322,10 @@
 	var defineWellKnownSymbol = defineWellKnownSymbol$l;
 	defineWellKnownSymbol('replaceAll');
 
-	var parent$18 = symbol$2; // TODO: Remove from `core-js@4`
+	var parent$1a = symbol$2; // TODO: Remove from `core-js@4`
 	// TODO: Remove from `core-js@4`
 
-	var symbol$1 = parent$18;
+	var symbol$1 = parent$1a;
 
 	(function (module) {
 	  module.exports = symbol$1;
@@ -2400,14 +2400,14 @@
 	var WrappedWellKnownSymbolModule = wellKnownSymbolWrapped;
 	var iterator$4 = WrappedWellKnownSymbolModule.f('iterator');
 
-	var parent$17 = iterator$4;
-	var iterator$3 = parent$17;
+	var parent$19 = iterator$4;
+	var iterator$3 = parent$19;
 
-	var parent$16 = iterator$3;
-	var iterator$2 = parent$16;
+	var parent$18 = iterator$3;
+	var iterator$2 = parent$18;
 
-	var parent$15 = iterator$2;
-	var iterator$1 = parent$15;
+	var parent$17 = iterator$2;
+	var iterator$1 = parent$17;
 
 	(function (module) {
 	  module.exports = iterator$1;
@@ -2627,8 +2627,8 @@
 	  return it === ArrayPrototype$h || isPrototypeOf$l(ArrayPrototype$h, it) && own === ArrayPrototype$h.sort ? method$h : own;
 	};
 
-	var parent$14 = sort$1;
-	var sort = parent$14;
+	var parent$16 = sort$1;
+	var sort = parent$16;
 
 	(function (module) {
 	  module.exports = sort;
@@ -2676,8 +2676,8 @@
 	  return it === ArrayPrototype$g || isPrototypeOf$k(ArrayPrototype$g, it) && own === ArrayPrototype$g.indexOf ? method$g : own;
 	};
 
-	var parent$13 = indexOf$1;
-	var indexOf = parent$13;
+	var parent$15 = indexOf$1;
+	var indexOf = parent$15;
 
 	(function (module) {
 	  module.exports = indexOf;
@@ -2718,8 +2718,8 @@
 	  return it === ArrayPrototype$f || isPrototypeOf$j(ArrayPrototype$f, it) && own === ArrayPrototype$f.filter ? method$f : own;
 	};
 
-	var parent$12 = filter$1;
-	var filter = parent$12;
+	var parent$14 = filter$1;
+	var filter = parent$14;
 
 	(function (module) {
 	  module.exports = filter;
@@ -2797,8 +2797,8 @@
 	var path$o = path$u;
 	var _parseFloat$2 = path$o.parseFloat;
 
-	var parent$11 = _parseFloat$2;
-	var _parseFloat$1 = parent$11;
+	var parent$13 = _parseFloat$2;
+	var _parseFloat$1 = parent$13;
 
 	(function (module) {
 	  module.exports = _parseFloat$1;
@@ -2851,8 +2851,8 @@
 	  return it === ArrayPrototype$e || isPrototypeOf$i(ArrayPrototype$e, it) && own === ArrayPrototype$e.fill ? method$e : own;
 	};
 
-	var parent$10 = fill$1;
-	var fill = parent$10;
+	var parent$12 = fill$1;
+	var fill = parent$12;
 
 	(function (module) {
 	  module.exports = fill;
@@ -2865,8 +2865,8 @@
 	var entryVirtual$f = entryVirtual$k;
 	var values$5 = entryVirtual$f('Array').values;
 
-	var parent$$ = values$5;
-	var values$4 = parent$$;
+	var parent$11 = values$5;
+	var values$4 = parent$11;
 
 	var classof$7 = classof$d;
 	var hasOwn$7 = hasOwnProperty_1;
@@ -2918,8 +2918,8 @@
 	var entryVirtual$e = entryVirtual$k;
 	var forEach$6 = entryVirtual$e('Array').forEach;
 
-	var parent$_ = forEach$6;
-	var forEach$5 = parent$_;
+	var parent$10 = forEach$6;
+	var forEach$5 = parent$10;
 
 	var classof$6 = classof$d;
 	var hasOwn$6 = hasOwnProperty_1;
@@ -2958,8 +2958,8 @@
 	var path$n = path$u;
 	var isArray$7 = path$n.Array.isArray;
 
-	var parent$Z = isArray$7;
-	var isArray$6 = parent$Z;
+	var parent$$ = isArray$7;
+	var isArray$6 = parent$$;
 
 	(function (module) {
 	  module.exports = isArray$6;
@@ -2985,8 +2985,8 @@
 	var path$m = path$u;
 	var isNan$1 = path$m.Number.isNaN;
 
-	var parent$Y = isNan$1;
-	var isNan = parent$Y;
+	var parent$_ = isNan$1;
+	var isNan = parent$_;
 
 	(function (module) {
 	  module.exports = isNan;
@@ -3008,8 +3008,8 @@
 	  return it === ArrayPrototype$b || isPrototypeOf$f(ArrayPrototype$b, it) && own === ArrayPrototype$b.concat ? method$b : own;
 	};
 
-	var parent$X = concat$4;
-	var concat$3 = parent$X;
+	var parent$Z = concat$4;
+	var concat$3 = parent$Z;
 
 	(function (module) {
 	  module.exports = concat$3;
@@ -3159,8 +3159,8 @@
 	var path$k = path$u;
 	var assign$3 = path$k.Object.assign;
 
-	var parent$W = assign$3;
-	var assign$2 = parent$W;
+	var parent$Y = assign$3;
+	var assign$2 = parent$Y;
 
 	(function (module) {
 	  module.exports = assign$2;
@@ -3418,7 +3418,7 @@
 	};
 
 	var global$m = global$U;
-	var bind$c = functionBindContext;
+	var bind$f = functionBindContext;
 	var call$4 = functionCall;
 	var toObject$5 = toObject$e;
 	var callWithSafeIterationClosing = callWithSafeIterationClosing$1;
@@ -3439,7 +3439,7 @@
 	  var argumentsLength = arguments.length;
 	  var mapfn = argumentsLength > 1 ? arguments[1] : undefined;
 	  var mapping = mapfn !== undefined;
-	  if (mapping) mapfn = bind$c(mapfn, argumentsLength > 2 ? arguments[2] : undefined);
+	  if (mapping) mapfn = bind$f(mapfn, argumentsLength > 2 ? arguments[2] : undefined);
 	  var iteratorMethod = getIteratorMethod$6(O);
 	  var index = 0;
 	  var length, result, step, iterator, next, value; // if the target is not iterable or it's an array with the default iterator - use a simple case
@@ -3541,8 +3541,8 @@
 	var path$j = path$u;
 	var from$4 = path$j.Array.from;
 
-	var parent$V = from$4;
-	var from$3 = parent$V;
+	var parent$X = from$4;
+	var from$3 = parent$X;
 
 	(function (module) {
 	  module.exports = from$3;
@@ -3555,14 +3555,14 @@
 	var getIteratorMethod$4 = getIteratorMethod$8;
 	var getIteratorMethod_1 = getIteratorMethod$4;
 
-	var parent$U = getIteratorMethod_1;
-	var getIteratorMethod$3 = parent$U;
+	var parent$W = getIteratorMethod_1;
+	var getIteratorMethod$3 = parent$W;
 
-	var parent$T = getIteratorMethod$3;
-	var getIteratorMethod$2 = parent$T;
+	var parent$V = getIteratorMethod$3;
+	var getIteratorMethod$2 = parent$V;
 
-	var parent$S = getIteratorMethod$2;
-	var getIteratorMethod$1 = parent$S;
+	var parent$U = getIteratorMethod$2;
+	var getIteratorMethod$1 = parent$U;
 
 	(function (module) {
 	  module.exports = getIteratorMethod$1;
@@ -3575,8 +3575,8 @@
 	var path$i = path$u;
 	var getOwnPropertySymbols$1 = path$i.Object.getOwnPropertySymbols;
 
-	var parent$R = getOwnPropertySymbols$1;
-	var getOwnPropertySymbols = parent$R;
+	var parent$T = getOwnPropertySymbols$1;
+	var getOwnPropertySymbols = parent$T;
 
 	(function (module) {
 	  module.exports = getOwnPropertySymbols;
@@ -3619,8 +3619,8 @@
 
 	if (Object$4.getOwnPropertyDescriptor.sham) getOwnPropertyDescriptor$2.sham = true;
 
-	var parent$Q = getOwnPropertyDescriptor$3.exports;
-	var getOwnPropertyDescriptor$1 = parent$Q;
+	var parent$S = getOwnPropertyDescriptor$3.exports;
+	var getOwnPropertyDescriptor$1 = parent$S;
 
 	(function (module) {
 	  module.exports = getOwnPropertyDescriptor$1;
@@ -3676,8 +3676,8 @@
 	var path$g = path$u;
 	var getOwnPropertyDescriptors$1 = path$g.Object.getOwnPropertyDescriptors;
 
-	var parent$P = getOwnPropertyDescriptors$1;
-	var getOwnPropertyDescriptors = parent$P;
+	var parent$R = getOwnPropertyDescriptors$1;
+	var getOwnPropertyDescriptors = parent$R;
 
 	(function (module) {
 	  module.exports = getOwnPropertyDescriptors;
@@ -3713,8 +3713,8 @@
 
 	if (Object$3.defineProperties.sham) defineProperties$1.sham = true;
 
-	var parent$O = defineProperties$3.exports;
-	var defineProperties = parent$O;
+	var parent$Q = defineProperties$3.exports;
+	var defineProperties = parent$Q;
 
 	(function (module) {
 	  module.exports = defineProperties;
@@ -3750,8 +3750,8 @@
 
 	if (Object$2.defineProperty.sham) defineProperty$7.sham = true;
 
-	var parent$N = defineProperty$9.exports;
-	var defineProperty$6 = parent$N;
+	var parent$P = defineProperty$9.exports;
+	var defineProperty$6 = parent$P;
 
 	(function (module) {
 	  module.exports = defineProperty$6;
@@ -3767,11 +3767,11 @@
 
 	var defineProperty$5 = {exports: {}};
 
-	var parent$M = defineProperty$6;
-	var defineProperty$4 = parent$M;
+	var parent$O = defineProperty$6;
+	var defineProperty$4 = parent$O;
 
-	var parent$L = defineProperty$4;
-	var defineProperty$3 = parent$L;
+	var parent$N = defineProperty$4;
+	var defineProperty$3 = parent$N;
 
 	(function (module) {
 	  module.exports = defineProperty$3;
@@ -3818,11 +3818,11 @@
 
 	var isArray$5 = {exports: {}};
 
-	var parent$K = isArray$6;
-	var isArray$4 = parent$K;
+	var parent$M = isArray$6;
+	var isArray$4 = parent$M;
 
-	var parent$J = isArray$4;
-	var isArray$3 = parent$J;
+	var parent$L = isArray$4;
+	var isArray$3 = parent$L;
 
 	(function (module) {
 	  module.exports = isArray$3;
@@ -3934,14 +3934,14 @@
 	  return it === ArrayPrototype$9 || isPrototypeOf$e(ArrayPrototype$9, it) && own === ArrayPrototype$9.slice ? method$a : own;
 	};
 
-	var parent$I = slice$4;
-	var slice$3 = parent$I;
+	var parent$K = slice$4;
+	var slice$3 = parent$K;
 
-	var parent$H = slice$3;
-	var slice$2 = parent$H;
+	var parent$J = slice$3;
+	var slice$2 = parent$J;
 
-	var parent$G = slice$2;
-	var slice$1 = parent$G;
+	var parent$I = slice$2;
+	var slice$1 = parent$I;
 
 	(function (module) {
 	  module.exports = slice$1;
@@ -3951,11 +3951,11 @@
 
 	var from$2 = {exports: {}};
 
-	var parent$F = from$3;
-	var from$1 = parent$F;
+	var parent$H = from$3;
+	var from$1 = parent$H;
 
-	var parent$E = from$1;
-	var from = parent$E;
+	var parent$G = from$1;
+	var from = parent$G;
 
 	(function (module) {
 	  module.exports = from;
@@ -4042,8 +4042,8 @@
 	var path$d = path$u;
 	var ownKeys$3 = path$d.Reflect.ownKeys;
 
-	var parent$D = ownKeys$3;
-	var ownKeys$2 = parent$D;
+	var parent$F = ownKeys$3;
+	var ownKeys$2 = parent$F;
 
 	(function (module) {
 	  module.exports = ownKeys$2;
@@ -4084,8 +4084,8 @@
 	  return it === ArrayPrototype$8 || isPrototypeOf$d(ArrayPrototype$8, it) && own === ArrayPrototype$8.map ? method$9 : own;
 	};
 
-	var parent$C = map$4;
-	var map$3 = parent$C;
+	var parent$E = map$4;
+	var map$3 = parent$E;
 
 	(function (module) {
 	  module.exports = map$3;
@@ -4117,8 +4117,8 @@
 	var path$c = path$u;
 	var keys$5 = path$c.Object.keys;
 
-	var parent$B = keys$5;
-	var keys$4 = parent$B;
+	var parent$D = keys$5;
+	var keys$4 = parent$D;
 
 	(function (module) {
 	  module.exports = keys$4;
@@ -4147,14 +4147,14 @@
 	var path$b = path$u;
 	var now$2 = path$b.Date.now;
 
-	var parent$A = now$2;
-	var now$1 = parent$A;
+	var parent$C = now$2;
+	var now$1 = parent$C;
 
 	(function (module) {
 	  module.exports = now$1;
 	})(now$3);
 
-	var bind$b = {exports: {}};
+	var bind$e = {exports: {}};
 
 	var global$j = global$U;
 	var uncurryThis$7 = functionUncurryThis;
@@ -4199,37 +4199,37 @@
 	};
 
 	var $$o = _export;
-	var bind$a = functionBind; // `Function.prototype.bind` method
+	var bind$d = functionBind; // `Function.prototype.bind` method
 	// https://tc39.es/ecma262/#sec-function.prototype.bind
 
 	$$o({
 	  target: 'Function',
 	  proto: true,
-	  forced: Function.bind !== bind$a
+	  forced: Function.bind !== bind$d
 	}, {
-	  bind: bind$a
+	  bind: bind$d
 	});
 
 	var entryVirtual$a = entryVirtual$k;
-	var bind$9 = entryVirtual$a('Function').bind;
+	var bind$c = entryVirtual$a('Function').bind;
 
 	var isPrototypeOf$c = objectIsPrototypeOf;
-	var method$8 = bind$9;
+	var method$8 = bind$c;
 	var FunctionPrototype = Function.prototype;
 
-	var bind$8 = function (it) {
+	var bind$b = function (it) {
 	  var own = it.bind;
 	  return it === FunctionPrototype || isPrototypeOf$c(FunctionPrototype, it) && own === FunctionPrototype.bind ? method$8 : own;
 	};
 
-	var parent$z = bind$8;
-	var bind$7 = parent$z;
+	var parent$B = bind$b;
+	var bind$a = parent$B;
 
 	(function (module) {
-	  module.exports = bind$7;
-	})(bind$b);
+	  module.exports = bind$a;
+	})(bind$e);
 
-	var _bindInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(bind$b.exports);
+	var _bindInstanceProperty$1 = /*@__PURE__*/getDefaultExportFromCjs(bind$e.exports);
 
 	var reverse$6 = {exports: {}};
 
@@ -4266,8 +4266,8 @@
 	  return it === ArrayPrototype$7 || isPrototypeOf$b(ArrayPrototype$7, it) && own === ArrayPrototype$7.reverse ? method$7 : own;
 	};
 
-	var parent$y = reverse$4;
-	var reverse$3 = parent$y;
+	var parent$A = reverse$4;
+	var reverse$3 = parent$A;
 
 	(function (module) {
 	  module.exports = reverse$3;
@@ -4369,8 +4369,8 @@
 	  return it === ArrayPrototype$6 || isPrototypeOf$a(ArrayPrototype$6, it) && own === ArrayPrototype$6.splice ? method$6 : own;
 	};
 
-	var parent$x = splice$1;
-	var splice = parent$x;
+	var parent$z = splice$1;
+	var splice = parent$z;
 
 	(function (module) {
 	  module.exports = splice;
@@ -4482,8 +4482,8 @@
 	  return own;
 	};
 
-	var parent$w = includes$1;
-	var includes = parent$w;
+	var parent$y = includes$1;
+	var includes = parent$y;
 
 	(function (module) {
 	  module.exports = includes;
@@ -4517,8 +4517,8 @@
 	var path$a = path$u;
 	var getPrototypeOf$5 = path$a.Object.getPrototypeOf;
 
-	var parent$v = getPrototypeOf$5;
-	var getPrototypeOf$4 = parent$v;
+	var parent$x = getPrototypeOf$5;
+	var getPrototypeOf$4 = parent$x;
 
 	(function (module) {
 	  module.exports = getPrototypeOf$4;
@@ -4582,8 +4582,8 @@
 	var path$9 = path$u;
 	var values$1 = path$9.Object.values;
 
-	var parent$u = values$1;
-	var values = parent$u;
+	var parent$w = values$1;
+	var values = parent$w;
 
 	(function (module) {
 	  module.exports = values;
@@ -4627,8 +4627,8 @@
 	var path$8 = path$u;
 	var _parseInt$2 = path$8.parseInt;
 
-	var parent$t = _parseInt$2;
-	var _parseInt$1 = parent$t;
+	var parent$v = _parseInt$2;
+	var _parseInt$1 = parent$v;
 
 	(function (module) {
 	  module.exports = _parseInt$1;
@@ -4677,8 +4677,8 @@
 	  return typeof it == 'string' || it === StringPrototype || isPrototypeOf$8(StringPrototype, it) && own === StringPrototype.trim ? method$5 : own;
 	};
 
-	var parent$s = trim$1;
-	var trim = parent$s;
+	var parent$u = trim$1;
+	var trim = parent$u;
 
 	(function (module) {
 	  module.exports = trim;
@@ -4706,8 +4706,8 @@
 	  return Object$1.create(P, D);
 	};
 
-	var parent$r = create$7;
-	var create$6 = parent$r;
+	var parent$t = create$7;
+	var create$6 = parent$t;
 
 	(function (module) {
 	  module.exports = create$6;
@@ -4779,8 +4779,8 @@
 	  return apply$2(path$6.JSON.stringify, null, arguments);
 	};
 
-	var parent$q = stringify$2;
-	var stringify$1 = parent$q;
+	var parent$s = stringify$2;
+	var stringify$1 = parent$s;
 
 	(function (module) {
 	  module.exports = stringify$1;
@@ -7935,7 +7935,7 @@
 	  });
 
 	  var hammer = Hammer$1(this._dom.overlay);
-	  hammer.on("tap", _bindInstanceProperty(_context3 = this._onTapOverlay).call(_context3, this));
+	  hammer.on("tap", _bindInstanceProperty$1(_context3 = this._onTapOverlay).call(_context3, this));
 
 	  this._cleanupQueue.push(function () {
 	    hammer.destroy(); // FIXME: cleaning up hammer instances doesn't work (Timeline not removed
@@ -9448,8 +9448,8 @@
 	var path$5 = path$u;
 	var sign$1 = path$5.Math.sign;
 
-	var parent$p = sign$1;
-	var sign = parent$p;
+	var parent$r = sign$1;
+	var sign = parent$r;
 
 	(function (module) {
 	  module.exports = sign;
@@ -10579,7 +10579,7 @@
 	var $$c = _export;
 	var getBuiltIn$4 = getBuiltIn$c;
 	var apply$1 = functionApply;
-	var bind$6 = functionBind;
+	var bind$9 = functionBind;
 	var aConstructor$1 = aConstructor$2;
 	var anObject$3 = anObject$d;
 	var isObject$6 = isObject$i;
@@ -10643,7 +10643,7 @@
 
 	      var $args = [null];
 	      apply$1(push$1, $args, args);
-	      return new (apply$1(bind$6, Target, $args))();
+	      return new (apply$1(bind$9, Target, $args))();
 	    } // with altered newTarget, not support built-in constructors
 
 
@@ -10657,8 +10657,8 @@
 	var path$4 = path$u;
 	var construct$1 = path$4.Reflect.construct;
 
-	var parent$o = construct$1;
-	var construct = parent$o;
+	var parent$q = construct$1;
+	var construct = parent$q;
 
 	(function (module) {
 	  module.exports = construct;
@@ -10676,11 +10676,11 @@
 
 	var create$4 = {exports: {}};
 
-	var parent$n = create$6;
-	var create$3 = parent$n;
+	var parent$p = create$6;
+	var create$3 = parent$p;
 
-	var parent$m = create$3;
-	var create$2 = parent$m;
+	var parent$o = create$3;
+	var create$2 = parent$o;
 
 	(function (module) {
 	  module.exports = create$2;
@@ -10704,14 +10704,14 @@
 	var path$3 = path$u;
 	var setPrototypeOf$4 = path$3.Object.setPrototypeOf;
 
-	var parent$l = setPrototypeOf$4;
-	var setPrototypeOf$3 = parent$l;
+	var parent$n = setPrototypeOf$4;
+	var setPrototypeOf$3 = parent$n;
 
-	var parent$k = setPrototypeOf$3;
-	var setPrototypeOf$2 = parent$k;
+	var parent$m = setPrototypeOf$3;
+	var setPrototypeOf$2 = parent$m;
 
-	var parent$j = setPrototypeOf$2;
-	var setPrototypeOf$1 = parent$j;
+	var parent$l = setPrototypeOf$2;
+	var setPrototypeOf$1 = parent$l;
 
 	(function (module) {
 	  module.exports = setPrototypeOf$1;
@@ -10719,12 +10719,27 @@
 
 	var _Object$setPrototypeOf = /*@__PURE__*/getDefaultExportFromCjs(setPrototypeOf$6.exports);
 
+	var bind$8 = {exports: {}};
+
+	var parent$k = bind$a;
+	var bind$7 = parent$k;
+
+	var parent$j = bind$7;
+	var bind$6 = parent$j;
+
+	(function (module) {
+	  module.exports = bind$6;
+	})(bind$8);
+
+	var _bindInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(bind$8.exports);
+
 	function _setPrototypeOf(o, p) {
-	  _setPrototypeOf = _Object$setPrototypeOf || function _setPrototypeOf(o, p) {
+	  var _context;
+
+	  _setPrototypeOf = _Object$setPrototypeOf ? _bindInstanceProperty(_context = _Object$setPrototypeOf).call(_context) : function _setPrototypeOf(o, p) {
 	    o.__proto__ = p;
 	    return o;
 	  };
-
 	  return _setPrototypeOf(o, p);
 	}
 
@@ -10773,13 +10788,15 @@
 	var _Object$getPrototypeOf = /*@__PURE__*/getDefaultExportFromCjs(getPrototypeOf$3.exports);
 
 	function _getPrototypeOf(o) {
-	  _getPrototypeOf = _Object$setPrototypeOf ? _Object$getPrototypeOf : function _getPrototypeOf(o) {
+	  var _context;
+
+	  _getPrototypeOf = _Object$setPrototypeOf ? _bindInstanceProperty(_context = _Object$getPrototypeOf).call(_context) : function _getPrototypeOf(o) {
 	    return o.__proto__ || _Object$getPrototypeOf(o);
 	  };
 	  return _getPrototypeOf(o);
 	}
 
-	var regeneratorRuntime = {exports: {}};
+	var regeneratorRuntime$1 = {exports: {}};
 
 	var _typeof = {exports: {}};
 
@@ -12338,9 +12355,20 @@
 	  }
 
 	  module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
-	})(regeneratorRuntime);
+	})(regeneratorRuntime$1);
 
-	var regenerator = regeneratorRuntime.exports();
+	var runtime = regeneratorRuntime$1.exports();
+	var regenerator = runtime; // Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
+
+	try {
+	  regeneratorRuntime = runtime;
+	} catch (accidentalStrictMode) {
+	  if (typeof globalThis === "object") {
+	    globalThis.regeneratorRuntime = runtime;
+	  } else {
+	    Function("r", "regeneratorRuntime = r")(runtime);
+	  }
+	}
 
 	var reduce$3 = {exports: {}};
 
@@ -13698,9 +13726,9 @@
 	    _defineProperty(this, "_target", void 0);
 
 	    _defineProperty(this, "_listeners", {
-	      add: _bindInstanceProperty(_context = this._add).call(_context, this),
-	      remove: _bindInstanceProperty(_context2 = this._remove).call(_context2, this),
-	      update: _bindInstanceProperty(_context3 = this._update).call(_context3, this)
+	      add: _bindInstanceProperty$1(_context = this._add).call(_context, this),
+	      remove: _bindInstanceProperty$1(_context2 = this._remove).call(_context2, this),
+	      update: _bindInstanceProperty$1(_context3 = this._update).call(_context3, this)
 	    });
 
 	    this._source = _source;
@@ -16081,7 +16109,7 @@
 	      } else {
 	        var _context26;
 
-	        return new DataStream(_defineProperty({}, _Symbol$iterator2, _bindInstanceProperty(_context26 = _entriesInstanceProperty(this._data)).call(_context26, this._data)));
+	        return new DataStream(_defineProperty({}, _Symbol$iterator2, _bindInstanceProperty$1(_context26 = _entriesInstanceProperty(this._data)).call(_context26, this._data)));
 	      }
 	    }
 	  }]);
@@ -16166,7 +16194,7 @@
 	    _defineProperty(_assertThisInitialized(_this7), "_options", void 0);
 
 	    _this7._options = options || {};
-	    _this7._listener = _bindInstanceProperty(_context27 = _this7._onEvent).call(_context27, _assertThisInitialized(_this7));
+	    _this7._listener = _bindInstanceProperty$1(_context27 = _this7._onEvent).call(_context27, _assertThisInitialized(_this7));
 
 	    _this7.setData(data);
 
@@ -16464,7 +16492,7 @@
 	    value: function stream(ids) {
 	      var _context30;
 
-	      return this._data.stream(ids || _defineProperty({}, _Symbol$iterator2, _bindInstanceProperty(_context30 = _keysInstanceProperty(this._ids)).call(_context30, this._ids)));
+	      return this._data.stream(ids || _defineProperty({}, _Symbol$iterator2, _bindInstanceProperty$1(_context30 = _keysInstanceProperty(this._ids)).call(_context30, this._ids)));
 	    }
 	    /**
 	     * Render the instance unusable prior to garbage collection.

@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2022-05-25T01:08:07.827Z
+ * @date    2022-05-28T11:58:21.098Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -42,9 +42,9 @@ var functionBindNative = !fails(function () {
 });
 
 var FunctionPrototype$3 = Function.prototype;
-var bind$6 = FunctionPrototype$3.bind;
+var bind$9 = FunctionPrototype$3.bind;
 var call$2 = FunctionPrototype$3.call;
-var uncurryThis = functionBindNative && bind$6.bind(call$2, call$2);
+var uncurryThis = functionBindNative && bind$9.bind(call$2, call$2);
 var functionUncurryThis = functionBindNative ? function (fn) {
   return fn && uncurryThis(fn);
 } : function (fn) {
@@ -649,11 +649,11 @@ var NATIVE = isForced.NATIVE = 'N';
 var POLYFILL = isForced.POLYFILL = 'P';
 var isForced_1 = isForced;
 
-var bind$5 = functionUncurryThis(functionUncurryThis.bind); // optional / simple context binding
+var bind$8 = functionUncurryThis(functionUncurryThis.bind); // optional / simple context binding
 
 var functionBindContext = function (fn, that) {
   aCallable(fn);
-  return that === undefined ? fn : functionBindNative ? bind$5(fn, that) : function
+  return that === undefined ? fn : functionBindNative ? bind$8(fn, that) : function
     /* ...args */
   () {
     return fn.apply(that, arguments);
@@ -2831,18 +2831,18 @@ _export({
   bind: functionBind
 });
 
-var bind$4 = entryVirtual('Function').bind;
+var bind$7 = entryVirtual('Function').bind;
 
 var FunctionPrototype = Function.prototype;
 
-var bind$3 = function (it) {
+var bind$6 = function (it) {
   var own = it.bind;
-  return it === FunctionPrototype || objectIsPrototypeOf(FunctionPrototype, it) && own === FunctionPrototype.bind ? bind$4 : own;
+  return it === FunctionPrototype || objectIsPrototypeOf(FunctionPrototype, it) && own === FunctionPrototype.bind ? bind$7 : own;
 };
 
-var bind$2 = bind$3;
+var bind$5 = bind$6;
 
-var bind$1 = bind$2;
+var bind$4 = bind$5;
 
 var arrayMethodIsStrict = function (METHOD_NAME, argument) {
   var method = [][METHOD_NAME];
@@ -7018,7 +7018,7 @@ function Activator$1(container) {
   });
 
   var hammer = Hammer$1(this._dom.overlay);
-  hammer.on("tap", bind$1(_context3 = this._onTapOverlay).call(_context3, this));
+  hammer.on("tap", bind$4(_context3 = this._onTapOverlay).call(_context3, this));
 
   this._cleanupQueue.push(function () {
     hammer.destroy(); // FIXME: cleaning up hammer instances doesn't work (Timeline not removed
@@ -9557,19 +9557,19 @@ var ColorPicker$1 = /*#__PURE__*/function () {
       this.cancelButton = document.createElement("div");
       this.cancelButton.className = "vis-button vis-cancel";
       this.cancelButton.innerText = "cancel";
-      this.cancelButton.onclick = bind$1(_context16 = this._hide).call(_context16, this, false);
+      this.cancelButton.onclick = bind$4(_context16 = this._hide).call(_context16, this, false);
       this.applyButton = document.createElement("div");
       this.applyButton.className = "vis-button vis-apply";
       this.applyButton.innerText = "apply";
-      this.applyButton.onclick = bind$1(_context17 = this._apply).call(_context17, this);
+      this.applyButton.onclick = bind$4(_context17 = this._apply).call(_context17, this);
       this.saveButton = document.createElement("div");
       this.saveButton.className = "vis-button vis-save";
       this.saveButton.innerText = "save";
-      this.saveButton.onclick = bind$1(_context18 = this._save).call(_context18, this);
+      this.saveButton.onclick = bind$4(_context18 = this._save).call(_context18, this);
       this.loadButton = document.createElement("div");
       this.loadButton.className = "vis-button vis-load";
       this.loadButton.innerText = "load last";
-      this.loadButton.onclick = bind$1(_context19 = this._loadLast).call(_context19, this);
+      this.loadButton.onclick = bind$4(_context19 = this._loadLast).call(_context19, this);
       this.frame.appendChild(this.colorPickerDiv);
       this.frame.appendChild(this.arrowDiv);
       this.frame.appendChild(this.brightnessLabel);
@@ -11635,9 +11635,17 @@ var setPrototypeOf$2 = setPrototypeOf$3;
 
 var setPrototypeOf$1 = setPrototypeOf$2;
 
+var bind$3 = bind$5;
+
+var bind$2 = bind$3;
+
+var bind$1 = bind$2;
+
 var setPrototypeOf = createCommonjsModule(function (module) {
   function _setPrototypeOf(o, p) {
-    module.exports = _setPrototypeOf = setPrototypeOf$1 || function _setPrototypeOf(o, p) {
+    var _context;
+
+    module.exports = _setPrototypeOf = setPrototypeOf$1 ? bind$1(_context = setPrototypeOf$1).call(_context) : function _setPrototypeOf(o, p) {
       o.__proto__ = p;
       return o;
     }, module.exports.__esModule = true, module.exports["default"] = module.exports;
@@ -11698,7 +11706,9 @@ var getPrototypeOf$1 = getPrototypeOf$2;
 
 var getPrototypeOf = createCommonjsModule(function (module) {
   function _getPrototypeOf(o) {
-    module.exports = _getPrototypeOf = setPrototypeOf$1 ? getPrototypeOf$1 : function _getPrototypeOf(o) {
+    var _context;
+
+    module.exports = _getPrototypeOf = setPrototypeOf$1 ? bind$1(_context = getPrototypeOf$1).call(_context) : function _getPrototypeOf(o) {
       return o.__proto__ || getPrototypeOf$1(o);
     }, module.exports.__esModule = true, module.exports["default"] = module.exports;
     return _getPrototypeOf(o);
@@ -12725,7 +12735,7 @@ var reverse$1 = reverse$2;
 
 var reverse = reverse$1;
 
-var regeneratorRuntime = createCommonjsModule(function (module) {
+var regeneratorRuntime$1 = createCommonjsModule(function (module) {
   var _typeof = _typeof_1["default"];
 
   function _regeneratorRuntime() {
@@ -13086,9 +13096,20 @@ var regeneratorRuntime = createCommonjsModule(function (module) {
 
   module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
 });
-unwrapExports(regeneratorRuntime);
+unwrapExports(regeneratorRuntime$1);
 
-var regenerator = regeneratorRuntime();
+var runtime = regeneratorRuntime$1();
+var regenerator = runtime; // Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  if (typeof globalThis === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
+  }
+}
 
 var TypeError$2 = global_1.TypeError; // `Array.prototype.{ reduce, reduceRight }` methods implementation
 
@@ -14082,9 +14103,9 @@ var SimpleDataPipe = /*#__PURE__*/function () {
     _defineProperty(this, "_target", void 0);
 
     _defineProperty(this, "_listeners", {
-      add: bind$1(_context = this._add).call(_context, this),
-      remove: bind$1(_context2 = this._remove).call(_context2, this),
-      update: bind$1(_context3 = this._update).call(_context3, this)
+      add: bind$4(_context = this._add).call(_context, this),
+      remove: bind$4(_context2 = this._remove).call(_context2, this),
+      update: bind$4(_context3 = this._update).call(_context3, this)
     });
 
     this._source = _source;
@@ -16465,7 +16486,7 @@ var DataSet$1 = /*#__PURE__*/function (_DataSetPart) {
       } else {
         var _context26;
 
-        return new DataStream(_defineProperty({}, iterator, bind$1(_context26 = entries(this._data)).call(_context26, this._data)));
+        return new DataStream(_defineProperty({}, iterator, bind$4(_context26 = entries(this._data)).call(_context26, this._data)));
       }
     }
   }]);
@@ -16550,7 +16571,7 @@ var DataView$1 = /*#__PURE__*/function (_DataSetPart2) {
     _defineProperty(_assertThisInitialized(_this7), "_options", void 0);
 
     _this7._options = options || {};
-    _this7._listener = bind$1(_context27 = _this7._onEvent).call(_context27, _assertThisInitialized(_this7));
+    _this7._listener = bind$4(_context27 = _this7._onEvent).call(_context27, _assertThisInitialized(_this7));
 
     _this7.setData(data);
 
@@ -16848,7 +16869,7 @@ var DataView$1 = /*#__PURE__*/function (_DataSetPart2) {
     value: function stream(ids) {
       var _context30;
 
-      return this._data.stream(ids || _defineProperty({}, iterator, bind$1(_context30 = keys(this._ids)).call(_context30, this._ids)));
+      return this._data.stream(ids || _defineProperty({}, iterator, bind$4(_context30 = keys(this._ids)).call(_context30, this._ids)));
     }
     /**
      * Render the instance unusable prior to garbage collection.
