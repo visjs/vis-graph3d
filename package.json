@@ -85,7 +85,7 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "semantic-release": "19.0.5",
     "sinon": "14.0.2",
-    "snap-shot-it": "7.9.6",
+    "snap-shot-it": "7.9.7",
     "test-console": "2.0.0",
     "uuid": "8.3.2",
     "vis-data": "7.1.4",
