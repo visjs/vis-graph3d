@@ -79,7 +79,7 @@
     "mocha": "10.2.0",
     "nyc": "15.1.0",
     "opencollective": "1.0.3",
-    "postcss": "8.4.19",
+    "postcss": "8.4.20",
     "rimraf": "3.0.2",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
