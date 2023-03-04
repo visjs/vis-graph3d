@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2023-02-28T09:00:49.983Z
+ * @date    2023-03-04T21:39:34.585Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -29,10 +29,7 @@
   typeof define === 'function' && define.amd ? define(['exports', 'component-emitter', 'vis-util/esnext/umd/vis-util.js', 'vis-data/esnext/umd/vis-data.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.vis = global.vis || {}, global.Emitter, global.vis, global.vis));
 })(this, (function (exports, Emitter, util, esnext) {
-  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-  function _interopNamespace(e) {
-    if (e && e.__esModule) return e;
+  function _interopNamespaceDefault(e) {
     var n = Object.create(null);
     if (e) {
       Object.keys(e).forEach(function (k) {
@@ -45,12 +42,11 @@
         }
       });
     }
-    n["default"] = e;
+    n.default = e;
     return Object.freeze(n);
   }
 
-  var Emitter__default = /*#__PURE__*/_interopDefaultLegacy(Emitter);
-  var util__namespace = /*#__PURE__*/_interopNamespace(util);
+  var util__namespace = /*#__PURE__*/_interopNamespaceDefault(util);
 
   /**
    * @param {number} [x]
@@ -2610,7 +2606,7 @@
   }
 
   // Extend Graph3d with an Emitter mixin
-  Emitter__default["default"](Graph3d.prototype);
+  Emitter(Graph3d.prototype);
 
   /**
    * Calculate the scaling values, dependent on the range in x, y, and z direction
@@ -5042,8 +5038,6 @@
   exports.Graph3dPoint3d = Point3d_1;
   exports.Graph3dSlider = Slider;
   exports.Graph3dStepNumber = StepNumber_1;
-
-  Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 //# sourceMappingURL=vis-graph3d.js.map
