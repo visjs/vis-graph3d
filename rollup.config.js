@@ -1,8 +1,9 @@
-import commonjs from "rollup-plugin-commonjs";
-import nodeResolve from "rollup-plugin-node-resolve";
-import babel from "rollup-plugin-babel";
+import commonjs from "@rollup/plugin-commonjs";
+import nodeResolve from "@rollup/plugin-node-resolve";
+import babel from "@rollup/plugin-babel";
 import { generateHeader } from "vis-dev-utils";
-import { terser } from "rollup-plugin-terser";
+import terser from "@rollup/plugin-terser";
+import { BABEL_IGNORE_RE } from "vis-dev-utils";
 
 const banner = generateHeader();
 
@@ -20,7 +21,10 @@ export default [
       nodeResolve({
         browser: true,
       }),
-      babel({ runtimeHelpers: true }),
+      babel({
+        babelHelpers: "runtime",
+        exclude: BABEL_IGNORE_RE,
+      }),
     ],
   },
   {
@@ -39,7 +43,10 @@ export default [
       nodeResolve({
         browser: true,
       }),
-      babel({ runtimeHelpers: true }),
+      babel({
+        babelHelpers: "runtime",
+        exclude: BABEL_IGNORE_RE,
+      }),
       terser({
         output: {
           comments: (_node, { value }) => /@license/.test(value),

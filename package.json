@@ -42,9 +42,9 @@
   "scripts": {
     "test": "BABEL_ENV=test mocha --exit",
     "test-cov": "BABEL_ENV=test-cov nyc --reporter=lcov mocha --exit",
-    "js:graph3d": "rollup --config rollup.build.js && rollup --config rollup.config.js",
+    "js:graph3d": "rollup --bundleConfigAsCjs --config rollup.build.js && rollup --bundleConfigAsCjs --config rollup.config.js",
     "build": "npm run js:graph3d",
-    "watch": "rollup --watch --config rollup.config.js",
+    "watch": "rollup --bundleConfigAsCjs --watch --config rollup.config.js",
     "watch-dev": "npm run watch-dev",
     "generate-examples-index": "generate-examples-index --config generate-examples-index.json",
     "style": "prettier --check .",
