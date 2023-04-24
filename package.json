@@ -52,7 +52,6 @@
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
     "clean": "rimraf --glob \"{dist,esnext,peer,standalone}/*\"",
-    "postinstall": "opencollective postinstall || exit 0",
     "prepublishOnly": "npm run contributors:update && npm run build",
     "contributors:update": "git-authors-cli",
     "prepare": "husky install"
@@ -78,7 +77,6 @@
     "lint-staged": "13.2.1",
     "mocha": "10.2.0",
     "nyc": "15.1.0",
-    "opencollective": "1.0.3",
     "postcss": "8.4.23",
     "rimraf": "5.0.0",
     "rollup-plugin-commonjs": "10.1.0",
@@ -91,9 +89,5 @@
     "vis-data": "7.1.6",
     "vis-dev-utils": "4.0.16",
     "vis-util": "5.0.3"
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/visjs"
   }
 }
