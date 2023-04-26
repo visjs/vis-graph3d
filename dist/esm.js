@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2023-04-25T22:00:45.898Z
+ * @date    2023-04-26T11:47:18.278Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -59,12 +59,6 @@ function getAugmentedNamespace(n) {
 }
 
 var repo = {};
-
-var fromExports$2 = {};
-var from$7 = {
-  get exports(){ return fromExports$2; },
-  set exports(v){ fromExports$2 = v; },
-};
 
 var fails$x = function (exec) {
   try {
@@ -131,11 +125,7 @@ var global$o =
   // eslint-disable-next-line no-new-func -- fallback
   (function () { return this; })() || Function('return this')();
 
-var sharedExports = {};
-var shared$7 = {
-  get exports(){ return sharedExports; },
-  set exports(v){ sharedExports = v; },
-};
+var shared$7 = {exports: {}};
 
 var isPure = true;
 
@@ -171,6 +161,8 @@ var store$2 = sharedStore;
   license: 'https://github.com/zloirock/core-js/blob/v3.29.0/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
+
+var sharedExports = shared$7.exports;
 
 // we can't use just `it == null` since of `document.all` special case
 // https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot-aec
@@ -1411,6 +1403,8 @@ var Iterators$4 = iterators;
 var IteratorsCore = iteratorsCore;
 
 var PROPER_FUNCTION_NAME$1 = FunctionName.PROPER;
+FunctionName.CONFIGURABLE;
+IteratorsCore.IteratorPrototype;
 var BUGGY_SAFARI_ITERATORS = IteratorsCore.BUGGY_SAFARI_ITERATORS;
 var ITERATOR$5 = wellKnownSymbol$i('iterator');
 var KEYS = 'keys';
@@ -1759,7 +1753,7 @@ var checkCorrectnessOfIteration$2 = function (exec, SKIP_CLOSING) {
 };
 
 var $$V = _export;
-var from$6 = arrayFrom;
+var from$7 = arrayFrom;
 var checkCorrectnessOfIteration$1 = checkCorrectnessOfIteration$2;
 
 var INCORRECT_ITERATION = !checkCorrectnessOfIteration$1(function (iterable) {
@@ -1770,34 +1764,20 @@ var INCORRECT_ITERATION = !checkCorrectnessOfIteration$1(function (iterable) {
 // `Array.from` method
 // https://tc39.es/ecma262/#sec-array.from
 $$V({ target: 'Array', stat: true, forced: INCORRECT_ITERATION }, {
-  from: from$6
+  from: from$7
 });
 
 var path$r = path$u;
 
-var from$5 = path$r.Array.from;
+var from$6 = path$r.Array.from;
 
-var parent$1f = from$5;
+var parent$1f = from$6;
 
-var from$4 = parent$1f;
+var from$5 = parent$1f;
 
-(function (module) {
-	module.exports = from$4;
-} (from$7));
+var from$4 = from$5;
 
-var _Array$from$1 = /*@__PURE__*/getDefaultExportFromCjs(fromExports$2);
-
-var getIteratorMethodExports$1 = {};
-var getIteratorMethod$6 = {
-  get exports(){ return getIteratorMethodExports$1; },
-  set exports(v){ getIteratorMethodExports$1 = v; },
-};
-
-var getIteratorMethodExports = {};
-var getIteratorMethod$5 = {
-  get exports(){ return getIteratorMethodExports; },
-  set exports(v){ getIteratorMethodExports = v; },
-};
+var _Array$from$1 = /*@__PURE__*/getDefaultExportFromCjs(from$4);
 
 var toIndexedObject$6 = toIndexedObject$b;
 var Iterators$1 = iterators;
@@ -1848,9 +1828,9 @@ defineIterator$1(Array, 'Array', function (iterated, kind) {
 // https://tc39.es/ecma262/#sec-createmappedargumentsobject
 Iterators$1.Arguments = Iterators$1.Array;
 
-var getIteratorMethod$4 = getIteratorMethod$9;
+var getIteratorMethod$6 = getIteratorMethod$9;
 
-var getIteratorMethod_1 = getIteratorMethod$4;
+var getIteratorMethod_1 = getIteratorMethod$6;
 
 // iterable DOM collections
 // flag - `iterable` interface - 'entries', 'keys', 'values', 'forEach' methods
@@ -1909,31 +1889,21 @@ for (var COLLECTION_NAME in DOMIterables$4) {
 var parent$1e = getIteratorMethod_1;
 
 
-var getIteratorMethod$3 = parent$1e;
+var getIteratorMethod$5 = parent$1e;
 
-var parent$1d = getIteratorMethod$3;
+var parent$1d = getIteratorMethod$5;
 
-var getIteratorMethod$2 = parent$1d;
+var getIteratorMethod$4 = parent$1d;
 
-var parent$1c = getIteratorMethod$2;
+var parent$1c = getIteratorMethod$4;
 
-var getIteratorMethod$1 = parent$1c;
+var getIteratorMethod$3 = parent$1c;
 
-(function (module) {
-	module.exports = getIteratorMethod$1;
-} (getIteratorMethod$5));
+var getIteratorMethod$2 = getIteratorMethod$3;
 
-(function (module) {
-	module.exports = getIteratorMethodExports;
-} (getIteratorMethod$6));
+var getIteratorMethod$1 = getIteratorMethod$2;
 
-var _getIteratorMethod = /*@__PURE__*/getDefaultExportFromCjs(getIteratorMethodExports$1);
-
-var getOwnPropertySymbolsExports = {};
-var getOwnPropertySymbols$2 = {
-  get exports(){ return getOwnPropertySymbolsExports; },
-  set exports(v){ getOwnPropertySymbolsExports = v; },
-};
+var _getIteratorMethod = /*@__PURE__*/getDefaultExportFromCjs(getIteratorMethod$1);
 
 var objectGetOwnPropertyNames = {};
 
@@ -2580,29 +2550,17 @@ $$Q({ target: 'Object', stat: true, forced: FORCED$8 }, {
 
 var path$p = path$u;
 
-var getOwnPropertySymbols$1 = path$p.Object.getOwnPropertySymbols;
+var getOwnPropertySymbols$2 = path$p.Object.getOwnPropertySymbols;
 
-var parent$1b = getOwnPropertySymbols$1;
+var parent$1b = getOwnPropertySymbols$2;
 
-var getOwnPropertySymbols = parent$1b;
+var getOwnPropertySymbols$1 = parent$1b;
 
-(function (module) {
-	module.exports = getOwnPropertySymbols;
-} (getOwnPropertySymbols$2));
+var getOwnPropertySymbols = getOwnPropertySymbols$1;
 
-var _Object$getOwnPropertySymbols = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertySymbolsExports);
+var _Object$getOwnPropertySymbols = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertySymbols);
 
-var getOwnPropertyDescriptorExports$1 = {};
-var getOwnPropertyDescriptor$5 = {
-  get exports(){ return getOwnPropertyDescriptorExports$1; },
-  set exports(v){ getOwnPropertyDescriptorExports$1 = v; },
-};
-
-var getOwnPropertyDescriptorExports = {};
-var getOwnPropertyDescriptor$4 = {
-  get exports(){ return getOwnPropertyDescriptorExports; },
-  set exports(v){ getOwnPropertyDescriptorExports = v; },
-};
+var getOwnPropertyDescriptor$5 = {exports: {}};
 
 var $$P = _export;
 var fails$j = fails$x;
@@ -2624,27 +2582,21 @@ var path$o = path$u;
 
 var Object$4 = path$o.Object;
 
-var getOwnPropertyDescriptor$3 = getOwnPropertyDescriptor$4.exports = function getOwnPropertyDescriptor(it, key) {
+var getOwnPropertyDescriptor$4 = getOwnPropertyDescriptor$5.exports = function getOwnPropertyDescriptor(it, key) {
   return Object$4.getOwnPropertyDescriptor(it, key);
 };
 
-if (Object$4.getOwnPropertyDescriptor.sham) getOwnPropertyDescriptor$3.sham = true;
+if (Object$4.getOwnPropertyDescriptor.sham) getOwnPropertyDescriptor$4.sham = true;
+
+var getOwnPropertyDescriptorExports = getOwnPropertyDescriptor$5.exports;
 
 var parent$1a = getOwnPropertyDescriptorExports;
 
-var getOwnPropertyDescriptor$2 = parent$1a;
+var getOwnPropertyDescriptor$3 = parent$1a;
 
-(function (module) {
-	module.exports = getOwnPropertyDescriptor$2;
-} (getOwnPropertyDescriptor$5));
+var getOwnPropertyDescriptor$2 = getOwnPropertyDescriptor$3;
 
-var _Object$getOwnPropertyDescriptor = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertyDescriptorExports$1);
-
-var getOwnPropertyDescriptorsExports = {};
-var getOwnPropertyDescriptors$2 = {
-  get exports(){ return getOwnPropertyDescriptorsExports; },
-  set exports(v){ getOwnPropertyDescriptorsExports = v; },
-};
+var _Object$getOwnPropertyDescriptor = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertyDescriptor$2);
 
 var getBuiltIn$8 = getBuiltIn$f;
 var uncurryThis$f = functionUncurryThis;
@@ -2688,103 +2640,81 @@ $$O({ target: 'Object', stat: true, sham: !DESCRIPTORS$9 }, {
 
 var path$n = path$u;
 
-var getOwnPropertyDescriptors$1 = path$n.Object.getOwnPropertyDescriptors;
+var getOwnPropertyDescriptors$2 = path$n.Object.getOwnPropertyDescriptors;
 
-var parent$19 = getOwnPropertyDescriptors$1;
+var parent$19 = getOwnPropertyDescriptors$2;
 
-var getOwnPropertyDescriptors = parent$19;
+var getOwnPropertyDescriptors$1 = parent$19;
 
-(function (module) {
-	module.exports = getOwnPropertyDescriptors;
-} (getOwnPropertyDescriptors$2));
+var getOwnPropertyDescriptors = getOwnPropertyDescriptors$1;
 
-var _Object$getOwnPropertyDescriptors = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertyDescriptorsExports);
+var _Object$getOwnPropertyDescriptors = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertyDescriptors);
 
-var definePropertiesExports$1 = {};
-var defineProperties$4 = {
-  get exports(){ return definePropertiesExports$1; },
-  set exports(v){ definePropertiesExports$1 = v; },
-};
-
-var definePropertiesExports = {};
-var defineProperties$3 = {
-  get exports(){ return definePropertiesExports; },
-  set exports(v){ definePropertiesExports = v; },
-};
+var defineProperties$4 = {exports: {}};
 
 var $$N = _export;
 var DESCRIPTORS$8 = descriptors;
-var defineProperties$2 = objectDefineProperties.f;
+var defineProperties$3 = objectDefineProperties.f;
 
 // `Object.defineProperties` method
 // https://tc39.es/ecma262/#sec-object.defineproperties
 // eslint-disable-next-line es/no-object-defineproperties -- safe
-$$N({ target: 'Object', stat: true, forced: Object.defineProperties !== defineProperties$2, sham: !DESCRIPTORS$8 }, {
-  defineProperties: defineProperties$2
+$$N({ target: 'Object', stat: true, forced: Object.defineProperties !== defineProperties$3, sham: !DESCRIPTORS$8 }, {
+  defineProperties: defineProperties$3
 });
 
 var path$m = path$u;
 
 var Object$3 = path$m.Object;
 
-var defineProperties$1 = defineProperties$3.exports = function defineProperties(T, D) {
+var defineProperties$2 = defineProperties$4.exports = function defineProperties(T, D) {
   return Object$3.defineProperties(T, D);
 };
 
-if (Object$3.defineProperties.sham) defineProperties$1.sham = true;
+if (Object$3.defineProperties.sham) defineProperties$2.sham = true;
+
+var definePropertiesExports = defineProperties$4.exports;
 
 var parent$18 = definePropertiesExports;
 
-var defineProperties = parent$18;
+var defineProperties$1 = parent$18;
 
-(function (module) {
-	module.exports = defineProperties;
-} (defineProperties$4));
+var defineProperties = defineProperties$1;
 
-var _Object$defineProperties = /*@__PURE__*/getDefaultExportFromCjs(definePropertiesExports$1);
+var _Object$defineProperties = /*@__PURE__*/getDefaultExportFromCjs(defineProperties);
 
-var definePropertyExports$3 = {};
-var defineProperty$b = {
-  get exports(){ return definePropertyExports$3; },
-  set exports(v){ definePropertyExports$3 = v; },
-};
-
-var definePropertyExports$2 = {};
-var defineProperty$a = {
-  get exports(){ return definePropertyExports$2; },
-  set exports(v){ definePropertyExports$2 = v; },
-};
+var defineProperty$b = {exports: {}};
 
 var $$M = _export;
 var DESCRIPTORS$7 = descriptors;
-var defineProperty$9 = objectDefineProperty.f;
+var defineProperty$a = objectDefineProperty.f;
 
 // `Object.defineProperty` method
 // https://tc39.es/ecma262/#sec-object.defineproperty
 // eslint-disable-next-line es/no-object-defineproperty -- safe
-$$M({ target: 'Object', stat: true, forced: Object.defineProperty !== defineProperty$9, sham: !DESCRIPTORS$7 }, {
-  defineProperty: defineProperty$9
+$$M({ target: 'Object', stat: true, forced: Object.defineProperty !== defineProperty$a, sham: !DESCRIPTORS$7 }, {
+  defineProperty: defineProperty$a
 });
 
 var path$l = path$u;
 
 var Object$2 = path$l.Object;
 
-var defineProperty$8 = defineProperty$a.exports = function defineProperty(it, key, desc) {
+var defineProperty$9 = defineProperty$b.exports = function defineProperty(it, key, desc) {
   return Object$2.defineProperty(it, key, desc);
 };
 
-if (Object$2.defineProperty.sham) defineProperty$8.sham = true;
+if (Object$2.defineProperty.sham) defineProperty$9.sham = true;
 
-var parent$17 = definePropertyExports$2;
+var definePropertyExports = defineProperty$b.exports;
 
-var defineProperty$7 = parent$17;
+var parent$17 = definePropertyExports;
 
-(function (module) {
-	module.exports = defineProperty$7;
-} (defineProperty$b));
+var defineProperty$8 = parent$17;
 
-var _Object$defineProperty$1 = /*@__PURE__*/getDefaultExportFromCjs(definePropertyExports$3);
+var defineProperty$7 = defineProperty$8;
+
+var _Object$defineProperty$1 = /*@__PURE__*/getDefaultExportFromCjs(defineProperty$7);
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -2792,47 +2722,19 @@ function _classCallCheck(instance, Constructor) {
   }
 }
 
-var definePropertyExports$1 = {};
-var defineProperty$6 = {
-  get exports(){ return definePropertyExports$1; },
-  set exports(v){ definePropertyExports$1 = v; },
-};
+var parent$16 = defineProperty$8;
 
-var definePropertyExports = {};
-var defineProperty$5 = {
-  get exports(){ return definePropertyExports; },
-  set exports(v){ definePropertyExports = v; },
-};
+var defineProperty$6 = parent$16;
 
-var parent$16 = defineProperty$7;
+var parent$15 = defineProperty$6;
 
-var defineProperty$4 = parent$16;
+var defineProperty$5 = parent$15;
 
-var parent$15 = defineProperty$4;
+var defineProperty$4 = defineProperty$5;
 
-var defineProperty$3 = parent$15;
+var defineProperty$3 = defineProperty$4;
 
-(function (module) {
-	module.exports = defineProperty$3;
-} (defineProperty$5));
-
-(function (module) {
-	module.exports = definePropertyExports;
-} (defineProperty$6));
-
-var _Object$defineProperty = /*@__PURE__*/getDefaultExportFromCjs(definePropertyExports$1);
-
-var symbolExports$2 = {};
-var symbol$6 = {
-  get exports(){ return symbolExports$2; },
-  set exports(v){ symbolExports$2 = v; },
-};
-
-var symbolExports$1 = {};
-var symbol$5 = {
-  get exports(){ return symbolExports$1; },
-  set exports(v){ symbolExports$1 = v; },
-};
+var _Object$defineProperty = /*@__PURE__*/getDefaultExportFromCjs(defineProperty$3);
 
 var $TypeError$9 = TypeError;
 var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF; // 2 ** 53 - 1 == 9007199254740991
@@ -3018,12 +2920,12 @@ setToStringTag$2(global$c.JSON, 'JSON', true);
 
 var path$k = path$u;
 
-var symbol$4 = path$k.Symbol;
+var symbol$6 = path$k.Symbol;
 
-var parent$14 = symbol$4;
+var parent$14 = symbol$6;
 
 
-var symbol$3 = parent$14;
+var symbol$5 = parent$14;
 
 var defineWellKnownSymbol$7 = wellKnownSymbolDefine;
 
@@ -3031,11 +2933,11 @@ var defineWellKnownSymbol$7 = wellKnownSymbolDefine;
 // https://github.com/tc39/proposal-explicit-resource-management
 defineWellKnownSymbol$7('dispose');
 
-var parent$13 = symbol$3;
+var parent$13 = symbol$5;
 
 
 
-var symbol$2 = parent$13;
+var symbol$4 = parent$13;
 
 var defineWellKnownSymbol$6 = wellKnownSymbolDefine;
 
@@ -3137,7 +3039,7 @@ var defineWellKnownSymbol = wellKnownSymbolDefine;
 
 defineWellKnownSymbol('replaceAll');
 
-var parent$12 = symbol$2;
+var parent$12 = symbol$4;
 
 
 
@@ -3149,56 +3051,36 @@ var parent$12 = symbol$2;
 
 
 
-var symbol$1 = parent$12;
+var symbol$3 = parent$12;
 
-(function (module) {
-	module.exports = symbol$1;
-} (symbol$5));
+var symbol$2 = symbol$3;
 
-(function (module) {
-	module.exports = symbolExports$1;
-} (symbol$6));
+var symbol$1 = symbol$2;
 
-var _Symbol$1 = /*@__PURE__*/getDefaultExportFromCjs(symbolExports$2);
-
-var iteratorExports$2 = {};
-var iterator$6 = {
-  get exports(){ return iteratorExports$2; },
-  set exports(v){ iteratorExports$2 = v; },
-};
-
-var iteratorExports$1 = {};
-var iterator$5 = {
-  get exports(){ return iteratorExports$1; },
-  set exports(v){ iteratorExports$1 = v; },
-};
+var _Symbol$1 = /*@__PURE__*/getDefaultExportFromCjs(symbol$1);
 
 var WrappedWellKnownSymbolModule$1 = wellKnownSymbolWrapped;
 
-var iterator$4 = WrappedWellKnownSymbolModule$1.f('iterator');
+var iterator$6 = WrappedWellKnownSymbolModule$1.f('iterator');
 
-var parent$11 = iterator$4;
+var parent$11 = iterator$6;
 
 
-var iterator$3 = parent$11;
+var iterator$5 = parent$11;
 
-var parent$10 = iterator$3;
+var parent$10 = iterator$5;
 
-var iterator$2 = parent$10;
+var iterator$4 = parent$10;
 
-var parent$$ = iterator$2;
+var parent$$ = iterator$4;
 
-var iterator$1 = parent$$;
+var iterator$3 = parent$$;
 
-(function (module) {
-	module.exports = iterator$1;
-} (iterator$5));
+var iterator$2 = iterator$3;
 
-(function (module) {
-	module.exports = iteratorExports$1;
-} (iterator$6));
+var iterator$1 = iterator$2;
 
-var _Symbol$iterator$1 = /*@__PURE__*/getDefaultExportFromCjs(iteratorExports$2);
+var _Symbol$iterator$1 = /*@__PURE__*/getDefaultExportFromCjs(iterator$1);
 
 function _typeof$1(obj) {
   "@babel/helpers - typeof";
@@ -3210,43 +3092,27 @@ function _typeof$1(obj) {
   }, _typeof$1(obj);
 }
 
-var toPrimitiveExports$1 = {};
-var toPrimitive$5 = {
-  get exports(){ return toPrimitiveExports$1; },
-  set exports(v){ toPrimitiveExports$1 = v; },
-};
-
-var toPrimitiveExports = {};
-var toPrimitive$4 = {
-  get exports(){ return toPrimitiveExports; },
-  set exports(v){ toPrimitiveExports = v; },
-};
-
 var WrappedWellKnownSymbolModule = wellKnownSymbolWrapped;
 
-var toPrimitive$3 = WrappedWellKnownSymbolModule.f('toPrimitive');
+var toPrimitive$5 = WrappedWellKnownSymbolModule.f('toPrimitive');
 
-var parent$_ = toPrimitive$3;
+var parent$_ = toPrimitive$5;
 
-var toPrimitive$2 = parent$_;
+var toPrimitive$4 = parent$_;
 
-var parent$Z = toPrimitive$2;
+var parent$Z = toPrimitive$4;
 
-var toPrimitive$1 = parent$Z;
+var toPrimitive$3 = parent$Z;
 
-var parent$Y = toPrimitive$1;
+var parent$Y = toPrimitive$3;
 
-var toPrimitive = parent$Y;
+var toPrimitive$2 = parent$Y;
 
-(function (module) {
-	module.exports = toPrimitive;
-} (toPrimitive$4));
+var toPrimitive$1 = toPrimitive$2;
 
-(function (module) {
-	module.exports = toPrimitiveExports;
-} (toPrimitive$5));
+var toPrimitive = toPrimitive$1;
 
-var _Symbol$toPrimitive = /*@__PURE__*/getDefaultExportFromCjs(toPrimitiveExports$1);
+var _Symbol$toPrimitive = /*@__PURE__*/getDefaultExportFromCjs(toPrimitive);
 
 function _toPrimitive(input, hint) {
   if (_typeof$1(input) !== "object" || input === null) return input;
@@ -3297,52 +3163,36 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-var isArrayExports$2 = {};
-var isArray$b = {
-  get exports(){ return isArrayExports$2; },
-  set exports(v){ isArrayExports$2 = v; },
-};
-
-var isArrayExports$1 = {};
-var isArray$a = {
-  get exports(){ return isArrayExports$1; },
-  set exports(v){ isArrayExports$1 = v; },
-};
-
 var $$I = _export;
-var isArray$9 = isArray$f;
+var isArray$b = isArray$f;
 
 // `Array.isArray` method
 // https://tc39.es/ecma262/#sec-array.isarray
 $$I({ target: 'Array', stat: true }, {
-  isArray: isArray$9
+  isArray: isArray$b
 });
 
 var path$j = path$u;
 
-var isArray$8 = path$j.Array.isArray;
+var isArray$a = path$j.Array.isArray;
 
-var parent$X = isArray$8;
+var parent$X = isArray$a;
 
-var isArray$7 = parent$X;
+var isArray$9 = parent$X;
 
-var parent$W = isArray$7;
+var parent$W = isArray$9;
 
-var isArray$6 = parent$W;
+var isArray$8 = parent$W;
 
-var parent$V = isArray$6;
+var parent$V = isArray$8;
 
-var isArray$5 = parent$V;
+var isArray$7 = parent$V;
 
-(function (module) {
-	module.exports = isArray$5;
-} (isArray$a));
+var isArray$6 = isArray$7;
 
-(function (module) {
-	module.exports = isArrayExports$1;
-} (isArray$b));
+var isArray$5 = isArray$6;
 
-var _Array$isArray$1 = /*@__PURE__*/getDefaultExportFromCjs(isArrayExports$2);
+var _Array$isArray$1 = /*@__PURE__*/getDefaultExportFromCjs(isArray$5);
 
 function _arrayWithHoles(arr) {
   if (_Array$isArray$1(arr)) return arr;
@@ -3375,18 +3225,6 @@ function _iterableToArrayLimit(arr, i) {
     return _arr;
   }
 }
-
-var sliceExports$2 = {};
-var slice$7 = {
-  get exports(){ return sliceExports$2; },
-  set exports(v){ sliceExports$2 = v; },
-};
-
-var sliceExports$1 = {};
-var slice$6 = {
-  get exports(){ return sliceExports$1; },
-  set exports(v){ sliceExports$1 = v; },
-};
 
 var $$H = _export;
 var isArray$4 = isArray$f;
@@ -3445,69 +3283,49 @@ var entryVirtual$k = function (CONSTRUCTOR) {
 
 var entryVirtual$j = entryVirtual$k;
 
-var slice$5 = entryVirtual$j('Array').slice;
+var slice$7 = entryVirtual$j('Array').slice;
 
 var isPrototypeOf$l = objectIsPrototypeOf;
-var method$h = slice$5;
+var method$h = slice$7;
 
 var ArrayPrototype$g = Array.prototype;
 
-var slice$4 = function (it) {
+var slice$6 = function (it) {
   var own = it.slice;
   return it === ArrayPrototype$g || (isPrototypeOf$l(ArrayPrototype$g, it) && own === ArrayPrototype$g.slice) ? method$h : own;
 };
 
-var parent$U = slice$4;
+var parent$U = slice$6;
 
-var slice$3 = parent$U;
+var slice$5 = parent$U;
 
-var parent$T = slice$3;
+var parent$T = slice$5;
 
-var slice$2 = parent$T;
+var slice$4 = parent$T;
 
-var parent$S = slice$2;
+var parent$S = slice$4;
 
-var slice$1 = parent$S;
+var slice$3 = parent$S;
 
-(function (module) {
-	module.exports = slice$1;
-} (slice$6));
+var slice$2 = slice$3;
 
-(function (module) {
-	module.exports = sliceExports$1;
-} (slice$7));
+var slice$1 = slice$2;
 
-var _sliceInstanceProperty$1 = /*@__PURE__*/getDefaultExportFromCjs(sliceExports$2);
+var _sliceInstanceProperty$1 = /*@__PURE__*/getDefaultExportFromCjs(slice$1);
 
-var fromExports$1 = {};
-var from$3 = {
-  get exports(){ return fromExports$1; },
-  set exports(v){ fromExports$1 = v; },
-};
+var parent$R = from$5;
 
-var fromExports = {};
-var from$2 = {
-  get exports(){ return fromExports; },
-  set exports(v){ fromExports = v; },
-};
+var from$3 = parent$R;
 
-var parent$R = from$4;
+var parent$Q = from$3;
 
-var from$1 = parent$R;
+var from$2 = parent$Q;
 
-var parent$Q = from$1;
+var from$1 = from$2;
 
-var from = parent$Q;
+var from = from$1;
 
-(function (module) {
-	module.exports = from;
-} (from$2));
-
-(function (module) {
-	module.exports = fromExports;
-} (from$3));
-
-var _Array$from = /*@__PURE__*/getDefaultExportFromCjs(fromExports$1);
+var _Array$from = /*@__PURE__*/getDefaultExportFromCjs(from);
 
 function _arrayLikeToArray$2(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
@@ -3549,106 +3367,60 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray$2(arr) || _nonIterableSpread();
 }
 
-var symbolExports = {};
-var symbol = {
-  get exports(){ return symbolExports; },
-  set exports(v){ symbolExports = v; },
-};
+var symbol = symbol$5;
 
-(function (module) {
-	module.exports = symbol$3;
-} (symbol));
-
-var _Symbol = /*@__PURE__*/getDefaultExportFromCjs(symbolExports);
-
-var concatExports = {};
-var concat$5 = {
-  get exports(){ return concatExports; },
-  set exports(v){ concatExports = v; },
-};
+var _Symbol = /*@__PURE__*/getDefaultExportFromCjs(symbol);
 
 var entryVirtual$i = entryVirtual$k;
 
-var concat$4 = entryVirtual$i('Array').concat;
+var concat$5 = entryVirtual$i('Array').concat;
 
 var isPrototypeOf$k = objectIsPrototypeOf;
-var method$g = concat$4;
+var method$g = concat$5;
 
 var ArrayPrototype$f = Array.prototype;
 
-var concat$3 = function (it) {
+var concat$4 = function (it) {
   var own = it.concat;
   return it === ArrayPrototype$f || (isPrototypeOf$k(ArrayPrototype$f, it) && own === ArrayPrototype$f.concat) ? method$g : own;
 };
 
-var parent$P = concat$3;
+var parent$P = concat$4;
 
-var concat$2 = parent$P;
+var concat$3 = parent$P;
 
-(function (module) {
-	module.exports = concat$2;
-} (concat$5));
+var concat$2 = concat$3;
 
-var _concatInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(concatExports);
+var _concatInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(concat$2);
 
-var sliceExports = {};
-var slice = {
-  get exports(){ return sliceExports; },
-  set exports(v){ sliceExports = v; },
-};
+var slice = slice$5;
 
-(function (module) {
-	module.exports = slice$3;
-} (slice));
-
-var _sliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sliceExports);
-
-var ownKeysExports = {};
-var ownKeys$6 = {
-  get exports(){ return ownKeysExports; },
-  set exports(v){ ownKeysExports = v; },
-};
+var _sliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(slice);
 
 var $$G = _export;
-var ownKeys$5 = ownKeys$8;
+var ownKeys$6 = ownKeys$8;
 
 // `Reflect.ownKeys` method
 // https://tc39.es/ecma262/#sec-reflect.ownkeys
 $$G({ target: 'Reflect', stat: true }, {
-  ownKeys: ownKeys$5
+  ownKeys: ownKeys$6
 });
 
 var path$h = path$u;
 
-var ownKeys$4 = path$h.Reflect.ownKeys;
+var ownKeys$5 = path$h.Reflect.ownKeys;
 
-var parent$O = ownKeys$4;
+var parent$O = ownKeys$5;
 
-var ownKeys$3 = parent$O;
+var ownKeys$4 = parent$O;
 
-(function (module) {
-	module.exports = ownKeys$3;
-} (ownKeys$6));
+var ownKeys$3 = ownKeys$4;
 
-var _Reflect$ownKeys = /*@__PURE__*/getDefaultExportFromCjs(ownKeysExports);
+var _Reflect$ownKeys = /*@__PURE__*/getDefaultExportFromCjs(ownKeys$3);
 
-var isArrayExports = {};
-var isArray$3 = {
-  get exports(){ return isArrayExports; },
-  set exports(v){ isArrayExports = v; },
-};
+var isArray$3 = isArray$9;
 
-(function (module) {
-	module.exports = isArray$7;
-} (isArray$3));
-
-var _Array$isArray = /*@__PURE__*/getDefaultExportFromCjs(isArrayExports);
-
-var mapExports$1 = {};
-var map$6 = {
-  get exports(){ return mapExports$1; },
-  set exports(v){ mapExports$1 = v; },
-};
+var _Array$isArray = /*@__PURE__*/getDefaultExportFromCjs(isArray$3);
 
 var $$F = _export;
 var $map = arrayIteration.map;
@@ -3667,33 +3439,25 @@ $$F({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT$2 }, {
 
 var entryVirtual$h = entryVirtual$k;
 
-var map$5 = entryVirtual$h('Array').map;
+var map$6 = entryVirtual$h('Array').map;
 
 var isPrototypeOf$j = objectIsPrototypeOf;
-var method$f = map$5;
+var method$f = map$6;
 
 var ArrayPrototype$e = Array.prototype;
 
-var map$4 = function (it) {
+var map$5 = function (it) {
   var own = it.map;
   return it === ArrayPrototype$e || (isPrototypeOf$j(ArrayPrototype$e, it) && own === ArrayPrototype$e.map) ? method$f : own;
 };
 
-var parent$N = map$4;
+var parent$N = map$5;
 
-var map$3 = parent$N;
+var map$4 = parent$N;
 
-(function (module) {
-	module.exports = map$3;
-} (map$6));
+var map$3 = map$4;
 
-var _mapInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(mapExports$1);
-
-var keysExports$1 = {};
-var keys$6 = {
-  get exports(){ return keysExports$1; },
-  set exports(v){ keysExports$1 = v; },
-};
+var _mapInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(map$3);
 
 var $$E = _export;
 var toObject$7 = toObject$e;
@@ -3712,23 +3476,15 @@ $$E({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES$2 }, {
 
 var path$g = path$u;
 
-var keys$5 = path$g.Object.keys;
+var keys$6 = path$g.Object.keys;
 
-var parent$M = keys$5;
+var parent$M = keys$6;
 
-var keys$4 = parent$M;
+var keys$5 = parent$M;
 
-(function (module) {
-	module.exports = keys$4;
-} (keys$6));
+var keys$4 = keys$5;
 
-var _Object$keys = /*@__PURE__*/getDefaultExportFromCjs(keysExports$1);
-
-var nowExports = {};
-var now$3 = {
-  get exports(){ return nowExports; },
-  set exports(v){ nowExports = v; },
-};
+var _Object$keys = /*@__PURE__*/getDefaultExportFromCjs(keys$4);
 
 // TODO: Remove from `core-js@4`
 var $$D = _export;
@@ -3747,23 +3503,15 @@ $$D({ target: 'Date', stat: true }, {
 
 var path$f = path$u;
 
-var now$2 = path$f.Date.now;
+var now$3 = path$f.Date.now;
 
-var parent$L = now$2;
+var parent$L = now$3;
 
-var now$1 = parent$L;
+var now$2 = parent$L;
 
-(function (module) {
-	module.exports = now$1;
-} (now$3));
+var now$1 = now$2;
 
-var _Date$now = /*@__PURE__*/getDefaultExportFromCjs(nowExports);
-
-var bindExports$2 = {};
-var bind$f = {
-  get exports(){ return bindExports$2; },
-  set exports(v){ bindExports$2 = v; },
-};
+var _Date$now = /*@__PURE__*/getDefaultExportFromCjs(now$1);
 
 var uncurryThis$b = functionUncurryThis;
 var aCallable$9 = aCallable$e;
@@ -3801,44 +3549,36 @@ var functionBind = NATIVE_BIND ? $Function.bind : function bind(that /* , ...arg
 
 // TODO: Remove from `core-js@4`
 var $$C = _export;
-var bind$e = functionBind;
+var bind$f = functionBind;
 
 // `Function.prototype.bind` method
 // https://tc39.es/ecma262/#sec-function.prototype.bind
 // eslint-disable-next-line es/no-function-prototype-bind -- detection
-$$C({ target: 'Function', proto: true, forced: Function.bind !== bind$e }, {
-  bind: bind$e
+$$C({ target: 'Function', proto: true, forced: Function.bind !== bind$f }, {
+  bind: bind$f
 });
 
 var entryVirtual$g = entryVirtual$k;
 
-var bind$d = entryVirtual$g('Function').bind;
+var bind$e = entryVirtual$g('Function').bind;
 
 var isPrototypeOf$i = objectIsPrototypeOf;
-var method$e = bind$d;
+var method$e = bind$e;
 
 var FunctionPrototype = Function.prototype;
 
-var bind$c = function (it) {
+var bind$d = function (it) {
   var own = it.bind;
   return it === FunctionPrototype || (isPrototypeOf$i(FunctionPrototype, it) && own === FunctionPrototype.bind) ? method$e : own;
 };
 
-var parent$K = bind$c;
+var parent$K = bind$d;
 
-var bind$b = parent$K;
+var bind$c = parent$K;
 
-(function (module) {
-	module.exports = bind$b;
-} (bind$f));
+var bind$b = bind$c;
 
-var _bindInstanceProperty$1 = /*@__PURE__*/getDefaultExportFromCjs(bindExports$2);
-
-var forEachExports$2 = {};
-var forEach$a = {
-  get exports(){ return forEachExports$2; },
-  set exports(v){ forEachExports$2 = v; },
-};
+var _bindInstanceProperty$1 = /*@__PURE__*/getDefaultExportFromCjs(bind$b);
 
 var fails$f = fails$x;
 
@@ -3863,27 +3603,27 @@ var arrayForEach = !STRICT_METHOD$2 ? function forEach(callbackfn /* , thisArg *
 } : [].forEach;
 
 var $$B = _export;
-var forEach$9 = arrayForEach;
+var forEach$a = arrayForEach;
 
 // `Array.prototype.forEach` method
 // https://tc39.es/ecma262/#sec-array.prototype.foreach
 // eslint-disable-next-line es/no-array-prototype-foreach -- safe
-$$B({ target: 'Array', proto: true, forced: [].forEach != forEach$9 }, {
-  forEach: forEach$9
+$$B({ target: 'Array', proto: true, forced: [].forEach != forEach$a }, {
+  forEach: forEach$a
 });
 
 var entryVirtual$f = entryVirtual$k;
 
-var forEach$8 = entryVirtual$f('Array').forEach;
+var forEach$9 = entryVirtual$f('Array').forEach;
 
-var parent$J = forEach$8;
+var parent$J = forEach$9;
 
-var forEach$7 = parent$J;
+var forEach$8 = parent$J;
 
 var classof$6 = classof$g;
 var hasOwn$6 = hasOwnProperty_1;
 var isPrototypeOf$h = objectIsPrototypeOf;
-var method$d = forEach$7;
+var method$d = forEach$8;
 
 var ArrayPrototype$d = Array.prototype;
 
@@ -3892,23 +3632,15 @@ var DOMIterables$3 = {
   NodeList: true
 };
 
-var forEach$6 = function (it) {
+var forEach$7 = function (it) {
   var own = it.forEach;
   return it === ArrayPrototype$d || (isPrototypeOf$h(ArrayPrototype$d, it) && own === ArrayPrototype$d.forEach)
     || hasOwn$6(DOMIterables$3, classof$6(it)) ? method$d : own;
 };
 
-(function (module) {
-	module.exports = forEach$6;
-} (forEach$a));
+var forEach$6 = forEach$7;
 
-var _forEachInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(forEachExports$2);
-
-var reverseExports$2 = {};
-var reverse$7 = {
-  get exports(){ return reverseExports$2; },
-  set exports(v){ reverseExports$2 = v; },
-};
+var _forEachInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(forEach$6);
 
 var $$A = _export;
 var uncurryThis$a = functionUncurryThis;
@@ -3931,33 +3663,25 @@ $$A({ target: 'Array', proto: true, forced: String(test$1) === String(test$1.rev
 
 var entryVirtual$e = entryVirtual$k;
 
-var reverse$6 = entryVirtual$e('Array').reverse;
+var reverse$7 = entryVirtual$e('Array').reverse;
 
 var isPrototypeOf$g = objectIsPrototypeOf;
-var method$c = reverse$6;
+var method$c = reverse$7;
 
 var ArrayPrototype$c = Array.prototype;
 
-var reverse$5 = function (it) {
+var reverse$6 = function (it) {
   var own = it.reverse;
   return it === ArrayPrototype$c || (isPrototypeOf$g(ArrayPrototype$c, it) && own === ArrayPrototype$c.reverse) ? method$c : own;
 };
 
-var parent$I = reverse$5;
+var parent$I = reverse$6;
 
-var reverse$4 = parent$I;
+var reverse$5 = parent$I;
 
-(function (module) {
-	module.exports = reverse$4;
-} (reverse$7));
+var reverse$4 = reverse$5;
 
-var _reverseInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reverseExports$2);
-
-var spliceExports = {};
-var splice$3 = {
-  get exports(){ return spliceExports; },
-  set exports(v){ spliceExports = v; },
-};
+var _reverseInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reverse$4);
 
 var DESCRIPTORS$6 = descriptors;
 var isArray$1 = isArray$f;
@@ -4063,33 +3787,25 @@ $$z({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT$1 }, {
 
 var entryVirtual$d = entryVirtual$k;
 
-var splice$2 = entryVirtual$d('Array').splice;
+var splice$3 = entryVirtual$d('Array').splice;
 
 var isPrototypeOf$f = objectIsPrototypeOf;
-var method$b = splice$2;
+var method$b = splice$3;
 
 var ArrayPrototype$b = Array.prototype;
 
-var splice$1 = function (it) {
+var splice$2 = function (it) {
   var own = it.splice;
   return it === ArrayPrototype$b || (isPrototypeOf$f(ArrayPrototype$b, it) && own === ArrayPrototype$b.splice) ? method$b : own;
 };
 
-var parent$H = splice$1;
+var parent$H = splice$2;
 
-var splice = parent$H;
+var splice$1 = parent$H;
 
-(function (module) {
-	module.exports = splice;
-} (splice$3));
+var splice = splice$1;
 
-var _spliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(spliceExports);
-
-var assignExports = {};
-var assign$5 = {
-  get exports(){ return assignExports; },
-  set exports(v){ assignExports = v; },
-};
+var _spliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(splice);
 
 var DESCRIPTORS$5 = descriptors;
 var uncurryThis$9 = functionUncurryThis;
@@ -4149,34 +3865,26 @@ var objectAssign = !$assign || fails$e(function () {
 } : $assign;
 
 var $$y = _export;
-var assign$4 = objectAssign;
+var assign$5 = objectAssign;
 
 // `Object.assign` method
 // https://tc39.es/ecma262/#sec-object.assign
 // eslint-disable-next-line es/no-object-assign -- required for testing
-$$y({ target: 'Object', stat: true, arity: 2, forced: Object.assign !== assign$4 }, {
-  assign: assign$4
+$$y({ target: 'Object', stat: true, arity: 2, forced: Object.assign !== assign$5 }, {
+  assign: assign$5
 });
 
 var path$e = path$u;
 
-var assign$3 = path$e.Object.assign;
+var assign$4 = path$e.Object.assign;
 
-var parent$G = assign$3;
+var parent$G = assign$4;
 
-var assign$2 = parent$G;
+var assign$3 = parent$G;
 
-(function (module) {
-	module.exports = assign$2;
-} (assign$5));
+var assign$2 = assign$3;
 
-var _Object$assign = /*@__PURE__*/getDefaultExportFromCjs(assignExports);
-
-var includesExports = {};
-var includes$4 = {
-  get exports(){ return includesExports; },
-  set exports(v){ includesExports = v; },
-};
+var _Object$assign = /*@__PURE__*/getDefaultExportFromCjs(assign$2);
 
 var $$x = _export;
 var $includes = arrayIncludes.includes;
@@ -4198,7 +3906,7 @@ $$x({ target: 'Array', proto: true, forced: BROKEN_ON_SPARSE }, {
 
 var entryVirtual$c = entryVirtual$k;
 
-var includes$3 = entryVirtual$c('Array').includes;
+var includes$4 = entryVirtual$c('Array').includes;
 
 var isObject$8 = isObject$j;
 var classof$5 = classofRaw$2;
@@ -4262,16 +3970,16 @@ $$w({ target: 'String', proto: true, forced: !correctIsRegExpLogic('includes') }
 
 var entryVirtual$b = entryVirtual$k;
 
-var includes$2 = entryVirtual$b('String').includes;
+var includes$3 = entryVirtual$b('String').includes;
 
 var isPrototypeOf$e = objectIsPrototypeOf;
-var arrayMethod = includes$3;
-var stringMethod = includes$2;
+var arrayMethod = includes$4;
+var stringMethod = includes$3;
 
 var ArrayPrototype$a = Array.prototype;
 var StringPrototype$1 = String.prototype;
 
-var includes$1 = function (it) {
+var includes$2 = function (it) {
   var own = it.includes;
   if (it === ArrayPrototype$a || (isPrototypeOf$e(ArrayPrototype$a, it) && own === ArrayPrototype$a.includes)) return arrayMethod;
   if (typeof it == 'string' || it === StringPrototype$1 || (isPrototypeOf$e(StringPrototype$1, it) && own === StringPrototype$1.includes)) {
@@ -4279,21 +3987,13 @@ var includes$1 = function (it) {
   } return own;
 };
 
-var parent$F = includes$1;
+var parent$F = includes$2;
 
-var includes = parent$F;
+var includes$1 = parent$F;
 
-(function (module) {
-	module.exports = includes;
-} (includes$4));
+var includes = includes$1;
 
-var _includesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(includesExports);
-
-var getPrototypeOfExports$2 = {};
-var getPrototypeOf$7 = {
-  get exports(){ return getPrototypeOfExports$2; },
-  set exports(v){ getPrototypeOfExports$2 = v; },
-};
+var _includesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(includes);
 
 var $$v = _export;
 var fails$c = fails$x;
@@ -4313,23 +4013,15 @@ $$v({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES$1, sham: !CORREC
 
 var path$d = path$u;
 
-var getPrototypeOf$6 = path$d.Object.getPrototypeOf;
+var getPrototypeOf$7 = path$d.Object.getPrototypeOf;
 
-var parent$E = getPrototypeOf$6;
+var parent$E = getPrototypeOf$7;
 
-var getPrototypeOf$5 = parent$E;
+var getPrototypeOf$6 = parent$E;
 
-(function (module) {
-	module.exports = getPrototypeOf$5;
-} (getPrototypeOf$7));
+var getPrototypeOf$5 = getPrototypeOf$6;
 
-var _Object$getPrototypeOf$1 = /*@__PURE__*/getDefaultExportFromCjs(getPrototypeOfExports$2);
-
-var filterExports = {};
-var filter$3 = {
-  get exports(){ return filterExports; },
-  set exports(v){ filterExports = v; },
-};
+var _Object$getPrototypeOf$1 = /*@__PURE__*/getDefaultExportFromCjs(getPrototypeOf$5);
 
 var $$u = _export;
 var $filter = arrayIteration.filter;
@@ -4348,33 +4040,25 @@ $$u({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
 
 var entryVirtual$a = entryVirtual$k;
 
-var filter$2 = entryVirtual$a('Array').filter;
+var filter$3 = entryVirtual$a('Array').filter;
 
 var isPrototypeOf$d = objectIsPrototypeOf;
-var method$a = filter$2;
+var method$a = filter$3;
 
 var ArrayPrototype$9 = Array.prototype;
 
-var filter$1 = function (it) {
+var filter$2 = function (it) {
   var own = it.filter;
   return it === ArrayPrototype$9 || (isPrototypeOf$d(ArrayPrototype$9, it) && own === ArrayPrototype$9.filter) ? method$a : own;
 };
 
-var parent$D = filter$1;
+var parent$D = filter$2;
 
-var filter = parent$D;
+var filter$1 = parent$D;
 
-(function (module) {
-	module.exports = filter;
-} (filter$3));
+var filter = filter$1;
 
-var _filterInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(filterExports);
-
-var valuesExports$1 = {};
-var values$6 = {
-  get exports(){ return valuesExports$1; },
-  set exports(v){ valuesExports$1 = v; },
-};
+var _filterInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(filter);
 
 var DESCRIPTORS$4 = descriptors;
 var uncurryThis$7 = functionUncurryThis;
@@ -4426,23 +4110,15 @@ $$t({ target: 'Object', stat: true }, {
 
 var path$c = path$u;
 
-var values$5 = path$c.Object.values;
+var values$6 = path$c.Object.values;
 
-var parent$C = values$5;
+var parent$C = values$6;
 
-var values$4 = parent$C;
+var values$5 = parent$C;
 
-(function (module) {
-	module.exports = values$4;
-} (values$6));
+var values$4 = values$5;
 
-var _Object$values = /*@__PURE__*/getDefaultExportFromCjs(valuesExports$1);
-
-var _parseIntExports = {};
-var _parseInt$3 = {
-  get exports(){ return _parseIntExports; },
-  set exports(v){ _parseIntExports = v; },
-};
+var _Object$values = /*@__PURE__*/getDefaultExportFromCjs(values$4);
 
 // a string of all valid unicode whitespaces
 var whitespaces$4 = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002' +
@@ -4513,23 +4189,15 @@ $$s({ global: true, forced: parseInt != $parseInt }, {
 
 var path$b = path$u;
 
-var _parseInt$2 = path$b.parseInt;
+var _parseInt$3 = path$b.parseInt;
 
-var parent$B = _parseInt$2;
+var parent$B = _parseInt$3;
 
-var _parseInt$1 = parent$B;
+var _parseInt$2 = parent$B;
 
-(function (module) {
-	module.exports = _parseInt$1;
-} (_parseInt$3));
+var _parseInt = _parseInt$2;
 
-var _parseInt = /*@__PURE__*/getDefaultExportFromCjs(_parseIntExports);
-
-var indexOfExports = {};
-var indexOf$3 = {
-  get exports(){ return indexOfExports; },
-  set exports(v){ indexOfExports = v; },
-};
+var _parseInt$1 = /*@__PURE__*/getDefaultExportFromCjs(_parseInt);
 
 /* eslint-disable es/no-array-prototype-indexof -- required for testing */
 var $$r = _export;
@@ -4556,33 +4224,25 @@ $$r({ target: 'Array', proto: true, forced: FORCED$4 }, {
 
 var entryVirtual$9 = entryVirtual$k;
 
-var indexOf$2 = entryVirtual$9('Array').indexOf;
+var indexOf$3 = entryVirtual$9('Array').indexOf;
 
 var isPrototypeOf$c = objectIsPrototypeOf;
-var method$9 = indexOf$2;
+var method$9 = indexOf$3;
 
 var ArrayPrototype$8 = Array.prototype;
 
-var indexOf$1 = function (it) {
+var indexOf$2 = function (it) {
   var own = it.indexOf;
   return it === ArrayPrototype$8 || (isPrototypeOf$c(ArrayPrototype$8, it) && own === ArrayPrototype$8.indexOf) ? method$9 : own;
 };
 
-var parent$A = indexOf$1;
+var parent$A = indexOf$2;
 
-var indexOf = parent$A;
+var indexOf$1 = parent$A;
 
-(function (module) {
-	module.exports = indexOf;
-} (indexOf$3));
+var indexOf = indexOf$1;
 
-var _indexOfInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(indexOfExports);
-
-var trimExports = {};
-var trim$4 = {
-  get exports(){ return trimExports; },
-  set exports(v){ trimExports = v; },
-};
+var _indexOfInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(indexOf);
 
 var PROPER_FUNCTION_NAME = functionName.PROPER;
 var fails$a = fails$x;
@@ -4614,69 +4274,53 @@ $$q({ target: 'String', proto: true, forced: forcedStringTrimMethod('trim') }, {
 
 var entryVirtual$8 = entryVirtual$k;
 
-var trim$3 = entryVirtual$8('String').trim;
+var trim$4 = entryVirtual$8('String').trim;
 
 var isPrototypeOf$b = objectIsPrototypeOf;
-var method$8 = trim$3;
+var method$8 = trim$4;
 
 var StringPrototype = String.prototype;
 
-var trim$2 = function (it) {
+var trim$3 = function (it) {
   var own = it.trim;
   return typeof it == 'string' || it === StringPrototype
     || (isPrototypeOf$b(StringPrototype, it) && own === StringPrototype.trim) ? method$8 : own;
 };
 
-var parent$z = trim$2;
+var parent$z = trim$3;
 
-var trim$1 = parent$z;
+var trim$2 = parent$z;
 
-(function (module) {
-	module.exports = trim$1;
-} (trim$4));
+var trim$1 = trim$2;
 
-var _trimInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(trimExports);
-
-var createExports$2 = {};
-var create$a = {
-  get exports(){ return createExports$2; },
-  set exports(v){ createExports$2 = v; },
-};
+var _trimInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(trim$1);
 
 // TODO: Remove from `core-js@4`
 var $$p = _export;
 var DESCRIPTORS$3 = descriptors;
-var create$9 = objectCreate;
+var create$a = objectCreate;
 
 // `Object.create` method
 // https://tc39.es/ecma262/#sec-object.create
 $$p({ target: 'Object', stat: true, sham: !DESCRIPTORS$3 }, {
-  create: create$9
+  create: create$a
 });
 
 var path$a = path$u;
 
 var Object$1 = path$a.Object;
 
-var create$8 = function create(P, D) {
+var create$9 = function create(P, D) {
   return Object$1.create(P, D);
 };
 
-var parent$y = create$8;
+var parent$y = create$9;
 
-var create$7 = parent$y;
+var create$8 = parent$y;
 
-(function (module) {
-	module.exports = create$7;
-} (create$a));
+var create$7 = create$8;
 
-var _Object$create$1 = /*@__PURE__*/getDefaultExportFromCjs(createExports$2);
-
-var stringifyExports = {};
-var stringify$2 = {
-  get exports(){ return stringifyExports; },
-  set exports(v){ stringifyExports = v; },
-};
+var _Object$create$1 = /*@__PURE__*/getDefaultExportFromCjs(create$7);
 
 var path$9 = path$u;
 var apply$3 = functionApply;
@@ -4685,25 +4329,17 @@ var apply$3 = functionApply;
 if (!path$9.JSON) path$9.JSON = { stringify: JSON.stringify };
 
 // eslint-disable-next-line no-unused-vars -- required for `.length`
-var stringify$1 = function stringify(it, replacer, space) {
+var stringify$2 = function stringify(it, replacer, space) {
   return apply$3(path$9.JSON.stringify, null, arguments);
 };
 
-var parent$x = stringify$1;
+var parent$x = stringify$2;
 
-var stringify = parent$x;
+var stringify$1 = parent$x;
 
-(function (module) {
-	module.exports = stringify;
-} (stringify$2));
+var stringify = stringify$1;
 
-var _JSON$stringify = /*@__PURE__*/getDefaultExportFromCjs(stringifyExports);
-
-var setTimeoutExports = {};
-var setTimeout$3 = {
-  get exports(){ return setTimeoutExports; },
-  set exports(v){ setTimeoutExports = v; },
-};
+var _JSON$stringify = /*@__PURE__*/getDefaultExportFromCjs(stringify);
 
 /* global Bun -- Deno case */
 
@@ -4763,29 +4399,21 @@ var $$n = _export;
 var global$8 = global$o;
 var schedulersFix = schedulersFix$2;
 
-var setTimeout$2 = schedulersFix(global$8.setTimeout, true);
+var setTimeout$3 = schedulersFix(global$8.setTimeout, true);
 
 // Bun / IE9- setTimeout additional parameters fix
 // https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-settimeout
-$$n({ global: true, bind: true, forced: global$8.setTimeout !== setTimeout$2 }, {
-  setTimeout: setTimeout$2
+$$n({ global: true, bind: true, forced: global$8.setTimeout !== setTimeout$3 }, {
+  setTimeout: setTimeout$3
 });
 
 var path$8 = path$u;
 
-var setTimeout$1 = path$8.setTimeout;
+var setTimeout$2 = path$8.setTimeout;
 
-(function (module) {
-	module.exports = setTimeout$1;
-} (setTimeout$3));
+var setTimeout$1 = setTimeout$2;
 
-var _setTimeout = /*@__PURE__*/getDefaultExportFromCjs(setTimeoutExports);
-
-var fillExports = {};
-var fill$4 = {
-  get exports(){ return fillExports; },
-  set exports(v){ fillExports = v; },
-};
+var _setTimeout = /*@__PURE__*/getDefaultExportFromCjs(setTimeout$1);
 
 var toObject$3 = toObject$e;
 var toAbsoluteIndex = toAbsoluteIndex$5;
@@ -4805,43 +4433,37 @@ var arrayFill = function fill(value /* , start = 0, end = @length */) {
 };
 
 var $$m = _export;
-var fill$3 = arrayFill;
+var fill$4 = arrayFill;
 
 // `Array.prototype.fill` method
 // https://tc39.es/ecma262/#sec-array.prototype.fill
 $$m({ target: 'Array', proto: true }, {
-  fill: fill$3
+  fill: fill$4
 });
 
 var entryVirtual$7 = entryVirtual$k;
 
-var fill$2 = entryVirtual$7('Array').fill;
+var fill$3 = entryVirtual$7('Array').fill;
 
 var isPrototypeOf$a = objectIsPrototypeOf;
-var method$7 = fill$2;
+var method$7 = fill$3;
 
 var ArrayPrototype$7 = Array.prototype;
 
-var fill$1 = function (it) {
+var fill$2 = function (it) {
   var own = it.fill;
   return it === ArrayPrototype$7 || (isPrototypeOf$a(ArrayPrototype$7, it) && own === ArrayPrototype$7.fill) ? method$7 : own;
 };
 
-var parent$w = fill$1;
+var parent$w = fill$2;
 
-var fill = parent$w;
+var fill$1 = parent$w;
 
-(function (module) {
-	module.exports = fill;
-} (fill$4));
+var fill = fill$1;
 
-var _fillInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(fillExports);
+var _fillInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(fill);
 
-var componentEmitterExports = {};
-var componentEmitter = {
-  get exports(){ return componentEmitterExports; },
-  set exports(v){ componentEmitterExports = v; },
-};
+var componentEmitter = {exports: {}};
 
 (function (module) {
 	/**
@@ -5016,10 +4638,11 @@ var componentEmitter = {
 
 	Emitter.prototype.hasListeners = function(event){
 	  return !! this.listeners(event).length;
-	};
+	}; 
 } (componentEmitter));
 
-var Emitter = componentEmitterExports;
+var componentEmitterExports = componentEmitter.exports;
+var Emitter = /*@__PURE__*/getDefaultExportFromCjs(componentEmitterExports);
 
 /*! Hammer.JS - v2.0.17-rc - 2019-12-16
  * http://naver.github.io/egjs
@@ -9100,17 +8723,17 @@ function hexToRGB(hex) {
     case 4:
       result = shortHexRE.exec(hex);
       return result ? {
-        r: _parseInt(result[1] + result[1], 16),
-        g: _parseInt(result[2] + result[2], 16),
-        b: _parseInt(result[3] + result[3], 16)
+        r: _parseInt$1(result[1] + result[1], 16),
+        g: _parseInt$1(result[2] + result[2], 16),
+        b: _parseInt$1(result[3] + result[3], 16)
       } : null;
     case 6:
     case 7:
       result = fullHexRE.exec(hex);
       return result ? {
-        r: _parseInt(result[1], 16),
-        g: _parseInt(result[2], 16),
-        b: _parseInt(result[3], 16)
+        r: _parseInt$1(result[1], 16),
+        g: _parseInt$1(result[2], 16),
+        b: _parseInt$1(result[3], 16)
       } : null;
     default:
       return null;
@@ -9163,7 +8786,7 @@ function parseColor(inputColor, defaultColor) {
     if (isValidRGB(colorStr)) {
       var _context11;
       var rgb = _mapInstanceProperty(_context11 = colorStr.substr(4).substr(0, colorStr.length - 5).split(",")).call(_context11, function (value) {
-        return _parseInt(value);
+        return _parseInt$1(value);
       });
       colorStr = RGBToHex(rgb[0], rgb[1], rgb[2]);
     }
@@ -11512,8 +11135,8 @@ var Popup$1 = /*#__PURE__*/function () {
   _createClass(Popup$1, [{
     key: "setPosition",
     value: function setPosition(x, y) {
-      this.x = _parseInt(x);
-      this.y = _parseInt(y);
+      this.x = _parseInt$1(x);
+      this.y = _parseInt$1(y);
     }
 
     /**
@@ -12272,112 +11895,64 @@ function _assertThisInitialized(self) {
   return self;
 }
 
-var createExports$1 = {};
-var create$6 = {
-  get exports(){ return createExports$1; },
-  set exports(v){ createExports$1 = v; },
-};
+var parent$v = create$8;
 
-var createExports = {};
-var create$5 = {
-  get exports(){ return createExports; },
-  set exports(v){ createExports = v; },
-};
+var create$6 = parent$v;
 
-var parent$v = create$7;
+var parent$u = create$6;
 
-var create$4 = parent$v;
+var create$5 = parent$u;
 
-var parent$u = create$4;
+var create$4 = create$5;
 
-var create$3 = parent$u;
+var create$3 = create$4;
 
-(function (module) {
-	module.exports = create$3;
-} (create$5));
-
-(function (module) {
-	module.exports = createExports;
-} (create$6));
-
-var _Object$create = /*@__PURE__*/getDefaultExportFromCjs(createExports$1);
-
-var setPrototypeOfExports$1 = {};
-var setPrototypeOf$7 = {
-  get exports(){ return setPrototypeOfExports$1; },
-  set exports(v){ setPrototypeOfExports$1 = v; },
-};
-
-var setPrototypeOfExports = {};
-var setPrototypeOf$6 = {
-  get exports(){ return setPrototypeOfExports; },
-  set exports(v){ setPrototypeOfExports = v; },
-};
+var _Object$create = /*@__PURE__*/getDefaultExportFromCjs(create$3);
 
 var $$l = _export;
-var setPrototypeOf$5 = objectSetPrototypeOf;
+var setPrototypeOf$7 = objectSetPrototypeOf;
 
 // `Object.setPrototypeOf` method
 // https://tc39.es/ecma262/#sec-object.setprototypeof
 $$l({ target: 'Object', stat: true }, {
-  setPrototypeOf: setPrototypeOf$5
+  setPrototypeOf: setPrototypeOf$7
 });
 
 var path$7 = path$u;
 
-var setPrototypeOf$4 = path$7.Object.setPrototypeOf;
+var setPrototypeOf$6 = path$7.Object.setPrototypeOf;
 
-var parent$t = setPrototypeOf$4;
+var parent$t = setPrototypeOf$6;
 
-var setPrototypeOf$3 = parent$t;
+var setPrototypeOf$5 = parent$t;
 
-var parent$s = setPrototypeOf$3;
+var parent$s = setPrototypeOf$5;
 
-var setPrototypeOf$2 = parent$s;
+var setPrototypeOf$4 = parent$s;
 
-var parent$r = setPrototypeOf$2;
+var parent$r = setPrototypeOf$4;
 
-var setPrototypeOf$1 = parent$r;
+var setPrototypeOf$3 = parent$r;
 
-(function (module) {
-	module.exports = setPrototypeOf$1;
-} (setPrototypeOf$6));
+var setPrototypeOf$2 = setPrototypeOf$3;
 
-(function (module) {
-	module.exports = setPrototypeOfExports;
-} (setPrototypeOf$7));
+var setPrototypeOf$1 = setPrototypeOf$2;
 
-var _Object$setPrototypeOf = /*@__PURE__*/getDefaultExportFromCjs(setPrototypeOfExports$1);
+var _Object$setPrototypeOf = /*@__PURE__*/getDefaultExportFromCjs(setPrototypeOf$1);
 
-var bindExports$1 = {};
-var bind$a = {
-  get exports(){ return bindExports$1; },
-  set exports(v){ bindExports$1 = v; },
-};
+var parent$q = bind$c;
 
-var bindExports = {};
-var bind$9 = {
-  get exports(){ return bindExports; },
-  set exports(v){ bindExports = v; },
-};
+var bind$a = parent$q;
 
-var parent$q = bind$b;
+var parent$p = bind$a;
 
-var bind$8 = parent$q;
+var bind$9 = parent$p;
 
-var parent$p = bind$8;
+var bind$8 = bind$9;
 
-var bind$7 = parent$p;
+var bind$7 = bind$8;
 
-(function (module) {
-	module.exports = bind$7;
-} (bind$9));
-
-(function (module) {
-	module.exports = bindExports;
-} (bind$a));
-
-var _bindInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(bindExports$1);
+var _bindInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(bind$7);
 
 function _setPrototypeOf(o, p) {
   var _context;
@@ -12414,35 +11989,19 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
-var getPrototypeOfExports$1 = {};
-var getPrototypeOf$4 = {
-  get exports(){ return getPrototypeOfExports$1; },
-  set exports(v){ getPrototypeOfExports$1 = v; },
-};
+var parent$o = getPrototypeOf$6;
 
-var getPrototypeOfExports = {};
-var getPrototypeOf$3 = {
-  get exports(){ return getPrototypeOfExports; },
-  set exports(v){ getPrototypeOfExports = v; },
-};
+var getPrototypeOf$4 = parent$o;
 
-var parent$o = getPrototypeOf$5;
+var parent$n = getPrototypeOf$4;
 
-var getPrototypeOf$2 = parent$o;
+var getPrototypeOf$3 = parent$n;
 
-var parent$n = getPrototypeOf$2;
+var getPrototypeOf$2 = getPrototypeOf$3;
 
-var getPrototypeOf$1 = parent$n;
+var getPrototypeOf$1 = getPrototypeOf$2;
 
-(function (module) {
-	module.exports = getPrototypeOf$1;
-} (getPrototypeOf$3));
-
-(function (module) {
-	module.exports = getPrototypeOfExports;
-} (getPrototypeOf$4));
-
-var _Object$getPrototypeOf = /*@__PURE__*/getDefaultExportFromCjs(getPrototypeOfExports$1);
+var _Object$getPrototypeOf = /*@__PURE__*/getDefaultExportFromCjs(getPrototypeOf$1);
 
 function _getPrototypeOf(o) {
   var _context;
@@ -12452,21 +12011,13 @@ function _getPrototypeOf(o) {
   return _getPrototypeOf(o);
 }
 
-var regeneratorRuntimeExports = {};
-var regeneratorRuntime$1 = {
-  get exports(){ return regeneratorRuntimeExports; },
-  set exports(v){ regeneratorRuntimeExports = v; },
-};
+var regeneratorRuntime$1 = {exports: {}};
 
-var _typeofExports = {};
-var _typeof = {
-  get exports(){ return _typeofExports; },
-  set exports(v){ _typeofExports = v; },
-};
+var _typeof = {exports: {}};
 
 (function (module) {
-	var _Symbol = symbolExports$2;
-	var _Symbol$iterator = iteratorExports$2;
+	var _Symbol = symbol$1;
+	var _Symbol$iterator = iterator$1;
 	function _typeof(obj) {
 	  "@babel/helpers - typeof";
 
@@ -12476,48 +12027,22 @@ var _typeof = {
 	    return obj && "function" == typeof _Symbol && obj.constructor === _Symbol && obj !== _Symbol.prototype ? "symbol" : typeof obj;
 	  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
 	}
-	module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+	module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports; 
 } (_typeof));
 
-var forEachExports$1 = {};
-var forEach$4 = {
-  get exports(){ return forEachExports$1; },
-  set exports(v){ forEachExports$1 = v; },
-};
+var _typeofExports = _typeof.exports;
 
-var forEachExports = {};
-var forEach$3 = {
-  get exports(){ return forEachExports; },
-  set exports(v){ forEachExports = v; },
-};
+var parent$m = forEach$7;
 
-var parent$m = forEach$6;
+var forEach$4 = parent$m;
 
-var forEach$2 = parent$m;
+var parent$l = forEach$4;
 
-var parent$l = forEach$2;
+var forEach$3 = parent$l;
 
-var forEach$1 = parent$l;
+var forEach$2 = forEach$3;
 
-(function (module) {
-	module.exports = forEach$1;
-} (forEach$3));
-
-(function (module) {
-	module.exports = forEachExports;
-} (forEach$4));
-
-var promiseExports$1 = {};
-var promise$6 = {
-  get exports(){ return promiseExports$1; },
-  set exports(v){ promiseExports$1 = v; },
-};
-
-var promiseExports = {};
-var promise$5 = {
-  get exports(){ return promiseExports; },
-  set exports(v){ promiseExports = v; },
-};
+var forEach$1 = forEach$2;
 
 var hasOwn$5 = hasOwnProperty_1;
 var ownKeys$1 = ownKeys$8;
@@ -12943,7 +12468,7 @@ var Promise$1 = global$6.Promise;
 // Node.js 11 shows ExperimentalWarning on getting `queueMicrotask`
 var queueMicrotaskDescriptor = getOwnPropertyDescriptor(global$6, 'queueMicrotask');
 var microtask$1 = queueMicrotaskDescriptor && queueMicrotaskDescriptor.value;
-var notify$1, toggle, node, promise$4, then;
+var notify$1, toggle, node, promise$6, then;
 
 // modern engines have queueMicrotask method
 if (!microtask$1) {
@@ -12973,10 +12498,10 @@ if (!microtask$1) {
   // environments with maybe non-completely correct, but existent Promise
   } else if (!IS_IOS_PEBBLE && Promise$1 && Promise$1.resolve) {
     // Promise.resolve without an argument throws an error in LG WebOS 2
-    promise$4 = Promise$1.resolve(undefined);
+    promise$6 = Promise$1.resolve(undefined);
     // workaround of WebKit ~ iOS Safari 10.1 bug
-    promise$4.constructor = Promise$1;
-    then = bind$4(promise$4.then, promise$4);
+    promise$6.constructor = Promise$1;
+    then = bind$4(promise$6.then, promise$6);
     notify$1 = function () {
       then(flush);
     };
@@ -13132,6 +12657,7 @@ var newPromiseCapabilityModule$6 = newPromiseCapability$2;
 var PROMISE = 'Promise';
 var FORCED_PROMISE_CONSTRUCTOR$4 = PromiseConstructorDetection.CONSTRUCTOR;
 var NATIVE_PROMISE_REJECTION_EVENT = PromiseConstructorDetection.REJECTION_EVENT;
+PromiseConstructorDetection.SUBCLASSING;
 var getInternalPromiseState = InternalStateModule$2.getterFor(PROMISE);
 var setInternalState$2 = InternalStateModule$2.set;
 var NativePromisePrototype$1 = NativePromiseConstructor$4 && NativePromiseConstructor$4.prototype;
@@ -13627,16 +13153,16 @@ $$b({ target: 'Promise', proto: true, real: true, forced: NON_GENERIC }, {
 
 var path$6 = path$u;
 
-var promise$3 = path$6.Promise;
+var promise$5 = path$6.Promise;
 
-var parent$k = promise$3;
+var parent$k = promise$5;
 
 
-var promise$2 = parent$k;
+var promise$4 = parent$k;
 
-var parent$j = promise$2;
+var parent$j = promise$4;
 
-var promise$1 = parent$j;
+var promise$3 = parent$j;
 
 // TODO: Remove from `core-js@4`
 var $$a = _export;
@@ -13654,62 +13180,42 @@ $$a({ target: 'Promise', stat: true, forced: true }, {
   }
 });
 
-var parent$i = promise$1;
+var parent$i = promise$3;
 
 // TODO: Remove from `core-js@4`
 
 
 
 
-var promise = parent$i;
+var promise$2 = parent$i;
 
-(function (module) {
-	module.exports = promise;
-} (promise$5));
+var promise$1 = promise$2;
 
-(function (module) {
-	module.exports = promiseExports;
-} (promise$6));
+var promise = promise$1;
 
-var reverseExports$1 = {};
-var reverse$3 = {
-  get exports(){ return reverseExports$1; },
-  set exports(v){ reverseExports$1 = v; },
-};
+var parent$h = reverse$5;
 
-var reverseExports = {};
-var reverse$2 = {
-  get exports(){ return reverseExports; },
-  set exports(v){ reverseExports = v; },
-};
+var reverse$3 = parent$h;
 
-var parent$h = reverse$4;
+var parent$g = reverse$3;
 
-var reverse$1 = parent$h;
+var reverse$2 = parent$g;
 
-var parent$g = reverse$1;
+var reverse$1 = reverse$2;
 
-var reverse = parent$g;
-
-(function (module) {
-	module.exports = reverse;
-} (reverse$2));
-
-(function (module) {
-	module.exports = reverseExports;
-} (reverse$3));
+var reverse = reverse$1;
 
 (function (module) {
 	var _typeof = _typeofExports["default"];
-	var _Object$defineProperty = definePropertyExports$1;
-	var _Symbol = symbolExports$2;
-	var _Object$create = createExports$1;
-	var _Object$getPrototypeOf = getPrototypeOfExports$1;
-	var _forEachInstanceProperty = forEachExports$1;
-	var _Object$setPrototypeOf = setPrototypeOfExports$1;
-	var _Promise = promiseExports$1;
-	var _reverseInstanceProperty = reverseExports$1;
-	var _sliceInstanceProperty = sliceExports$2;
+	var _Object$defineProperty = defineProperty$3;
+	var _Symbol = symbol$1;
+	var _Object$create = create$3;
+	var _Object$getPrototypeOf = getPrototypeOf$1;
+	var _forEachInstanceProperty = forEach$1;
+	var _Object$setPrototypeOf = setPrototypeOf$1;
+	var _Promise = promise;
+	var _reverseInstanceProperty = reverse;
+	var _sliceInstanceProperty = slice$1;
 	function _regeneratorRuntime() {
 	  module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
 	    return exports;
@@ -14013,8 +13519,10 @@ var reverse = parent$g;
 	    }
 	  }, exports;
 	}
-	module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
+	module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports; 
 } (regeneratorRuntime$1));
+
+var regeneratorRuntimeExports = regeneratorRuntime$1.exports;
 
 // TODO(Babel 8): Remove this file.
 
@@ -14032,11 +13540,7 @@ try {
   }
 }
 
-var reduceExports = {};
-var reduce$3 = {
-  get exports(){ return reduceExports; },
-  set exports(v){ reduceExports = v; },
-};
+var _regeneratorRuntime = /*@__PURE__*/getDefaultExportFromCjs(regenerator);
 
 var aCallable$2 = aCallable$e;
 var toObject$2 = toObject$e;
@@ -14103,33 +13607,25 @@ $$9({ target: 'Array', proto: true, forced: FORCED$3 }, {
 
 var entryVirtual$6 = entryVirtual$k;
 
-var reduce$2 = entryVirtual$6('Array').reduce;
+var reduce$3 = entryVirtual$6('Array').reduce;
 
 var isPrototypeOf$6 = objectIsPrototypeOf;
-var method$6 = reduce$2;
+var method$6 = reduce$3;
 
 var ArrayPrototype$6 = Array.prototype;
 
-var reduce$1 = function (it) {
+var reduce$2 = function (it) {
   var own = it.reduce;
   return it === ArrayPrototype$6 || (isPrototypeOf$6(ArrayPrototype$6, it) && own === ArrayPrototype$6.reduce) ? method$6 : own;
 };
 
-var parent$f = reduce$1;
+var parent$f = reduce$2;
 
-var reduce = parent$f;
+var reduce$1 = parent$f;
 
-(function (module) {
-	module.exports = reduce;
-} (reduce$3));
+var reduce = reduce$1;
 
-var _reduceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reduceExports);
-
-var flatMapExports = {};
-var flatMap$3 = {
-  get exports(){ return flatMapExports; },
-  set exports(v){ flatMapExports = v; },
-};
+var _reduceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reduce);
 
 var isArray = isArray$f;
 var lengthOfArrayLike$2 = lengthOfArrayLike$d;
@@ -14188,39 +13684,27 @@ $$8({ target: 'Array', proto: true }, {
 
 var entryVirtual$5 = entryVirtual$k;
 
-var flatMap$2 = entryVirtual$5('Array').flatMap;
+var flatMap$3 = entryVirtual$5('Array').flatMap;
 
 var isPrototypeOf$5 = objectIsPrototypeOf;
-var method$5 = flatMap$2;
+var method$5 = flatMap$3;
 
 var ArrayPrototype$5 = Array.prototype;
 
-var flatMap$1 = function (it) {
+var flatMap$2 = function (it) {
   var own = it.flatMap;
   return it === ArrayPrototype$5 || (isPrototypeOf$5(ArrayPrototype$5, it) && own === ArrayPrototype$5.flatMap) ? method$5 : own;
 };
 
-var parent$e = flatMap$1;
+var parent$e = flatMap$2;
 
-var flatMap = parent$e;
+var flatMap$1 = parent$e;
 
-(function (module) {
-	module.exports = flatMap;
-} (flatMap$3));
+var flatMap = flatMap$1;
 
-var _flatMapInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(flatMapExports);
+var _flatMapInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(flatMap);
 
-var mapExports = {};
-var map$2 = {
-  get exports(){ return mapExports; },
-  set exports(v){ mapExports = v; },
-};
-
-var internalMetadataExports = {};
-var internalMetadata = {
-  get exports(){ return internalMetadataExports; },
-  set exports(v){ internalMetadataExports = v; },
-};
+var internalMetadata = {exports: {}};
 
 // FF26- bug: ArrayBuffers are non-extensible, but Object.isExtensible does not report it
 var fails$6 = fails$x;
@@ -14346,6 +13830,8 @@ var meta = internalMetadata.exports = {
 };
 
 hiddenKeys[METADATA] = true;
+
+var internalMetadataExports = internalMetadata.exports;
 
 var $$6 = _export;
 var global$2 = global$o;
@@ -14650,24 +14136,16 @@ collection$1('Map', function (init) {
 
 var path$5 = path$u;
 
-var map$1 = path$5.Map;
+var map$2 = path$5.Map;
 
-var parent$d = map$1;
+var parent$d = map$2;
 
 
-var map = parent$d;
+var map$1 = parent$d;
 
-(function (module) {
-	module.exports = map;
-} (map$2));
+var map = map$1;
 
-var _Map = /*@__PURE__*/getDefaultExportFromCjs(mapExports);
-
-var setExports = {};
-var set$2 = {
-  get exports(){ return setExports; },
-  set exports(v){ setExports = v; },
-};
+var _Map = /*@__PURE__*/getDefaultExportFromCjs(map);
 
 var collection = collection$2;
 var collectionStrong = collectionStrong$2;
@@ -14680,75 +14158,43 @@ collection('Set', function (init) {
 
 var path$4 = path$u;
 
-var set$1 = path$4.Set;
+var set$2 = path$4.Set;
 
-var parent$c = set$1;
+var parent$c = set$2;
 
 
-var set = parent$c;
+var set$1 = parent$c;
 
-(function (module) {
-	module.exports = set;
-} (set$2));
+var set = set$1;
 
-var _Set = /*@__PURE__*/getDefaultExportFromCjs(setExports);
+var _Set = /*@__PURE__*/getDefaultExportFromCjs(set);
 
-var iteratorExports = {};
-var iterator = {
-  get exports(){ return iteratorExports; },
-  set exports(v){ iteratorExports = v; },
-};
+var iterator = iterator$5;
 
-(function (module) {
-	module.exports = iterator$3;
-} (iterator));
+var _Symbol$iterator2 = /*@__PURE__*/getDefaultExportFromCjs(iterator);
 
-var _Symbol$iterator2 = /*@__PURE__*/getDefaultExportFromCjs(iteratorExports);
+var getIterator$5 = getIterator$8;
 
-var getIteratorExports$1 = {};
-var getIterator$5 = {
-  get exports(){ return getIteratorExports$1; },
-  set exports(v){ getIteratorExports$1 = v; },
-};
-
-var getIteratorExports = {};
-var getIterator$4 = {
-  get exports(){ return getIteratorExports; },
-  set exports(v){ getIteratorExports = v; },
-};
-
-var getIterator$3 = getIterator$8;
-
-var getIterator_1 = getIterator$3;
+var getIterator_1 = getIterator$5;
 
 var parent$b = getIterator_1;
 
 
-var getIterator$2 = parent$b;
+var getIterator$4 = parent$b;
 
-var parent$a = getIterator$2;
+var parent$a = getIterator$4;
 
-var getIterator$1 = parent$a;
+var getIterator$3 = parent$a;
 
-var parent$9 = getIterator$1;
+var parent$9 = getIterator$3;
 
-var getIterator = parent$9;
+var getIterator$2 = parent$9;
 
-(function (module) {
-	module.exports = getIterator;
-} (getIterator$4));
+var getIterator$1 = getIterator$2;
 
-(function (module) {
-	module.exports = getIteratorExports;
-} (getIterator$5));
+var getIterator = getIterator$1;
 
-var _getIterator = /*@__PURE__*/getDefaultExportFromCjs(getIteratorExports$1);
-
-var sortExports = {};
-var sort$3 = {
-  get exports(){ return sortExports; },
-  set exports(v){ sortExports = v; },
-};
+var _getIterator = /*@__PURE__*/getDefaultExportFromCjs(getIterator);
 
 var arraySlice = arraySliceSimple;
 
@@ -14919,33 +14365,25 @@ $$5({ target: 'Array', proto: true, forced: FORCED$2 }, {
 
 var entryVirtual$4 = entryVirtual$k;
 
-var sort$2 = entryVirtual$4('Array').sort;
+var sort$3 = entryVirtual$4('Array').sort;
 
 var isPrototypeOf$4 = objectIsPrototypeOf;
-var method$4 = sort$2;
+var method$4 = sort$3;
 
 var ArrayPrototype$4 = Array.prototype;
 
-var sort$1 = function (it) {
+var sort$2 = function (it) {
   var own = it.sort;
   return it === ArrayPrototype$4 || (isPrototypeOf$4(ArrayPrototype$4, it) && own === ArrayPrototype$4.sort) ? method$4 : own;
 };
 
-var parent$8 = sort$1;
+var parent$8 = sort$2;
 
-var sort = parent$8;
+var sort$1 = parent$8;
 
-(function (module) {
-	module.exports = sort;
-} (sort$3));
+var sort = sort$1;
 
-var _sortInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sortExports);
-
-var someExports = {};
-var some$3 = {
-  get exports(){ return someExports; },
-  set exports(v){ someExports = v; },
-};
+var _sortInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sort);
 
 var $$4 = _export;
 var $some = arrayIteration.some;
@@ -14963,46 +14401,38 @@ $$4({ target: 'Array', proto: true, forced: !STRICT_METHOD }, {
 
 var entryVirtual$3 = entryVirtual$k;
 
-var some$2 = entryVirtual$3('Array').some;
+var some$3 = entryVirtual$3('Array').some;
 
 var isPrototypeOf$3 = objectIsPrototypeOf;
-var method$3 = some$2;
+var method$3 = some$3;
 
 var ArrayPrototype$3 = Array.prototype;
 
-var some$1 = function (it) {
+var some$2 = function (it) {
   var own = it.some;
   return it === ArrayPrototype$3 || (isPrototypeOf$3(ArrayPrototype$3, it) && own === ArrayPrototype$3.some) ? method$3 : own;
 };
 
-var parent$7 = some$1;
+var parent$7 = some$2;
 
-var some = parent$7;
+var some$1 = parent$7;
 
-(function (module) {
-	module.exports = some;
-} (some$3));
+var some = some$1;
 
-var _someInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(someExports);
-
-var keysExports = {};
-var keys$3 = {
-  get exports(){ return keysExports; },
-  set exports(v){ keysExports = v; },
-};
+var _someInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(some);
 
 var entryVirtual$2 = entryVirtual$k;
 
-var keys$2 = entryVirtual$2('Array').keys;
+var keys$3 = entryVirtual$2('Array').keys;
 
-var parent$6 = keys$2;
+var parent$6 = keys$3;
 
-var keys$1 = parent$6;
+var keys$2 = parent$6;
 
 var classof$2 = classof$g;
 var hasOwn$2 = hasOwnProperty_1;
 var isPrototypeOf$2 = objectIsPrototypeOf;
-var method$2 = keys$1;
+var method$2 = keys$2;
 
 var ArrayPrototype$2 = Array.prototype;
 
@@ -15011,36 +14441,28 @@ var DOMIterables$2 = {
   NodeList: true
 };
 
-var keys = function (it) {
+var keys$1 = function (it) {
   var own = it.keys;
   return it === ArrayPrototype$2 || (isPrototypeOf$2(ArrayPrototype$2, it) && own === ArrayPrototype$2.keys)
     || hasOwn$2(DOMIterables$2, classof$2(it)) ? method$2 : own;
 };
 
-(function (module) {
-	module.exports = keys;
-} (keys$3));
+var keys = keys$1;
 
-var _keysInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(keysExports);
-
-var valuesExports = {};
-var values$3 = {
-  get exports(){ return valuesExports; },
-  set exports(v){ valuesExports = v; },
-};
+var _keysInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(keys);
 
 var entryVirtual$1 = entryVirtual$k;
 
-var values$2 = entryVirtual$1('Array').values;
+var values$3 = entryVirtual$1('Array').values;
 
-var parent$5 = values$2;
+var parent$5 = values$3;
 
-var values$1 = parent$5;
+var values$2 = parent$5;
 
 var classof$1 = classof$g;
 var hasOwn$1 = hasOwnProperty_1;
 var isPrototypeOf$1 = objectIsPrototypeOf;
-var method$1 = values$1;
+var method$1 = values$2;
 
 var ArrayPrototype$1 = Array.prototype;
 
@@ -15049,36 +14471,28 @@ var DOMIterables$1 = {
   NodeList: true
 };
 
-var values = function (it) {
+var values$1 = function (it) {
   var own = it.values;
   return it === ArrayPrototype$1 || (isPrototypeOf$1(ArrayPrototype$1, it) && own === ArrayPrototype$1.values)
     || hasOwn$1(DOMIterables$1, classof$1(it)) ? method$1 : own;
 };
 
-(function (module) {
-	module.exports = values;
-} (values$3));
+var values = values$1;
 
-var _valuesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(valuesExports);
-
-var entriesExports = {};
-var entries$3 = {
-  get exports(){ return entriesExports; },
-  set exports(v){ entriesExports = v; },
-};
+var _valuesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(values);
 
 var entryVirtual = entryVirtual$k;
 
-var entries$2 = entryVirtual('Array').entries;
+var entries$3 = entryVirtual('Array').entries;
 
-var parent$4 = entries$2;
+var parent$4 = entries$3;
 
-var entries$1 = parent$4;
+var entries$2 = parent$4;
 
 var classof = classof$g;
 var hasOwn = hasOwnProperty_1;
 var isPrototypeOf = objectIsPrototypeOf;
-var method = entries$1;
+var method = entries$2;
 
 var ArrayPrototype = Array.prototype;
 
@@ -15087,23 +14501,15 @@ var DOMIterables = {
   NodeList: true
 };
 
-var entries = function (it) {
+var entries$1 = function (it) {
   var own = it.entries;
   return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.entries)
     || hasOwn(DOMIterables, classof(it)) ? method : own;
 };
 
-(function (module) {
-	module.exports = entries;
-} (entries$3));
+var entries = entries$1;
 
-var _entriesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(entriesExports);
-
-var constructExports = {};
-var construct$2 = {
-  get exports(){ return constructExports; },
-  set exports(v){ constructExports = v; },
-};
+var _entriesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(entries);
 
 var $$3 = _export;
 var getBuiltIn = getBuiltIn$f;
@@ -15164,17 +14570,15 @@ $$3({ target: 'Reflect', stat: true, forced: FORCED$1, sham: FORCED$1 }, {
 
 var path$3 = path$u;
 
-var construct$1 = path$3.Reflect.construct;
+var construct$2 = path$3.Reflect.construct;
 
-var parent$3 = construct$1;
+var parent$3 = construct$2;
 
-var construct = parent$3;
+var construct$1 = parent$3;
 
-(function (module) {
-	module.exports = construct;
-} (construct$2));
+var construct = construct$1;
 
-var _Reflect$construct = /*@__PURE__*/getDefaultExportFromCjs(constructExports);
+var _Reflect$construct = /*@__PURE__*/getDefaultExportFromCjs(construct);
 
 // Unique ID creation requires a high quality random # generator. In the browser we therefore
 // require the crypto API and do not support built-in fallback to lower quality random number
@@ -15796,9 +15200,9 @@ var DataStream = /*#__PURE__*/function () {
     key: _Symbol$iterator,
     value:
     /*#__PURE__*/
-    regenerator.mark(function value() {
+    _regeneratorRuntime.mark(function value() {
       var _iterator, _step, _step$value, id, item;
-      return regenerator.wrap(function value$(_context10) {
+      return _regeneratorRuntime.wrap(function value$(_context10) {
         while (1) switch (_context10.prev = _context10.next) {
           case 0:
             _iterator = _createForOfIteratorHelper(this._pairs);
@@ -15839,9 +15243,9 @@ var DataStream = /*#__PURE__*/function () {
     key: "entries",
     value:
     /*#__PURE__*/
-    regenerator.mark(function entries() {
+    _regeneratorRuntime.mark(function entries() {
       var _iterator2, _step2, _step2$value, id, item;
-      return regenerator.wrap(function entries$(_context11) {
+      return _regeneratorRuntime.wrap(function entries$(_context11) {
         while (1) switch (_context11.prev = _context11.next) {
           case 0:
             _iterator2 = _createForOfIteratorHelper(this._pairs);
@@ -15882,9 +15286,9 @@ var DataStream = /*#__PURE__*/function () {
     key: "keys",
     value:
     /*#__PURE__*/
-    regenerator.mark(function keys() {
+    _regeneratorRuntime.mark(function keys() {
       var _iterator3, _step3, _step3$value, id;
-      return regenerator.wrap(function keys$(_context12) {
+      return _regeneratorRuntime.wrap(function keys$(_context12) {
         while (1) switch (_context12.prev = _context12.next) {
           case 0:
             _iterator3 = _createForOfIteratorHelper(this._pairs);
@@ -15925,9 +15329,9 @@ var DataStream = /*#__PURE__*/function () {
     key: "values",
     value:
     /*#__PURE__*/
-    regenerator.mark(function values() {
+    _regeneratorRuntime.mark(function values() {
       var _iterator4, _step4, _step4$value, item;
-      return regenerator.wrap(function values$(_context13) {
+      return _regeneratorRuntime.wrap(function values$(_context13) {
         while (1) switch (_context13.prev = _context13.next) {
           case 0:
             _iterator4 = _createForOfIteratorHelper(this._pairs);
@@ -16124,9 +15528,9 @@ var DataStream = /*#__PURE__*/function () {
     key: "filter",
     value: function filter(callback) {
       var pairs = this._pairs;
-      return new DataStream(_defineProperty({}, _Symbol$iterator2, /*#__PURE__*/regenerator.mark(function _callee() {
+      return new DataStream(_defineProperty({}, _Symbol$iterator2, /*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
         var _iterator7, _step7, _step7$value, id, item;
-        return regenerator.wrap(function _callee$(_context16) {
+        return _regeneratorRuntime.wrap(function _callee$(_context16) {
           while (1) switch (_context16.prev = _context16.next) {
             case 0:
               _iterator7 = _createForOfIteratorHelper(pairs);
@@ -16199,9 +15603,9 @@ var DataStream = /*#__PURE__*/function () {
     key: "map",
     value: function map(callback) {
       var pairs = this._pairs;
-      return new DataStream(_defineProperty({}, _Symbol$iterator2, /*#__PURE__*/regenerator.mark(function _callee2() {
+      return new DataStream(_defineProperty({}, _Symbol$iterator2, /*#__PURE__*/_regeneratorRuntime.mark(function _callee2() {
         var _iterator9, _step9, _step9$value, id, item;
-        return regenerator.wrap(function _callee2$(_context17) {
+        return _regeneratorRuntime.wrap(function _callee2$(_context17) {
           while (1) switch (_context17.prev = _context17.next) {
             case 0:
               _iterator9 = _createForOfIteratorHelper(pairs);
@@ -17252,9 +16656,9 @@ var DataSet$1 = /*#__PURE__*/function (_DataSetPart) {
     value: function stream(ids) {
       if (ids) {
         var data = this._data;
-        return new DataStream(_defineProperty({}, _Symbol$iterator2, /*#__PURE__*/regenerator.mark(function _callee3() {
+        return new DataStream(_defineProperty({}, _Symbol$iterator2, /*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
           var _iterator13, _step13, id, item;
-          return regenerator.wrap(function _callee3$(_context25) {
+          return _regeneratorRuntime.wrap(function _callee3$(_context25) {
             while (1) switch (_context25.prev = _context25.next) {
               case 0:
                 _iterator13 = _createForOfIteratorHelper(ids);
@@ -17779,12 +17183,6 @@ var esnext = /*#__PURE__*/Object.freeze({
 
 var require$$2 = /*@__PURE__*/getAugmentedNamespace(esnext);
 
-var _parseFloatExports = {};
-var _parseFloat$3 = {
-  get exports(){ return _parseFloatExports; },
-  set exports(v){ _parseFloatExports = v; },
-};
-
 var global$1 = global$o;
 var fails = fails$x;
 var uncurryThis = functionUncurryThis;
@@ -17819,23 +17217,15 @@ $$2({ global: true, forced: parseFloat != $parseFloat }, {
 
 var path$2 = path$u;
 
-var _parseFloat$2 = path$2.parseFloat;
+var _parseFloat$3 = path$2.parseFloat;
 
-var parent$2 = _parseFloat$2;
+var parent$2 = _parseFloat$3;
 
-var _parseFloat$1 = parent$2;
+var _parseFloat$2 = parent$2;
 
-(function (module) {
-	module.exports = _parseFloat$1;
-} (_parseFloat$3));
+var _parseFloat = _parseFloat$2;
 
-var _parseFloat = /*@__PURE__*/getDefaultExportFromCjs(_parseFloatExports);
-
-var isNanExports = {};
-var isNan$2 = {
-  get exports(){ return isNanExports; },
-  set exports(v){ isNanExports = v; },
-};
+var _parseFloat$1 = /*@__PURE__*/getDefaultExportFromCjs(_parseFloat);
 
 var $$1 = _export;
 
@@ -17850,17 +17240,15 @@ $$1({ target: 'Number', stat: true }, {
 
 var path$1 = path$u;
 
-var isNan$1 = path$1.Number.isNaN;
+var isNan$2 = path$1.Number.isNaN;
 
-var parent$1 = isNan$1;
+var parent$1 = isNan$2;
 
-var isNan = parent$1;
+var isNan$1 = parent$1;
 
-(function (module) {
-	module.exports = isNan;
-} (isNan$2));
+var isNan = isNan$1;
 
-var _Number$isNaN = /*@__PURE__*/getDefaultExportFromCjs(isNanExports);
+var _Number$isNaN = /*@__PURE__*/getDefaultExportFromCjs(isNan);
 
 /**
  * @param {number} [x]
@@ -17971,6 +17359,7 @@ Point3d.prototype.normalize = function () {
   return Point3d.scalarProduct(this, 1 / this.length());
 };
 var Point3d_1 = Point3d;
+var Point3d$1 = /*@__PURE__*/getDefaultExportFromCjs(Point3d_1);
 
 /**
  * @param {number} [x]
@@ -17981,6 +17370,7 @@ function Point2d(x, y) {
   this.y = y !== undefined ? y : 0;
 }
 var Point2d_1 = Point2d;
+var Point2d$1 = /*@__PURE__*/getDefaultExportFromCjs(Point2d_1);
 
 /**
  * An html slider control with start/stop/prev/next buttons
@@ -18251,7 +17641,7 @@ Slider.prototype._onMouseDown = function (event) {
   var leftButtonDown = event.which ? event.which === 1 : event.button === 1;
   if (!leftButtonDown) return;
   this.startClientX = event.clientX;
-  this.startSlideX = _parseFloat(this.frame.slide.style.left);
+  this.startSlideX = _parseFloat$1(this.frame.slide.style.left);
   this.frame.style.cursor = "move";
 
   // add event listeners to handle moving the contents
@@ -18269,7 +17659,7 @@ Slider.prototype._onMouseDown = function (event) {
   preventDefault(event);
 };
 Slider.prototype.leftToIndex = function (left) {
-  var width = _parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
+  var width = _parseFloat$1(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
   var x = left - 3;
   var index = Math.round(x / width * (_valuesInstanceProperty(this).length - 1));
   if (index < 0) index = 0;
@@ -18277,7 +17667,7 @@ Slider.prototype.leftToIndex = function (left) {
   return index;
 };
 Slider.prototype.indexToLeft = function (index) {
-  var width = _parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
+  var width = _parseFloat$1(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
   var x = index / (_valuesInstanceProperty(this).length - 1) * width;
   var left = x + 3;
   return left;
@@ -18323,7 +17713,7 @@ function StepNumber(start, end, step, prettyStep) {
  * @returns {boolean}
  */
 StepNumber.prototype.isNumeric = function (n) {
-  return !isNaN(_parseFloat(n)) && isFinite(n);
+  return !isNaN(_parseFloat$1(n)) && isFinite(n);
 };
 
 /**
@@ -18399,7 +17789,7 @@ StepNumber.calculatePrettyStep = function (step) {
  * @returns {number} current value
  */
 StepNumber.prototype.getCurrent = function () {
-  return _parseFloat(this._current.toPrecision(this.precision));
+  return _parseFloat$1(this._current.toPrecision(this.precision));
 };
 
 /**
@@ -18450,12 +17840,7 @@ StepNumber.prototype.end = function () {
   return this._current > this._end;
 };
 var StepNumber_1 = StepNumber;
-
-var signExports = {};
-var sign$3 = {
-  get exports(){ return signExports; },
-  set exports(v){ signExports = v; },
-};
+var StepNumber$1 = /*@__PURE__*/getDefaultExportFromCjs(StepNumber_1);
 
 // `Math.sign` method implementation
 // https://tc39.es/ecma262/#sec-math.sign
@@ -18467,27 +17852,25 @@ var mathSign = Math.sign || function sign(x) {
 };
 
 var $ = _export;
-var sign$2 = mathSign;
+var sign$3 = mathSign;
 
 // `Math.sign` method
 // https://tc39.es/ecma262/#sec-math.sign
 $({ target: 'Math', stat: true }, {
-  sign: sign$2
+  sign: sign$3
 });
 
 var path = path$u;
 
-var sign$1 = path.Math.sign;
+var sign$2 = path.Math.sign;
 
-var parent = sign$1;
+var parent = sign$2;
 
-var sign = parent;
+var sign$1 = parent;
 
-(function (module) {
-	module.exports = sign;
-} (sign$3));
+var sign = sign$1;
 
-var _Math$sign = /*@__PURE__*/getDefaultExportFromCjs(signExports);
+var _Math$sign = /*@__PURE__*/getDefaultExportFromCjs(sign);
 
 /**
  * The camera is mounted on a (virtual) camera arm. The camera arm can rotate
@@ -18501,15 +17884,15 @@ var _Math$sign = /*@__PURE__*/getDefaultExportFromCjs(signExports);
  * @class Camera
  */
 function Camera() {
-  this.armLocation = new Point3d_1();
+  this.armLocation = new Point3d$1();
   this.armRotation = {};
   this.armRotation.horizontal = 0;
   this.armRotation.vertical = 0;
   this.armLength = 1.7;
-  this.cameraOffset = new Point3d_1();
+  this.cameraOffset = new Point3d$1();
   this.offsetMultiplier = 0.6;
-  this.cameraLocation = new Point3d_1();
-  this.cameraRotation = new Point3d_1(0.5 * Math.PI, 0, 0);
+  this.cameraLocation = new Point3d$1();
+  this.cameraRotation = new Point3d$1(0.5 * Math.PI, 0, 0);
   this.calculateCameraOrientation();
 }
 
@@ -18841,7 +18224,7 @@ function setDefaults(src, dst) {
   dst.margin = 10; // px
   dst.showTooltip = false;
   dst.onclick_callback = null;
-  dst.eye = new Point3d_1(0, 0, -1); // TODO: set eye.z about 3/4 of the width of the window?
+  dst.eye = new Point3d$1(0, 0, -1); // TODO: set eye.z about 3/4 of the width of the window?
 }
 
 /**
@@ -19612,6 +18995,7 @@ Range.prototype.center = function () {
   return (this.min + this.max) / 2;
 };
 var Range_1 = Range;
+var Range$1 = /*@__PURE__*/getDefaultExportFromCjs(Range_1);
 
 /**
  * @class Filter
@@ -20036,7 +19420,7 @@ DataGroup.prototype.getSmallestDifference = function (data, column) {
  * @returns {Range} A Range instance with min/max members properly set.
  */
 DataGroup.prototype.getColumnRange = function (data, column) {
-  var range = new Range_1();
+  var range = new Range$1();
 
   // Adjust the range so that it covers all values in the passed data elements.
   for (var i = 0; i < data.length; i++) {
@@ -20098,7 +19482,7 @@ DataGroup.prototype.getDataSet = function () {
 DataGroup.prototype.getDataPoints = function (data) {
   var dataPoints = [];
   for (var i = 0; i < data.length; i++) {
-    var point = new Point3d_1();
+    var point = new Point3d$1();
     point.x = data[i][this.colX] || 0;
     point.y = data[i][this.colY] || 0;
     point.z = data[i][this.colZ] || 0;
@@ -20106,7 +19490,7 @@ DataGroup.prototype.getDataPoints = function (data) {
     point.value = data[i][this.colValue] || 0;
     var obj = {};
     obj.point = point;
-    obj.bottom = new Point3d_1(point.x, point.y, this.zRange.min);
+    obj.bottom = new Point3d$1(point.x, point.y, this.zRange.min);
     obj.trans = undefined;
     obj.screen = undefined;
     dataPoints.push(obj);
@@ -20390,7 +19774,7 @@ Emitter(Graph3d$1.prototype);
  * Calculate the scaling values, dependent on the range in x, y, and z direction
  */
 Graph3d$1.prototype._setScale = function () {
-  this.scale = new Point3d_1(1 / this.xRange.range(), 1 / this.yRange.range(), 1 / this.zRange.range());
+  this.scale = new Point3d$1(1 / this.xRange.range(), 1 / this.yRange.range(), 1 / this.zRange.range());
 
   // keep aspect ration between x and y scale if desired
   if (this.keepAspectRatio) {
@@ -20460,7 +19844,7 @@ Graph3d$1.prototype._convertPointToTranslation = function (point3d) {
     dx = cosTy * (sinTz * (ay - cy) + cosTz * (ax - cx)) - sinTy * (az - cz),
     dy = sinTx * (cosTy * (az - cz) + sinTy * (sinTz * (ay - cy) + cosTz * (ax - cx))) + cosTx * (cosTz * (ay - cy) - sinTz * (ax - cx)),
     dz = cosTx * (cosTy * (az - cz) + sinTy * (sinTz * (ay - cy) + cosTz * (ax - cx))) - sinTx * (cosTz * (ay - cy) - sinTz * (ax - cx));
-  return new Point3d_1(dx, dy, dz);
+  return new Point3d$1(dx, dy, dz);
 };
 
 /**
@@ -20492,7 +19876,7 @@ Graph3d$1.prototype._convertTranslationToScreen = function (translation) {
 
   // shift and scale the point to the center of the screen
   // use the width of the graph to scale both horizontally and vertically.
-  return new Point2d_1(this.currentXCenter + bx * this.frame.canvas.clientWidth, this.currentYCenter - by * this.frame.canvas.clientWidth);
+  return new Point2d$1(this.currentXCenter + bx * this.frame.canvas.clientWidth, this.currentYCenter - by * this.frame.canvas.clientWidth);
 };
 
 /**
@@ -20555,7 +19939,7 @@ Graph3d$1.prototype._initializeRanges = function () {
 Graph3d$1.prototype.getDataPoints = function (data) {
   var dataPoints = [];
   for (var i = 0; i < data.length; i++) {
-    var point = new Point3d_1();
+    var point = new Point3d$1();
     point.x = data[i][this.colX] || 0;
     point.y = data[i][this.colY] || 0;
     point.z = data[i][this.colZ] || 0;
@@ -20563,7 +19947,7 @@ Graph3d$1.prototype.getDataPoints = function (data) {
     point.value = data[i][this.colValue] || 0;
     var obj = {};
     obj.point = point;
-    obj.bottom = new Point3d_1(point.x, point.y, this.zRange.min);
+    obj.bottom = new Point3d$1(point.x, point.y, this.zRange.min);
     obj.trans = undefined;
     obj.screen = undefined;
     dataPoints.push(obj);
@@ -20750,16 +20134,16 @@ Graph3d$1.prototype.animationStop = function () {
 Graph3d$1.prototype._resizeCenter = function () {
   // calculate the horizontal center position
   if (this.xCenter.charAt(this.xCenter.length - 1) === "%") {
-    this.currentXCenter = _parseFloat(this.xCenter) / 100 * this.frame.canvas.clientWidth;
+    this.currentXCenter = _parseFloat$1(this.xCenter) / 100 * this.frame.canvas.clientWidth;
   } else {
-    this.currentXCenter = _parseFloat(this.xCenter); // supposed to be in px
+    this.currentXCenter = _parseFloat$1(this.xCenter); // supposed to be in px
   }
 
   // calculate the vertical center position
   if (this.yCenter.charAt(this.yCenter.length - 1) === "%") {
-    this.currentYCenter = _parseFloat(this.yCenter) / 100 * (this.frame.canvas.clientHeight - _filterInstanceProperty(this.frame).clientHeight);
+    this.currentYCenter = _parseFloat$1(this.yCenter) / 100 * (this.frame.canvas.clientHeight - _filterInstanceProperty(this.frame).clientHeight);
   } else {
-    this.currentYCenter = _parseFloat(this.yCenter); // supposed to be in px
+    this.currentYCenter = _parseFloat$1(this.yCenter); // supposed to be in px
   }
 };
 
@@ -21011,12 +20395,12 @@ Graph3d$1.prototype._redrawLegend = function () {
 
   var legendMin = isValueLegend ? this.valueRange.min : this.zRange.min;
   var legendMax = isValueLegend ? this.valueRange.max : this.zRange.max;
-  var step = new StepNumber_1(legendMin, legendMax, (legendMax - legendMin) / 5, true);
+  var step = new StepNumber$1(legendMin, legendMax, (legendMax - legendMin) / 5, true);
   step.start(true);
   while (!step.end()) {
     var _y = bottom - (step.getCurrent() - legendMin) / (legendMax - legendMin) * height;
-    var from = new Point2d_1(left - gridLineLen, _y);
-    var to = new Point2d_1(left, _y);
+    var from = new Point2d$1(left - gridLineLen, _y);
+    var to = new Point2d$1(left, _y);
     this._line(ctx, from, to);
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
@@ -21306,7 +20690,7 @@ Graph3d$1.prototype._redrawAxis = function () {
   var gridLenY = 0.025 / this.scale.y;
   var textMargin = 5 / this.camera.getArmLength(); // px
   var armAngle = this.camera.getArmRotation().horizontal;
-  var armVector = new Point2d_1(Math.cos(armAngle), Math.sin(armAngle));
+  var armVector = new Point2d$1(Math.cos(armAngle), Math.sin(armAngle));
   var xRange = this.xRange;
   var yRange = this.yRange;
   var zRange = this.zRange;
@@ -21315,25 +20699,25 @@ Graph3d$1.prototype._redrawAxis = function () {
   // draw x-grid lines
   ctx.lineWidth = 1;
   prettyStep = this.defaultXStep === undefined;
-  step = new StepNumber_1(xRange.min, xRange.max, this.xStep, prettyStep);
+  step = new StepNumber$1(xRange.min, xRange.max, this.xStep, prettyStep);
   step.start(true);
   while (!step.end()) {
     var x = step.getCurrent();
     if (this.showGrid) {
-      from = new Point3d_1(x, yRange.min, zRange.min);
-      to = new Point3d_1(x, yRange.max, zRange.min);
+      from = new Point3d$1(x, yRange.min, zRange.min);
+      to = new Point3d$1(x, yRange.max, zRange.min);
       this._line3d(ctx, from, to, this.gridColor);
     } else if (this.showXAxis) {
-      from = new Point3d_1(x, yRange.min, zRange.min);
-      to = new Point3d_1(x, yRange.min + gridLenX, zRange.min);
+      from = new Point3d$1(x, yRange.min, zRange.min);
+      to = new Point3d$1(x, yRange.min + gridLenX, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
-      from = new Point3d_1(x, yRange.max, zRange.min);
-      to = new Point3d_1(x, yRange.max - gridLenX, zRange.min);
+      from = new Point3d$1(x, yRange.max, zRange.min);
+      to = new Point3d$1(x, yRange.max - gridLenX, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
     }
     if (this.showXAxis) {
       yText = armVector.x > 0 ? yRange.min : yRange.max;
-      point3d = new Point3d_1(x, yText, zRange.min);
+      point3d = new Point3d$1(x, yText, zRange.min);
       var msg = "  " + this.xValueLabel(x) + "  ";
       this._drawAxisLabelX.call(this, ctx, point3d, msg, armAngle, textMargin);
     }
@@ -21343,25 +20727,25 @@ Graph3d$1.prototype._redrawAxis = function () {
   // draw y-grid lines
   ctx.lineWidth = 1;
   prettyStep = this.defaultYStep === undefined;
-  step = new StepNumber_1(yRange.min, yRange.max, this.yStep, prettyStep);
+  step = new StepNumber$1(yRange.min, yRange.max, this.yStep, prettyStep);
   step.start(true);
   while (!step.end()) {
     var y = step.getCurrent();
     if (this.showGrid) {
-      from = new Point3d_1(xRange.min, y, zRange.min);
-      to = new Point3d_1(xRange.max, y, zRange.min);
+      from = new Point3d$1(xRange.min, y, zRange.min);
+      to = new Point3d$1(xRange.max, y, zRange.min);
       this._line3d(ctx, from, to, this.gridColor);
     } else if (this.showYAxis) {
-      from = new Point3d_1(xRange.min, y, zRange.min);
-      to = new Point3d_1(xRange.min + gridLenY, y, zRange.min);
+      from = new Point3d$1(xRange.min, y, zRange.min);
+      to = new Point3d$1(xRange.min + gridLenY, y, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
-      from = new Point3d_1(xRange.max, y, zRange.min);
-      to = new Point3d_1(xRange.max - gridLenY, y, zRange.min);
+      from = new Point3d$1(xRange.max, y, zRange.min);
+      to = new Point3d$1(xRange.max - gridLenY, y, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
     }
     if (this.showYAxis) {
       xText = armVector.y > 0 ? xRange.min : xRange.max;
-      point3d = new Point3d_1(xText, y, zRange.min);
+      point3d = new Point3d$1(xText, y, zRange.min);
       var _msg = "  " + this.yValueLabel(y) + "  ";
       this._drawAxisLabelY.call(this, ctx, point3d, _msg, armAngle, textMargin);
     }
@@ -21372,7 +20756,7 @@ Graph3d$1.prototype._redrawAxis = function () {
   if (this.showZAxis) {
     ctx.lineWidth = 1;
     prettyStep = this.defaultZStep === undefined;
-    step = new StepNumber_1(zRange.min, zRange.max, this.zStep, prettyStep);
+    step = new StepNumber$1(zRange.min, zRange.max, this.zStep, prettyStep);
     step.start(true);
     xText = armVector.x > 0 ? xRange.min : xRange.max;
     yText = armVector.y < 0 ? yRange.min : yRange.max;
@@ -21380,17 +20764,17 @@ Graph3d$1.prototype._redrawAxis = function () {
       var z = step.getCurrent();
 
       // TODO: make z-grid lines really 3d?
-      var from3d = new Point3d_1(xText, yText, z);
+      var from3d = new Point3d$1(xText, yText, z);
       var from2d = this._convert3Dto2D(from3d);
-      to = new Point2d_1(from2d.x - textMargin, from2d.y);
+      to = new Point2d$1(from2d.x - textMargin, from2d.y);
       this._line(ctx, from2d, to, this.axisColor);
       var _msg2 = this.zValueLabel(z) + " ";
       this._drawAxisLabelZ.call(this, ctx, from3d, _msg2, 5);
       step.next();
     }
     ctx.lineWidth = 1;
-    from = new Point3d_1(xText, yText, zRange.min);
-    to = new Point3d_1(xText, yText, zRange.max);
+    from = new Point3d$1(xText, yText, zRange.min);
+    to = new Point3d$1(xText, yText, zRange.max);
     this._line3d(ctx, from, to, this.axisColor);
   }
 
@@ -21401,12 +20785,12 @@ Graph3d$1.prototype._redrawAxis = function () {
     ctx.lineWidth = 1;
 
     // line at yMin
-    xMin2d = new Point3d_1(xRange.min, yRange.min, zRange.min);
-    xMax2d = new Point3d_1(xRange.max, yRange.min, zRange.min);
+    xMin2d = new Point3d$1(xRange.min, yRange.min, zRange.min);
+    xMax2d = new Point3d$1(xRange.max, yRange.min, zRange.min);
     this._line3d(ctx, xMin2d, xMax2d, this.axisColor);
     // line at ymax
-    xMin2d = new Point3d_1(xRange.min, yRange.max, zRange.min);
-    xMax2d = new Point3d_1(xRange.max, yRange.max, zRange.min);
+    xMin2d = new Point3d$1(xRange.min, yRange.max, zRange.min);
+    xMax2d = new Point3d$1(xRange.max, yRange.max, zRange.min);
     this._line3d(ctx, xMin2d, xMax2d, this.axisColor);
   }
 
@@ -21414,12 +20798,12 @@ Graph3d$1.prototype._redrawAxis = function () {
   if (this.showYAxis) {
     ctx.lineWidth = 1;
     // line at xMin
-    from = new Point3d_1(xRange.min, yRange.min, zRange.min);
-    to = new Point3d_1(xRange.min, yRange.max, zRange.min);
+    from = new Point3d$1(xRange.min, yRange.min, zRange.min);
+    to = new Point3d$1(xRange.min, yRange.max, zRange.min);
     this._line3d(ctx, from, to, this.axisColor);
     // line at xMax
-    from = new Point3d_1(xRange.max, yRange.min, zRange.min);
-    to = new Point3d_1(xRange.max, yRange.max, zRange.min);
+    from = new Point3d$1(xRange.max, yRange.min, zRange.min);
+    to = new Point3d$1(xRange.max, yRange.max, zRange.min);
     this._line3d(ctx, from, to, this.axisColor);
   }
 
@@ -21429,7 +20813,7 @@ Graph3d$1.prototype._redrawAxis = function () {
     yOffset = 0.1 / this.scale.y;
     xText = (xRange.max + 3 * xRange.min) / 4;
     yText = armVector.x > 0 ? yRange.min - yOffset : yRange.max + yOffset;
-    text = new Point3d_1(xText, yText, zRange.min);
+    text = new Point3d$1(xText, yText, zRange.min);
     this.drawAxisLabelX(ctx, text, xLabel, armAngle);
   }
 
@@ -21439,7 +20823,7 @@ Graph3d$1.prototype._redrawAxis = function () {
     xOffset = 0.1 / this.scale.x;
     xText = armVector.y > 0 ? xRange.min - xOffset : xRange.max + xOffset;
     yText = (yRange.max + 3 * yRange.min) / 4;
-    text = new Point3d_1(xText, yText, zRange.min);
+    text = new Point3d$1(xText, yText, zRange.min);
     this.drawAxisLabelY(ctx, text, yLabel, armAngle);
   }
 
@@ -21450,7 +20834,7 @@ Graph3d$1.prototype._redrawAxis = function () {
     xText = armVector.x > 0 ? xRange.min : xRange.max;
     yText = armVector.y < 0 ? yRange.min : yRange.max;
     zText = (zRange.max + 3 * zRange.min) / 4;
-    text = new Point3d_1(xText, yText, zText);
+    text = new Point3d$1(xText, yText, zText);
     this.drawAxisLabelZ(ctx, text, zLabel, offset);
   }
 };
@@ -21495,22 +20879,22 @@ Graph3d$1.prototype._redrawBar = function (ctx, point, xWidth, yWidth, color, bo
   var point3d = point.point;
   var zMin = this.zRange.min;
   var top = [{
-    point: new Point3d_1(point3d.x - xWidth, point3d.y - yWidth, point3d.z)
+    point: new Point3d$1(point3d.x - xWidth, point3d.y - yWidth, point3d.z)
   }, {
-    point: new Point3d_1(point3d.x + xWidth, point3d.y - yWidth, point3d.z)
+    point: new Point3d$1(point3d.x + xWidth, point3d.y - yWidth, point3d.z)
   }, {
-    point: new Point3d_1(point3d.x + xWidth, point3d.y + yWidth, point3d.z)
+    point: new Point3d$1(point3d.x + xWidth, point3d.y + yWidth, point3d.z)
   }, {
-    point: new Point3d_1(point3d.x - xWidth, point3d.y + yWidth, point3d.z)
+    point: new Point3d$1(point3d.x - xWidth, point3d.y + yWidth, point3d.z)
   }];
   var bottom = [{
-    point: new Point3d_1(point3d.x - xWidth, point3d.y - yWidth, zMin)
+    point: new Point3d$1(point3d.x - xWidth, point3d.y - yWidth, zMin)
   }, {
-    point: new Point3d_1(point3d.x + xWidth, point3d.y - yWidth, zMin)
+    point: new Point3d$1(point3d.x + xWidth, point3d.y - yWidth, zMin)
   }, {
-    point: new Point3d_1(point3d.x + xWidth, point3d.y + yWidth, zMin)
+    point: new Point3d$1(point3d.x + xWidth, point3d.y + yWidth, zMin)
   }, {
-    point: new Point3d_1(point3d.x - xWidth, point3d.y + yWidth, zMin)
+    point: new Point3d$1(point3d.x - xWidth, point3d.y + yWidth, zMin)
   }];
 
   // calculate screen location of the points
@@ -21524,19 +20908,19 @@ Graph3d$1.prototype._redrawBar = function (ctx, point, xWidth, yWidth, color, bo
   // create five sides, calculate both corner points and center points
   var surfaces = [{
     corners: top,
-    center: Point3d_1.avg(bottom[0].point, bottom[2].point)
+    center: Point3d$1.avg(bottom[0].point, bottom[2].point)
   }, {
     corners: [top[0], top[1], bottom[1], bottom[0]],
-    center: Point3d_1.avg(bottom[1].point, bottom[0].point)
+    center: Point3d$1.avg(bottom[1].point, bottom[0].point)
   }, {
     corners: [top[1], top[2], bottom[2], bottom[1]],
-    center: Point3d_1.avg(bottom[2].point, bottom[1].point)
+    center: Point3d$1.avg(bottom[2].point, bottom[1].point)
   }, {
     corners: [top[2], top[3], bottom[3], bottom[2]],
-    center: Point3d_1.avg(bottom[3].point, bottom[2].point)
+    center: Point3d$1.avg(bottom[3].point, bottom[2].point)
   }, {
     corners: [top[3], top[0], bottom[0], bottom[3]],
-    center: Point3d_1.avg(bottom[0].point, bottom[3].point)
+    center: Point3d$1.avg(bottom[0].point, bottom[3].point)
   }];
   point.surfaces = surfaces;
 
@@ -21889,14 +21273,14 @@ Graph3d$1.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
     // to left and right, in order to know whether we are looking at the
     // bottom or at the top side. We can also use the cross product
     // for calculating light intensity
-    var aDiff = Point3d_1.subtract(cross.trans, point.trans);
-    var bDiff = Point3d_1.subtract(top.trans, right.trans);
-    var surfaceNormal = Point3d_1.crossProduct(aDiff, bDiff);
+    var aDiff = Point3d$1.subtract(cross.trans, point.trans);
+    var bDiff = Point3d$1.subtract(top.trans, right.trans);
+    var surfaceNormal = Point3d$1.crossProduct(aDiff, bDiff);
     if (this.showPerspective) {
-      var surfacePosition = Point3d_1.avg(Point3d_1.avg(point.trans, cross.trans), Point3d_1.avg(right.trans, top.trans));
+      var surfacePosition = Point3d$1.avg(Point3d$1.avg(point.trans, cross.trans), Point3d$1.avg(right.trans, top.trans));
       // This corresponds to diffuse lighting with light source at (0, 0, 0).
       // More generally, we would need `surfacePosition - lightPosition`:
-      cosViewAngle = -Point3d_1.dotProduct(surfaceNormal.normalize(), surfacePosition.normalize());
+      cosViewAngle = -Point3d$1.dotProduct(surfaceNormal.normalize(), surfacePosition.normalize());
     } else {
       cosViewAngle = surfaceNormal.z / surfaceNormal.length();
     }
@@ -22054,8 +21438,8 @@ Graph3d$1.prototype._onMouseMove = function (event) {
   event = event || window.event;
 
   // calculate change in mouse position
-  var diffX = _parseFloat(getMouseX(event)) - this.startMouseX;
-  var diffY = _parseFloat(getMouseY(event)) - this.startMouseY;
+  var diffX = _parseFloat$1(getMouseX(event)) - this.startMouseX;
+  var diffY = _parseFloat$1(getMouseY(event)) - this.startMouseY;
 
   // move with ctrl or rotate by other
   if (event && event.ctrlKey === true) {
@@ -22308,7 +21692,7 @@ Graph3d$1.prototype._insideTriangle = function (point, triangle) {
  */
 Graph3d$1.prototype._dataPointFromXY = function (x, y) {
   var distMax = 100; // px
-  var center = new Point2d_1(x, y);
+  var center = new Point2d$1(x, y);
   var i,
     dataPoint = null,
     closestDataPoint = null,

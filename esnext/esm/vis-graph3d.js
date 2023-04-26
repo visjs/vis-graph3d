@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2023-04-25T22:00:20.605Z
+ * @date    2023-04-26T11:46:47.365Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -28,6 +28,10 @@ import Emitter from 'component-emitter';
 import * as util from 'vis-util/esnext/esm/vis-util.js';
 import { Validator, VALIDATOR_PRINT_STYLE } from 'vis-util/esnext/esm/vis-util.js';
 import { DataView, DataSet } from 'vis-data/esnext/esm/vis-data.js';
+
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
 
 /**
  * @param {number} [x]
@@ -143,6 +147,8 @@ Point3d.prototype.normalize = function () {
 
 var Point3d_1 = Point3d;
 
+var Point3d$1 = /*@__PURE__*/getDefaultExportFromCjs(Point3d_1);
+
 /**
  * @param {number} [x]
  * @param {number} [y]
@@ -154,6 +160,8 @@ function Point2d(x, y) {
 }
 
 var Point2d_1 = Point2d;
+
+var Point2d$1 = /*@__PURE__*/getDefaultExportFromCjs(Point2d_1);
 
 /**
  * An html slider control with start/stop/prev/next buttons
@@ -697,6 +705,8 @@ StepNumber.prototype.end = function () {
 
 var StepNumber_1 = StepNumber;
 
+var StepNumber$1 = /*@__PURE__*/getDefaultExportFromCjs(StepNumber_1);
+
 /**
  * The camera is mounted on a (virtual) camera arm. The camera arm can rotate
  * The camera is always looking in the direction of the origin of the arm.
@@ -709,16 +719,16 @@ var StepNumber_1 = StepNumber;
  * @class Camera
  */
 function Camera() {
-  this.armLocation = new Point3d_1();
+  this.armLocation = new Point3d$1();
   this.armRotation = {};
   this.armRotation.horizontal = 0;
   this.armRotation.vertical = 0;
   this.armLength = 1.7;
-  this.cameraOffset = new Point3d_1();
+  this.cameraOffset = new Point3d$1();
   this.offsetMultiplier = 0.6;
 
-  this.cameraLocation = new Point3d_1();
-  this.cameraRotation = new Point3d_1(0.5 * Math.PI, 0, 0);
+  this.cameraLocation = new Point3d$1();
+  this.cameraRotation = new Point3d$1(0.5 * Math.PI, 0, 0);
 
   this.calculateCameraOrientation();
 }
@@ -1129,7 +1139,7 @@ function setDefaults(src, dst) {
   dst.margin = 10; // px
   dst.showTooltip = false;
   dst.onclick_callback = null;
-  dst.eye = new Point3d_1(0, 0, -1); // TODO: set eye.z about 3/4 of the width of the window?
+  dst.eye = new Point3d$1(0, 0, -1); // TODO: set eye.z about 3/4 of the width of the window?
 }
 
 /**
@@ -1749,6 +1759,8 @@ Range.prototype.center = function () {
 
 var Range_1 = Range;
 
+var Range$1 = /*@__PURE__*/getDefaultExportFromCjs(Range_1);
+
 /**
  * @class Filter
  * @param {DataGroup} dataGroup the data group
@@ -2212,7 +2224,7 @@ DataGroup.prototype.getSmallestDifference = function (data, column) {
  * @returns {Range} A Range instance with min/max members properly set.
  */
 DataGroup.prototype.getColumnRange = function (data, column) {
-  const range = new Range_1();
+  const range = new Range$1();
 
   // Adjust the range so that it covers all values in the passed data elements.
   for (let i = 0; i < data.length; i++) {
@@ -2283,7 +2295,7 @@ DataGroup.prototype.getDataPoints = function (data) {
   const dataPoints = [];
 
   for (let i = 0; i < data.length; i++) {
-    const point = new Point3d_1();
+    const point = new Point3d$1();
     point.x = data[i][this.colX] || 0;
     point.y = data[i][this.colY] || 0;
     point.z = data[i][this.colZ] || 0;
@@ -2292,7 +2304,7 @@ DataGroup.prototype.getDataPoints = function (data) {
 
     const obj = {};
     obj.point = point;
-    obj.bottom = new Point3d_1(point.x, point.y, this.zRange.min);
+    obj.bottom = new Point3d$1(point.x, point.y, this.zRange.min);
     obj.trans = undefined;
     obj.screen = undefined;
 
@@ -2593,7 +2605,7 @@ Emitter(Graph3d.prototype);
  * Calculate the scaling values, dependent on the range in x, y, and z direction
  */
 Graph3d.prototype._setScale = function () {
-  this.scale = new Point3d_1(
+  this.scale = new Point3d$1(
     1 / this.xRange.range(),
     1 / this.yRange.range(),
     1 / this.zRange.range()
@@ -2674,7 +2686,7 @@ Graph3d.prototype._convertPointToTranslation = function (point3d) {
         (cosTy * (az - cz) + sinTy * (sinTz * (ay - cy) + cosTz * (ax - cx))) -
       sinTx * (cosTz * (ay - cy) - sinTz * (ax - cx));
 
-  return new Point3d_1(dx, dy, dz);
+  return new Point3d$1(dx, dy, dz);
 };
 
 /**
@@ -2706,7 +2718,7 @@ Graph3d.prototype._convertTranslationToScreen = function (translation) {
 
   // shift and scale the point to the center of the screen
   // use the width of the graph to scale both horizontally and vertically.
-  return new Point2d_1(
+  return new Point2d$1(
     this.currentXCenter + bx * this.frame.canvas.clientWidth,
     this.currentYCenter - by * this.frame.canvas.clientWidth
   );
@@ -2773,7 +2785,7 @@ Graph3d.prototype.getDataPoints = function (data) {
   const dataPoints = [];
 
   for (let i = 0; i < data.length; i++) {
-    const point = new Point3d_1();
+    const point = new Point3d$1();
     point.x = data[i][this.colX] || 0;
     point.y = data[i][this.colY] || 0;
     point.z = data[i][this.colZ] || 0;
@@ -2782,7 +2794,7 @@ Graph3d.prototype.getDataPoints = function (data) {
 
     const obj = {};
     obj.point = point;
-    obj.bottom = new Point3d_1(point.x, point.y, this.zRange.min);
+    obj.bottom = new Point3d$1(point.x, point.y, this.zRange.min);
     obj.trans = undefined;
     obj.screen = undefined;
 
@@ -3294,7 +3306,7 @@ Graph3d.prototype._redrawLegend = function () {
 
   const legendMin = isValueLegend ? this.valueRange.min : this.zRange.min;
   const legendMax = isValueLegend ? this.valueRange.max : this.zRange.max;
-  const step = new StepNumber_1(
+  const step = new StepNumber$1(
     legendMin,
     legendMax,
     (legendMax - legendMin) / 5,
@@ -3306,8 +3318,8 @@ Graph3d.prototype._redrawLegend = function () {
     const y =
       bottom -
       ((step.getCurrent() - legendMin) / (legendMax - legendMin)) * height;
-    const from = new Point2d_1(left - gridLineLen, y);
-    const to = new Point2d_1(left, y);
+    const from = new Point2d$1(left - gridLineLen, y);
+    const to = new Point2d$1(left, y);
     this._line(ctx, from, to);
 
     ctx.textAlign = "right";
@@ -3655,7 +3667,7 @@ Graph3d.prototype._redrawAxis = function () {
   const gridLenY = 0.025 / this.scale.y;
   const textMargin = 5 / this.camera.getArmLength(); // px
   const armAngle = this.camera.getArmRotation().horizontal;
-  const armVector = new Point2d_1(Math.cos(armAngle), Math.sin(armAngle));
+  const armVector = new Point2d$1(Math.cos(armAngle), Math.sin(armAngle));
 
   const xRange = this.xRange;
   const yRange = this.yRange;
@@ -3665,29 +3677,29 @@ Graph3d.prototype._redrawAxis = function () {
   // draw x-grid lines
   ctx.lineWidth = 1;
   prettyStep = this.defaultXStep === undefined;
-  step = new StepNumber_1(xRange.min, xRange.max, this.xStep, prettyStep);
+  step = new StepNumber$1(xRange.min, xRange.max, this.xStep, prettyStep);
   step.start(true);
 
   while (!step.end()) {
     const x = step.getCurrent();
 
     if (this.showGrid) {
-      from = new Point3d_1(x, yRange.min, zRange.min);
-      to = new Point3d_1(x, yRange.max, zRange.min);
+      from = new Point3d$1(x, yRange.min, zRange.min);
+      to = new Point3d$1(x, yRange.max, zRange.min);
       this._line3d(ctx, from, to, this.gridColor);
     } else if (this.showXAxis) {
-      from = new Point3d_1(x, yRange.min, zRange.min);
-      to = new Point3d_1(x, yRange.min + gridLenX, zRange.min);
+      from = new Point3d$1(x, yRange.min, zRange.min);
+      to = new Point3d$1(x, yRange.min + gridLenX, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
 
-      from = new Point3d_1(x, yRange.max, zRange.min);
-      to = new Point3d_1(x, yRange.max - gridLenX, zRange.min);
+      from = new Point3d$1(x, yRange.max, zRange.min);
+      to = new Point3d$1(x, yRange.max - gridLenX, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
     }
 
     if (this.showXAxis) {
       yText = armVector.x > 0 ? yRange.min : yRange.max;
-      point3d = new Point3d_1(x, yText, zRange.min);
+      point3d = new Point3d$1(x, yText, zRange.min);
       const msg = "  " + this.xValueLabel(x) + "  ";
       this._drawAxisLabelX.call(this, ctx, point3d, msg, armAngle, textMargin);
     }
@@ -3698,29 +3710,29 @@ Graph3d.prototype._redrawAxis = function () {
   // draw y-grid lines
   ctx.lineWidth = 1;
   prettyStep = this.defaultYStep === undefined;
-  step = new StepNumber_1(yRange.min, yRange.max, this.yStep, prettyStep);
+  step = new StepNumber$1(yRange.min, yRange.max, this.yStep, prettyStep);
   step.start(true);
 
   while (!step.end()) {
     const y = step.getCurrent();
 
     if (this.showGrid) {
-      from = new Point3d_1(xRange.min, y, zRange.min);
-      to = new Point3d_1(xRange.max, y, zRange.min);
+      from = new Point3d$1(xRange.min, y, zRange.min);
+      to = new Point3d$1(xRange.max, y, zRange.min);
       this._line3d(ctx, from, to, this.gridColor);
     } else if (this.showYAxis) {
-      from = new Point3d_1(xRange.min, y, zRange.min);
-      to = new Point3d_1(xRange.min + gridLenY, y, zRange.min);
+      from = new Point3d$1(xRange.min, y, zRange.min);
+      to = new Point3d$1(xRange.min + gridLenY, y, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
 
-      from = new Point3d_1(xRange.max, y, zRange.min);
-      to = new Point3d_1(xRange.max - gridLenY, y, zRange.min);
+      from = new Point3d$1(xRange.max, y, zRange.min);
+      to = new Point3d$1(xRange.max - gridLenY, y, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
     }
 
     if (this.showYAxis) {
       xText = armVector.y > 0 ? xRange.min : xRange.max;
-      point3d = new Point3d_1(xText, y, zRange.min);
+      point3d = new Point3d$1(xText, y, zRange.min);
       const msg = "  " + this.yValueLabel(y) + "  ";
       this._drawAxisLabelY.call(this, ctx, point3d, msg, armAngle, textMargin);
     }
@@ -3732,7 +3744,7 @@ Graph3d.prototype._redrawAxis = function () {
   if (this.showZAxis) {
     ctx.lineWidth = 1;
     prettyStep = this.defaultZStep === undefined;
-    step = new StepNumber_1(zRange.min, zRange.max, this.zStep, prettyStep);
+    step = new StepNumber$1(zRange.min, zRange.max, this.zStep, prettyStep);
     step.start(true);
 
     xText = armVector.x > 0 ? xRange.min : xRange.max;
@@ -3742,9 +3754,9 @@ Graph3d.prototype._redrawAxis = function () {
       const z = step.getCurrent();
 
       // TODO: make z-grid lines really 3d?
-      const from3d = new Point3d_1(xText, yText, z);
+      const from3d = new Point3d$1(xText, yText, z);
       const from2d = this._convert3Dto2D(from3d);
-      to = new Point2d_1(from2d.x - textMargin, from2d.y);
+      to = new Point2d$1(from2d.x - textMargin, from2d.y);
       this._line(ctx, from2d, to, this.axisColor);
 
       const msg = this.zValueLabel(z) + " ";
@@ -3754,8 +3766,8 @@ Graph3d.prototype._redrawAxis = function () {
     }
 
     ctx.lineWidth = 1;
-    from = new Point3d_1(xText, yText, zRange.min);
-    to = new Point3d_1(xText, yText, zRange.max);
+    from = new Point3d$1(xText, yText, zRange.min);
+    to = new Point3d$1(xText, yText, zRange.max);
     this._line3d(ctx, from, to, this.axisColor);
   }
 
@@ -3766,12 +3778,12 @@ Graph3d.prototype._redrawAxis = function () {
     ctx.lineWidth = 1;
 
     // line at yMin
-    xMin2d = new Point3d_1(xRange.min, yRange.min, zRange.min);
-    xMax2d = new Point3d_1(xRange.max, yRange.min, zRange.min);
+    xMin2d = new Point3d$1(xRange.min, yRange.min, zRange.min);
+    xMax2d = new Point3d$1(xRange.max, yRange.min, zRange.min);
     this._line3d(ctx, xMin2d, xMax2d, this.axisColor);
     // line at ymax
-    xMin2d = new Point3d_1(xRange.min, yRange.max, zRange.min);
-    xMax2d = new Point3d_1(xRange.max, yRange.max, zRange.min);
+    xMin2d = new Point3d$1(xRange.min, yRange.max, zRange.min);
+    xMax2d = new Point3d$1(xRange.max, yRange.max, zRange.min);
     this._line3d(ctx, xMin2d, xMax2d, this.axisColor);
   }
 
@@ -3779,12 +3791,12 @@ Graph3d.prototype._redrawAxis = function () {
   if (this.showYAxis) {
     ctx.lineWidth = 1;
     // line at xMin
-    from = new Point3d_1(xRange.min, yRange.min, zRange.min);
-    to = new Point3d_1(xRange.min, yRange.max, zRange.min);
+    from = new Point3d$1(xRange.min, yRange.min, zRange.min);
+    to = new Point3d$1(xRange.min, yRange.max, zRange.min);
     this._line3d(ctx, from, to, this.axisColor);
     // line at xMax
-    from = new Point3d_1(xRange.max, yRange.min, zRange.min);
-    to = new Point3d_1(xRange.max, yRange.max, zRange.min);
+    from = new Point3d$1(xRange.max, yRange.min, zRange.min);
+    to = new Point3d$1(xRange.max, yRange.max, zRange.min);
     this._line3d(ctx, from, to, this.axisColor);
   }
 
@@ -3794,7 +3806,7 @@ Graph3d.prototype._redrawAxis = function () {
     yOffset = 0.1 / this.scale.y;
     xText = (xRange.max + 3 * xRange.min) / 4;
     yText = armVector.x > 0 ? yRange.min - yOffset : yRange.max + yOffset;
-    text = new Point3d_1(xText, yText, zRange.min);
+    text = new Point3d$1(xText, yText, zRange.min);
     this.drawAxisLabelX(ctx, text, xLabel, armAngle);
   }
 
@@ -3804,7 +3816,7 @@ Graph3d.prototype._redrawAxis = function () {
     xOffset = 0.1 / this.scale.x;
     xText = armVector.y > 0 ? xRange.min - xOffset : xRange.max + xOffset;
     yText = (yRange.max + 3 * yRange.min) / 4;
-    text = new Point3d_1(xText, yText, zRange.min);
+    text = new Point3d$1(xText, yText, zRange.min);
 
     this.drawAxisLabelY(ctx, text, yLabel, armAngle);
   }
@@ -3816,7 +3828,7 @@ Graph3d.prototype._redrawAxis = function () {
     xText = armVector.x > 0 ? xRange.min : xRange.max;
     yText = armVector.y < 0 ? yRange.min : yRange.max;
     zText = (zRange.max + 3 * zRange.min) / 4;
-    text = new Point3d_1(xText, yText, zText);
+    text = new Point3d$1(xText, yText, zText);
 
     this.drawAxisLabelZ(ctx, text, zLabel, offset);
   }
@@ -3872,16 +3884,16 @@ Graph3d.prototype._redrawBar = function (
   const point3d = point.point;
   const zMin = this.zRange.min;
   const top = [
-    { point: new Point3d_1(point3d.x - xWidth, point3d.y - yWidth, point3d.z) },
-    { point: new Point3d_1(point3d.x + xWidth, point3d.y - yWidth, point3d.z) },
-    { point: new Point3d_1(point3d.x + xWidth, point3d.y + yWidth, point3d.z) },
-    { point: new Point3d_1(point3d.x - xWidth, point3d.y + yWidth, point3d.z) },
+    { point: new Point3d$1(point3d.x - xWidth, point3d.y - yWidth, point3d.z) },
+    { point: new Point3d$1(point3d.x + xWidth, point3d.y - yWidth, point3d.z) },
+    { point: new Point3d$1(point3d.x + xWidth, point3d.y + yWidth, point3d.z) },
+    { point: new Point3d$1(point3d.x - xWidth, point3d.y + yWidth, point3d.z) },
   ];
   const bottom = [
-    { point: new Point3d_1(point3d.x - xWidth, point3d.y - yWidth, zMin) },
-    { point: new Point3d_1(point3d.x + xWidth, point3d.y - yWidth, zMin) },
-    { point: new Point3d_1(point3d.x + xWidth, point3d.y + yWidth, zMin) },
-    { point: new Point3d_1(point3d.x - xWidth, point3d.y + yWidth, zMin) },
+    { point: new Point3d$1(point3d.x - xWidth, point3d.y - yWidth, zMin) },
+    { point: new Point3d$1(point3d.x + xWidth, point3d.y - yWidth, zMin) },
+    { point: new Point3d$1(point3d.x + xWidth, point3d.y + yWidth, zMin) },
+    { point: new Point3d$1(point3d.x - xWidth, point3d.y + yWidth, zMin) },
   ];
 
   // calculate screen location of the points
@@ -3894,22 +3906,22 @@ Graph3d.prototype._redrawBar = function (
 
   // create five sides, calculate both corner points and center points
   const surfaces = [
-    { corners: top, center: Point3d_1.avg(bottom[0].point, bottom[2].point) },
+    { corners: top, center: Point3d$1.avg(bottom[0].point, bottom[2].point) },
     {
       corners: [top[0], top[1], bottom[1], bottom[0]],
-      center: Point3d_1.avg(bottom[1].point, bottom[0].point),
+      center: Point3d$1.avg(bottom[1].point, bottom[0].point),
     },
     {
       corners: [top[1], top[2], bottom[2], bottom[1]],
-      center: Point3d_1.avg(bottom[2].point, bottom[1].point),
+      center: Point3d$1.avg(bottom[2].point, bottom[1].point),
     },
     {
       corners: [top[2], top[3], bottom[3], bottom[2]],
-      center: Point3d_1.avg(bottom[3].point, bottom[2].point),
+      center: Point3d$1.avg(bottom[3].point, bottom[2].point),
     },
     {
       corners: [top[3], top[0], bottom[0], bottom[3]],
-      center: Point3d_1.avg(bottom[0].point, bottom[3].point),
+      center: Point3d$1.avg(bottom[0].point, bottom[3].point),
     },
   ];
   point.surfaces = surfaces;
@@ -4295,18 +4307,18 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
     // to left and right, in order to know whether we are looking at the
     // bottom or at the top side. We can also use the cross product
     // for calculating light intensity
-    const aDiff = Point3d_1.subtract(cross.trans, point.trans);
-    const bDiff = Point3d_1.subtract(top.trans, right.trans);
-    const surfaceNormal = Point3d_1.crossProduct(aDiff, bDiff);
+    const aDiff = Point3d$1.subtract(cross.trans, point.trans);
+    const bDiff = Point3d$1.subtract(top.trans, right.trans);
+    const surfaceNormal = Point3d$1.crossProduct(aDiff, bDiff);
 
     if (this.showPerspective) {
-      const surfacePosition = Point3d_1.avg(
-        Point3d_1.avg(point.trans, cross.trans),
-        Point3d_1.avg(right.trans, top.trans)
+      const surfacePosition = Point3d$1.avg(
+        Point3d$1.avg(point.trans, cross.trans),
+        Point3d$1.avg(right.trans, top.trans)
       );
       // This corresponds to diffuse lighting with light source at (0, 0, 0).
       // More generally, we would need `surfacePosition - lightPosition`:
-      cosViewAngle = -Point3d_1.dotProduct(
+      cosViewAngle = -Point3d$1.dotProduct(
         surfaceNormal.normalize(),
         surfacePosition.normalize()
       );
@@ -4769,7 +4781,7 @@ Graph3d.prototype._insideTriangle = function (point, triangle) {
  */
 Graph3d.prototype._dataPointFromXY = function (x, y) {
   const distMax = 100; // px
-  const center = new Point2d_1(x, y);
+  const center = new Point2d$1(x, y);
   let i,
     dataPoint = null,
     closestDataPoint = null,
@@ -5012,5 +5024,5 @@ Graph3d.prototype.setSize = function (width, height) {
   this.redraw();
 };
 
-export { Graph3d, Camera as Graph3dCamera, Filter as Graph3dFilter, Point2d_1 as Graph3dPoint2d, Point3d_1 as Graph3dPoint3d, Slider as Graph3dSlider, StepNumber_1 as Graph3dStepNumber };
+export { Graph3d, Camera as Graph3dCamera, Filter as Graph3dFilter, Point2d$1 as Graph3dPoint2d, Point3d$1 as Graph3dPoint3d, Slider as Graph3dSlider, StepNumber$1 as Graph3dStepNumber };
 //# sourceMappingURL=vis-graph3d.js.map
