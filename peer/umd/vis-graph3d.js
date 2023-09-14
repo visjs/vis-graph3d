@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2023-09-14T02:18:57.464Z
+ * @date    2023-09-14T04:29:45.318Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -3733,6 +3733,12 @@
 
 	var _getIteratorMethod = /*@__PURE__*/getDefaultExportFromCjs(getIteratorMethod);
 
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
 	var defineProperty$7 = {exports: {}};
 
 	var $$b = _export;
@@ -3761,12 +3767,6 @@
 	var parent$m = definePropertyExports;
 
 	var defineProperty$4 = parent$m;
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
 
 	var parent$l = defineProperty$4;
 
@@ -7463,7 +7463,7 @@
 	var RealHammer = Hammer;
 
 	function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof _Symbol !== "undefined" && _getIteratorMethod(o) || o["@@iterator"]; if (!it) { if (_Array$isArray$1(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-	function _unsupportedIterableToArray(o, minLen) { var _context21; if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = _sliceInstanceProperty(_context21 = Object.prototype.toString.call(o)).call(_context21, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return _Array$from$1(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+	function _unsupportedIterableToArray(o, minLen) { var _context17; if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = _sliceInstanceProperty(_context17 = Object.prototype.toString.call(o)).call(_context17, 8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return _Array$from$1(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 	function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 
 	/**
@@ -7929,10 +7929,10 @@
 	 *  Used to validate options.
 	 */
 	var Validator$1 = /*#__PURE__*/function () {
-	  function Validator$1() {
-	    _classCallCheck(this, Validator$1);
+	  function Validator() {
+	    _classCallCheck(this, Validator);
 	  }
-	  _createClass(Validator$1, null, [{
+	  _createClass(Validator, null, [{
 	    key: "validate",
 	    value:
 	    /**
@@ -7951,7 +7951,7 @@
 	      if (subObject !== undefined) {
 	        usedOptions = referenceOptions[subObject];
 	      }
-	      Validator$1.parse(options, usedOptions, []);
+	      Validator.parse(options, usedOptions, []);
 	      return errorFound;
 	    }
 
@@ -7968,7 +7968,7 @@
 	    value: function parse(options, referenceOptions, path) {
 	      for (var _option3 in options) {
 	        if (Object.prototype.hasOwnProperty.call(options, _option3)) {
-	          Validator$1.check(_option3, options, referenceOptions, path);
+	          Validator.check(_option3, options, referenceOptions, path);
 	        }
 	      }
 	    }
@@ -7986,7 +7986,7 @@
 	    key: "check",
 	    value: function check(option, options, referenceOptions, path) {
 	      if (referenceOptions[option] === undefined && referenceOptions.__any__ === undefined) {
-	        Validator$1.getSuggestion(option, referenceOptions, path);
+	        Validator.getSuggestion(option, referenceOptions, path);
 	        return;
 	      }
 	      var referenceOption = option;
@@ -8001,13 +8001,13 @@
 
 	        // if the any-subgroup is not a predefined object in the configurator,
 	        // we do not look deeper into the object.
-	        is_object = Validator$1.getType(options[option]) === "object";
+	        is_object = Validator.getType(options[option]) === "object";
 	      }
 	      var refOptionObj = referenceOptions[referenceOption];
 	      if (is_object && refOptionObj.__type__ !== undefined) {
 	        refOptionObj = refOptionObj.__type__;
 	      }
-	      Validator$1.checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path);
+	      Validator.checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path);
 	    }
 
 	    /**
@@ -8024,22 +8024,22 @@
 	    key: "checkFields",
 	    value: function checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path) {
 	      var log = function log(message) {
-	        console.error("%c" + message + Validator$1.printLocation(path, option), VALIDATOR_PRINT_STYLE$1);
+	        console.error("%c" + message + Validator.printLocation(path, option), VALIDATOR_PRINT_STYLE$1);
 	      };
-	      var optionType = Validator$1.getType(options[option]);
+	      var optionType = Validator.getType(options[option]);
 	      var refOptionType = refOptionObj[optionType];
 	      if (refOptionType !== undefined) {
 	        // if the type is correct, we check if it is supposed to be one of a few select values
-	        if (Validator$1.getType(refOptionType) === "array" && _indexOfInstanceProperty(refOptionType).call(refOptionType, options[option]) === -1) {
-	          log('Invalid option detected in "' + option + '".' + " Allowed values are:" + Validator$1.print(refOptionType) + ' not "' + options[option] + '". ');
+	        if (Validator.getType(refOptionType) === "array" && _indexOfInstanceProperty(refOptionType).call(refOptionType, options[option]) === -1) {
+	          log('Invalid option detected in "' + option + '".' + " Allowed values are:" + Validator.print(refOptionType) + ' not "' + options[option] + '". ');
 	          errorFound = true;
 	        } else if (optionType === "object" && referenceOption !== "__any__") {
 	          path = copyAndExtendArray(path, option);
-	          Validator$1.parse(options[option], referenceOptions[referenceOption], path);
+	          Validator.parse(options[option], referenceOptions[referenceOption], path);
 	        }
 	      } else if (refOptionObj["any"] === undefined) {
 	        // type of the field is incorrect and the field cannot be any
-	        log('Invalid type received for "' + option + '". Expected: ' + Validator$1.print(_Object$keys2(refOptionObj)) + ". Received [" + optionType + '] "' + options[option] + '"');
+	        log('Invalid type received for "' + option + '". Expected: ' + Validator.print(_Object$keys2(refOptionObj)) + ". Received [" + optionType + '] "' + options[option] + '"');
 	        errorFound = true;
 	      }
 	    }
@@ -8101,19 +8101,19 @@
 	  }, {
 	    key: "getSuggestion",
 	    value: function getSuggestion(option, options, path) {
-	      var localSearch = Validator$1.findInOptions(option, options, path, false);
-	      var globalSearch = Validator$1.findInOptions(option, allOptions$1, [], true);
+	      var localSearch = Validator.findInOptions(option, options, path, false);
+	      var globalSearch = Validator.findInOptions(option, allOptions$1, [], true);
 	      var localSearchThreshold = 8;
 	      var globalSearchThreshold = 4;
 	      var msg;
 	      if (localSearch.indexMatch !== undefined) {
-	        msg = " in " + Validator$1.printLocation(localSearch.path, option, "") + 'Perhaps it was incomplete? Did you mean: "' + localSearch.indexMatch + '"?\n\n';
+	        msg = " in " + Validator.printLocation(localSearch.path, option, "") + 'Perhaps it was incomplete? Did you mean: "' + localSearch.indexMatch + '"?\n\n';
 	      } else if (globalSearch.distance <= globalSearchThreshold && localSearch.distance > globalSearch.distance) {
-	        msg = " in " + Validator$1.printLocation(localSearch.path, option, "") + "Perhaps it was misplaced? Matching option found at: " + Validator$1.printLocation(globalSearch.path, globalSearch.closestMatch, "");
+	        msg = " in " + Validator.printLocation(localSearch.path, option, "") + "Perhaps it was misplaced? Matching option found at: " + Validator.printLocation(globalSearch.path, globalSearch.closestMatch, "");
 	      } else if (localSearch.distance <= localSearchThreshold) {
-	        msg = '. Did you mean "' + localSearch.closestMatch + '"?' + Validator$1.printLocation(localSearch.path, option);
+	        msg = '. Did you mean "' + localSearch.closestMatch + '"?' + Validator.printLocation(localSearch.path, option);
 	      } else {
-	        msg = ". Did you mean one of these: " + Validator$1.print(_Object$keys2(options)) + Validator$1.printLocation(path, option);
+	        msg = ". Did you mean one of these: " + Validator.print(_Object$keys2(options)) + Validator.printLocation(path, option);
 	      }
 	      console.error('%cUnknown option detected: "' + option + '"' + msg, VALIDATOR_PRINT_STYLE$1);
 	      errorFound = true;
@@ -8141,7 +8141,7 @@
 	      for (var op in options) {
 	        var distance = void 0;
 	        if (options[op].__type__ !== undefined && recursive === true) {
-	          var result = Validator$1.findInOptions(option, options[op], copyAndExtendArray(path, op));
+	          var result = Validator.findInOptions(option, options[op], copyAndExtendArray(path, op));
 	          if (min > result.distance) {
 	            closestMatch = result.closestMatch;
 	            closestMatchPath = result.path;
@@ -8149,11 +8149,11 @@
 	            indexMatch = result.indexMatch;
 	          }
 	        } else {
-	          var _context20;
-	          if (_indexOfInstanceProperty(_context20 = op.toLowerCase()).call(_context20, lowerCaseOption) !== -1) {
+	          var _context16;
+	          if (_indexOfInstanceProperty(_context16 = op.toLowerCase()).call(_context16, lowerCaseOption) !== -1) {
 	            indexMatch = op;
 	          }
-	          distance = Validator$1.levenshteinDistance(option, op);
+	          distance = Validator.levenshteinDistance(option, op);
 	          if (min > distance) {
 	            closestMatch = op;
 	            closestMatchPath = copyArray(path);
@@ -8191,8 +8191,8 @@
 	        str += "  ";
 	      }
 	      str += option + "\n";
-	      for (var _i3 = 0; _i3 < path.length + 1; _i3++) {
-	        for (var _j2 = 0; _j2 < path.length - _i3; _j2++) {
+	      for (var _i5 = 0; _i5 < path.length + 1; _i5++) {
+	        for (var _j2 = 0; _j2 < path.length - _i5; _j2++) {
 	          str += "  ";
 	        }
 	        str += "}\n";
@@ -8265,7 +8265,7 @@
 	      return matrix[b.length][a.length];
 	    }
 	  }]);
-	  return Validator$1;
+	  return Validator;
 	}();
 	var VALIDATOR_PRINT_STYLE = VALIDATOR_PRINT_STYLE$1;
 	var Validator = Validator$1;
