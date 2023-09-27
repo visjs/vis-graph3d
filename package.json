@@ -78,7 +78,7 @@
     "mocha": "10.2.0",
     "nyc": "15.1.0",
     "postcss": "8.4.30",
-    "rimraf": "5.0.4",
+    "rimraf": "5.0.5",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
     "semantic-release": "21.1.2",
