@@ -82,7 +82,7 @@
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
     "semantic-release": "21.1.2",
-    "sinon": "15.2.0",
+    "sinon": "16.0.0",
     "snap-shot-it": "7.9.10",
     "test-console": "2.0.0",
     "uuid": "9.0.1",
