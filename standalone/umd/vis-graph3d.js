@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2023-10-03T18:32:46.274Z
+ * @date    2023-10-04T00:49:07.429Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -7668,6 +7668,10 @@
 	  }
 	  var a = values[0];
 	  var b = values[1];
+	  if (a instanceof Date && b instanceof Date) {
+	    a.setTime(b.getTime());
+	    return a;
+	  }
 	  var _iterator = _createForOfIteratorHelper$1(_Reflect$ownKeys(b)),
 	    _step;
 	  try {
@@ -7700,6 +7704,9 @@
 	      return clone(value);
 	    });
 	  } else if (_typeof$1(a) === "object" && a !== null) {
+	    if (a instanceof Date) {
+	      return new Date(a.getTime());
+	    }
 	    return deepObjectAssignNonentry({}, a);
 	  } else {
 	    return a;
