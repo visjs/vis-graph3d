@@ -81,7 +81,7 @@
     "rimraf": "5.0.5",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-node-resolve": "5.2.0",
-    "semantic-release": "21.1.2",
+    "semantic-release": "22.0.5",
     "sinon": "16.1.0",
     "snap-shot-it": "7.9.10",
     "test-console": "2.0.0",
