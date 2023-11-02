@@ -80,7 +80,7 @@
     "postcss": "8.4.31",
     "rimraf": "5.0.5",
     "rollup-plugin-commonjs": "10.1.0",
-    "rollup-plugin-node-resolve": "5.2.0",
+    "@rollup/plugin-node-resolve": "6.0.0",
     "semantic-release": "22.0.6",
     "sinon": "17.0.1",
     "snap-shot-it": "7.9.10",
