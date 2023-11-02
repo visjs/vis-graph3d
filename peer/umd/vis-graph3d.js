@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2023-11-02T13:57:19.993Z
+ * @date    2023-11-02T14:09:16.752Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -40,7 +40,7 @@
 	};
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-	var global$j =
+	var global$k =
 	  // eslint-disable-next-line es/no-global-this -- safe
 	  check(typeof globalThis == 'object' && globalThis) ||
 	  check(typeof window == 'object' && window) ||
@@ -230,7 +230,7 @@
 	var path$h = {};
 
 	var path$g = path$h;
-	var global$i = global$j;
+	var global$j = global$k;
 	var isCallable$e = isCallable$g;
 
 	var aFunction = function (variable) {
@@ -238,8 +238,8 @@
 	};
 
 	var getBuiltIn$9 = function (namespace, method) {
-	  return arguments.length < 2 ? aFunction(path$g[namespace]) || aFunction(global$i[namespace])
-	    : path$g[namespace] && path$g[namespace][method] || global$i[namespace] && global$i[namespace][method];
+	  return arguments.length < 2 ? aFunction(path$g[namespace]) || aFunction(global$j[namespace])
+	    : path$g[namespace] && path$g[namespace][method] || global$j[namespace] && global$j[namespace][method];
 	};
 
 	var uncurryThis$o = functionUncurryThis;
@@ -248,11 +248,11 @@
 
 	var engineUserAgent = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
 
-	var global$h = global$j;
+	var global$i = global$k;
 	var userAgent$2 = engineUserAgent;
 
-	var process = global$h.process;
-	var Deno = global$h.Deno;
+	var process = global$i.process;
+	var Deno = global$i.Deno;
 	var versions = process && process.versions || Deno && Deno.version;
 	var v8 = versions && versions.v8;
 	var match, version;
@@ -279,9 +279,9 @@
 	/* eslint-disable es/no-symbol -- required for testing */
 	var V8_VERSION$2 = engineV8Version;
 	var fails$j = fails$n;
-	var global$g = global$j;
+	var global$h = global$k;
 
-	var $String$4 = global$g.String;
+	var $String$4 = global$h.String;
 
 	// eslint-disable-next-line es/no-object-getownpropertysymbols -- required for testing
 	var symbolConstructorDetection = !!Object.getOwnPropertySymbols && !fails$j(function () {
@@ -365,24 +365,24 @@
 
 	var shared$7 = {exports: {}};
 
-	var global$f = global$j;
+	var global$g = global$k;
 
 	// eslint-disable-next-line es/no-object-defineproperty -- safe
 	var defineProperty$c = Object.defineProperty;
 
 	var defineGlobalProperty$1 = function (key, value) {
 	  try {
-	    defineProperty$c(global$f, key, { value: value, configurable: true, writable: true });
+	    defineProperty$c(global$g, key, { value: value, configurable: true, writable: true });
 	  } catch (error) {
-	    global$f[key] = value;
+	    global$g[key] = value;
 	  } return value;
 	};
 
-	var global$e = global$j;
+	var global$f = global$k;
 	var defineGlobalProperty = defineGlobalProperty$1;
 
 	var SHARED = '__core-js_shared__';
-	var store$3 = global$e[SHARED] || defineGlobalProperty(SHARED, {});
+	var store$3 = global$f[SHARED] || defineGlobalProperty(SHARED, {});
 
 	var sharedStore = store$3;
 
@@ -391,10 +391,10 @@
 	(shared$7.exports = function (key, value) {
 	  return store$2[key] || (store$2[key] = value !== undefined ? value : {});
 	})('versions', []).push({
-	  version: '3.33.0',
+	  version: '3.33.2',
 	  mode: 'pure' ,
 	  copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-	  license: 'https://github.com/zloirock/core-js/blob/v3.33.0/LICENSE',
+	  license: 'https://github.com/zloirock/core-js/blob/v3.33.2/LICENSE',
 	  source: 'https://github.com/zloirock/core-js'
 	});
 
@@ -432,14 +432,14 @@
 	  return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString$b(++id + postfix, 36);
 	};
 
-	var global$d = global$j;
+	var global$e = global$k;
 	var shared$6 = sharedExports;
 	var hasOwn$e = hasOwnProperty_1;
 	var uid$2 = uid$3;
 	var NATIVE_SYMBOL$4 = symbolConstructorDetection;
 	var USE_SYMBOL_AS_UID = useSymbolAsUid;
 
-	var Symbol$5 = global$d.Symbol;
+	var Symbol$5 = global$e.Symbol;
 	var WellKnownSymbolsStore$2 = shared$6('wks');
 	var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol$5['for'] || Symbol$5 : Symbol$5 && Symbol$5.withoutSetter || uid$2;
 
@@ -487,10 +487,10 @@
 	  return isSymbol$3(key) ? key : key + '';
 	};
 
-	var global$c = global$j;
+	var global$d = global$k;
 	var isObject$8 = isObject$b;
 
-	var document$1 = global$c.document;
+	var document$1 = global$d.document;
 	// typeof document.createElement is 'object' in old IE
 	var EXISTS$1 = isObject$8(document$1) && isObject$8(document$1.createElement);
 
@@ -651,7 +651,7 @@
 	  return object;
 	};
 
-	var global$b = global$j;
+	var global$c = global$k;
 	var apply$3 = functionApply;
 	var uncurryThis$k = functionUncurryThisClause;
 	var isCallable$9 = isCallable$g;
@@ -697,7 +697,7 @@
 	  var STATIC = options.stat;
 	  var PROTO = options.proto;
 
-	  var nativeSource = GLOBAL ? global$b : STATIC ? global$b[TARGET] : (global$b[TARGET] || {}).prototype;
+	  var nativeSource = GLOBAL ? global$c : STATIC ? global$c[TARGET] : (global$c[TARGET] || {}).prototype;
 
 	  var target = GLOBAL ? path$f : path$f[TARGET] || createNonEnumerableProperty$4(path$f, TARGET, {})[TARGET];
 	  var targetPrototype = target.prototype;
@@ -723,7 +723,7 @@
 	    if (USE_NATIVE && typeof targetProperty == typeof sourceProperty) continue;
 
 	    // bind methods to global for calling from export context
-	    if (options.bind && USE_NATIVE) resultProperty = bind$7(sourceProperty, global$b);
+	    if (options.bind && USE_NATIVE) resultProperty = bind$7(sourceProperty, global$c);
 	    // wrap global constructors for prevent changes in this version
 	    else if (options.wrap && USE_NATIVE) resultProperty = wrapConstructor(sourceProperty);
 	    // make static versions for prototype methods
@@ -1400,15 +1400,15 @@
 	  }
 	};
 
-	var global$a = global$j;
+	var global$b = global$k;
 	var isCallable$5 = isCallable$g;
 
-	var WeakMap$1 = global$a.WeakMap;
+	var WeakMap$1 = global$b.WeakMap;
 
 	var weakMapBasicDetection = isCallable$5(WeakMap$1) && /native code/.test(String(WeakMap$1));
 
 	var NATIVE_WEAK_MAP = weakMapBasicDetection;
-	var global$9 = global$j;
+	var global$a = global$k;
 	var isObject$4 = isObject$b;
 	var createNonEnumerableProperty$1 = createNonEnumerableProperty$5;
 	var hasOwn$8 = hasOwnProperty_1;
@@ -1417,8 +1417,8 @@
 	var hiddenKeys$1 = hiddenKeys$5;
 
 	var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-	var TypeError$2 = global$9.TypeError;
-	var WeakMap = global$9.WeakMap;
+	var TypeError$2 = global$a.TypeError;
+	var WeakMap = global$a.WeakMap;
 	var set, get, has;
 
 	var enforce = function (it) {
@@ -1553,7 +1553,7 @@
 	};
 
 	var $$x = _export;
-	var global$8 = global$j;
+	var global$9 = global$k;
 	var call$6 = functionCall;
 	var uncurryThis$f = functionUncurryThis;
 	var DESCRIPTORS$4 = descriptors;
@@ -1597,11 +1597,11 @@
 	var getInternalState$2 = InternalStateModule$2.getterFor(SYMBOL);
 
 	var ObjectPrototype$1 = Object[PROTOTYPE];
-	var $Symbol = global$8.Symbol;
+	var $Symbol = global$9.Symbol;
 	var SymbolPrototype = $Symbol && $Symbol[PROTOTYPE];
-	var RangeError = global$8.RangeError;
-	var TypeError$1 = global$8.TypeError;
-	var QObject = global$8.QObject;
+	var RangeError = global$9.RangeError;
+	var TypeError$1 = global$9.TypeError;
+	var QObject = global$9.QObject;
 	var nativeGetOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
 	var nativeDefineProperty = definePropertyModule.f;
 	var nativeGetOwnPropertyNames = getOwnPropertyNamesExternal.f;
@@ -1720,14 +1720,15 @@
 	    var description = !arguments.length || arguments[0] === undefined ? undefined : $toString(arguments[0]);
 	    var tag = uid(description);
 	    var setter = function (value) {
-	      if (this === ObjectPrototype$1) call$6(setter, ObjectPrototypeSymbols, value);
-	      if (hasOwn$7(this, HIDDEN) && hasOwn$7(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
+	      var $this = this === undefined ? global$9 : this;
+	      if ($this === ObjectPrototype$1) call$6(setter, ObjectPrototypeSymbols, value);
+	      if (hasOwn$7($this, HIDDEN) && hasOwn$7($this[HIDDEN], tag)) $this[HIDDEN][tag] = false;
 	      var descriptor = createPropertyDescriptor$1(1, value);
 	      try {
-	        setSymbolDescriptor(this, tag, descriptor);
+	        setSymbolDescriptor($this, tag, descriptor);
 	      } catch (error) {
 	        if (!(error instanceof RangeError)) throw error;
-	        fallbackDefineProperty(this, tag, descriptor);
+	        fallbackDefineProperty($this, tag, descriptor);
 	      }
 	    };
 	    if (DESCRIPTORS$4 && USE_SETTER) setSymbolDescriptor(ObjectPrototype$1, tag, { configurable: true, set: setter });
@@ -2071,12 +2072,12 @@
 	// https://tc39.es/ecma262/#sec-symbol.unscopables
 	defineWellKnownSymbol$8('unscopables');
 
-	var global$7 = global$j;
+	var global$8 = global$k;
 	var setToStringTag$2 = setToStringTag$5;
 
 	// JSON[@@toStringTag] property
 	// https://tc39.es/ecma262/#sec-json-@@tostringtag
-	setToStringTag$2(global$7.JSON, 'JSON', true);
+	setToStringTag$2(global$8.JSON, 'JSON', true);
 
 	var path$d = path$h;
 
@@ -2325,13 +2326,12 @@
 	}, function () {
 	  var state = getInternalState$1(this);
 	  var target = state.target;
-	  var kind = state.kind;
 	  var index = state.index++;
 	  if (!target || index >= target.length) {
 	    state.target = undefined;
 	    return createIterResultObject$1(undefined, true);
 	  }
-	  switch (kind) {
+	  switch (state.kind) {
 	    case 'keys': return createIterResultObject$1(index, false);
 	    case 'values': return createIterResultObject$1(target[index], false);
 	  } return createIterResultObject$1([index, target[index]], false);
@@ -2379,7 +2379,7 @@
 	};
 
 	var DOMIterables$2 = domIterables;
-	var global$6 = global$j;
+	var global$7 = global$k;
 	var classof$4 = classof$a;
 	var createNonEnumerableProperty = createNonEnumerableProperty$5;
 	var Iterators$2 = iterators;
@@ -2388,7 +2388,7 @@
 	var TO_STRING_TAG = wellKnownSymbol$8('toStringTag');
 
 	for (var COLLECTION_NAME in DOMIterables$2) {
-	  var Collection = global$6[COLLECTION_NAME];
+	  var Collection = global$7[COLLECTION_NAME];
 	  var CollectionPrototype = Collection && Collection.prototype;
 	  if (CollectionPrototype && classof$4(CollectionPrototype) !== TO_STRING_TAG) {
 	    createNonEnumerableProperty(CollectionPrototype, TO_STRING_TAG, COLLECTION_NAME);
@@ -2427,7 +2427,6 @@
 	// https://github.com/tc39/proposal-explicit-resource-management
 	defineWellKnownSymbol$6('dispose');
 
-	// TODO: Remove from `core-js@4`
 	var defineWellKnownSymbol$5 = wellKnownSymbolDefine;
 
 	// `Symbol.metadata` well-known symbol
@@ -2545,6 +2544,7 @@
 	  isWellKnown: isWellKnownSymbol
 	});
 
+	// TODO: Remove from `core-js@4`
 	var defineWellKnownSymbol$2 = wellKnownSymbolDefine;
 
 	// `Symbol.metadataKey` well-known symbol
@@ -2865,15 +2865,21 @@
 	  }
 	});
 
+	var global$6 = global$k;
 	var path$c = path$h;
 
-	var entryVirtual$e = function (CONSTRUCTOR) {
-	  return path$c[CONSTRUCTOR + 'Prototype'];
+	var getBuiltInPrototypeMethod$e = function (CONSTRUCTOR, METHOD) {
+	  var Namespace = path$c[CONSTRUCTOR + 'Prototype'];
+	  var pureMethod = Namespace && Namespace[METHOD];
+	  if (pureMethod) return pureMethod;
+	  var NativeConstructor = global$6[CONSTRUCTOR];
+	  var NativePrototype = NativeConstructor && NativeConstructor.prototype;
+	  return NativePrototype && NativePrototype[METHOD];
 	};
 
-	var entryVirtual$d = entryVirtual$e;
+	var getBuiltInPrototypeMethod$d = getBuiltInPrototypeMethod$e;
 
-	var sort$3 = entryVirtual$d('Array').sort;
+	var sort$3 = getBuiltInPrototypeMethod$d('Array', 'sort');
 
 	var isPrototypeOf$c = objectIsPrototypeOf;
 	var method$b = sort$3;
@@ -2916,9 +2922,9 @@
 	  }
 	});
 
-	var entryVirtual$c = entryVirtual$e;
+	var getBuiltInPrototypeMethod$c = getBuiltInPrototypeMethod$e;
 
-	var indexOf$3 = entryVirtual$c('Array').indexOf;
+	var indexOf$3 = getBuiltInPrototypeMethod$c('Array', 'indexOf');
 
 	var isPrototypeOf$b = objectIsPrototypeOf;
 	var method$a = indexOf$3;
@@ -2953,9 +2959,9 @@
 	  }
 	});
 
-	var entryVirtual$b = entryVirtual$e;
+	var getBuiltInPrototypeMethod$b = getBuiltInPrototypeMethod$e;
 
-	var filter$3 = entryVirtual$b('Array').filter;
+	var filter$3 = getBuiltInPrototypeMethod$b('Array', 'filter');
 
 	var isPrototypeOf$a = objectIsPrototypeOf;
 	var method$9 = filter$3;
@@ -3010,7 +3016,7 @@
 	  trim: createMethod(3)
 	};
 
-	var global$5 = global$j;
+	var global$5 = global$k;
 	var fails$5 = fails$n;
 	var uncurryThis$5 = functionUncurryThis;
 	var toString$2 = toString$a;
@@ -3080,9 +3086,9 @@
 	  fill: fill$4
 	});
 
-	var entryVirtual$a = entryVirtual$e;
+	var getBuiltInPrototypeMethod$a = getBuiltInPrototypeMethod$e;
 
-	var fill$3 = entryVirtual$a('Array').fill;
+	var fill$3 = getBuiltInPrototypeMethod$a('Array', 'fill');
 
 	var isPrototypeOf$9 = objectIsPrototypeOf;
 	var method$8 = fill$3;
@@ -3102,9 +3108,9 @@
 
 	var _fillInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(fill);
 
-	var entryVirtual$9 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$9 = getBuiltInPrototypeMethod$e;
 
-	var values$3 = entryVirtual$9('Array').values;
+	var values$3 = getBuiltInPrototypeMethod$9('Array', 'values');
 
 	var parent$w = values$3;
 
@@ -3154,9 +3160,9 @@
 	  forEach: forEach$4
 	});
 
-	var entryVirtual$8 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$8 = getBuiltInPrototypeMethod$e;
 
-	var forEach$3 = entryVirtual$8('Array').forEach;
+	var forEach$3 = getBuiltInPrototypeMethod$8('Array', 'forEach');
 
 	var parent$v = forEach$3;
 
@@ -3166,6 +3172,7 @@
 	var hasOwn$1 = hasOwnProperty_1;
 	var isPrototypeOf$7 = objectIsPrototypeOf;
 	var method$6 = forEach$2;
+
 
 	var ArrayPrototype$7 = Array.prototype;
 
@@ -3228,9 +3235,9 @@
 
 	var _Number$isNaN = /*@__PURE__*/getDefaultExportFromCjs(isNan);
 
-	var entryVirtual$7 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$7 = getBuiltInPrototypeMethod$e;
 
-	var concat$5 = entryVirtual$7('Array').concat;
+	var concat$5 = getBuiltInPrototypeMethod$7('Array', 'concat');
 
 	var isPrototypeOf$6 = objectIsPrototypeOf;
 	var method$5 = concat$5;
@@ -3260,7 +3267,7 @@
 	  return passed;
 	};
 
-	var global$4 = global$j;
+	var global$4 = global$k;
 	var apply$1 = functionApply;
 	var isCallable = isCallable$g;
 	var ENGINE_IS_BUN = engineIsBun;
@@ -3292,7 +3299,7 @@
 	};
 
 	var $$f = _export;
-	var global$3 = global$j;
+	var global$3 = global$k;
 	var schedulersFix$1 = schedulersFix$2;
 
 	var setInterval = schedulersFix$1(global$3.setInterval, true);
@@ -3304,7 +3311,7 @@
 	});
 
 	var $$e = _export;
-	var global$2 = global$j;
+	var global$2 = global$k;
 	var schedulersFix = schedulersFix$2;
 
 	var setTimeout$3 = schedulersFix(global$2.setTimeout, true);
@@ -3986,9 +3993,9 @@
 	  }
 	});
 
-	var entryVirtual$6 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$6 = getBuiltInPrototypeMethod$e;
 
-	var slice$6 = entryVirtual$6('Array').slice;
+	var slice$6 = getBuiltInPrototypeMethod$6('Array', 'slice');
 
 	var isPrototypeOf$5 = objectIsPrototypeOf;
 	var method$4 = slice$6;
@@ -4083,9 +4090,9 @@
 	  }
 	});
 
-	var entryVirtual$5 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$5 = getBuiltInPrototypeMethod$e;
 
-	var map$3 = entryVirtual$5('Array').map;
+	var map$3 = getBuiltInPrototypeMethod$5('Array', 'map');
 
 	var isPrototypeOf$4 = objectIsPrototypeOf;
 	var method$3 = map$3;
@@ -4179,9 +4186,9 @@
 	  bind: bind$4
 	});
 
-	var entryVirtual$4 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$4 = getBuiltInPrototypeMethod$e;
 
-	var bind$3 = entryVirtual$4('Function').bind;
+	var bind$3 = getBuiltInPrototypeMethod$4('Function', 'bind');
 
 	var isPrototypeOf$3 = objectIsPrototypeOf;
 	var method$2 = bind$3;
@@ -4220,9 +4227,9 @@
 	  }
 	});
 
-	var entryVirtual$3 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$3 = getBuiltInPrototypeMethod$e;
 
-	var reverse$3 = entryVirtual$3('Array').reverse;
+	var reverse$3 = getBuiltInPrototypeMethod$3('Array', 'reverse');
 
 	var isPrototypeOf$2 = objectIsPrototypeOf;
 	var method$1 = reverse$3;
@@ -4309,9 +4316,9 @@
 	  }
 	});
 
-	var entryVirtual$2 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$2 = getBuiltInPrototypeMethod$e;
 
-	var splice$3 = entryVirtual$2('Array').splice;
+	var splice$3 = getBuiltInPrototypeMethod$2('Array', 'splice');
 
 	var isPrototypeOf$1 = objectIsPrototypeOf;
 	var method = splice$3;
@@ -4349,9 +4356,9 @@
 	  }
 	});
 
-	var entryVirtual$1 = entryVirtual$e;
+	var getBuiltInPrototypeMethod$1 = getBuiltInPrototypeMethod$e;
 
-	var includes$4 = entryVirtual$1('Array').includes;
+	var includes$4 = getBuiltInPrototypeMethod$1('Array', 'includes');
 
 	var isObject = isObject$b;
 	var classof = classofRaw$2;
@@ -4413,9 +4420,9 @@
 	  }
 	});
 
-	var entryVirtual = entryVirtual$e;
+	var getBuiltInPrototypeMethod = getBuiltInPrototypeMethod$e;
 
-	var includes$3 = entryVirtual('String').includes;
+	var includes$3 = getBuiltInPrototypeMethod('String', 'includes');
 
 	var isPrototypeOf = objectIsPrototypeOf;
 	var arrayMethod = includes$4;
@@ -4468,7 +4475,7 @@
 
 	var _Object$getPrototypeOf = /*@__PURE__*/getDefaultExportFromCjs(getPrototypeOf);
 
-	var global$1 = global$j;
+	var global$1 = global$k;
 	var fails = fails$n;
 	var uncurryThis = functionUncurryThis;
 	var toString = toString$a;
