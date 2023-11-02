@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2023-11-01T16:04:01.758Z
+ * @date    2023-11-02T13:57:48.168Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -17760,8 +17760,8 @@ Slider.prototype._onMouseDown = function (event) {
   this.onmouseup = function (event) {
     me._onMouseUp(event);
   };
-  addEventListener(document, "mousemove", this.onmousemove);
-  addEventListener(document, "mouseup", this.onmouseup);
+  document.addEventListener("mousemove", this.onmousemove);
+  document.addEventListener("mouseup", this.onmouseup);
   preventDefault(event);
 };
 Slider.prototype.leftToIndex = function (left) {
@@ -20176,11 +20176,11 @@ Graph3d$1.prototype.create = function () {
   };
   // TODO: these events are never cleaned up... can give a 'memory leakage'
 
-  addEventListener(this.frame.canvas, "mousedown", onmousedown);
-  addEventListener(this.frame.canvas, "touchstart", ontouchstart);
-  addEventListener(this.frame.canvas, "mousewheel", onmousewheel);
-  addEventListener(this.frame.canvas, "mousemove", ontooltip);
-  addEventListener(this.frame.canvas, "click", onclick);
+  this.frame.canvas.addEventListener("mousedown", onmousedown);
+  this.frame.canvas.addEventListener("touchstart", ontouchstart);
+  this.frame.canvas.addEventListener("mousewheel", onmousewheel);
+  this.frame.canvas.addEventListener("mousemove", ontooltip);
+  this.frame.canvas.addEventListener("click", onclick);
 
   // add the new graph to the container element
   this.containerElement.appendChild(this.frame);
@@ -21528,8 +21528,8 @@ Graph3d$1.prototype._onMouseDown = function (event) {
   this.onmouseup = function (event) {
     me._onMouseUp(event);
   };
-  addEventListener(document, "mousemove", me.onmousemove);
-  addEventListener(document, "mouseup", me.onmouseup);
+  document.addEventListener("mousemove", me.onmousemove);
+  document.addEventListener("mouseup", me.onmouseup);
   preventDefault(event);
 };
 
@@ -21688,8 +21688,8 @@ Graph3d$1.prototype._onTouchStart = function (event) {
   this.ontouchend = function (event) {
     me._onTouchEnd(event);
   };
-  addEventListener(document, "touchmove", me.ontouchmove);
-  addEventListener(document, "touchend", me.ontouchend);
+  document.addEventListener("touchmove", me.ontouchmove);
+  document.addEventListener("touchend", me.ontouchend);
   this._onMouseDown(event);
 };
 
