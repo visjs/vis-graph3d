@@ -67,7 +67,7 @@
   "devDependencies": {
     "@egjs/hammerjs": "2.0.17",
     "component-emitter": "2.0.0",
-    "eslint": "8.57.0",
+    "eslint": "9.2.0",
     "git-authors-cli": "1.0.49",
     "husky": "8.0.3",
     "jsdom": "23.2.0",
