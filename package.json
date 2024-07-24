@@ -76,7 +76,7 @@
     "lint-staged": "15.2.7",
     "mocha": "10.7.0",
     "nyc": "15.1.0",
-    "postcss": "8.4.39",
+    "postcss": "8.4.40",
     "rimraf": "5.0.9",
     "semantic-release": "22.0.12",
     "sinon": "17.0.2",
