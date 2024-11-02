@@ -74,7 +74,7 @@
     "jsdom-global": "3.0.2",
     "keycharm": "0.4.0",
     "lint-staged": "15.2.10",
-    "mocha": "10.7.3",
+    "mocha": "10.8.2",
     "nyc": "15.1.0",
     "postcss": "8.4.47",
     "rimraf": "5.0.10",
