@@ -78,7 +78,7 @@
     "nyc": "15.1.0",
     "postcss": "8.4.49",
     "rimraf": "5.0.10",
-    "semantic-release": "22.0.12",
+    "semantic-release": "24.2.1",
     "sinon": "17.0.2",
     "snap-shot-it": "7.9.10",
     "test-console": "2.0.0",
