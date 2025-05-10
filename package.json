@@ -79,7 +79,7 @@
     "postcss": "8.5.3",
     "rimraf": "5.0.10",
     "semantic-release": "22.0.12",
-    "sinon": "17.0.2",
+    "sinon": "20.0.0",
     "snap-shot-it": "7.9.10",
     "test-console": "2.0.0",
     "uuid": "9.0.1",
