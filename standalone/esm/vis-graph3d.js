@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2025-06-13T16:09:28.269Z
+ * @date    2025-06-25T17:59:51.530Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -8864,8 +8864,8 @@ Slider.prototype._onMouseUp = function () {
   this.frame.style.cursor = "auto";
 
   // remove event listeners
-  undefined(document, "mousemove", this.onmousemove);
-  undefined(document, "mouseup", this.onmouseup);
+  document.removeEventListener("mousemove", this.onmousemove);
+  document.removeEventListener("mouseup", this.onmouseup);
   preventDefault();
 };
 
@@ -17860,8 +17860,8 @@ Graph3d.prototype._onMouseUp = function (event) {
   this.leftButtonDown = false;
 
   // remove event listeners here
-  undefined(document, "mousemove", this.onmousemove);
-  undefined(document, "mouseup", this.onmouseup);
+  document.removeEventListener("mousemove", this.onmousemove);
+  document.removeEventListener("mouseup", this.onmouseup);
   preventDefault(event);
 };
 
@@ -17970,8 +17970,8 @@ Graph3d.prototype._onTouchMove = function (event) {
  */
 Graph3d.prototype._onTouchEnd = function (event) {
   this.touchDown = false;
-  undefined(document, "touchmove", this.ontouchmove);
-  undefined(document, "touchend", this.ontouchend);
+  document.removeEventListener("touchmove", this.ontouchmove);
+  document.removeEventListener("touchend", this.ontouchend);
   this._onMouseUp(event);
 };
 
