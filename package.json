@@ -51,7 +51,7 @@
     "style-fix": "prettier --write .",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "clean": "rimraf --glob \"{dist,esnext,peer,standalone}/*\"",
+    "clean": "shx rm -rf \"{dist,esnext,peer,standalone}/*\"",
     "prepublishOnly": "npm run contributors:update && npm run build",
     "contributors:update": "git-authors-cli",
     "prepare": "husky install"
@@ -77,8 +77,8 @@
     "mocha": "11.7.1",
     "nyc": "15.1.0",
     "postcss": "8.5.5",
-    "rimraf": "5.0.10",
     "semantic-release": "22.0.12",
+    "shx": "0.4.0",
     "sinon": "21.0.0",
     "snap-shot-it": "7.9.10",
     "test-console": "2.0.0",
