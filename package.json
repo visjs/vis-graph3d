@@ -51,7 +51,7 @@
     "style-fix": "prettier --write .",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "clean": "shx rm -rf \"{declarations,dist,esnext,peer,standalone}/*\"",
+    "clean": "shx rm -rf \"{dist,esnext,peer,standalone}/*\"",
     "prepublishOnly": "npm run contributors:update && npm run build",
     "contributors:update": "git-authors-cli",
     "prepare": "husky install"
