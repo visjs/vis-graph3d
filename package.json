@@ -56,6 +56,12 @@
     "contributors:update": "git-authors-cli",
     "prepare": "husky"
   },
+  "lint-staged": {
+    "*.{js,ts,css,html,json,md,yml,yaml}": "prettier --write",
+    "*.{js,ts}": "eslint --fix",
+    ".*.{js,ts,css,html,json,md,yml,yaml}": "prettier --write",
+    ".*.{js,ts}": "eslint --fix"
+  },
   "volta": {
     "node": "21.7.3",
     "npm": "11.4.2"
