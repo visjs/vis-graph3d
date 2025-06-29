@@ -5,20 +5,18 @@
 /**
  * it works like this:
  *
- *   the toggle row has the onclick with the table id, the parent name and this. The function will look through all trs with matching parent and check the class
- *   if hidden, it shows them, else it hides them.
+ * the toggle row has the onclick with the table id, the parent name and this. The function will look through all trs with matching parent and check the class
+ * if hidden, it shows them, else it hides them.
  *
- *   The caret is also flipped and the toggle class is changed.
- *
- *
- <tr class='toggle collapsible' onclick="toggleTable('physicsTable','barnesHut', this);"><td><span parent="barnesHut" class="right-caret"></span> barnesHut</td></tr>
- <tr parent="barnesHut" class="hidden"><td>barnesHut.gravitationalConstant</td></tr>
- <tr parent="barnesHut" class="hidden"><td>barnesHut.centralGravity</td></tr>
- <tr parent="barnesHut" class="hidden"><td>barnesHut.springLength</td></tr>
- <tr parent="barnesHut" class="hidden"><td>barnesHut.springConstant</td></tr>
- <tr parent="barnesHut" class="hidden"><td>barnesHut.damping</td></tr>
+ * The caret is also flipped and the toggle class is changed.
  *
  *
+ * <tr class='toggle collapsible' onclick="toggleTable('physicsTable','barnesHut', this);"><td><span parent="barnesHut" class="right-caret"></span> barnesHut</td></tr>
+ * <tr parent="barnesHut" class="hidden"><td>barnesHut.gravitationalConstant</td></tr>
+ * <tr parent="barnesHut" class="hidden"><td>barnesHut.centralGravity</td></tr>
+ * <tr parent="barnesHut" class="hidden"><td>barnesHut.springLength</td></tr>
+ * <tr parent="barnesHut" class="hidden"><td>barnesHut.springConstant</td></tr>
+ * <tr parent="barnesHut" class="hidden"><td>barnesHut.damping</td></tr>
  * @param tableId
  * @param parent
  * @param clickedRow
