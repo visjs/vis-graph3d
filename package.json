@@ -73,7 +73,7 @@
     "component-emitter": "2.0.0",
     "eslint": "8.57.1",
     "git-authors-cli": "1.0.52",
-    "husky": "8.0.3",
+    "husky": "9.1.7",
     "jsdom": "26.1.0",
     "jsdom-global": "3.0.2",
     "keycharm": "0.4.0",
