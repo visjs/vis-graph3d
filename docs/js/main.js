@@ -28,7 +28,6 @@ var vis = {};
 
 /**
  * Adds a breadcrumb as first child to the specified container.
- *
  * @param container
  * @author felixhayashi
  */
@@ -69,7 +68,6 @@ vis.createBreadcrumbs = function (container) {
  * If the search has already begun, we also display the results.
  *
  * For information how it works:
- *
  * @param dynamic
  * @see https://github.com/almende/vis/issues/909#issuecomment-120119414
  * @see https://github.com/almende/vis/issues/909#issuecomment-120397562
@@ -110,7 +108,6 @@ vis.initSiteSearch = function (dynamic) {
  * first keyword found.
  *
  * For information how it works:
- *
  * @see https://github.com/almende/vis/issues/909#issuecomment-120119414
  * @see https://github.com/almende/vis/issues/909#issuecomment-120397562
  * @author felixhayashi

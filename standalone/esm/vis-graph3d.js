@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2025-06-29T19:44:26.642Z
+ * @date    2025-06-29T19:48:24.708Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -8444,7 +8444,6 @@ function Point3d(x, y, z) {
 
 /**
  * Subtract the two provided points, returns a-b
- *
  * @param {Point3d} a
  * @param {Point3d} b
  * @returns {Point3d} a-b
@@ -8459,7 +8458,6 @@ Point3d.subtract = function (a, b) {
 
 /**
  * Add the two provided points, returns a+b
- *
  * @param {Point3d} a
  * @param {Point3d} b
  * @returns {Point3d} a+b
@@ -8474,7 +8472,6 @@ Point3d.add = function (a, b) {
 
 /**
  * Calculate the average of two 3d points
- *
  * @param {Point3d} a
  * @param {Point3d} b
  * @returns {Point3d} The average, (a+b)/2
@@ -8485,7 +8482,6 @@ Point3d.avg = function (a, b) {
 
 /**
  * Scale the provided point by a scalar, returns p*c
- *
  * @param {Point3d} p
  * @param {number} c
  * @returns {Point3d} p*c
@@ -8497,7 +8493,6 @@ Point3d.scalarProduct = function (p, c) {
 /**
  * Calculate the dot product of the two provided points, returns a.b
  * Documentation: http://en.wikipedia.org/wiki/Dot_product
- *
  * @param {Point3d} a
  * @param {Point3d} b
  * @returns {Point3d} dot product a.b
@@ -8509,7 +8504,6 @@ Point3d.dotProduct = function (a, b) {
 /**
  * Calculate the cross product of the two provided points, returns axb
  * Documentation: http://en.wikipedia.org/wiki/Cross_product
- *
  * @param {Point3d} a
  * @param {Point3d} b
  * @returns {Point3d} cross product axb
@@ -8524,7 +8518,6 @@ Point3d.crossProduct = function (a, b) {
 
 /**
  * Retrieve the length of the vector (or the distance from this point to the origin
- *
  * @returns {number}  length
  */
 Point3d.prototype.length = function () {
@@ -8533,7 +8526,6 @@ Point3d.prototype.length = function () {
 
 /**
  * Return a normalized vector pointing in the same direction.
- *
  * @returns {Point3d}  normalized
  */
 Point3d.prototype.normalize = function () {
@@ -8555,7 +8547,6 @@ var Point2d$1 = /*@__PURE__*/getDefaultExportFromCjs(Point2d_1);
 
 /**
  * An html slider control with start/stop/prev/next buttons
- *
  * @function Object() { [native code] } Slider
  * @param {Element} container  The element where the slider will be created
  * @param {object} options   Available options:
@@ -8715,7 +8706,6 @@ Slider.prototype.stop = function () {
 /**
  * Set a callback function which will be triggered when the value of the
  * slider bar has changed.
- *
  * @param {Function} callback
  */
 Slider.prototype.setOnChangeCallback = function (callback) {
@@ -8724,7 +8714,6 @@ Slider.prototype.setOnChangeCallback = function (callback) {
 
 /**
  * Set the interval for playing the list
- *
  * @param {number} interval   The interval in milliseconds
  */
 Slider.prototype.setPlayInterval = function (interval) {
@@ -8733,7 +8722,6 @@ Slider.prototype.setPlayInterval = function (interval) {
 
 /**
  * Retrieve the current play interval
- *
  * @returns {number} interval   The interval in milliseconds
  */
 Slider.prototype.getPlayInterval = function () {
@@ -8742,7 +8730,6 @@ Slider.prototype.getPlayInterval = function () {
 
 /**
  * Set looping on or off
- *
  * @param {boolean} doLoop  If true, the slider will jump to the start when
  *               the end is passed, and will jump to the end
  *               when the start is passed.
@@ -8777,7 +8764,6 @@ Slider.prototype.redraw = function () {
 
 /**
  * Set the list with values for the slider
- *
  * @param {Array} values   A javascript array with values (any type)
  */
 Slider.prototype.setValues = function (values) {
@@ -8787,7 +8773,6 @@ Slider.prototype.setValues = function (values) {
 
 /**
  * Select a value by its index
- *
  * @param {number} index
  */
 Slider.prototype.setIndex = function (index) {
@@ -8802,7 +8787,6 @@ Slider.prototype.setIndex = function (index) {
 
 /**
  * retrieve the index of the currently selected vaue
- *
  * @returns {number} index
  */
 Slider.prototype.getIndex = function () {
@@ -8811,7 +8795,6 @@ Slider.prototype.getIndex = function () {
 
 /**
  * retrieve the currently selected value
- *
  * @returns {*} value
  */
 Slider.prototype.get = function () {
@@ -8884,7 +8867,6 @@ function StepNumber(start, end, step, prettyStep) {
  * Check for input values, to prevent disasters from happening
  *
  * Source: http://stackoverflow.com/a/1830844
- *
  * @param {string} n
  * @returns {boolean}
  */
@@ -8894,7 +8876,6 @@ StepNumber.prototype.isNumeric = function (n) {
 
 /**
  * Set a new range: start, end and step.
- *
  * @param {number} start     The start value
  * @param {number} end     The end value
  * @param {number} step    Optional. Step size. Must be a positive value.
@@ -8918,7 +8899,6 @@ StepNumber.prototype.setRange = function (start, end, step, prettyStep) {
 
 /**
  * Set a new step size
- *
  * @param {number} step    New step size. Must be a positive value
  * @param {boolean} prettyStep Optional. If true, the provided step is rounded
  *               to a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
@@ -8933,7 +8913,6 @@ StepNumber.prototype.setStep = function (step, prettyStep) {
  * Calculate a nice step size, closest to the desired step size.
  * Returns a value in one of the ranges 1*10^n, 2*10^n, or 5*10^n, where n is an
  * integer Number. For example 1, 2, 5, 10, 20, 50, etc...
- *
  * @param {number}  step  Desired step size
  * @returns {number}     Nice step size
  */
@@ -8961,7 +8940,6 @@ StepNumber.calculatePrettyStep = function (step) {
 
 /**
  * returns the current value of the step
- *
  * @returns {number} current value
  */
 StepNumber.prototype.getCurrent = function () {
@@ -8970,7 +8948,6 @@ StepNumber.prototype.getCurrent = function () {
 
 /**
  * returns the current step size
- *
  * @returns {number} current step size
  */
 StepNumber.prototype.getStep = function () {
@@ -8985,8 +8962,7 @@ StepNumber.prototype.getStep = function () {
  *
  * Parameters checkFirst is optional, default false.
  * If set to true, move the current value one step if smaller than start.
- *
- * @param {boolean} [checkFirst=false]
+ * @param {boolean} [checkFirst]
  */
 StepNumber.prototype.start = function (checkFirst) {
   if (checkFirst === undefined) {
@@ -9009,7 +8985,6 @@ StepNumber.prototype.next = function () {
 
 /**
  * Returns true whether the end is reached
- *
  * @returns {boolean}  True if the current value has passed the end value.
  */
 StepNumber.prototype.end = function () {
@@ -9055,8 +9030,7 @@ var _Math$sign = /*@__PURE__*/getDefaultExportFromCjs(sign);
  * of the camera arm.
  *
  * Documentation:
- *   http://en.wikipedia.org/wiki/3D_projection
- *
+ * http://en.wikipedia.org/wiki/3D_projection
  * @class Camera
  */
 function Camera() {
@@ -9074,7 +9048,6 @@ function Camera() {
 
 /**
  * Set offset camera in camera coordinates
- *
  * @param {number} x offset by camera horisontal
  * @param {number} y offset by camera vertical
  */
@@ -9096,7 +9069,6 @@ Camera.prototype.setOffset = function (x, y) {
 
 /**
  * Get camera offset by horizontal and vertical
- *
  * @returns {number}
  */
 Camera.prototype.getOffset = function () {
@@ -9105,7 +9077,6 @@ Camera.prototype.getOffset = function () {
 
 /**
  * Set the location (origin) of the arm
- *
  * @param {number} x  Normalized value of x
  * @param {number} y  Normalized value of y
  * @param {number} z  Normalized value of z
@@ -9119,7 +9090,6 @@ Camera.prototype.setArmLocation = function (x, y, z) {
 
 /**
  * Set the rotation of the camera arm
- *
  * @param {number} horizontal   The horizontal rotation, between 0 and 2*PI.
  *                Optional, can be left undefined.
  * @param {number} vertical   The vertical rotation, between 0 and 0.5*PI
@@ -9142,7 +9112,6 @@ Camera.prototype.setArmRotation = function (horizontal, vertical) {
 
 /**
  * Retrieve the current arm rotation
- *
  * @returns {object}   An object with parameters horizontal and vertical
  */
 Camera.prototype.getArmRotation = function () {
@@ -9154,7 +9123,6 @@ Camera.prototype.getArmRotation = function () {
 
 /**
  * Set the (normalized) length of the camera arm.
- *
  * @param {number} length A length between 0.71 and 5.0
  */
 Camera.prototype.setArmLength = function (length) {
@@ -9172,7 +9140,6 @@ Camera.prototype.setArmLength = function (length) {
 
 /**
  * Retrieve the arm length
- *
  * @returns {number} length
  */
 Camera.prototype.getArmLength = function () {
@@ -9181,7 +9148,6 @@ Camera.prototype.getArmLength = function () {
 
 /**
  * Retrieve the camera location
- *
  * @returns {Point3d} cameraLocation
  */
 Camera.prototype.getCameraLocation = function () {
@@ -9190,7 +9156,6 @@ Camera.prototype.getCameraLocation = function () {
 
 /**
  * Retrieve the camera rotation
- *
  * @returns {Point3d} cameraRotation
  */
 Camera.prototype.getCameraRotation = function () {
@@ -9273,7 +9238,6 @@ var DEFAULTS = undefined;
  * Check if given hash is empty.
  *
  * Source: http://stackoverflow.com/a/679937
- *
  * @param {object} obj
  * @returns {boolean}
  */
@@ -9288,7 +9252,6 @@ function isEmpty(obj) {
  * Make first letter of parameter upper case.
  *
  * Source: http://stackoverflow.com/a/1026087
- *
  * @param {string} str
  * @returns {string}
  */
@@ -9301,7 +9264,6 @@ function capitalize(str) {
 
 /**
  * Add a prefix to a field name, taking style guide into account
- *
  * @param {string} prefix
  * @param {string} fieldName
  * @returns {string}
@@ -9323,7 +9285,6 @@ function prefixFieldName(prefix, fieldName) {
  * The intention here is to be able to reset all option fields.
  *
  * Only the fields mentioned in array 'fields' will be handled.
- *
  * @param {object} src
  * @param {object} dst
  * @param {Array<string>} fields array with names of fields to copy
@@ -9344,7 +9305,6 @@ function forceCopy(src, dst, fields, prefix) {
  *
  * Only the fields mentioned in array 'fields' will be copied over,
  * and only if these are actually defined.
- *
  * @param {object} src
  * @param {object} dst
  * @param {Array<string>} fields array with names of fields to copy
@@ -9369,7 +9329,6 @@ function safeCopy(src, dst, fields, prefix) {
  * further handling.
  *
  * For now, dst is assumed to be a Graph3d instance.
- *
  * @param {object} src
  * @param {object} dst
  */
@@ -9426,7 +9385,6 @@ function setOptions(options, dst) {
  * Special handling for certain parameters
  *
  * 'Special' here means: setting requires more than a simple copy
- *
  * @param {object} src
  * @param {object} dst
  */
@@ -9471,7 +9429,6 @@ function setSpecialSettings(src, dst) {
  *
  * This depends on the value of the style fields, so it must be called
  * after the style field has been initialized.
- *
  * @param {boolean} showLegend
  * @param {object} dst
  */
@@ -9491,7 +9448,6 @@ function setShowLegend(showLegend, dst) {
 
 /**
  * Retrieve the style index from given styleName
- *
  * @param {string} styleName  Style name such as 'dot', 'grid', 'dot-line'
  * @returns {number} styleNumber Enumeration value representing the style, or -1
  *                when not found
@@ -9506,7 +9462,6 @@ function getStyleNumberByName(styleName) {
 
 /**
  * Check if given number is a valid style number.
- *
  * @param {string | number} style
  * @returns {boolean} true if valid, false otherwise
  */
@@ -9549,7 +9504,6 @@ function setStyle(style, dst) {
 
 /**
  * Set the background styling for the graph
- *
  * @param {string | {fill: string, stroke: string, strokeWidth: string}} backgroundColor
  * @param {object} dst
  */
@@ -9674,7 +9628,6 @@ function parseColorArray(colormap) {
 /**
  * Converts an object to a certain amount of hex color stops. At which point:
  * the HTML hex color codes is converted into an RGB color object.
- *
  * @param {object} hues
  */
 function parseColorObject(hues) {
@@ -15300,7 +15253,6 @@ function Range() {
  *
  * If the value is outside of the current extremes, adjust
  * the min or max so that the value is within the range.
- *
  * @param {number} value Numeric value to fit in range
  */
 Range.prototype.adjust = function (value) {
@@ -15315,7 +15267,6 @@ Range.prototype.adjust = function (value) {
 
 /**
  * Adjust the current range so that the passed range fits in it.
- *
  * @param {Range} range Range instance to fit in current instance
  */
 Range.prototype.combine = function (range) {
@@ -15330,7 +15281,6 @@ Range.prototype.combine = function (range) {
  * max will be raised by given value
  *
  * Shrinking by passing a negative value is allowed.
- *
  * @param {number} val Amount by which to expand or shrink current range with
  */
 Range.prototype.expand = function (val) {
@@ -15351,7 +15301,6 @@ Range.prototype.expand = function (val) {
 
 /**
  * Determine the full range width of current instance.
- *
  * @returns {num} The calculated width of this range
  */
 Range.prototype.range = function () {
@@ -15360,7 +15309,6 @@ Range.prototype.range = function () {
 
 /**
  * Determine the central point of current instance.
- *
  * @returns {number} the value in the middle of min and max
  */
 Range.prototype.center = function () {
@@ -15403,7 +15351,6 @@ function Filter(dataGroup, column, graph) {
 
 /**
  * Return the label
- *
  * @returns {string} label
  */
 Filter.prototype.isLoaded = function () {
@@ -15412,7 +15359,6 @@ Filter.prototype.isLoaded = function () {
 
 /**
  * Return the loaded progress
- *
  * @returns {number} percentage between 0 and 100
  */
 Filter.prototype.getLoadedProgress = function () {
@@ -15426,7 +15372,6 @@ Filter.prototype.getLoadedProgress = function () {
 
 /**
  * Return the label
- *
  * @returns {string} label
  */
 Filter.prototype.getLabel = function () {
@@ -15435,7 +15380,6 @@ Filter.prototype.getLabel = function () {
 
 /**
  * Return the columnIndex of the filter
- *
  * @returns {number} columnIndex
  */
 Filter.prototype.getColumn = function () {
@@ -15444,7 +15388,6 @@ Filter.prototype.getColumn = function () {
 
 /**
  * Return the currently selected value. Returns undefined if there is no selection
- *
  * @returns {*} value
  */
 Filter.prototype.getSelectedValue = function () {
@@ -15454,7 +15397,6 @@ Filter.prototype.getSelectedValue = function () {
 
 /**
  * Retrieve all values of the filter
- *
  * @returns {Array} values
  */
 Filter.prototype.getValues = function () {
@@ -15463,7 +15405,6 @@ Filter.prototype.getValues = function () {
 
 /**
  * Retrieve one value of the filter
- *
  * @param {number}  index
  * @returns {*} value
  */
@@ -15474,7 +15415,6 @@ Filter.prototype.getValue = function (index) {
 
 /**
  * Retrieve the (filtered) dataPoints for the currently selected filter index
- *
  * @param {number} [index] (optional)
  * @returns {Array} dataPoints
  */
@@ -15501,7 +15441,6 @@ Filter.prototype._getDataPoints = function (index) {
 
 /**
  * Set a callback function when the filter is fully loaded.
- *
  * @param {Function} callback
  */
 Filter.prototype.setOnLoadCallback = function (callback) {
@@ -15511,7 +15450,6 @@ Filter.prototype.setOnLoadCallback = function (callback) {
 /**
  * Add a value to the list with available values for this filter
  * No double entries will be created.
- *
  * @param {number} index
  */
 Filter.prototype.selectValue = function (index) {
@@ -15523,8 +15461,7 @@ Filter.prototype.selectValue = function (index) {
 /**
  * Load all filtered rows in the background one by one
  * Start this method without providing an index!
- *
- * @param {number} [index=0]
+ * @param {number} [index]
  */
 Filter.prototype.loadInBackground = function (index) {
   if (index === undefined) index = 0;
@@ -15567,8 +15504,7 @@ Filter.prototype.loadInBackground = function (index) {
  * Failure to do so will result in the following exception begin thrown
  * on instantiation of Graph3D:
  *
- *     Error: Array, DataSet, or DataView expected
- *
+ * Error: Array, DataSet, or DataView expected
  * @function Object() { [native code] } DataGroup
  */
 function DataGroup() {
@@ -15583,7 +15519,6 @@ function DataGroup() {
  * The graph3d instance is used internally to access the settings for
  * the given instance.
  * TODO: Pass settings only instead.
- *
  * @param {vis.Graph3d}  graph3d Reference to the calling Graph3D instance.
  * @param {Array | DataSet | DataView} rawData The data containing the items for
  *                                             the Graph.
@@ -15680,7 +15615,6 @@ DataGroup.prototype.initializeData = function (graph3d, rawData, style) {
  * initalization more generic.
  *
  * TODO: if/when combined settings per axis defined, get rid of this.
- *
  * @private
  * @param {'x'|'y'|'z'} column  The data column to process
  * @param {vis.Graph3d} graph3d Reference to the calling Graph3D instance;
@@ -15709,7 +15643,6 @@ DataGroup.prototype._collectRangeSettings = function (column, graph3d) {
  * Initializes the settings per given column.
  *
  * TODO: if/when combined settings per axis defined, rewrite this.
- *
  * @private
  * @param {DataSet | DataView} data     The data containing the items for the Graph
  * @param {'x'|'y'|'z'}        column   The data column to process
@@ -15734,7 +15667,6 @@ DataGroup.prototype._initializeRange = function (data, column, graph3d, withBars
  * Creates a list with all the different values in the data for the given column.
  *
  * If no data passed, use the internal data of this instance.
- *
  * @param {'x'|'y'|'z'}                column The data column to process
  * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
  * @returns {Array} All distinct values in the given column data, sorted ascending.
@@ -15758,7 +15690,6 @@ DataGroup.prototype.getDistinctValues = function (column, data) {
 /**
  * Determine the smallest difference between the values for given
  * column in the passed data set.
- *
  * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
  * @param {'x'|'y'|'z'}                column The data column to process
  * @returns {number|null} Smallest difference value or
@@ -15781,7 +15712,6 @@ DataGroup.prototype.getSmallestDifference = function (data, column) {
 
 /**
  * Get the absolute min/max values for the passed data column.
- *
  * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
  * @param {'x'|'y'|'z'}                column The data column to process
  * @returns {Range} A Range instance with min/max members properly set.
@@ -15799,7 +15729,6 @@ DataGroup.prototype.getColumnRange = function (data, column) {
 
 /**
  * Determines the number of rows in the current data.
- *
  * @returns {number}
  */
 DataGroup.prototype.getNumberOfRows = function () {
@@ -15814,10 +15743,9 @@ DataGroup.prototype.getNumberOfRows = function () {
  * Because it's possible that only defaultMin or defaultMax is set, it's better
  * to pass in a range already set with the min/max set from the data. Otherwise,
  * it's quite hard to process the min/max properly.
- *
  * @param {vis.Range} range
- * @param {number} [defaultMin=range.min]
- * @param {number} [defaultMax=range.max]
+ * @param {number} [defaultMin]
+ * @param {number} [defaultMax]
  * @private
  */
 DataGroup.prototype._setRangeDefaults = function (range, defaultMin, defaultMax) {
@@ -15842,7 +15770,6 @@ DataGroup.prototype.getDataSet = function () {
 
 /**
  * Return all data values as a list of Point3d objects
- *
  * @param {Array.<object>} data
  * @returns {Array.<object>}
  */
@@ -15869,7 +15796,6 @@ DataGroup.prototype.getDataPoints = function (data) {
  * Copy all values from the data table to a matrix.
  *
  * The provided values are supposed to form a grid of (x,y) positions.
- *
  * @param {Array.<object>} data
  * @returns {Array.<object>}
  * @private
@@ -15913,7 +15839,6 @@ DataGroup.prototype.initDataAsMatrix = function (data) {
 
 /**
  * Return common information, if present
- *
  * @returns {string}
  */
 DataGroup.prototype.getInfo = function () {
@@ -15933,7 +15858,6 @@ DataGroup.prototype.reload = function () {
 
 /**
  * Filter the data based on the current filter
- *
  * @param   {Array} data
  * @returns {Array} dataPoints Array with point objects which can be drawn on
  *                             screen
@@ -16098,7 +16022,6 @@ Graph3d.DEFAULTS = {
  * Graph3d displays data in 3d.
  *
  * Graph3d is developed in javascript as a Google Visualization Chart.
- *
  * @function Object() { [native code] } Graph3d
  * @param {Element} container   The DOM element in which the Graph3d will
  *                              be created. Normally a div element.
@@ -16173,7 +16096,6 @@ Graph3d.prototype._setScale = function () {
 /**
  * Convert a 3D location to a 2D location on screen
  * Source: ttp://en.wikipedia.org/wiki/3D_projection
- *
  * @param   {Point3d} point3d  A 3D point with parameters x, y, z
  * @returns {Point2d} point2d  A 2D point with parameters x, y
  */
@@ -16185,7 +16107,6 @@ Graph3d.prototype._convert3Dto2D = function (point3d) {
 /**
  * Convert a 3D location its translation seen from the camera
  * Source: http://en.wikipedia.org/wiki/3D_projection
- *
  * @param   {Point3d} point3d     A 3D point with parameters x, y, z
  * @returns {Point3d} translation A 3D point with parameters x, y, z This is
  *                                the translation of the point, seen from the
@@ -16216,7 +16137,6 @@ Graph3d.prototype._convertPointToTranslation = function (point3d) {
 
 /**
  * Convert a translation point to a point on the screen
- *
  * @param   {Point3d} translation A 3D point with parameters x, y, z This is
  *                                the translation of the point, seen from the
  *                                camera.
@@ -16248,7 +16168,6 @@ Graph3d.prototype._convertTranslationToScreen = function (translation) {
 
 /**
  * Calculate the translations and screen positions of all points
- *
  * @param {Array.<Point3d>} points
  * @private
  */
@@ -16299,7 +16218,6 @@ Graph3d.prototype._initializeRanges = function () {
 
 /**
  * Return all data values as a list of Point3d objects
- *
  * @param {vis.DataSet} data
  * @returns {Array.<object>}
  */
@@ -16324,7 +16242,6 @@ Graph3d.prototype.getDataPoints = function (data) {
 
 /**
  * Filter the data based on the current filter
- *
  * @param   {Array} data
  * @returns {Array} dataPoints Array with point objects which can be drawn on
  *                             screen
@@ -16449,7 +16366,6 @@ Graph3d.prototype.create = function () {
 
 /**
  * Set a new size for the graph
- *
  * @param {number} width
  * @param {number} height
  * @private
@@ -16516,7 +16432,6 @@ Graph3d.prototype._resizeCenter = function () {
 
 /**
  * Retrieve the current camera rotation
- *
  * @returns {object} An object with parameters horizontal, vertical, and
  *                   distance
  */
@@ -16528,7 +16443,6 @@ Graph3d.prototype.getCameraPosition = function () {
 
 /**
  * Load data into the 3D Graph
- *
  * @param {vis.DataSet} data
  * @private
  */
@@ -16541,7 +16455,6 @@ Graph3d.prototype._readData = function (data) {
 
 /**
  * Replace the dataset of the Graph3d
- *
  * @param {Array | DataSet | DataView} data
  */
 Graph3d.prototype.setData = function (data) {
@@ -16553,7 +16466,6 @@ Graph3d.prototype.setData = function (data) {
 
 /**
  * Update the options. Options will be merged with current options
- *
  * @param {object} options
  */
 Graph3d.prototype.setOptions = function (options) {
@@ -16647,7 +16559,6 @@ Graph3d.prototype.redraw = function () {
 
 /**
  * Get drawing context without exposing canvas
- *
  * @returns {CanvasRenderingContext2D}
  * @private
  */
@@ -16673,7 +16584,6 @@ Graph3d.prototype._dotSize = function () {
 
 /**
  * Get legend width
- *
  * @returns {*}
  * @private
  */
@@ -16847,7 +16757,6 @@ Graph3d.prototype._redrawInfo = function () {
  * Draw a line between 2d points 'from' and 'to'.
  *
  * If stroke style specified, set that as well.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {vis.Point2d} from
  * @param {vis.Point2d} to
@@ -16870,7 +16779,7 @@ Graph3d.prototype._line = function (ctx, from, to, strokeStyle) {
  * @param {vis.Point3d} point3d
  * @param {string} text
  * @param {number} armAngle
- * @param {number} [yMargin=0]
+ * @param {number} [yMargin]
  */
 Graph3d.prototype.drawAxisLabelX = function (ctx, point3d, text, armAngle, yMargin) {
   if (yMargin === undefined) {
@@ -16898,7 +16807,7 @@ Graph3d.prototype.drawAxisLabelX = function (ctx, point3d, text, armAngle, yMarg
  * @param {vis.Point3d} point3d
  * @param {string} text
  * @param {number} armAngle
- * @param {number} [yMargin=0]
+ * @param {number} [yMargin]
  */
 Graph3d.prototype.drawAxisLabelY = function (ctx, point3d, text, armAngle, yMargin) {
   if (yMargin === undefined) {
@@ -16925,7 +16834,7 @@ Graph3d.prototype.drawAxisLabelY = function (ctx, point3d, text, armAngle, yMarg
  * @param {CanvasRenderingContext2D} ctx
  * @param {vis.Point3d} point3d
  * @param {string} text
- * @param {number} [offset=0]
+ * @param {number} [offset]
  */
 Graph3d.prototype.drawAxisLabelZ = function (ctx, point3d, text, offset) {
   if (offset === undefined) {
@@ -16944,7 +16853,7 @@ Graph3d.prototype.drawAxisLabelZ = function (ctx, point3d, text, offset) {
  * @param {vis.Point3d} point3d
  * @param {string} text
  * @param {number} armAngle
- * @param {number} [yMargin=0]
+ * @param {number} [yMargin]
  */
 Graph3d.prototype.drawAxisLabelXRotate = function (ctx, point3d, text, armAngle, yMargin) {
   var point2d = this._convert3Dto2D(point3d);
@@ -16976,7 +16885,7 @@ Graph3d.prototype.drawAxisLabelXRotate = function (ctx, point3d, text, armAngle,
  * @param {vis.Point3d} point3d
  * @param {string} text
  * @param {number} armAngle
- * @param {number} [yMargin=0]
+ * @param {number} [yMargin]
  */
 Graph3d.prototype.drawAxisLabelYRotate = function (ctx, point3d, text, armAngle, yMargin) {
   var point2d = this._convert3Dto2D(point3d);
@@ -17007,7 +16916,7 @@ Graph3d.prototype.drawAxisLabelYRotate = function (ctx, point3d, text, armAngle,
  * @param {CanvasRenderingContext2D} ctx
  * @param {vis.Point3d} point3d
  * @param {string} text
- * @param {number} [offset=0]
+ * @param {number} [offset]
  */
 Graph3d.prototype.drawAxisLabelZRotate = function (ctx, point3d, text, offset) {
   if (offset === undefined) {
@@ -17023,11 +16932,10 @@ Graph3d.prototype.drawAxisLabelZRotate = function (ctx, point3d, text, offset) {
 /**
  
  
-/**
- * Draw a line between 2d points 'from' and 'to'.
- *
- * If stroke style specified, set that as well.
- *
+ /**
+ Draw a line between 2d points 'from' and 'to'.
+ 
+ If stroke style specified, set that as well.
  * @param {CanvasRenderingContext2D} ctx
  * @param {vis.Point2d} from
  * @param {vis.Point2d} to
@@ -17229,7 +17137,6 @@ Graph3d.prototype._getStrokeWidth = function (point) {
 
 /**
  * Draw a bar element in the view with the given properties.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @param {number} xWidth
@@ -17327,7 +17234,6 @@ Graph3d.prototype._redrawBar = function (ctx, point, xWidth, yWidth, color, bord
 
 /**
  * Draw a polygon using the passed points and fill it with the passed style and stroke.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {Array.<vis.Point3d>} points      an array of points.
  * @param {string} [fillStyle] the fill style to set
@@ -17359,7 +17265,7 @@ Graph3d.prototype._polygon = function (ctx, points, fillStyle, strokeStyle) {
  * @param {object} point
  * @param {string} color
  * @param {string} borderColor
- * @param {number} [size=this._dotSize()]
+ * @param {number} [size]
  * @private
  */
 Graph3d.prototype._drawCircle = function (ctx, point, color, borderColor, size) {
@@ -17375,7 +17281,6 @@ Graph3d.prototype._drawCircle = function (ctx, point, color, borderColor, size) 
 
 /**
  * Determine the colors for the 'regular' graph styles.
- *
  * @param {object} point
  * @returns {{fill, border}}
  * @private
@@ -17398,7 +17303,6 @@ Graph3d.prototype._getColorsRegular = function (point) {
  * The first option is useful when we have some pre-given legend, to which we have to adjust ourselves
  * The second option is useful when we are interested in automatically setting the color, from some value,
  * using some color scale
- *
  * @param {object} point
  * @returns {{fill: *, border: *}}
  * @private
@@ -17432,7 +17336,6 @@ Graph3d.prototype._getColorsColor = function (point) {
 /**
  * Get the colors for the 'size' graph styles.
  * These styles are currently: 'bar-size' and 'dot-size'
- *
  * @returns {{fill: *, border: (string|colorOptions.stroke|{string, undefined}|string|colorOptions.stroke|{string}|*)}}
  * @private
  */
@@ -17445,7 +17348,6 @@ Graph3d.prototype._getColorsSize = function () {
 
 /**
  * Determine the color corresponding to a given value on the color scale.
- *
  * @param {number} [x] the data value to be mapped running from 0 to 1
  * @param {number} [v] scale factor between 0 and 1 for the color brightness
  * @returns {string}
@@ -17490,9 +17392,8 @@ Graph3d.prototype._colormap = function (x) {
 /**
  * Determine the size of a point on-screen, as determined by the
  * distance to the camera.
- *
  * @param {object} point
- * @param {number} [size=this._dotSize()] the size that needs to be translated to screen coordinates.
+ * @param {number} [size] the size that needs to be translated to screen coordinates.
  *             optional; if not passed, use the default point size.
  * @returns {number}
  * @private
@@ -17519,7 +17420,6 @@ Graph3d.prototype._calcRadius = function (point, size) {
 
 /**
  * Draw single datapoint for graph style 'bar'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17533,7 +17433,6 @@ Graph3d.prototype._redrawBarGraphPoint = function (ctx, point) {
 
 /**
  * Draw single datapoint for graph style 'bar-color'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17547,7 +17446,6 @@ Graph3d.prototype._redrawBarColorGraphPoint = function (ctx, point) {
 
 /**
  * Draw single datapoint for graph style 'bar-size'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17563,7 +17461,6 @@ Graph3d.prototype._redrawBarSizeGraphPoint = function (ctx, point) {
 
 /**
  * Draw single datapoint for graph style 'dot'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17575,7 +17472,6 @@ Graph3d.prototype._redrawDotGraphPoint = function (ctx, point) {
 
 /**
  * Draw single datapoint for graph style 'dot-line'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17590,7 +17486,6 @@ Graph3d.prototype._redrawDotLineGraphPoint = function (ctx, point) {
 
 /**
  * Draw single datapoint for graph style 'dot-color'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17602,7 +17497,6 @@ Graph3d.prototype._redrawDotColorGraphPoint = function (ctx, point) {
 
 /**
  * Draw single datapoint for graph style 'dot-size'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17619,7 +17513,6 @@ Graph3d.prototype._redrawDotSizeGraphPoint = function (ctx, point) {
 
 /**
  * Draw single datapoint for graph style 'surface'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17676,7 +17569,6 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
 
 /**
  * Helper method for _redrawGridGraphPoint()
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} from
  * @param {object} to
@@ -17695,7 +17587,6 @@ Graph3d.prototype._drawGridLine = function (ctx, from, to) {
 
 /**
  * Draw single datapoint for graph style 'Grid'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17707,7 +17598,6 @@ Graph3d.prototype._redrawGridGraphPoint = function (ctx, point) {
 
 /**
  * Draw single datapoint for graph style 'line'.
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {object} point
  * @private
@@ -17745,7 +17635,6 @@ Graph3d.prototype._redrawDataGraph = function () {
 
 /**
  * Store startX, startY and startOffset for mouse operations
- *
  * @param {Event}     event     The event that occurred
  */
 Graph3d.prototype._storeMousePosition = function (event) {
@@ -17757,7 +17646,6 @@ Graph3d.prototype._storeMousePosition = function (event) {
 
 /**
  * Start a moving operation inside the provided parent element
- *
  * @param {Event}     event     The event that occurred (required for
  *                  retrieving the  mouse position)
  */
@@ -17797,7 +17685,6 @@ Graph3d.prototype._onMouseDown = function (event) {
 /**
  * Perform moving operating.
  * This function activated from within the funcion Graph.mouseDown().
- *
  * @param {Event}   event  Well, eehh, the event
  */
 Graph3d.prototype._onMouseMove = function (event) {
@@ -17852,7 +17739,6 @@ Graph3d.prototype._onMouseMove = function (event) {
 /**
  * Stop moving operating.
  * This function activated from within the funcion Graph.mouseDown().
- *
  * @param {Event}  event   The event
  */
 Graph3d.prototype._onMouseUp = function (event) {
@@ -17889,7 +17775,6 @@ Graph3d.prototype._onClick = function (event) {
 
 /**
  * After having moved the mouse, a tooltip should pop up when the mouse is resting on a data point
- *
  * @param {Event}  event   A mouse move event
  */
 Graph3d.prototype._onTooltip = function (event) {
@@ -17937,7 +17822,6 @@ Graph3d.prototype._onTooltip = function (event) {
 
 /**
  * Event handler for touchstart event on mobile devices
- *
  * @param {Event}  event   The event
  */
 Graph3d.prototype._onTouchStart = function (event) {
@@ -17956,7 +17840,6 @@ Graph3d.prototype._onTouchStart = function (event) {
 
 /**
  * Event handler for touchmove event on mobile devices
- *
  * @param {Event}  event   The event
  */
 Graph3d.prototype._onTouchMove = function (event) {
@@ -17965,7 +17848,6 @@ Graph3d.prototype._onTouchMove = function (event) {
 
 /**
  * Event handler for touchend event on mobile devices
- *
  * @param {Event}  event   The event
  */
 Graph3d.prototype._onTouchEnd = function (event) {
@@ -17978,7 +17860,6 @@ Graph3d.prototype._onTouchEnd = function (event) {
 /**
  * Event handler for mouse wheel event, used to zoom the graph
  * Code from http://adomas.org/javascript-mouse-wheel/
- *
  * @param {Event}  event   The event
  */
 Graph3d.prototype._onWheel = function (event) {
@@ -18020,7 +17901,6 @@ Graph3d.prototype._onWheel = function (event) {
 
 /**
  * Test whether a point lies inside given 2D triangle
- *
  * @param   {vis.Point2d}   point
  * @param   {vis.Point2d[]} triangle
  * @returns {boolean}   true if given point lies inside or on the edge of the
@@ -18050,7 +17930,6 @@ Graph3d.prototype._insideTriangle = function (point, triangle) {
 
 /**
  * Find a data point close to given screen position (x, y)
- *
  * @param   {number} x
  * @param   {number} y
  * @returns {object | null} The closest data point or null if not close to any
@@ -18104,7 +17983,6 @@ Graph3d.prototype._dataPointFromXY = function (x, y) {
 
 /**
  * Determine if the given style has bars
- *
  * @param   {number} style the style to check
  * @returns {boolean} true if bar style, false otherwise
  */
@@ -18114,7 +17992,6 @@ Graph3d.prototype.hasBars = function (style) {
 
 /**
  * Display a tooltip for given data point
- *
  * @param {object} dataPoint
  * @private
  */
@@ -18174,7 +18051,6 @@ Graph3d.prototype._showTooltip = function (dataPoint) {
 
 /**
  * Hide the tooltip when displayed
- *
  * @private
  */
 Graph3d.prototype._hideTooltip = function () {
@@ -18195,7 +18071,6 @@ Graph3d.prototype._hideTooltip = function () {
 
 /**
  * Get the horizontal mouse position from a mouse event
- *
  * @param   {Event}  event
  * @returns {number} mouse x
  */
@@ -18206,7 +18081,6 @@ function getMouseX(event) {
 
 /**
  * Get the vertical mouse position from a mouse event
- *
  * @param   {Event}  event
  * @returns {number} mouse y
  */
@@ -18221,7 +18095,6 @@ function getMouseY(event) {
 
 /**
  * Set the rotation and distance of the camera
- *
  * @param {object}  pos            An object with the camera position
  * @param {number} [pos.horizontal] The horizontal rotation, between 0 and 2*PI.
  *                                 Optional, can be left undefined.
@@ -18239,7 +18112,6 @@ Graph3d.prototype.setCameraPosition = function (pos) {
 
 /**
  * Set a new size for the graph
- *
  * @param {string} width  Width in pixels or percentage (for example '800px'
  *                        or '50%')
  * @param {string} height Height in pixels or percentage  (for example '400px'
