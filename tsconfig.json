@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "dist/types",
@@ -7,6 +8,7 @@
     "esModuleInterop": true,
     "module": "es2015",
     "moduleResolution": "node",
+    "noEmit": true,
     "outDir": "dist/src",
     "paths": {},
     "resolveJsonModule": true,

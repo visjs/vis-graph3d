@@ -3,8 +3,8 @@
  *
  * Adapted from: https://github.com/Cristy94/canvas-mock
  */
-const jsdom = require("jsdom");
-const jsdom_global = require("jsdom-global");
+import jsdom from "jsdom";
+import jsdom_global from "jsdom-global";
 
 let canvasMock; // Use one canvas instance for all calls to createElement('canvas');
 
@@ -157,4 +157,4 @@ function mockify(html = "") {
   return cleanupFunction;
 }
 
-module.exports = mockify;
+export default mockify;

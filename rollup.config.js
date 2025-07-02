@@ -10,12 +10,20 @@ const banner = generateHeader();
 export default [
   {
     input: "index.js",
-    output: {
-      banner,
-      file: "dist/esm.js",
-      format: "esm",
-      sourcemap: true,
-    },
+    output: [
+      {
+        banner,
+        file: "dist/esm.js",
+        format: "esm",
+        sourcemap: true,
+      },
+      {
+        banner,
+        file: "dist/esm.mjs",
+        format: "esm",
+        sourcemap: true,
+      },
+    ],
     plugins: [
       commonjs(),
       nodeResolve({
@@ -29,15 +37,26 @@ export default [
   },
   {
     input: "index.js",
-    output: {
-      banner,
-      file: "dist/vis-graph3d.min.js",
-      format: "umd",
-      exports: "named",
-      name: "vis",
-      extend: true,
-      sourcemap: true,
-    },
+    output: [
+      {
+        banner,
+        file: "dist/vis-graph3d.min.js",
+        format: "umd",
+        exports: "named",
+        name: "vis",
+        extend: true,
+        sourcemap: true,
+      },
+      {
+        banner,
+        file: "dist/vis-graph3d.min.cjs",
+        format: "umd",
+        exports: "named",
+        name: "vis",
+        extend: true,
+        sourcemap: true,
+      },
+    ],
     plugins: [
       commonjs(),
       nodeResolve({

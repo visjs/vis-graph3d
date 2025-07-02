@@ -1,70 +1,284 @@
 exports['package exported files 1'] = {
-  "name": "vis-graph3d                             ",
-  "files": [
-    "        HISTORY.md",
-    "        README.md",
-    "        declarations/entry-esnext.d.ts",
-    "        declarations/entry-peer.d.ts",
-    "        declarations/entry-standalone.d.ts",
-    "        declarations/index.d.ts",
-    "        dist/esm.js",
-    "        dist/esm.js.map",
-    "        dist/vis-graph3d.min.js",
-    "        dist/vis-graph3d.min.js.map",
-    "        esnext/esm/index.d.ts",
-    "        esnext/esm/index.js",
-    "        esnext/esm/vis-graph3d.d.ts",
-    "        esnext/esm/vis-graph3d.js",
-    "        esnext/esm/vis-graph3d.js.map",
-    "        esnext/esm/vis-graph3d.min.d.ts",
-    "        esnext/esm/vis-graph3d.min.js",
-    "        esnext/esm/vis-graph3d.min.js.map",
-    "        esnext/index.d.ts",
-    "        esnext/index.js",
-    "        esnext/umd/index.d.ts",
-    "        esnext/umd/index.js",
-    "        esnext/umd/vis-graph3d.d.ts",
-    "        esnext/umd/vis-graph3d.js",
-    "        esnext/umd/vis-graph3d.js.map",
-    "        esnext/umd/vis-graph3d.min.d.ts",
-    "        esnext/umd/vis-graph3d.min.js",
-    "        esnext/umd/vis-graph3d.min.js.map",
-    "        package.json",
-    "        peer/esm/index.d.ts",
-    "        peer/esm/index.js",
-    "        peer/esm/vis-graph3d.d.ts",
-    "        peer/esm/vis-graph3d.js",
-    "        peer/esm/vis-graph3d.js.map",
-    "        peer/esm/vis-graph3d.min.d.ts",
-    "        peer/esm/vis-graph3d.min.js",
-    "        peer/esm/vis-graph3d.min.js.map",
-    "        peer/index.d.ts",
-    "        peer/index.js",
-    "        peer/umd/index.d.ts",
-    "        peer/umd/index.js",
-    "        peer/umd/vis-graph3d.d.ts",
-    "        peer/umd/vis-graph3d.js",
-    "        peer/umd/vis-graph3d.js.map",
-    "        peer/umd/vis-graph3d.min.d.ts",
-    "        peer/umd/vis-graph3d.min.js",
-    "        peer/umd/vis-graph3d.min.js.map",
-    "        standalone/esm/index.d.ts",
-    "        standalone/esm/index.js",
-    "        standalone/esm/vis-graph3d.d.ts",
-    "        standalone/esm/vis-graph3d.js",
-    "        standalone/esm/vis-graph3d.js.map",
-    "        standalone/esm/vis-graph3d.min.d.ts",
-    "        standalone/esm/vis-graph3d.min.js",
-    "        standalone/esm/vis-graph3d.min.js.map",
-    "        standalone/index.d.ts",
-    "        standalone/index.js",
-    "        standalone/umd/index.d.ts",
-    "        standalone/umd/index.js",
-    "        standalone/umd/vis-graph3d.d.ts",
-    "        standalone/umd/vis-graph3d.js",
-    "        standalone/umd/vis-graph3d.js.map",
-    "        standalone/umd/vis-graph3d.min.d.ts",
-    "        standalone/umd/vis-graph3d.min.js",
-    "        standalone/umd/vis-graph3d.min.js.map"
-  ]
+  "name": "vis-graph3d",
+  "files": {
+    "HISTORY.md": {
+      "empty": false
+    },
+    "README.md": {
+      "empty": false
+    },
+    "declarations/entry-esnext.d.ts": {
+      "empty": false
+    },
+    "declarations/entry-peer.d.ts": {
+      "empty": false
+    },
+    "declarations/entry-standalone.d.ts": {
+      "empty": false
+    },
+    "declarations/index.d.ts": {
+      "empty": false
+    },
+    "dist/esm.js": {
+      "empty": false
+    },
+    "dist/esm.js.map": {
+      "empty": false
+    },
+    "dist/esm.mjs": {
+      "empty": false
+    },
+    "dist/esm.mjs.map": {
+      "empty": false
+    },
+    "dist/vis-graph3d.min.cjs": {
+      "empty": false
+    },
+    "dist/vis-graph3d.min.cjs.map": {
+      "empty": false
+    },
+    "dist/vis-graph3d.min.js": {
+      "empty": false
+    },
+    "dist/vis-graph3d.min.js.map": {
+      "empty": false
+    },
+    "esnext/esm/index.d.ts": {
+      "empty": false
+    },
+    "esnext/esm/index.js": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.d.ts": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.js": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.js.map": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.min.d.ts": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.min.js": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.min.js.map": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.min.mjs": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.min.mjs.map": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.mjs": {
+      "empty": false
+    },
+    "esnext/esm/vis-graph3d.mjs.map": {
+      "empty": false
+    },
+    "esnext/index.d.ts": {
+      "empty": false
+    },
+    "esnext/index.js": {
+      "empty": false
+    },
+    "esnext/umd/index.d.ts": {
+      "empty": false
+    },
+    "esnext/umd/index.js": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.cjs": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.cjs.map": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.d.ts": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.js": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.js.map": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.min.cjs": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.min.cjs.map": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.min.d.ts": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.min.js": {
+      "empty": false
+    },
+    "esnext/umd/vis-graph3d.min.js.map": {
+      "empty": false
+    },
+    "package.json": {
+      "empty": false
+    },
+    "peer/esm/index.d.ts": {
+      "empty": false
+    },
+    "peer/esm/index.js": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.d.ts": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.js": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.js.map": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.min.d.ts": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.min.js": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.min.js.map": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.min.mjs": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.min.mjs.map": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.mjs": {
+      "empty": false
+    },
+    "peer/esm/vis-graph3d.mjs.map": {
+      "empty": false
+    },
+    "peer/index.d.ts": {
+      "empty": false
+    },
+    "peer/index.js": {
+      "empty": false
+    },
+    "peer/umd/index.d.ts": {
+      "empty": false
+    },
+    "peer/umd/index.js": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.cjs": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.cjs.map": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.d.ts": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.js": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.js.map": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.min.cjs": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.min.cjs.map": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.min.d.ts": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.min.js": {
+      "empty": false
+    },
+    "peer/umd/vis-graph3d.min.js.map": {
+      "empty": false
+    },
+    "standalone/esm/index.d.ts": {
+      "empty": false
+    },
+    "standalone/esm/index.js": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.d.ts": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.js": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.js.map": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.min.d.ts": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.min.js": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.min.js.map": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.min.mjs": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.min.mjs.map": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.mjs": {
+      "empty": false
+    },
+    "standalone/esm/vis-graph3d.mjs.map": {
+      "empty": false
+    },
+    "standalone/index.d.ts": {
+      "empty": false
+    },
+    "standalone/index.js": {
+      "empty": false
+    },
+    "standalone/umd/index.d.ts": {
+      "empty": false
+    },
+    "standalone/umd/index.js": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.cjs": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.cjs.map": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.d.ts": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.js": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.js.map": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.min.cjs": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.min.cjs.map": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.min.d.ts": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.min.js": {
+      "empty": false
+    },
+    "standalone/umd/vis-graph3d.min.js.map": {
+      "empty": false
+    }
+  }
 }

@@ -1,25 +1,43 @@
-// utils
-const util = require("vis-util/esnext");
-exports.util = util;
-exports.DOMutil = require("./lib/DOMutil");
+import Hammer from "@egjs/hammerjs";
+import keycharm from "keycharm";
 
-// data
-const { DataSet, DataView, Queue } = require("vis-data/esnext");
-exports.DataSet = DataSet;
-exports.DataView = DataView;
-exports.Queue = Queue;
+import * as util from "vis-util/esnext";
+import { DataSet, DataView, Queue } from "vis-data/esnext";
 
-// Graph3d
-exports.Graph3d = require("./lib/graph3d/Graph3d");
-exports.graph3d = {
-  Camera: require("./lib/graph3d/Camera"),
-  Filter: require("./lib/graph3d/Filter"),
-  Point2d: require("./lib/graph3d/Point2d"),
-  Point3d: require("./lib/graph3d/Point3d"),
-  Slider: require("./lib/graph3d/Slider"),
-  StepNumber: require("./lib/graph3d/StepNumber"),
+import Camera from "./lib/graph3d/Camera.js";
+import DOMutil from "./lib/DOMutil.js";
+import Filter from "./lib/graph3d/Filter.js";
+import Graph3d from "./lib/graph3d/Graph3d.js";
+import Point2d from "./lib/graph3d/Point2d.js";
+import Point3d from "./lib/graph3d/Point3d.js";
+import Slider from "./lib/graph3d/Slider.js";
+import StepNumber from "./lib/graph3d/StepNumber.js";
+
+export { util, DOMutil, DataSet, DataView, Queue, Graph3d, Hammer, keycharm };
+export const graph3d = {
+  Camera,
+  Filter,
+  Point2d,
+  Point3d,
+  Slider,
+  StepNumber,
 };
 
-// bundled external libraries
-exports.Hammer = require("vis-util/esnext").Hammer;
-exports.keycharm = require("keycharm");
+export default {
+  util,
+  DOMutil,
+  DataSet,
+  DataView,
+  Queue,
+  Graph3d,
+  Hammer,
+  keycharm,
+  graph3d: {
+    Camera,
+    Filter,
+    Point2d,
+    Point3d,
+    Slider,
+    StepNumber,
+  },
+};

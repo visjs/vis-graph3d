@@ -1,9 +1,9 @@
-const assert = require("assert");
-import Graph3d from "../lib/graph3d/Graph3d";
-const canvasMockify = require("./canvas-mock");
-const stdout = require("test-console").stdout;
-const { Validator } = require("vis-util/esnext");
-const { allOptions } = require("./../lib/graph3d/options.js");
+import assert from "assert";
+import Graph3d from "../lib/graph3d/Graph3d.js";
+import canvasMockify from "./canvas-mock.js";
+import testConsole from "test-console";
+import { Validator } from "vis-util/esnext";
+import { allOptions } from "../lib/graph3d/options.js";
 
 describe("Graph3d", function () {
   before(function () {
@@ -21,7 +21,7 @@ describe("Graph3d", function () {
     let errorFound;
     // Useful during debugging:
     // const output =
-    stdout.inspectSync(function () {
+    testConsole.stdout.inspectSync(function () {
       errorFound = Validator.validate(Graph3d.DEFAULTS, allOptions);
     });
 

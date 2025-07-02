@@ -2,11 +2,145 @@
   "name": "vis-graph3d",
   "version": "0.0.0-no-version",
   "description": "Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.",
-  "browser": "peer/umd/vis-graph3d.min.js",
-  "jsnext": "esnext/esm/vis-graph3d.js",
-  "main": "peer/umd/vis-graph3d.js",
-  "module": "peer/esm/vis-graph3d.js",
-  "types": "declarations/index.d.ts",
+  "browser": "./peer/umd/vis-graph3d.min.cjs",
+  "jsnext": "./esnext/esm/vis-graph3d.mjs",
+  "main": "./peer/umd/vis-graph3d.cjs",
+  "module": "./peer/esm/vis-graph3d.mjs",
+  "types": "./declarations/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./peer/esm/vis-graph3d.mjs",
+      "require": "./peer/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./declarations/index.d.ts": {
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone": {
+      "import": "./standalone/esm/vis-graph3d.mjs",
+      "require": "./standalone/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone/esm/vis-graph3d.js": {
+      "import": "./standalone/esm/vis-graph3d.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone/esm/vis-graph3d.mjs": {
+      "import": "./standalone/esm/vis-graph3d.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone/esm/vis-graph3d.min.js": {
+      "import": "./standalone/esm/vis-graph3d.min.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone/esm/vis-graph3d.min.mjs": {
+      "import": "./standalone/esm/vis-graph3d.min.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone/umd/vis-graph3d.js": {
+      "require": "./standalone/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone/umd/vis-graph3d.cjs": {
+      "require": "./standalone/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone/umd/vis-graph3d.min.js": {
+      "require": "./standalone/umd/vis-graph3d.min.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./standalone/umd/vis-graph3d.min.cjs": {
+      "require": "./standalone/umd/vis-graph3d.min.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer": {
+      "import": "./peer/esm/vis-graph3d.mjs",
+      "require": "./peer/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer/esm/vis-graph3d.js": {
+      "import": "./peer/esm/vis-graph3d.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer/esm/vis-graph3d.mjs": {
+      "import": "./peer/esm/vis-graph3d.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer/esm/vis-graph3d.min.js": {
+      "import": "./peer/esm/vis-graph3d.min.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer/esm/vis-graph3d.min.mjs": {
+      "import": "./peer/esm/vis-graph3d.min.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer/umd/vis-graph3d.js": {
+      "require": "./peer/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer/umd/vis-graph3d.cjs": {
+      "require": "./peer/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer/umd/vis-graph3d.min.js": {
+      "require": "./peer/umd/vis-graph3d.min.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./peer/umd/vis-graph3d.min.cjs": {
+      "require": "./peer/umd/vis-graph3d.min.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext": {
+      "import": "./esnext/esm/vis-graph3d.mjs",
+      "require": "./esnext/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext/esm/vis-graph3d.js": {
+      "import": "./esnext/esm/vis-graph3d.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext/esm/vis-graph3d.mjs": {
+      "import": "./esnext/esm/vis-graph3d.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext/esm/vis-graph3d.min.js": {
+      "import": "./esnext/esm/vis-graph3d.min.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext/esm/vis-graph3d.min.mjs": {
+      "import": "./esnext/esm/vis-graph3d.min.mjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext/umd/vis-graph3d.js": {
+      "require": "./esnext/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext/umd/vis-graph3d.cjs": {
+      "require": "./esnext/umd/vis-graph3d.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext/umd/vis-graph3d.min.js": {
+      "require": "./esnext/umd/vis-graph3d.min.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./esnext/umd/vis-graph3d.min.cjs": {
+      "require": "./esnext/umd/vis-graph3d.min.cjs",
+      "types": "./declarations/index.d.ts"
+    },
+    "./dist/esm.js": {
+      "import": "./dist/esm.mjs"
+    },
+    "./dist/esm": {
+      "import": "./dist/esm.mjs"
+    },
+    "./dist/vis-graph3d.min.js": {
+      "require": "./dist/vis-graph3d.min.cjs"
+    },
+    "./dist/vis-graph3d.min": {
+      "require": "./dist/vis-graph3d.min.cjs"
+    }
+  },
   "homepage": "https://visjs.github.io/vis-graph3d/",
   "license": "(Apache-2.0 OR MIT)",
   "repository": {
@@ -39,12 +173,13 @@
     "standalone",
     "styles"
   ],
+  "type": "module",
   "scripts": {
     "test": "BABEL_ENV=test mocha --exit",
     "test-cov": "BABEL_ENV=test-cov nyc --reporter=lcov mocha --exit",
-    "js:graph3d": "rollup --bundleConfigAsCjs --config rollup.build.js && rollup --bundleConfigAsCjs --config rollup.config.js",
+    "js:graph3d": "rollup --config rollup.build.js && rollup --config rollup.config.js",
     "build": "npm run js:graph3d",
-    "watch": "rollup --bundleConfigAsCjs --watch --config rollup.config.js",
+    "watch": "rollup --watch --config rollup.config.js",
     "watch-dev": "npm run watch-dev",
     "generate-examples-index": "generate-examples-index --config generate-examples-index.json",
     "style": "prettier --check .",
@@ -63,16 +198,17 @@
     ".*.{js,ts}": "eslint --fix"
   },
   "volta": {
-    "node": "22.17.0",
-    "npm": "11.4.2"
+    "node": "24.3.0",
+    "npm": "11.4.2",
+    "pnpm": "10.12.4"
   },
   "peerDependencies": {
     "@egjs/hammerjs": "^2.0.0",
     "component-emitter": "^1.3.0 || ^2.0.0",
     "keycharm": "^0.2.0 || ^0.3.0 || ^0.4.0",
     "uuid": "^3.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
-    "vis-data": "^6.3.0 || ^7.0.0",
-    "vis-util": "^5.0.1"
+    "vis-data": "*",
+    "vis-util": "*"
   },
   "devDependencies": {
     "@egjs/hammerjs": "2.0.17",
@@ -93,8 +229,8 @@
     "snap-shot-it": "7.9.10",
     "test-console": "2.0.0",
     "uuid": "9.0.1",
-    "vis-data": "7.1.10",
-    "vis-dev-utils": "4.0.45",
-    "vis-util": "5.0.7"
+    "vis-data": "^7.1.10",
+    "vis-dev-utils": "^4.0.45",
+    "vis-util": "^5.0.7"
   }
 }
