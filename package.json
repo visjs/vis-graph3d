@@ -229,8 +229,8 @@
     "snap-shot-it": "7.9.10",
     "test-console": "2.0.0",
     "uuid": "9.0.1",
-    "vis-data": "^7.1.10",
-    "vis-dev-utils": "^4.0.45",
-    "vis-util": "^5.0.7"
+    "vis-data": "7.1.10",
+    "vis-dev-utils": "5.0.0",
+    "vis-util": "5.0.7"
   }
 }
