@@ -15,7 +15,7 @@ PR.registerLangHandler(
       ["pun", /^-/],
       ["kwd", /^\w+:[ \r\n]/],
       ["pln", /^\w+/],
-    ]
+    ],
   ),
-  ["yaml", "yml"]
+  ["yaml", "yml"],
 );

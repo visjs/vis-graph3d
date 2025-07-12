@@ -29,7 +29,7 @@ var tipuesearch_in = {
         contentLocation: "tipuesearch/tipuesearch_content.json",
         debug: false,
       },
-      options
+      options,
     );
     if (dynamic === undefined) {
       dynamic = false;
@@ -88,8 +88,8 @@ var tipuesearch_in = {
         return (
           decodeURIComponent(
             (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
-              location.search
-            ) || [, ""])[1].replace(/\+/g, "%20")
+              location.search,
+            ) || [, ""])[1].replace(/\+/g, "%20"),
           ) || null
         );
       }
@@ -114,7 +114,7 @@ var tipuesearch_in = {
       function getTipueSearch(start, replace) {
         $("#tipue_search_content").hide();
         $("#tipue_search_content").html(
-          '<div class="tipue_search_spinner"><div class="tipue_search_rect1"></div><div class="tipue_search_rect2"></div><div class="rect3"></div></div>'
+          '<div class="tipue_search_spinner"><div class="tipue_search_rect1"></div><div class="tipue_search_rect2"></div><div class="rect3"></div></div>',
         );
         $("#tipue_search_content").show();
 
@@ -166,7 +166,7 @@ var tipuesearch_in = {
                   if (d_w[i] == tipuesearch_replace.words[f].word) {
                     d = d.replace(
                       d_w[i],
-                      tipuesearch_replace.words[f].replace_with
+                      tipuesearch_replace.words[f].replace_with,
                     );
                     show_replace = true;
                   }

@@ -25,7 +25,7 @@
 
 (_THIS IS A LOT OF WORK! WE SHOULD TRY TO automate this in the future!!_)
 
-- [ ] Get all commits since the last release: `` git log `git describe --tags --abbrev=0`..HEAD --oneline > .commits.tmp ``
+- [ ] Get all commits since the last release: ``git log `git describe --tags --abbrev=0`..HEAD --oneline > .commits.tmp``
 - [ ] Open ".commity.tmp". and remove all commit before the last release.
 - [ ] Open every commit in GitHub and move every issue/pull-request to the current milestone.
 - [ ] Transfer all Commit-Messages/issues to "HISTORY.md" starting at the button.

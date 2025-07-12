@@ -80,7 +80,7 @@ vis.initSiteSearch = function (dynamic) {
       mode: "live",
       show: 3,
     },
-    dynamic
+    dynamic,
   );
 
   var hasSearchMessage = $("#tipue_search_content").children().length > 0;
@@ -95,7 +95,7 @@ vis.initSiteSearch = function (dynamic) {
     $(".tipue_search_content_url a, .tipue_search_content_title a").each(
       function () {
         $(this).attr("href", $(this).attr("href") + "?keywords=" + keywords);
-      }
+      },
     );
   } else {
     $("#search-results-wrapper").css("display", "none");

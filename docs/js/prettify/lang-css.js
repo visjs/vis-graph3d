@@ -23,9 +23,9 @@ PR.registerLangHandler(
         /^-?(?:[_a-z]|(?:\\[\da-f]+ ?))(?:[_a-z\d\-]|\\(?:\\[\da-f]+ ?))*/i,
       ],
       ["pun", /^[^\s\w\'\"]+/],
-    ]
+    ],
   ),
-  ["css"]
+  ["css"],
 );
 PR.registerLangHandler(
   PR.createSimpleLexer(
@@ -35,9 +35,9 @@ PR.registerLangHandler(
         "kwd",
         /^-?(?:[_a-z]|(?:\\[\da-f]+ ?))(?:[_a-z\d\-]|\\(?:\\[\da-f]+ ?))*/i,
       ],
-    ]
+    ],
   ),
-  ["css-kw"]
+  ["css-kw"],
 );
 PR.registerLangHandler(PR.createSimpleLexer([], [["str", /^[^\)\"\']+/]]), [
   "css-str",

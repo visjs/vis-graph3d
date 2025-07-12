@@ -16,11 +16,11 @@ PR.registerLangHandler(
       ["lang-", /^`([^\r\n`]+)`/],
       ["str", /^https?:\/\/[^\/?#\s]*(?:\/[^?#\s]*)?(?:\?[^#\s]*)?(?:#\S*)?/i],
       ["pln", /^(?:\r\n|[\s\S])[^#=*~^A-Zh\{`\[\r\n]*/],
-    ]
+    ],
   ),
-  ["wiki"]
+  ["wiki"],
 );
 PR.registerLangHandler(
   PR.createSimpleLexer([["kwd", /^#[a-z]+/i, null, "#"]], []),
-  ["wiki.meta"]
+  ["wiki.meta"],
 );

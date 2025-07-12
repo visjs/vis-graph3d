@@ -15,7 +15,7 @@ if (typeof jQuery === "undefined") {
     (version[0] == 1 && version[1] == 9 && version[2] < 1)
   ) {
     throw new Error(
-      "Bootstrap's JavaScript requires jQuery version 1.9.1 or higher"
+      "Bootstrap's JavaScript requires jQuery version 1.9.1 or higher",
     );
   }
 })(jQuery);
@@ -231,7 +231,7 @@ if (typeof jQuery === "undefined") {
           $el.removeClass(d).removeAttr(d);
         }
       }, this),
-      0
+      0,
     );
   };
 
@@ -306,7 +306,7 @@ if (typeof jQuery === "undefined") {
         $(e.target)
           .closest(".btn")
           .toggleClass("focus", /^focus(in)?$/.test(e.type));
-      }
+      },
     );
 })(jQuery);
 
@@ -381,7 +381,7 @@ if (typeof jQuery === "undefined") {
       !this.paused &&
       (this.interval = setInterval(
         $.proxy(this.next, this),
-        this.options.interval
+        this.options.interval,
       ));
 
     return this;
@@ -402,7 +402,7 @@ if (typeof jQuery === "undefined") {
   Carousel.prototype.to = function (pos) {
     var that = this;
     var activeIndex = this.getItemIndex(
-      (this.$active = this.$element.find(".item.active"))
+      (this.$active = this.$element.find(".item.active")),
     );
 
     if (pos > this.$items.length - 1 || pos < 0) return;
@@ -469,7 +469,7 @@ if (typeof jQuery === "undefined") {
     if (this.$indicators.length) {
       this.$indicators.find(".active").removeClass("active");
       var $nextIndicator = $(
-        this.$indicators.children()[this.getItemIndex($next)]
+        this.$indicators.children()[this.getItemIndex($next)],
       );
       $nextIndicator && $nextIndicator.addClass("active");
     }
@@ -519,7 +519,7 @@ if (typeof jQuery === "undefined") {
         {},
         Carousel.DEFAULTS,
         $this.data(),
-        typeof option == "object" && option
+        typeof option == "object" && option,
       );
       var action = typeof option == "string" ? option : options.slide;
 
@@ -552,7 +552,7 @@ if (typeof jQuery === "undefined") {
     var $this = $(this);
     var $target = $(
       $this.attr("data-target") ||
-        ((href = $this.attr("href")) && href.replace(/.*(?=#[^\s]+$)/, ""))
+        ((href = $this.attr("href")) && href.replace(/.*(?=#[^\s]+$)/, "")),
     ); // strip for ie7
     if (!$target.hasClass("carousel")) return;
     var options = $.extend({}, $target.data(), $this.data());
@@ -598,7 +598,7 @@ if (typeof jQuery === "undefined") {
     this.$element = $(element);
     this.options = $.extend({}, Collapse.DEFAULTS, options);
     this.$trigger = $(this.options.trigger).filter(
-      '[href="#' + element.id + '"], [data-target="#' + element.id + '"]'
+      '[href="#' + element.id + '"], [data-target="#' + element.id + '"]',
     );
     this.transitioning = null;
 
@@ -720,16 +720,16 @@ if (typeof jQuery === "undefined") {
   Collapse.prototype.getParent = function () {
     return $(this.options.parent)
       .find(
-        '[data-toggle="collapse"][data-parent="' + this.options.parent + '"]'
+        '[data-toggle="collapse"][data-parent="' + this.options.parent + '"]',
       )
       .each(
         $.proxy(function (i, element) {
           var $element = $(element);
           this.addAriaAndCollapsedClass(
             getTargetFromTrigger($element),
-            $element
+            $element,
           );
-        }, this)
+        }, this),
       )
       .end();
   };
@@ -767,7 +767,7 @@ if (typeof jQuery === "undefined") {
         {},
         Collapse.DEFAULTS,
         $this.data(),
-        typeof option == "object" && option
+        typeof option == "object" && option,
       );
 
       if (!data && options.toggle && option == "show") options.toggle = false;
@@ -808,7 +808,7 @@ if (typeof jQuery === "undefined") {
         : $.extend({}, $this.data(), { trigger: this });
 
       Plugin.call($target, option);
-    }
+    },
   );
 })(jQuery);
 
@@ -892,7 +892,7 @@ if (typeof jQuery === "undefined") {
 
     var desc = " li:not(.divider):visible a";
     var $items = $parent.find(
-      '[role="menu"]' + desc + ', [role="listbox"]' + desc
+      '[role="menu"]' + desc + ', [role="listbox"]' + desc,
     );
 
     if (!$items.length) return;
@@ -989,12 +989,12 @@ if (typeof jQuery === "undefined") {
     .on(
       "keydown.bs.dropdown.data-api",
       '[role="menu"]',
-      Dropdown.prototype.keydown
+      Dropdown.prototype.keydown,
     )
     .on(
       "keydown.bs.dropdown.data-api",
       '[role="listbox"]',
-      Dropdown.prototype.keydown
+      Dropdown.prototype.keydown,
     );
 })(jQuery);
 
@@ -1024,7 +1024,7 @@ if (typeof jQuery === "undefined") {
         this.options.remote,
         $.proxy(function () {
           this.$element.trigger("loaded.bs.modal");
-        }, this)
+        }, this),
       );
     }
   };
@@ -1064,7 +1064,7 @@ if (typeof jQuery === "undefined") {
     this.$element.on(
       "click.dismiss.bs.modal",
       '[data-dismiss="modal"]',
-      $.proxy(this.hide, this)
+      $.proxy(this.hide, this),
     );
 
     this.backdrop(function () {
@@ -1140,7 +1140,7 @@ if (typeof jQuery === "undefined") {
           ) {
             this.$element.trigger("focus");
           }
-        }, this)
+        }, this),
       );
   };
 
@@ -1150,7 +1150,7 @@ if (typeof jQuery === "undefined") {
         "keydown.dismiss.bs.modal",
         $.proxy(function (e) {
           e.which == 27 && this.hide();
-        }, this)
+        }, this),
       );
     } else if (!this.isShown) {
       this.$element.off("keydown.dismiss.bs.modal");
@@ -1197,7 +1197,7 @@ if (typeof jQuery === "undefined") {
             this.options.backdrop == "static"
               ? this.$element[0].focus.call(this.$element[0])
               : this.hide.call(this);
-          }, this)
+          }, this),
         );
 
       if (doAnimate) this.$backdrop[0].offsetWidth; // force reflow
@@ -1305,7 +1305,7 @@ if (typeof jQuery === "undefined") {
         {},
         Modal.DEFAULTS,
         $this.data(),
-        typeof option == "object" && option
+        typeof option == "object" && option,
       );
 
       if (!data) $this.data("bs.modal", (data = new Modal(this, options)));
@@ -1338,14 +1338,14 @@ if (typeof jQuery === "undefined") {
       var href = $this.attr("href");
       var $target = $(
         $this.attr("data-target") ||
-          (href && href.replace(/.*(?=#[^\s]+$)/, ""))
+          (href && href.replace(/.*(?=#[^\s]+$)/, "")),
       ); // strip for ie7
       var option = $target.data("bs.modal")
         ? "toggle"
         : $.extend(
             { remote: !/#/.test(href) && href },
             $target.data(),
-            $this.data()
+            $this.data(),
           );
 
       if ($this.is("a")) e.preventDefault();
@@ -1357,7 +1357,7 @@ if (typeof jQuery === "undefined") {
         });
       });
       Plugin.call($target, option, this);
-    }
+    },
   );
 })(jQuery);
 
@@ -1427,7 +1427,7 @@ if (typeof jQuery === "undefined") {
         this.$element.on(
           "click." + this.type,
           this.options.selector,
-          $.proxy(this.toggle, this)
+          $.proxy(this.toggle, this),
         );
       } else if (trigger != "manual") {
         var eventIn = trigger == "hover" ? "mouseenter" : "focusin";
@@ -1436,12 +1436,12 @@ if (typeof jQuery === "undefined") {
         this.$element.on(
           eventIn + "." + this.type,
           this.options.selector,
-          $.proxy(this.enter, this)
+          $.proxy(this.enter, this),
         );
         this.$element.on(
           eventOut + "." + this.type,
           this.options.selector,
-          $.proxy(this.leave, this)
+          $.proxy(this.leave, this),
         );
       }
     }
@@ -1540,7 +1540,7 @@ if (typeof jQuery === "undefined") {
 
       var inDom = $.contains(
         this.$element[0].ownerDocument.documentElement,
-        this.$element[0]
+        this.$element[0],
       );
       if (e.isDefaultPrevented() || !inDom) return;
       var that = this;
@@ -1590,13 +1590,14 @@ if (typeof jQuery === "undefined") {
           pos.bottom + actualHeight > containerDim.bottom
             ? "top"
             : placement == "top" && pos.top - actualHeight < containerDim.top
-            ? "bottom"
-            : placement == "right" &&
-              pos.right + actualWidth > containerDim.width
-            ? "left"
-            : placement == "left" && pos.left - actualWidth < containerDim.left
-            ? "right"
-            : placement;
+              ? "bottom"
+              : placement == "right" &&
+                  pos.right + actualWidth > containerDim.width
+                ? "left"
+                : placement == "left" &&
+                    pos.left - actualWidth < containerDim.left
+                  ? "right"
+                  : placement;
 
         $tip.removeClass(orgPlacement).addClass(placement);
       }
@@ -1605,7 +1606,7 @@ if (typeof jQuery === "undefined") {
         placement,
         pos,
         actualWidth,
-        actualHeight
+        actualHeight,
       );
 
       this.applyPlacement(calculatedOffset, placement);
@@ -1655,9 +1656,9 @@ if (typeof jQuery === "undefined") {
             });
           },
         },
-        offset
+        offset,
       ),
-      0
+      0,
     );
 
     $tip.addClass("in");
@@ -1674,7 +1675,7 @@ if (typeof jQuery === "undefined") {
       placement,
       offset,
       actualWidth,
-      actualHeight
+      actualHeight,
     );
 
     if (delta.left) offset.left += delta.left;
@@ -1779,7 +1780,7 @@ if (typeof jQuery === "undefined") {
     placement,
     pos,
     actualWidth,
-    actualHeight
+    actualHeight,
   ) {
     return placement == "bottom"
       ? {
@@ -1787,26 +1788,26 @@ if (typeof jQuery === "undefined") {
           left: pos.left + pos.width / 2 - actualWidth / 2,
         }
       : placement == "top"
-      ? {
-          top: pos.top - actualHeight,
-          left: pos.left + pos.width / 2 - actualWidth / 2,
-        }
-      : placement == "left"
-      ? {
-          top: pos.top + pos.height / 2 - actualHeight / 2,
-          left: pos.left - actualWidth,
-        }
-      : /* placement == 'right' */ {
-          top: pos.top + pos.height / 2 - actualHeight / 2,
-          left: pos.left + pos.width,
-        };
+        ? {
+            top: pos.top - actualHeight,
+            left: pos.left + pos.width / 2 - actualWidth / 2,
+          }
+        : placement == "left"
+          ? {
+              top: pos.top + pos.height / 2 - actualHeight / 2,
+              left: pos.left - actualWidth,
+            }
+          : /* placement == 'right' */ {
+              top: pos.top + pos.height / 2 - actualHeight / 2,
+              left: pos.left + pos.width,
+            };
   };
 
   Tooltip.prototype.getViewportAdjustedDelta = function (
     placement,
     pos,
     actualWidth,
-    actualHeight
+    actualHeight,
   ) {
     var delta = { top: 0, left: 0 };
     if (!this.$viewport) return delta;
@@ -2119,7 +2120,7 @@ if (typeof jQuery === "undefined") {
       this.$scrollElement[0].scrollHeight ||
       Math.max(
         this.$body[0].scrollHeight,
-        document.documentElement.scrollHeight
+        document.documentElement.scrollHeight,
       )
     );
   };
@@ -2448,7 +2449,7 @@ if (typeof jQuery === "undefined") {
       .on("scroll.bs.affix.data-api", $.proxy(this.checkPosition, this))
       .on(
         "click.bs.affix.data-api",
-        $.proxy(this.checkPositionWithEventLoop, this)
+        $.proxy(this.checkPositionWithEventLoop, this),
       );
 
     this.$element = $(element);
@@ -2470,7 +2471,7 @@ if (typeof jQuery === "undefined") {
     scrollHeight,
     height,
     offsetTop,
-    offsetBottom
+    offsetBottom,
   ) {
     var scrollTop = this.$target.scrollTop();
     var position = this.$element.offset();
