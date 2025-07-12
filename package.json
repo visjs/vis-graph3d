@@ -145,7 +145,7 @@
   "license": "(Apache-2.0 OR MIT)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/visjs/vis-graph3d.git"
+    "url": "git+https://github.com/visjs/vis-graph3d.git"
   },
   "bugs": {
     "url": "https://github.com/visjs/vis-graph3d/issues"
