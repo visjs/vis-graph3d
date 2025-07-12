@@ -55,7 +55,7 @@ window._pr_isIE6 = function () {
                   .replace(M, "&lt;")
                   .replace(N, "&gt;")
                   .replace(X, "&quot;"),
-                '"'
+                '"',
               );
           }
         }
@@ -125,8 +125,8 @@ window._pr_isIE6 = function () {
         .match(
           RegExp(
             "\\\\u[0-9A-Fa-f]{4}|\\\\x[0-9A-Fa-f]{2}|\\\\[0-3][0-7]{0,2}|\\\\[0-7]{1,2}|\\\\[\\s\\S]|-|[^-\\\\]",
-            "g"
-          )
+            "g",
+          ),
         );
       c = [];
       for (
@@ -195,8 +195,8 @@ window._pr_isIE6 = function () {
         var d = c.source.match(
             RegExp(
               "(?:\\[(?:[^\\x5C\\x5D]|\\\\[\\s\\S])*\\]|\\\\u[A-Fa-f0-9]{4}|\\\\x[A-Fa-f0-9]{2}|\\\\[0-9]+|\\\\[^ux0-9]|\\(\\?[:!=]|[\\(\\)\\^]|[^\\x5B\\x5C\\(\\)\\^]+)",
-              "g"
-            )
+              "g",
+            ),
           ),
           a = d.length,
           k = [],
@@ -239,7 +239,7 @@ window._pr_isIE6 = function () {
       if (t.ignoreCase) j = true;
       else if (
         /[a-z]/i.test(
-          t.source.replace(/\\u[0-9a-f]{4}|\\x[0-9a-f]{2}|\\[^ux]/gi, "")
+          t.source.replace(/\\u[0-9a-f]{4}|\\x[0-9a-f]{2}|\\[^ux]/gi, ""),
         )
       ) {
         r = true;
@@ -439,7 +439,7 @@ window._pr_isIE6 = function () {
         RegExp(
           "^" +
             Z +
-            "(/(?=[^/*])(?:[^/\\x5B\\x5C]|\\x5C[\\s\\S]|\\x5B(?:[^\\x5C\\x5D]|\\x5C[\\s\\S])*(?:\\x5D|$))+/)"
+            "(/(?=[^/*])(?:[^/\\x5B\\x5C]|\\x5C[\\s\\S]|\\x5B(?:[^\\x5C\\x5D]|\\x5C[\\s\\S])*(?:\\x5D|$))+/)",
         ),
       ]);
     b = b.keywords.replace(/^\s+|\s+$/g, "");
@@ -456,7 +456,7 @@ window._pr_isIE6 = function () {
         null,
         "0123456789",
       ],
-      [E, /^.[^\s\w\.$@\'\"\`\/\#]*/, null]
+      [E, /^.[^\s\w\.$@\'\"\`\/\#]*/, null],
     );
     return B(f, i);
   }
@@ -504,8 +504,8 @@ window._pr_isIE6 = function () {
         ? h === 6
           ? "&#160;\r\n"
           : h === 7
-          ? "&#160;<br>\r"
-          : "&#160;\r"
+            ? "&#160;<br>\r"
+            : "&#160;\r"
         : "&#160;<br />"
       : "<br />";
     var g = b.b.className.match(/\blinenums\b(?::(\d+))?/),
@@ -592,7 +592,7 @@ window._pr_isIE6 = function () {
                 m
                   .replace(
                     /\s(\w+)\s*=\s*(?:\"([^\"]*)\"|'([^\']*)'|(\S+))/g,
-                    ' $1="$2$3$4"'
+                    ' $1="$2$3$4"',
                   )
                   .match(/[cC][lL][aA][sS][sS]=\"[^\"]*\bnocode\b/)
               ) {
@@ -754,7 +754,7 @@ window._pr_isIE6 = function () {
     K = null,
     aa = RegExp(
       "[^<]+|<!--[\\s\\S]*?-->|<!\\[CDATA\\[[\\s\\S]*?\\]\\]>|</?[a-zA-Z](?:[^>\"']|'[^']*'|\"[^\"]*\")*>|<",
-      "g"
+      "g",
     ),
     ba = /^<\!--/,
     ca = /^<!\[CDATA\[/,
@@ -784,9 +784,9 @@ window._pr_isIE6 = function () {
         ["lang-js", /^<script\b[^>]*>([\s\S]*?)(<\/script\b[^>]*>)/i],
         ["lang-css", /^<style\b[^>]*>([\s\S]*?)(<\/style\b[^>]*>)/i],
         ["lang-in.tag", /^(<\/?[a-z][^<>]*>)/i],
-      ]
+      ],
     ),
-    ["default-markup", "htm", "html", "mxml", "xhtml", "xml", "xsl"]
+    ["default-markup", "htm", "html", "mxml", "xhtml", "xml", "xsl"],
   );
   u(
     B(
@@ -805,9 +805,9 @@ window._pr_isIE6 = function () {
         ["lang-css", /^style\s*=\s*\"([^\"]+)\"/i],
         ["lang-css", /^style\s*=\s*\'([^\']+)\'/i],
         ["lang-css", /^style\s*=\s*([^\"\'>\s]+)/i],
-      ]
+      ],
     ),
-    ["in.tag"]
+    ["in.tag"],
   );
   u(B([], [["atv", /^[\s\S]+/]]), ["uq.val"]);
   u(
@@ -817,7 +817,7 @@ window._pr_isIE6 = function () {
       hashComments: true,
       cStyleComments: true,
     }),
-    ["c", "cc", "cpp", "cxx", "cyc", "m"]
+    ["c", "cc", "cpp", "cxx", "cyc", "m"],
   );
   u(x({ keywords: "null true false" }), ["json"]);
   u(
@@ -828,7 +828,7 @@ window._pr_isIE6 = function () {
       cStyleComments: true,
       verbatimStrings: true,
     }),
-    ["cs"]
+    ["cs"],
   );
   u(
     x({
@@ -836,7 +836,7 @@ window._pr_isIE6 = function () {
         "break continue do else for if return while auto case char const default double enum extern float goto int long register short signed sizeof static struct switch typedef union unsigned void volatile catch class delete false import new operator private protected public this throw true try typeof abstract boolean byte extends final finally implements import instanceof null native package strictfp super synchronized throws transient ",
       cStyleComments: true,
     }),
-    ["java"]
+    ["java"],
   );
   u(
     x({
@@ -845,7 +845,7 @@ window._pr_isIE6 = function () {
       hashComments: true,
       multiLineStrings: true,
     }),
-    ["bsh", "csh", "sh"]
+    ["bsh", "csh", "sh"],
   );
   u(
     x({
@@ -855,7 +855,7 @@ window._pr_isIE6 = function () {
       multiLineStrings: true,
       tripleQuotedStrings: true,
     }),
-    ["cv", "py"]
+    ["cv", "py"],
   );
   u(
     x({
@@ -865,7 +865,7 @@ window._pr_isIE6 = function () {
       multiLineStrings: true,
       regexLiterals: true,
     }),
-    ["perl", "pl", "pm"]
+    ["perl", "pl", "pm"],
   );
   u(
     x({
@@ -875,7 +875,7 @@ window._pr_isIE6 = function () {
       multiLineStrings: true,
       regexLiterals: true,
     }),
-    ["rb"]
+    ["rb"],
   );
   u(
     x({
@@ -884,7 +884,7 @@ window._pr_isIE6 = function () {
       cStyleComments: true,
       regexLiterals: true,
     }),
-    ["js"]
+    ["js"],
   );
   u(B([], [[A, /^[\s\S]+/]]), ["regex"]);
   window.PR_normalizedHtml = H;
@@ -924,8 +924,8 @@ window._pr_isIE6 = function () {
               d = document.createElement("PRE");
               d.appendChild(
                 document.createTextNode(
-                  '<!DOCTYPE foo PUBLIC "foo bar">\n<foo />'
-                )
+                  '<!DOCTYPE foo PUBLIC "foo bar">\n<foo />',
+                ),
               );
               K = !/</.test(d.innerHTML);
             }

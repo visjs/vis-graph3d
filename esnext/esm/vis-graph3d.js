@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2025-07-06T13:13:28.811Z
+ * @date    2025-07-12T19:04:07.973Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -29,16 +29,11 @@ import * as util from 'vis-util/esnext/esm/vis-util.js';
 import { Validator, VALIDATOR_PRINT_STYLE } from 'vis-util/esnext/esm/vis-util.js';
 import { DataView, DataSet } from 'vis-data/esnext/esm/vis-data.js';
 
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
 /**
  * @param {number} [x]
  * @param {number} [y]
  * @param {number} [z]
  */
-
 function Point3d(x, y, z) {
   this.x = x !== undefined ? x : 0;
   this.y = y !== undefined ? y : 0;
@@ -137,23 +132,14 @@ Point3d.prototype.normalize = function () {
   return Point3d.scalarProduct(this, 1 / this.length());
 };
 
-var Point3d_1 = Point3d;
-
-var Point3d$1 = /*@__PURE__*/getDefaultExportFromCjs(Point3d_1);
-
 /**
  * @param {number} [x]
  * @param {number} [y]
  */
-
 function Point2d(x, y) {
   this.x = x !== undefined ? x : 0;
   this.y = y !== undefined ? y : 0;
 }
-
-var Point2d_1 = Point2d;
-
-var Point2d$1 = /*@__PURE__*/getDefaultExportFromCjs(Point2d_1);
 
 /**
  * An html slider control with start/stop/prev/next buttons
@@ -527,7 +513,6 @@ Slider.prototype._onMouseUp = function () {
  * @param {boolean} prettyStep Optional. If true, the step size is rounded
  *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
  */
-
 function StepNumber(start, end, step, prettyStep) {
   // set default values
   this._start = 0;
@@ -677,10 +662,6 @@ StepNumber.prototype.end = function () {
   return this._current > this._end;
 };
 
-var StepNumber_1 = StepNumber;
-
-var StepNumber$1 = /*@__PURE__*/getDefaultExportFromCjs(StepNumber_1);
-
 /**
  * The camera is mounted on a (virtual) camera arm. The camera arm can rotate
  * The camera is always looking in the direction of the origin of the arm.
@@ -692,16 +673,16 @@ var StepNumber$1 = /*@__PURE__*/getDefaultExportFromCjs(StepNumber_1);
  * @class Camera
  */
 function Camera() {
-  this.armLocation = new Point3d$1();
+  this.armLocation = new Point3d();
   this.armRotation = {};
   this.armRotation.horizontal = 0;
   this.armRotation.vertical = 0;
   this.armLength = 1.7;
-  this.cameraOffset = new Point3d$1();
+  this.cameraOffset = new Point3d();
   this.offsetMultiplier = 0.6;
 
-  this.cameraLocation = new Point3d$1();
-  this.cameraRotation = new Point3d$1(0.5 * Math.PI, 0, 0);
+  this.cameraLocation = new Point3d();
+  this.cameraRotation = new Point3d(0.5 * Math.PI, 0, 0);
 
   this.calculateCameraOrientation();
 }
@@ -1100,7 +1081,7 @@ function setDefaults(src, dst) {
   dst.margin = 10; // px
   dst.showTooltip = false;
   dst.onclick_callback = null;
-  dst.eye = new Point3d$1(0, 0, -1); // TODO: set eye.z about 3/4 of the width of the window?
+  dst.eye = new Point3d(0, 0, -1); // TODO: set eye.z about 3/4 of the width of the window?
 }
 
 /**
@@ -1146,11 +1127,11 @@ function setSpecialSettings(src, dst) {
     console.warn(
       "`options.surfaceColors` is deprecated and may be removed in a future " +
         "version. Please use `options.colormap` instead. Note that the `colormap` " +
-        "option uses the inverse array ordering (running from vMin to vMax)."
+        "option uses the inverse array ordering (running from vMin to vMax).",
     );
     if (src.colormap !== undefined) {
       throw new Error(
-        "The `colormap` and `surfaceColors` options are mutually exclusive."
+        "The `colormap` and `surfaceColors` options are mutually exclusive.",
       );
     }
     if (dst.style !== "surface") {
@@ -1158,7 +1139,7 @@ function setSpecialSettings(src, dst) {
         "Ignoring `surfaceColors` in graph style `" +
           dst.style +
           "` for " +
-          "backward compatibility (only effective in `surface` plots)."
+          "backward compatibility (only effective in `surface` plots).",
       );
     } else {
       setSurfaceColor(src.surfaceColors, dst);
@@ -1178,7 +1159,7 @@ function setSpecialSettings(src, dst) {
     dst.onclick_callback = src.onclick;
     console.warn(
       "`options.onclick` is deprecated and may be removed in a future version." +
-        " Please use `Graph3d.on('click', handler)` instead."
+        " Please use `Graph3d.on('click', handler)` instead.",
     );
   }
 
@@ -1433,8 +1414,8 @@ function parseColorObject(hues) {
       util.HSVToRGB(
         hue < 0 ? hue + 1 : hue,
         hues.saturation / 100,
-        hues.brightness / 100
-      )
+        hues.brightness / 100,
+      ),
     );
   }
   return rgbColors;
@@ -1630,7 +1611,6 @@ const allOptions = {
  *
  *    this.min <= value <= this.max
  */
-
 function Range() {
   this.min = undefined;
   this.max = undefined;
@@ -1706,10 +1686,6 @@ Range.prototype.range = function () {
 Range.prototype.center = function () {
   return (this.min + this.max) / 2;
 };
-
-var Range_1 = Range;
-
-var Range$1 = /*@__PURE__*/getDefaultExportFromCjs(Range_1);
 
 /**
  * @class Filter
@@ -2002,7 +1978,7 @@ DataGroup.prototype.initializeData = function (graph3d, rawData, style) {
     this._setRangeDefaults(
       valueRange,
       graph3d.defaultValueMin,
-      graph3d.defaultValueMax
+      graph3d.defaultValueMax,
     );
     this.valueRange = valueRange;
   } else {
@@ -2079,7 +2055,7 @@ DataGroup.prototype._initializeRange = function (
   data,
   column,
   graph3d,
-  withBars
+  withBars,
 ) {
   const NUMSTEPS = 5;
   const settings = this._collectRangeSettings(column, graph3d);
@@ -2156,7 +2132,7 @@ DataGroup.prototype.getSmallestDifference = function (data, column) {
  * @returns {Range} A Range instance with min/max members properly set.
  */
 DataGroup.prototype.getColumnRange = function (data, column) {
-  const range = new Range$1();
+  const range = new Range();
 
   // Adjust the range so that it covers all values in the passed data elements.
   for (let i = 0; i < data.length; i++) {
@@ -2191,7 +2167,7 @@ DataGroup.prototype.getNumberOfRows = function () {
 DataGroup.prototype._setRangeDefaults = function (
   range,
   defaultMin,
-  defaultMax
+  defaultMax,
 ) {
   if (defaultMin !== undefined) {
     range.min = defaultMin;
@@ -2224,7 +2200,7 @@ DataGroup.prototype.getDataPoints = function (data) {
   const dataPoints = [];
 
   for (let i = 0; i < data.length; i++) {
-    const point = new Point3d$1();
+    const point = new Point3d();
     point.x = data[i][this.colX] || 0;
     point.y = data[i][this.colY] || 0;
     point.z = data[i][this.colZ] || 0;
@@ -2233,7 +2209,7 @@ DataGroup.prototype.getDataPoints = function (data) {
 
     const obj = {};
     obj.point = point;
-    obj.bottom = new Point3d$1(point.x, point.y, this.zRange.min);
+    obj.bottom = new Point3d(point.x, point.y, this.zRange.min);
     obj.trans = undefined;
     obj.screen = undefined;
 
@@ -2530,10 +2506,10 @@ Emitter(Graph3d.prototype);
  * Calculate the scaling values, dependent on the range in x, y, and z direction
  */
 Graph3d.prototype._setScale = function () {
-  this.scale = new Point3d$1(
+  this.scale = new Point3d(
     1 / this.xRange.range(),
     1 / this.yRange.range(),
-    1 / this.zRange.range()
+    1 / this.zRange.range(),
   );
 
   // keep aspect ration between x and y scale if desired
@@ -2609,7 +2585,7 @@ Graph3d.prototype._convertPointToTranslation = function (point3d) {
         (cosTy * (az - cz) + sinTy * (sinTz * (ay - cy) + cosTz * (ax - cx))) -
       sinTx * (cosTz * (ay - cy) - sinTz * (ax - cx));
 
-  return new Point3d$1(dx, dy, dz);
+  return new Point3d(dx, dy, dz);
 };
 
 /**
@@ -2640,9 +2616,9 @@ Graph3d.prototype._convertTranslationToScreen = function (translation) {
 
   // shift and scale the point to the center of the screen
   // use the width of the graph to scale both horizontally and vertically.
-  return new Point2d$1(
+  return new Point2d(
     this.currentXCenter + bx * this.frame.canvas.clientWidth,
-    this.currentYCenter - by * this.frame.canvas.clientWidth
+    this.currentYCenter - by * this.frame.canvas.clientWidth,
   );
 };
 
@@ -2705,7 +2681,7 @@ Graph3d.prototype.getDataPoints = function (data) {
   const dataPoints = [];
 
   for (let i = 0; i < data.length; i++) {
-    const point = new Point3d$1();
+    const point = new Point3d();
     point.x = data[i][this.colX] || 0;
     point.y = data[i][this.colY] || 0;
     point.z = data[i][this.colZ] || 0;
@@ -2714,7 +2690,7 @@ Graph3d.prototype.getDataPoints = function (data) {
 
     const obj = {};
     obj.point = point;
-    obj.bottom = new Point3d$1(point.x, point.y, this.zRange.min);
+    obj.bottom = new Point3d(point.x, point.y, this.zRange.min);
     obj.trans = undefined;
     obj.screen = undefined;
 
@@ -2987,7 +2963,7 @@ Graph3d.prototype.setOptions = function (options) {
   if (errorFound === true) {
     console.error(
       "%cErrors have been found in the supplied options object.",
-      VALIDATOR_PRINT_STYLE
+      VALIDATOR_PRINT_STYLE,
     );
   }
 
@@ -3044,7 +3020,7 @@ Graph3d.prototype.setPointDrawingMethod = function () {
         "Can not determine point drawing method " +
           "for graph style '" +
           this.style +
-          "'"
+          "'",
       );
   }
 
@@ -3218,11 +3194,11 @@ Graph3d.prototype._redrawLegend = function () {
 
   const legendMin = isValueLegend ? this.valueRange.min : this.zRange.min;
   const legendMax = isValueLegend ? this.valueRange.max : this.zRange.max;
-  const step = new StepNumber$1(
+  const step = new StepNumber(
     legendMin,
     legendMax,
     (legendMax - legendMin) / 5,
-    true
+    true,
   );
   step.start(true);
 
@@ -3230,8 +3206,8 @@ Graph3d.prototype._redrawLegend = function () {
     const y =
       bottom -
       ((step.getCurrent() - legendMin) / (legendMax - legendMin)) * height;
-    const from = new Point2d$1(left - gridLineLen, y);
-    const to = new Point2d$1(left, y);
+    const from = new Point2d(left - gridLineLen, y);
+    const to = new Point2d(left, y);
     this._line(ctx, from, to);
 
     ctx.textAlign = "right";
@@ -3352,7 +3328,7 @@ Graph3d.prototype.drawAxisLabelX = function (
   point3d,
   text,
   armAngle,
-  yMargin
+  yMargin,
 ) {
   if (yMargin === undefined) {
     yMargin = 0;
@@ -3389,7 +3365,7 @@ Graph3d.prototype.drawAxisLabelY = function (
   point3d,
   text,
   armAngle,
-  yMargin
+  yMargin,
 ) {
   if (yMargin === undefined) {
     yMargin = 0;
@@ -3445,7 +3421,7 @@ Graph3d.prototype.drawAxisLabelXRotate = function (
   point3d,
   text,
   armAngle,
-  yMargin
+  yMargin,
 ) {
 
   const point2d = this._convert3Dto2D(point3d);
@@ -3484,7 +3460,7 @@ Graph3d.prototype.drawAxisLabelYRotate = function (
   point3d,
   text,
   armAngle,
-  yMargin
+  yMargin,
 ) {
 
   const point2d = this._convert3Dto2D(point3d);
@@ -3577,7 +3553,7 @@ Graph3d.prototype._redrawAxis = function () {
   const gridLenY = 0.025 / this.scale.y;
   const textMargin = 5 / this.camera.getArmLength(); // px
   const armAngle = this.camera.getArmRotation().horizontal;
-  const armVector = new Point2d$1(Math.cos(armAngle), Math.sin(armAngle));
+  const armVector = new Point2d(Math.cos(armAngle), Math.sin(armAngle));
 
   const xRange = this.xRange;
   const yRange = this.yRange;
@@ -3587,29 +3563,29 @@ Graph3d.prototype._redrawAxis = function () {
   // draw x-grid lines
   ctx.lineWidth = 1;
   prettyStep = this.defaultXStep === undefined;
-  step = new StepNumber$1(xRange.min, xRange.max, this.xStep, prettyStep);
+  step = new StepNumber(xRange.min, xRange.max, this.xStep, prettyStep);
   step.start(true);
 
   while (!step.end()) {
     const x = step.getCurrent();
 
     if (this.showGrid) {
-      from = new Point3d$1(x, yRange.min, zRange.min);
-      to = new Point3d$1(x, yRange.max, zRange.min);
+      from = new Point3d(x, yRange.min, zRange.min);
+      to = new Point3d(x, yRange.max, zRange.min);
       this._line3d(ctx, from, to, this.gridColor);
     } else if (this.showXAxis) {
-      from = new Point3d$1(x, yRange.min, zRange.min);
-      to = new Point3d$1(x, yRange.min + gridLenX, zRange.min);
+      from = new Point3d(x, yRange.min, zRange.min);
+      to = new Point3d(x, yRange.min + gridLenX, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
 
-      from = new Point3d$1(x, yRange.max, zRange.min);
-      to = new Point3d$1(x, yRange.max - gridLenX, zRange.min);
+      from = new Point3d(x, yRange.max, zRange.min);
+      to = new Point3d(x, yRange.max - gridLenX, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
     }
 
     if (this.showXAxis) {
       yText = armVector.x > 0 ? yRange.min : yRange.max;
-      point3d = new Point3d$1(x, yText, zRange.min);
+      point3d = new Point3d(x, yText, zRange.min);
       const msg = "  " + this.xValueLabel(x) + "  ";
       this._drawAxisLabelX.call(this, ctx, point3d, msg, armAngle, textMargin);
     }
@@ -3620,29 +3596,29 @@ Graph3d.prototype._redrawAxis = function () {
   // draw y-grid lines
   ctx.lineWidth = 1;
   prettyStep = this.defaultYStep === undefined;
-  step = new StepNumber$1(yRange.min, yRange.max, this.yStep, prettyStep);
+  step = new StepNumber(yRange.min, yRange.max, this.yStep, prettyStep);
   step.start(true);
 
   while (!step.end()) {
     const y = step.getCurrent();
 
     if (this.showGrid) {
-      from = new Point3d$1(xRange.min, y, zRange.min);
-      to = new Point3d$1(xRange.max, y, zRange.min);
+      from = new Point3d(xRange.min, y, zRange.min);
+      to = new Point3d(xRange.max, y, zRange.min);
       this._line3d(ctx, from, to, this.gridColor);
     } else if (this.showYAxis) {
-      from = new Point3d$1(xRange.min, y, zRange.min);
-      to = new Point3d$1(xRange.min + gridLenY, y, zRange.min);
+      from = new Point3d(xRange.min, y, zRange.min);
+      to = new Point3d(xRange.min + gridLenY, y, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
 
-      from = new Point3d$1(xRange.max, y, zRange.min);
-      to = new Point3d$1(xRange.max - gridLenY, y, zRange.min);
+      from = new Point3d(xRange.max, y, zRange.min);
+      to = new Point3d(xRange.max - gridLenY, y, zRange.min);
       this._line3d(ctx, from, to, this.axisColor);
     }
 
     if (this.showYAxis) {
       xText = armVector.y > 0 ? xRange.min : xRange.max;
-      point3d = new Point3d$1(xText, y, zRange.min);
+      point3d = new Point3d(xText, y, zRange.min);
       const msg = "  " + this.yValueLabel(y) + "  ";
       this._drawAxisLabelY.call(this, ctx, point3d, msg, armAngle, textMargin);
     }
@@ -3654,7 +3630,7 @@ Graph3d.prototype._redrawAxis = function () {
   if (this.showZAxis) {
     ctx.lineWidth = 1;
     prettyStep = this.defaultZStep === undefined;
-    step = new StepNumber$1(zRange.min, zRange.max, this.zStep, prettyStep);
+    step = new StepNumber(zRange.min, zRange.max, this.zStep, prettyStep);
     step.start(true);
 
     xText = armVector.x > 0 ? xRange.min : xRange.max;
@@ -3664,9 +3640,9 @@ Graph3d.prototype._redrawAxis = function () {
       const z = step.getCurrent();
 
       // TODO: make z-grid lines really 3d?
-      const from3d = new Point3d$1(xText, yText, z);
+      const from3d = new Point3d(xText, yText, z);
       const from2d = this._convert3Dto2D(from3d);
-      to = new Point2d$1(from2d.x - textMargin, from2d.y);
+      to = new Point2d(from2d.x - textMargin, from2d.y);
       this._line(ctx, from2d, to, this.axisColor);
 
       const msg = this.zValueLabel(z) + " ";
@@ -3676,8 +3652,8 @@ Graph3d.prototype._redrawAxis = function () {
     }
 
     ctx.lineWidth = 1;
-    from = new Point3d$1(xText, yText, zRange.min);
-    to = new Point3d$1(xText, yText, zRange.max);
+    from = new Point3d(xText, yText, zRange.min);
+    to = new Point3d(xText, yText, zRange.max);
     this._line3d(ctx, from, to, this.axisColor);
   }
 
@@ -3688,12 +3664,12 @@ Graph3d.prototype._redrawAxis = function () {
     ctx.lineWidth = 1;
 
     // line at yMin
-    xMin2d = new Point3d$1(xRange.min, yRange.min, zRange.min);
-    xMax2d = new Point3d$1(xRange.max, yRange.min, zRange.min);
+    xMin2d = new Point3d(xRange.min, yRange.min, zRange.min);
+    xMax2d = new Point3d(xRange.max, yRange.min, zRange.min);
     this._line3d(ctx, xMin2d, xMax2d, this.axisColor);
     // line at ymax
-    xMin2d = new Point3d$1(xRange.min, yRange.max, zRange.min);
-    xMax2d = new Point3d$1(xRange.max, yRange.max, zRange.min);
+    xMin2d = new Point3d(xRange.min, yRange.max, zRange.min);
+    xMax2d = new Point3d(xRange.max, yRange.max, zRange.min);
     this._line3d(ctx, xMin2d, xMax2d, this.axisColor);
   }
 
@@ -3701,12 +3677,12 @@ Graph3d.prototype._redrawAxis = function () {
   if (this.showYAxis) {
     ctx.lineWidth = 1;
     // line at xMin
-    from = new Point3d$1(xRange.min, yRange.min, zRange.min);
-    to = new Point3d$1(xRange.min, yRange.max, zRange.min);
+    from = new Point3d(xRange.min, yRange.min, zRange.min);
+    to = new Point3d(xRange.min, yRange.max, zRange.min);
     this._line3d(ctx, from, to, this.axisColor);
     // line at xMax
-    from = new Point3d$1(xRange.max, yRange.min, zRange.min);
-    to = new Point3d$1(xRange.max, yRange.max, zRange.min);
+    from = new Point3d(xRange.max, yRange.min, zRange.min);
+    to = new Point3d(xRange.max, yRange.max, zRange.min);
     this._line3d(ctx, from, to, this.axisColor);
   }
 
@@ -3716,7 +3692,7 @@ Graph3d.prototype._redrawAxis = function () {
     yOffset = 0.1 / this.scale.y;
     xText = (xRange.max + 3 * xRange.min) / 4;
     yText = armVector.x > 0 ? yRange.min - yOffset : yRange.max + yOffset;
-    text = new Point3d$1(xText, yText, zRange.min);
+    text = new Point3d(xText, yText, zRange.min);
     this.drawAxisLabelX(ctx, text, xLabel, armAngle);
   }
 
@@ -3726,7 +3702,7 @@ Graph3d.prototype._redrawAxis = function () {
     xOffset = 0.1 / this.scale.x;
     xText = armVector.y > 0 ? xRange.min - xOffset : xRange.max + xOffset;
     yText = (yRange.max + 3 * yRange.min) / 4;
-    text = new Point3d$1(xText, yText, zRange.min);
+    text = new Point3d(xText, yText, zRange.min);
 
     this.drawAxisLabelY(ctx, text, yLabel, armAngle);
   }
@@ -3738,7 +3714,7 @@ Graph3d.prototype._redrawAxis = function () {
     xText = armVector.x > 0 ? xRange.min : xRange.max;
     yText = armVector.y < 0 ? yRange.min : yRange.max;
     zText = (zRange.max + 3 * zRange.min) / 4;
-    text = new Point3d$1(xText, yText, zText);
+    text = new Point3d(xText, yText, zText);
 
     this.drawAxisLabelZ(ctx, text, zLabel, offset);
   }
@@ -3784,7 +3760,7 @@ Graph3d.prototype._redrawBar = function (
   xWidth,
   yWidth,
   color,
-  borderColor
+  borderColor,
 ) {
   let surface;
 
@@ -3793,16 +3769,16 @@ Graph3d.prototype._redrawBar = function (
   const point3d = point.point;
   const zMin = this.zRange.min;
   const top = [
-    { point: new Point3d$1(point3d.x - xWidth, point3d.y - yWidth, point3d.z) },
-    { point: new Point3d$1(point3d.x + xWidth, point3d.y - yWidth, point3d.z) },
-    { point: new Point3d$1(point3d.x + xWidth, point3d.y + yWidth, point3d.z) },
-    { point: new Point3d$1(point3d.x - xWidth, point3d.y + yWidth, point3d.z) },
+    { point: new Point3d(point3d.x - xWidth, point3d.y - yWidth, point3d.z) },
+    { point: new Point3d(point3d.x + xWidth, point3d.y - yWidth, point3d.z) },
+    { point: new Point3d(point3d.x + xWidth, point3d.y + yWidth, point3d.z) },
+    { point: new Point3d(point3d.x - xWidth, point3d.y + yWidth, point3d.z) },
   ];
   const bottom = [
-    { point: new Point3d$1(point3d.x - xWidth, point3d.y - yWidth, zMin) },
-    { point: new Point3d$1(point3d.x + xWidth, point3d.y - yWidth, zMin) },
-    { point: new Point3d$1(point3d.x + xWidth, point3d.y + yWidth, zMin) },
-    { point: new Point3d$1(point3d.x - xWidth, point3d.y + yWidth, zMin) },
+    { point: new Point3d(point3d.x - xWidth, point3d.y - yWidth, zMin) },
+    { point: new Point3d(point3d.x + xWidth, point3d.y - yWidth, zMin) },
+    { point: new Point3d(point3d.x + xWidth, point3d.y + yWidth, zMin) },
+    { point: new Point3d(point3d.x - xWidth, point3d.y + yWidth, zMin) },
   ];
 
   // calculate screen location of the points
@@ -3815,22 +3791,22 @@ Graph3d.prototype._redrawBar = function (
 
   // create five sides, calculate both corner points and center points
   const surfaces = [
-    { corners: top, center: Point3d$1.avg(bottom[0].point, bottom[2].point) },
+    { corners: top, center: Point3d.avg(bottom[0].point, bottom[2].point) },
     {
       corners: [top[0], top[1], bottom[1], bottom[0]],
-      center: Point3d$1.avg(bottom[1].point, bottom[0].point),
+      center: Point3d.avg(bottom[1].point, bottom[0].point),
     },
     {
       corners: [top[1], top[2], bottom[2], bottom[1]],
-      center: Point3d$1.avg(bottom[2].point, bottom[1].point),
+      center: Point3d.avg(bottom[2].point, bottom[1].point),
     },
     {
       corners: [top[2], top[3], bottom[3], bottom[2]],
-      center: Point3d$1.avg(bottom[3].point, bottom[2].point),
+      center: Point3d.avg(bottom[3].point, bottom[2].point),
     },
     {
       corners: [top[3], top[0], bottom[0], bottom[3]],
-      center: Point3d$1.avg(bottom[0].point, bottom[3].point),
+      center: Point3d.avg(bottom[0].point, bottom[3].point),
     },
   ];
   point.surfaces = surfaces;
@@ -3913,7 +3889,7 @@ Graph3d.prototype._drawCircle = function (
   point,
   color,
   borderColor,
-  size
+  size,
 ) {
   const radius = this._calcRadius(point, size);
 
@@ -4027,11 +4003,11 @@ Graph3d.prototype._colormap = function (x, v = 1) {
   }
   if (typeof a === "number" && !Number.isNaN(a)) {
     return `RGBA(${Math.round(r * v)}, ${Math.round(g * v)}, ${Math.round(
-      b * v
+      b * v,
     )}, ${a})`;
   } else {
     return `RGB(${Math.round(r * v)}, ${Math.round(g * v)}, ${Math.round(
-      b * v
+      b * v,
     )})`;
   }
 };
@@ -4202,20 +4178,20 @@ Graph3d.prototype._redrawSurfaceGraphPoint = function (ctx, point) {
     // to left and right, in order to know whether we are looking at the
     // bottom or at the top side. We can also use the cross product
     // for calculating light intensity
-    const aDiff = Point3d$1.subtract(cross.trans, point.trans);
-    const bDiff = Point3d$1.subtract(top.trans, right.trans);
-    const surfaceNormal = Point3d$1.crossProduct(aDiff, bDiff);
+    const aDiff = Point3d.subtract(cross.trans, point.trans);
+    const bDiff = Point3d.subtract(top.trans, right.trans);
+    const surfaceNormal = Point3d.crossProduct(aDiff, bDiff);
 
     if (this.showPerspective) {
-      const surfacePosition = Point3d$1.avg(
-        Point3d$1.avg(point.trans, cross.trans),
-        Point3d$1.avg(right.trans, top.trans)
+      const surfacePosition = Point3d.avg(
+        Point3d.avg(point.trans, cross.trans),
+        Point3d.avg(right.trans, top.trans),
       );
       // This corresponds to diffuse lighting with light source at (0, 0, 0).
       // More generally, we would need `surfacePosition - lightPosition`:
-      cosViewAngle = -Point3d$1.dotProduct(
+      cosViewAngle = -Point3d.dotProduct(
         surfaceNormal.normalize(),
-        surfacePosition.normalize()
+        surfacePosition.normalize(),
       );
     } else {
       cosViewAngle = surfaceNormal.z / surfaceNormal.length();
@@ -4636,13 +4612,13 @@ Graph3d.prototype._insideTriangle = function (point, triangle) {
   }
 
   const as = sign(
-    (b.x - a.x) * (point.y - a.y) - (b.y - a.y) * (point.x - a.x)
+    (b.x - a.x) * (point.y - a.y) - (b.y - a.y) * (point.x - a.x),
   );
   const bs = sign(
-    (c.x - b.x) * (point.y - b.y) - (c.y - b.y) * (point.x - b.x)
+    (c.x - b.x) * (point.y - b.y) - (c.y - b.y) * (point.x - b.x),
   );
   const cs = sign(
-    (a.x - c.x) * (point.y - c.y) - (a.y - c.y) * (point.x - c.x)
+    (a.x - c.x) * (point.y - c.y) - (a.y - c.y) * (point.x - c.x),
   );
 
   // each of the three signs must be either equal to each other or zero
@@ -4663,7 +4639,7 @@ Graph3d.prototype._insideTriangle = function (point, triangle) {
  */
 Graph3d.prototype._dataPointFromXY = function (x, y) {
   const distMax = 100; // px
-  const center = new Point2d$1(x, y);
+  const center = new Point2d(x, y);
   let i,
     dataPoint = null,
     closestDataPoint = null,
@@ -4814,7 +4790,7 @@ Graph3d.prototype._showTooltip = function (dataPoint) {
   let left = dataPoint.screen.x - contentWidth / 2;
   left = Math.min(
     Math.max(left, 10),
-    this.frame.clientWidth - 10 - contentWidth
+    this.frame.clientWidth - 10 - contentWidth,
   );
 
   line.style.left = dataPoint.screen.x + "px";
@@ -4899,5 +4875,5 @@ Graph3d.prototype.setSize = function (width, height) {
   this.redraw();
 };
 
-export { Graph3d, Camera as Graph3dCamera, Filter as Graph3dFilter, Point2d$1 as Graph3dPoint2d, Point3d$1 as Graph3dPoint3d, Slider as Graph3dSlider, StepNumber$1 as Graph3dStepNumber };
+export { Graph3d, Camera as Graph3dCamera, Filter as Graph3dFilter, Point2d as Graph3dPoint2d, Point3d as Graph3dPoint3d, Slider as Graph3dSlider, StepNumber as Graph3dStepNumber };
 //# sourceMappingURL=vis-graph3d.js.map

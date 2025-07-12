@@ -23,7 +23,7 @@ PR.registerLangHandler(
       ],
       ["pln", /^[a-z_]\w*/i],
       ["pun", /^[^\w\t\n\r \xA0][^\w\t\n\r \xA0\"\'\-\+=]*/],
-    ]
+    ],
   ),
-  ["lua"]
+  ["lua"],
 );

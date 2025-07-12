@@ -71,7 +71,7 @@ function toggleTab(tabThis) {
     var targetNodeId = child.getAttribute("targetNode");
     if (targetNodeId) {
       var targetNode = document.getElementById(
-        child.getAttribute("targetNode")
+        child.getAttribute("targetNode"),
       );
       targetNode.className =
         targetNode.className.replace(" hidden", "").replace("hidden", "") +

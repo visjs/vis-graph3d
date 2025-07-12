@@ -20,7 +20,7 @@ PR.registerLangHandler(
       ],
       ["pln", /^(?:[A-Z][\w\']*\.)*[a-zA-Z][\w\']*/],
       ["pun", /^[^\t\n\x0B\x0C\r a-zA-Z0-9\'\"]+/],
-    ]
+    ],
   ),
-  ["hs"]
+  ["hs"],
 );

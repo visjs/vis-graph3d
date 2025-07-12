@@ -32,7 +32,7 @@
     // IE JavaScript conditional compilation docs: http://msdn.microsoft.com/en-us/library/ie/121hztk3(v=vs.94).aspx
     // @cc_on docs: http://msdn.microsoft.com/en-us/library/ie/8ka90k2e(v=vs.94).aspx
     var jscriptVersion = new Function(
-      "/*@cc_on return @_jscript_version; @*/"
+      "/*@cc_on return @_jscript_version; @*/",
     )(); // jshint ignore:line
     if (jscriptVersion === undefined) {
       return 11; // IE11+ not in emulation mode
@@ -59,7 +59,7 @@
         nonEmulated +
         " in IE" +
         emulated +
-        " emulation mode.\nIE emulation modes can behave significantly differently from ACTUAL older versions of IE.\nPLEASE DON'T FILE BOOTSTRAP BUGS based on testing in IE emulation modes!"
+        " emulation mode.\nIE emulation modes can behave significantly differently from ACTUAL older versions of IE.\nPLEASE DON'T FILE BOOTSTRAP BUGS based on testing in IE emulation modes!",
     );
   }
 })();
