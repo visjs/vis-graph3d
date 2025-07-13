@@ -230,7 +230,7 @@
     "test-console": "2.0.0",
     "uuid": "11.1.0",
     "vis-data": "8.0.1",
-    "vis-dev-utils": "5.0.0",
+    "vis-dev-utils": "5.0.1",
     "vis-util": "6.0.0"
   }
 }
