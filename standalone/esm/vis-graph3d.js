@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2025-07-24T19:43:43.324Z
+ * @date    2025-07-29T03:06:28.143Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -734,12 +734,12 @@ function requireWellKnownSymbol () {
 	return wellKnownSymbol;
 }
 
-var toPrimitive;
-var hasRequiredToPrimitive;
+var toPrimitive$6;
+var hasRequiredToPrimitive$5;
 
-function requireToPrimitive () {
-	if (hasRequiredToPrimitive) return toPrimitive;
-	hasRequiredToPrimitive = 1;
+function requireToPrimitive$5 () {
+	if (hasRequiredToPrimitive$5) return toPrimitive$6;
+	hasRequiredToPrimitive$5 = 1;
 	var call = /*@__PURE__*/ requireFunctionCall();
 	var isObject = /*@__PURE__*/ requireIsObject();
 	var isSymbol = /*@__PURE__*/ requireIsSymbol();
@@ -752,7 +752,7 @@ function requireToPrimitive () {
 
 	// `ToPrimitive` abstract operation
 	// https://tc39.es/ecma262/#sec-toprimitive
-	toPrimitive = function (input, pref) {
+	toPrimitive$6 = function (input, pref) {
 	  if (!isObject(input) || isSymbol(input)) return input;
 	  var exoticToPrim = getMethod(input, TO_PRIMITIVE);
 	  var result;
@@ -765,25 +765,25 @@ function requireToPrimitive () {
 	  if (pref === undefined) pref = 'number';
 	  return ordinaryToPrimitive(input, pref);
 	};
-	return toPrimitive;
+	return toPrimitive$6;
 }
 
-var toPropertyKey;
+var toPropertyKey$1;
 var hasRequiredToPropertyKey;
 
 function requireToPropertyKey () {
-	if (hasRequiredToPropertyKey) return toPropertyKey;
+	if (hasRequiredToPropertyKey) return toPropertyKey$1;
 	hasRequiredToPropertyKey = 1;
-	var toPrimitive = /*@__PURE__*/ requireToPrimitive();
+	var toPrimitive = /*@__PURE__*/ requireToPrimitive$5();
 	var isSymbol = /*@__PURE__*/ requireIsSymbol();
 
 	// `ToPropertyKey` abstract operation
 	// https://tc39.es/ecma262/#sec-topropertykey
-	toPropertyKey = function (argument) {
+	toPropertyKey$1 = function (argument) {
 	  var key = toPrimitive(argument, 'string');
 	  return isSymbol(key) ? key : key + '';
 	};
-	return toPropertyKey;
+	return toPropertyKey$1;
 }
 
 var documentCreateElement;
@@ -4089,6 +4089,2067 @@ function requireComponentEmitter () {
 var componentEmitterExports = /*@__PURE__*/ requireComponentEmitter();
 var Emitter = /*@__PURE__*/getDefaultExportFromCjs(componentEmitterExports);
 
+var es_symbol = {};
+
+var es_symbol_constructor = {};
+
+var objectGetOwnPropertyNames = {};
+
+var hasRequiredObjectGetOwnPropertyNames;
+
+function requireObjectGetOwnPropertyNames () {
+	if (hasRequiredObjectGetOwnPropertyNames) return objectGetOwnPropertyNames;
+	hasRequiredObjectGetOwnPropertyNames = 1;
+	var internalObjectKeys = /*@__PURE__*/ requireObjectKeysInternal();
+	var enumBugKeys = /*@__PURE__*/ requireEnumBugKeys();
+
+	var hiddenKeys = enumBugKeys.concat('length', 'prototype');
+
+	// `Object.getOwnPropertyNames` method
+	// https://tc39.es/ecma262/#sec-object.getownpropertynames
+	// eslint-disable-next-line es/no-object-getownpropertynames -- safe
+	objectGetOwnPropertyNames.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+	  return internalObjectKeys(O, hiddenKeys);
+	};
+	return objectGetOwnPropertyNames;
+}
+
+var objectGetOwnPropertyNamesExternal = {};
+
+var hasRequiredObjectGetOwnPropertyNamesExternal;
+
+function requireObjectGetOwnPropertyNamesExternal () {
+	if (hasRequiredObjectGetOwnPropertyNamesExternal) return objectGetOwnPropertyNamesExternal;
+	hasRequiredObjectGetOwnPropertyNamesExternal = 1;
+	/* eslint-disable es/no-object-getownpropertynames -- safe */
+	var classof = /*@__PURE__*/ requireClassofRaw();
+	var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+	var $getOwnPropertyNames = /*@__PURE__*/ requireObjectGetOwnPropertyNames().f;
+	var arraySlice = /*@__PURE__*/ requireArraySlice();
+
+	var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+	  ? Object.getOwnPropertyNames(window) : [];
+
+	var getWindowNames = function (it) {
+	  try {
+	    return $getOwnPropertyNames(it);
+	  } catch (error) {
+	    return arraySlice(windowNames);
+	  }
+	};
+
+	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+	objectGetOwnPropertyNamesExternal.f = function getOwnPropertyNames(it) {
+	  return windowNames && classof(it) === 'Window'
+	    ? getWindowNames(it)
+	    : $getOwnPropertyNames(toIndexedObject(it));
+	};
+	return objectGetOwnPropertyNamesExternal;
+}
+
+var defineBuiltInAccessor;
+var hasRequiredDefineBuiltInAccessor;
+
+function requireDefineBuiltInAccessor () {
+	if (hasRequiredDefineBuiltInAccessor) return defineBuiltInAccessor;
+	hasRequiredDefineBuiltInAccessor = 1;
+	var defineProperty = /*@__PURE__*/ requireObjectDefineProperty();
+
+	defineBuiltInAccessor = function (target, name, descriptor) {
+	  return defineProperty.f(target, name, descriptor);
+	};
+	return defineBuiltInAccessor;
+}
+
+var wellKnownSymbolWrapped = {};
+
+var hasRequiredWellKnownSymbolWrapped;
+
+function requireWellKnownSymbolWrapped () {
+	if (hasRequiredWellKnownSymbolWrapped) return wellKnownSymbolWrapped;
+	hasRequiredWellKnownSymbolWrapped = 1;
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+
+	wellKnownSymbolWrapped.f = wellKnownSymbol;
+	return wellKnownSymbolWrapped;
+}
+
+var wellKnownSymbolDefine;
+var hasRequiredWellKnownSymbolDefine;
+
+function requireWellKnownSymbolDefine () {
+	if (hasRequiredWellKnownSymbolDefine) return wellKnownSymbolDefine;
+	hasRequiredWellKnownSymbolDefine = 1;
+	var path = /*@__PURE__*/ requirePath();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+	var wrappedWellKnownSymbolModule = /*@__PURE__*/ requireWellKnownSymbolWrapped();
+	var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
+
+	wellKnownSymbolDefine = function (NAME) {
+	  var Symbol = path.Symbol || (path.Symbol = {});
+	  if (!hasOwn(Symbol, NAME)) defineProperty(Symbol, NAME, {
+	    value: wrappedWellKnownSymbolModule.f(NAME)
+	  });
+	};
+	return wellKnownSymbolDefine;
+}
+
+var symbolDefineToPrimitive;
+var hasRequiredSymbolDefineToPrimitive;
+
+function requireSymbolDefineToPrimitive () {
+	if (hasRequiredSymbolDefineToPrimitive) return symbolDefineToPrimitive;
+	hasRequiredSymbolDefineToPrimitive = 1;
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+	var defineBuiltIn = /*@__PURE__*/ requireDefineBuiltIn();
+
+	symbolDefineToPrimitive = function () {
+	  var Symbol = getBuiltIn('Symbol');
+	  var SymbolPrototype = Symbol && Symbol.prototype;
+	  var valueOf = SymbolPrototype && SymbolPrototype.valueOf;
+	  var TO_PRIMITIVE = wellKnownSymbol('toPrimitive');
+
+	  if (SymbolPrototype && !SymbolPrototype[TO_PRIMITIVE]) {
+	    // `Symbol.prototype[@@toPrimitive]` method
+	    // https://tc39.es/ecma262/#sec-symbol.prototype-@@toprimitive
+	    // eslint-disable-next-line no-unused-vars -- required for .length
+	    defineBuiltIn(SymbolPrototype, TO_PRIMITIVE, function (hint) {
+	      return call(valueOf, this);
+	    }, { arity: 1 });
+	  }
+	};
+	return symbolDefineToPrimitive;
+}
+
+var hasRequiredEs_symbol_constructor;
+
+function requireEs_symbol_constructor () {
+	if (hasRequiredEs_symbol_constructor) return es_symbol_constructor;
+	hasRequiredEs_symbol_constructor = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var globalThis = /*@__PURE__*/ requireGlobalThis();
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var IS_PURE = /*@__PURE__*/ requireIsPure();
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var NATIVE_SYMBOL = /*@__PURE__*/ requireSymbolConstructorDetection();
+	var fails = /*@__PURE__*/ requireFails();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var anObject = /*@__PURE__*/ requireAnObject();
+	var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+	var toPropertyKey = /*@__PURE__*/ requireToPropertyKey();
+	var $toString = /*@__PURE__*/ requireToString();
+	var createPropertyDescriptor = /*@__PURE__*/ requireCreatePropertyDescriptor();
+	var nativeObjectCreate = /*@__PURE__*/ requireObjectCreate();
+	var objectKeys = /*@__PURE__*/ requireObjectKeys();
+	var getOwnPropertyNamesModule = /*@__PURE__*/ requireObjectGetOwnPropertyNames();
+	var getOwnPropertyNamesExternal = /*@__PURE__*/ requireObjectGetOwnPropertyNamesExternal();
+	var getOwnPropertySymbolsModule = /*@__PURE__*/ requireObjectGetOwnPropertySymbols();
+	var getOwnPropertyDescriptorModule = /*@__PURE__*/ requireObjectGetOwnPropertyDescriptor();
+	var definePropertyModule = /*@__PURE__*/ requireObjectDefineProperty();
+	var definePropertiesModule = /*@__PURE__*/ requireObjectDefineProperties();
+	var propertyIsEnumerableModule = /*@__PURE__*/ requireObjectPropertyIsEnumerable();
+	var defineBuiltIn = /*@__PURE__*/ requireDefineBuiltIn();
+	var defineBuiltInAccessor = /*@__PURE__*/ requireDefineBuiltInAccessor();
+	var shared = /*@__PURE__*/ requireShared();
+	var sharedKey = /*@__PURE__*/ requireSharedKey();
+	var hiddenKeys = /*@__PURE__*/ requireHiddenKeys();
+	var uid = /*@__PURE__*/ requireUid();
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+	var wrappedWellKnownSymbolModule = /*@__PURE__*/ requireWellKnownSymbolWrapped();
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+	var defineSymbolToPrimitive = /*@__PURE__*/ requireSymbolDefineToPrimitive();
+	var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
+	var InternalStateModule = /*@__PURE__*/ requireInternalState();
+	var $forEach = /*@__PURE__*/ requireArrayIteration().forEach;
+
+	var HIDDEN = sharedKey('hidden');
+	var SYMBOL = 'Symbol';
+	var PROTOTYPE = 'prototype';
+
+	var setInternalState = InternalStateModule.set;
+	var getInternalState = InternalStateModule.getterFor(SYMBOL);
+
+	var ObjectPrototype = Object[PROTOTYPE];
+	var $Symbol = globalThis.Symbol;
+	var SymbolPrototype = $Symbol && $Symbol[PROTOTYPE];
+	var RangeError = globalThis.RangeError;
+	var TypeError = globalThis.TypeError;
+	var QObject = globalThis.QObject;
+	var nativeGetOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
+	var nativeDefineProperty = definePropertyModule.f;
+	var nativeGetOwnPropertyNames = getOwnPropertyNamesExternal.f;
+	var nativePropertyIsEnumerable = propertyIsEnumerableModule.f;
+	var push = uncurryThis([].push);
+
+	var AllSymbols = shared('symbols');
+	var ObjectPrototypeSymbols = shared('op-symbols');
+	var WellKnownSymbolsStore = shared('wks');
+
+	// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+	var USE_SETTER = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+	// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+	var fallbackDefineProperty = function (O, P, Attributes) {
+	  var ObjectPrototypeDescriptor = nativeGetOwnPropertyDescriptor(ObjectPrototype, P);
+	  if (ObjectPrototypeDescriptor) delete ObjectPrototype[P];
+	  nativeDefineProperty(O, P, Attributes);
+	  if (ObjectPrototypeDescriptor && O !== ObjectPrototype) {
+	    nativeDefineProperty(ObjectPrototype, P, ObjectPrototypeDescriptor);
+	  }
+	};
+
+	var setSymbolDescriptor = DESCRIPTORS && fails(function () {
+	  return nativeObjectCreate(nativeDefineProperty({}, 'a', {
+	    get: function () { return nativeDefineProperty(this, 'a', { value: 7 }).a; }
+	  })).a !== 7;
+	}) ? fallbackDefineProperty : nativeDefineProperty;
+
+	var wrap = function (tag, description) {
+	  var symbol = AllSymbols[tag] = nativeObjectCreate(SymbolPrototype);
+	  setInternalState(symbol, {
+	    type: SYMBOL,
+	    tag: tag,
+	    description: description
+	  });
+	  if (!DESCRIPTORS) symbol.description = description;
+	  return symbol;
+	};
+
+	var $defineProperty = function defineProperty(O, P, Attributes) {
+	  if (O === ObjectPrototype) $defineProperty(ObjectPrototypeSymbols, P, Attributes);
+	  anObject(O);
+	  var key = toPropertyKey(P);
+	  anObject(Attributes);
+	  if (hasOwn(AllSymbols, key)) {
+	    if (!Attributes.enumerable) {
+	      if (!hasOwn(O, HIDDEN)) nativeDefineProperty(O, HIDDEN, createPropertyDescriptor(1, nativeObjectCreate(null)));
+	      O[HIDDEN][key] = true;
+	    } else {
+	      if (hasOwn(O, HIDDEN) && O[HIDDEN][key]) O[HIDDEN][key] = false;
+	      Attributes = nativeObjectCreate(Attributes, { enumerable: createPropertyDescriptor(0, false) });
+	    } return setSymbolDescriptor(O, key, Attributes);
+	  } return nativeDefineProperty(O, key, Attributes);
+	};
+
+	var $defineProperties = function defineProperties(O, Properties) {
+	  anObject(O);
+	  var properties = toIndexedObject(Properties);
+	  var keys = objectKeys(properties).concat($getOwnPropertySymbols(properties));
+	  $forEach(keys, function (key) {
+	    if (!DESCRIPTORS || call($propertyIsEnumerable, properties, key)) $defineProperty(O, key, properties[key]);
+	  });
+	  return O;
+	};
+
+	var $create = function create(O, Properties) {
+	  return Properties === undefined ? nativeObjectCreate(O) : $defineProperties(nativeObjectCreate(O), Properties);
+	};
+
+	var $propertyIsEnumerable = function propertyIsEnumerable(V) {
+	  var P = toPropertyKey(V);
+	  var enumerable = call(nativePropertyIsEnumerable, this, P);
+	  if (this === ObjectPrototype && hasOwn(AllSymbols, P) && !hasOwn(ObjectPrototypeSymbols, P)) return false;
+	  return enumerable || !hasOwn(this, P) || !hasOwn(AllSymbols, P) || hasOwn(this, HIDDEN) && this[HIDDEN][P]
+	    ? enumerable : true;
+	};
+
+	var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(O, P) {
+	  var it = toIndexedObject(O);
+	  var key = toPropertyKey(P);
+	  if (it === ObjectPrototype && hasOwn(AllSymbols, key) && !hasOwn(ObjectPrototypeSymbols, key)) return;
+	  var descriptor = nativeGetOwnPropertyDescriptor(it, key);
+	  if (descriptor && hasOwn(AllSymbols, key) && !(hasOwn(it, HIDDEN) && it[HIDDEN][key])) {
+	    descriptor.enumerable = true;
+	  }
+	  return descriptor;
+	};
+
+	var $getOwnPropertyNames = function getOwnPropertyNames(O) {
+	  var names = nativeGetOwnPropertyNames(toIndexedObject(O));
+	  var result = [];
+	  $forEach(names, function (key) {
+	    if (!hasOwn(AllSymbols, key) && !hasOwn(hiddenKeys, key)) push(result, key);
+	  });
+	  return result;
+	};
+
+	var $getOwnPropertySymbols = function (O) {
+	  var IS_OBJECT_PROTOTYPE = O === ObjectPrototype;
+	  var names = nativeGetOwnPropertyNames(IS_OBJECT_PROTOTYPE ? ObjectPrototypeSymbols : toIndexedObject(O));
+	  var result = [];
+	  $forEach(names, function (key) {
+	    if (hasOwn(AllSymbols, key) && (!IS_OBJECT_PROTOTYPE || hasOwn(ObjectPrototype, key))) {
+	      push(result, AllSymbols[key]);
+	    }
+	  });
+	  return result;
+	};
+
+	// `Symbol` constructor
+	// https://tc39.es/ecma262/#sec-symbol-constructor
+	if (!NATIVE_SYMBOL) {
+	  $Symbol = function Symbol() {
+	    if (isPrototypeOf(SymbolPrototype, this)) throw new TypeError('Symbol is not a constructor');
+	    var description = !arguments.length || arguments[0] === undefined ? undefined : $toString(arguments[0]);
+	    var tag = uid(description);
+	    var setter = function (value) {
+	      var $this = this === undefined ? globalThis : this;
+	      if ($this === ObjectPrototype) call(setter, ObjectPrototypeSymbols, value);
+	      if (hasOwn($this, HIDDEN) && hasOwn($this[HIDDEN], tag)) $this[HIDDEN][tag] = false;
+	      var descriptor = createPropertyDescriptor(1, value);
+	      try {
+	        setSymbolDescriptor($this, tag, descriptor);
+	      } catch (error) {
+	        if (!(error instanceof RangeError)) throw error;
+	        fallbackDefineProperty($this, tag, descriptor);
+	      }
+	    };
+	    if (DESCRIPTORS && USE_SETTER) setSymbolDescriptor(ObjectPrototype, tag, { configurable: true, set: setter });
+	    return wrap(tag, description);
+	  };
+
+	  SymbolPrototype = $Symbol[PROTOTYPE];
+
+	  defineBuiltIn(SymbolPrototype, 'toString', function toString() {
+	    return getInternalState(this).tag;
+	  });
+
+	  defineBuiltIn($Symbol, 'withoutSetter', function (description) {
+	    return wrap(uid(description), description);
+	  });
+
+	  propertyIsEnumerableModule.f = $propertyIsEnumerable;
+	  definePropertyModule.f = $defineProperty;
+	  definePropertiesModule.f = $defineProperties;
+	  getOwnPropertyDescriptorModule.f = $getOwnPropertyDescriptor;
+	  getOwnPropertyNamesModule.f = getOwnPropertyNamesExternal.f = $getOwnPropertyNames;
+	  getOwnPropertySymbolsModule.f = $getOwnPropertySymbols;
+
+	  wrappedWellKnownSymbolModule.f = function (name) {
+	    return wrap(wellKnownSymbol(name), name);
+	  };
+
+	  if (DESCRIPTORS) {
+	    // https://tc39.es/ecma262/#sec-symbol.prototype.description
+	    defineBuiltInAccessor(SymbolPrototype, 'description', {
+	      configurable: true,
+	      get: function description() {
+	        return getInternalState(this).description;
+	      }
+	    });
+	    if (!IS_PURE) {
+	      defineBuiltIn(ObjectPrototype, 'propertyIsEnumerable', $propertyIsEnumerable, { unsafe: true });
+	    }
+	  }
+	}
+
+	$({ global: true, constructor: true, wrap: true, forced: !NATIVE_SYMBOL, sham: !NATIVE_SYMBOL }, {
+	  Symbol: $Symbol
+	});
+
+	$forEach(objectKeys(WellKnownSymbolsStore), function (name) {
+	  defineWellKnownSymbol(name);
+	});
+
+	$({ target: SYMBOL, stat: true, forced: !NATIVE_SYMBOL }, {
+	  useSetter: function () { USE_SETTER = true; },
+	  useSimple: function () { USE_SETTER = false; }
+	});
+
+	$({ target: 'Object', stat: true, forced: !NATIVE_SYMBOL, sham: !DESCRIPTORS }, {
+	  // `Object.create` method
+	  // https://tc39.es/ecma262/#sec-object.create
+	  create: $create,
+	  // `Object.defineProperty` method
+	  // https://tc39.es/ecma262/#sec-object.defineproperty
+	  defineProperty: $defineProperty,
+	  // `Object.defineProperties` method
+	  // https://tc39.es/ecma262/#sec-object.defineproperties
+	  defineProperties: $defineProperties,
+	  // `Object.getOwnPropertyDescriptor` method
+	  // https://tc39.es/ecma262/#sec-object.getownpropertydescriptors
+	  getOwnPropertyDescriptor: $getOwnPropertyDescriptor
+	});
+
+	$({ target: 'Object', stat: true, forced: !NATIVE_SYMBOL }, {
+	  // `Object.getOwnPropertyNames` method
+	  // https://tc39.es/ecma262/#sec-object.getownpropertynames
+	  getOwnPropertyNames: $getOwnPropertyNames
+	});
+
+	// `Symbol.prototype[@@toPrimitive]` method
+	// https://tc39.es/ecma262/#sec-symbol.prototype-@@toprimitive
+	defineSymbolToPrimitive();
+
+	// `Symbol.prototype[@@toStringTag]` property
+	// https://tc39.es/ecma262/#sec-symbol.prototype-@@tostringtag
+	setToStringTag($Symbol, SYMBOL);
+
+	hiddenKeys[HIDDEN] = true;
+	return es_symbol_constructor;
+}
+
+var es_symbol_for = {};
+
+var symbolRegistryDetection;
+var hasRequiredSymbolRegistryDetection;
+
+function requireSymbolRegistryDetection () {
+	if (hasRequiredSymbolRegistryDetection) return symbolRegistryDetection;
+	hasRequiredSymbolRegistryDetection = 1;
+	var NATIVE_SYMBOL = /*@__PURE__*/ requireSymbolConstructorDetection();
+
+	/* eslint-disable es/no-symbol -- safe */
+	symbolRegistryDetection = NATIVE_SYMBOL && !!Symbol['for'] && !!Symbol.keyFor;
+	return symbolRegistryDetection;
+}
+
+var hasRequiredEs_symbol_for;
+
+function requireEs_symbol_for () {
+	if (hasRequiredEs_symbol_for) return es_symbol_for;
+	hasRequiredEs_symbol_for = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+	var toString = /*@__PURE__*/ requireToString();
+	var shared = /*@__PURE__*/ requireShared();
+	var NATIVE_SYMBOL_REGISTRY = /*@__PURE__*/ requireSymbolRegistryDetection();
+
+	var StringToSymbolRegistry = shared('string-to-symbol-registry');
+	var SymbolToStringRegistry = shared('symbol-to-string-registry');
+
+	// `Symbol.for` method
+	// https://tc39.es/ecma262/#sec-symbol.for
+	$({ target: 'Symbol', stat: true, forced: !NATIVE_SYMBOL_REGISTRY }, {
+	  'for': function (key) {
+	    var string = toString(key);
+	    if (hasOwn(StringToSymbolRegistry, string)) return StringToSymbolRegistry[string];
+	    var symbol = getBuiltIn('Symbol')(string);
+	    StringToSymbolRegistry[string] = symbol;
+	    SymbolToStringRegistry[symbol] = string;
+	    return symbol;
+	  }
+	});
+	return es_symbol_for;
+}
+
+var es_symbol_keyFor = {};
+
+var hasRequiredEs_symbol_keyFor;
+
+function requireEs_symbol_keyFor () {
+	if (hasRequiredEs_symbol_keyFor) return es_symbol_keyFor;
+	hasRequiredEs_symbol_keyFor = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+	var isSymbol = /*@__PURE__*/ requireIsSymbol();
+	var tryToString = /*@__PURE__*/ requireTryToString();
+	var shared = /*@__PURE__*/ requireShared();
+	var NATIVE_SYMBOL_REGISTRY = /*@__PURE__*/ requireSymbolRegistryDetection();
+
+	var SymbolToStringRegistry = shared('symbol-to-string-registry');
+
+	// `Symbol.keyFor` method
+	// https://tc39.es/ecma262/#sec-symbol.keyfor
+	$({ target: 'Symbol', stat: true, forced: !NATIVE_SYMBOL_REGISTRY }, {
+	  keyFor: function keyFor(sym) {
+	    if (!isSymbol(sym)) throw new TypeError(tryToString(sym) + ' is not a symbol');
+	    if (hasOwn(SymbolToStringRegistry, sym)) return SymbolToStringRegistry[sym];
+	  }
+	});
+	return es_symbol_keyFor;
+}
+
+var es_json_stringify = {};
+
+var getJsonReplacerFunction;
+var hasRequiredGetJsonReplacerFunction;
+
+function requireGetJsonReplacerFunction () {
+	if (hasRequiredGetJsonReplacerFunction) return getJsonReplacerFunction;
+	hasRequiredGetJsonReplacerFunction = 1;
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var isArray = /*@__PURE__*/ requireIsArray$3();
+	var isCallable = /*@__PURE__*/ requireIsCallable();
+	var classof = /*@__PURE__*/ requireClassofRaw();
+	var toString = /*@__PURE__*/ requireToString();
+
+	var push = uncurryThis([].push);
+
+	getJsonReplacerFunction = function (replacer) {
+	  if (isCallable(replacer)) return replacer;
+	  if (!isArray(replacer)) return;
+	  var rawLength = replacer.length;
+	  var keys = [];
+	  for (var i = 0; i < rawLength; i++) {
+	    var element = replacer[i];
+	    if (typeof element == 'string') push(keys, element);
+	    else if (typeof element == 'number' || classof(element) === 'Number' || classof(element) === 'String') push(keys, toString(element));
+	  }
+	  var keysLength = keys.length;
+	  var root = true;
+	  return function (key, value) {
+	    if (root) {
+	      root = false;
+	      return value;
+	    }
+	    if (isArray(this)) return value;
+	    for (var j = 0; j < keysLength; j++) if (keys[j] === key) return value;
+	  };
+	};
+	return getJsonReplacerFunction;
+}
+
+var hasRequiredEs_json_stringify;
+
+function requireEs_json_stringify () {
+	if (hasRequiredEs_json_stringify) return es_json_stringify;
+	hasRequiredEs_json_stringify = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var apply = /*@__PURE__*/ requireFunctionApply();
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var fails = /*@__PURE__*/ requireFails();
+	var isCallable = /*@__PURE__*/ requireIsCallable();
+	var isSymbol = /*@__PURE__*/ requireIsSymbol();
+	var arraySlice = /*@__PURE__*/ requireArraySlice();
+	var getReplacerFunction = /*@__PURE__*/ requireGetJsonReplacerFunction();
+	var NATIVE_SYMBOL = /*@__PURE__*/ requireSymbolConstructorDetection();
+
+	var $String = String;
+	var $stringify = getBuiltIn('JSON', 'stringify');
+	var exec = uncurryThis(/./.exec);
+	var charAt = uncurryThis(''.charAt);
+	var charCodeAt = uncurryThis(''.charCodeAt);
+	var replace = uncurryThis(''.replace);
+	var numberToString = uncurryThis(1.1.toString);
+
+	var tester = /[\uD800-\uDFFF]/g;
+	var low = /^[\uD800-\uDBFF]$/;
+	var hi = /^[\uDC00-\uDFFF]$/;
+
+	var WRONG_SYMBOLS_CONVERSION = !NATIVE_SYMBOL || fails(function () {
+	  var symbol = getBuiltIn('Symbol')('stringify detection');
+	  // MS Edge converts symbol values to JSON as {}
+	  return $stringify([symbol]) !== '[null]'
+	    // WebKit converts symbol values to JSON as null
+	    || $stringify({ a: symbol }) !== '{}'
+	    // V8 throws on boxed symbols
+	    || $stringify(Object(symbol)) !== '{}';
+	});
+
+	// https://github.com/tc39/proposal-well-formed-stringify
+	var ILL_FORMED_UNICODE = fails(function () {
+	  return $stringify('\uDF06\uD834') !== '"\\udf06\\ud834"'
+	    || $stringify('\uDEAD') !== '"\\udead"';
+	});
+
+	var stringifyWithSymbolsFix = function (it, replacer) {
+	  var args = arraySlice(arguments);
+	  var $replacer = getReplacerFunction(replacer);
+	  if (!isCallable($replacer) && (it === undefined || isSymbol(it))) return; // IE8 returns string on undefined
+	  args[1] = function (key, value) {
+	    // some old implementations (like WebKit) could pass numbers as keys
+	    if (isCallable($replacer)) value = call($replacer, this, $String(key), value);
+	    if (!isSymbol(value)) return value;
+	  };
+	  return apply($stringify, null, args);
+	};
+
+	var fixIllFormed = function (match, offset, string) {
+	  var prev = charAt(string, offset - 1);
+	  var next = charAt(string, offset + 1);
+	  if ((exec(low, match) && !exec(hi, next)) || (exec(hi, match) && !exec(low, prev))) {
+	    return '\\u' + numberToString(charCodeAt(match, 0), 16);
+	  } return match;
+	};
+
+	if ($stringify) {
+	  // `JSON.stringify` method
+	  // https://tc39.es/ecma262/#sec-json.stringify
+	  $({ target: 'JSON', stat: true, arity: 3, forced: WRONG_SYMBOLS_CONVERSION || ILL_FORMED_UNICODE }, {
+	    // eslint-disable-next-line no-unused-vars -- required for `.length`
+	    stringify: function stringify(it, replacer, space) {
+	      var args = arraySlice(arguments);
+	      var result = apply(WRONG_SYMBOLS_CONVERSION ? stringifyWithSymbolsFix : $stringify, null, args);
+	      return ILL_FORMED_UNICODE && typeof result == 'string' ? replace(result, tester, fixIllFormed) : result;
+	    }
+	  });
+	}
+	return es_json_stringify;
+}
+
+var es_object_getOwnPropertySymbols = {};
+
+var hasRequiredEs_object_getOwnPropertySymbols;
+
+function requireEs_object_getOwnPropertySymbols () {
+	if (hasRequiredEs_object_getOwnPropertySymbols) return es_object_getOwnPropertySymbols;
+	hasRequiredEs_object_getOwnPropertySymbols = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var NATIVE_SYMBOL = /*@__PURE__*/ requireSymbolConstructorDetection();
+	var fails = /*@__PURE__*/ requireFails();
+	var getOwnPropertySymbolsModule = /*@__PURE__*/ requireObjectGetOwnPropertySymbols();
+	var toObject = /*@__PURE__*/ requireToObject();
+
+	// V8 ~ Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+	// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+	var FORCED = !NATIVE_SYMBOL || fails(function () { getOwnPropertySymbolsModule.f(1); });
+
+	// `Object.getOwnPropertySymbols` method
+	// https://tc39.es/ecma262/#sec-object.getownpropertysymbols
+	$({ target: 'Object', stat: true, forced: FORCED }, {
+	  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+	    var $getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
+	    return $getOwnPropertySymbols ? $getOwnPropertySymbols(toObject(it)) : [];
+	  }
+	});
+	return es_object_getOwnPropertySymbols;
+}
+
+var hasRequiredEs_symbol;
+
+function requireEs_symbol () {
+	if (hasRequiredEs_symbol) return es_symbol;
+	hasRequiredEs_symbol = 1;
+	// TODO: Remove this module from `core-js@4` since it's split to modules listed below
+	requireEs_symbol_constructor();
+	requireEs_symbol_for();
+	requireEs_symbol_keyFor();
+	requireEs_json_stringify();
+	requireEs_object_getOwnPropertySymbols();
+	return es_symbol;
+}
+
+var es_symbol_asyncDispose = {};
+
+var hasRequiredEs_symbol_asyncDispose;
+
+function requireEs_symbol_asyncDispose () {
+	if (hasRequiredEs_symbol_asyncDispose) return es_symbol_asyncDispose;
+	hasRequiredEs_symbol_asyncDispose = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.asyncDispose` well-known symbol
+	// https://github.com/tc39/proposal-async-explicit-resource-management
+	defineWellKnownSymbol('asyncDispose');
+	return es_symbol_asyncDispose;
+}
+
+var es_symbol_asyncIterator = {};
+
+var hasRequiredEs_symbol_asyncIterator;
+
+function requireEs_symbol_asyncIterator () {
+	if (hasRequiredEs_symbol_asyncIterator) return es_symbol_asyncIterator;
+	hasRequiredEs_symbol_asyncIterator = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.asyncIterator` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.asynciterator
+	defineWellKnownSymbol('asyncIterator');
+	return es_symbol_asyncIterator;
+}
+
+var es_symbol_dispose = {};
+
+var hasRequiredEs_symbol_dispose;
+
+function requireEs_symbol_dispose () {
+	if (hasRequiredEs_symbol_dispose) return es_symbol_dispose;
+	hasRequiredEs_symbol_dispose = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.dispose` well-known symbol
+	// https://github.com/tc39/proposal-explicit-resource-management
+	defineWellKnownSymbol('dispose');
+	return es_symbol_dispose;
+}
+
+var es_symbol_hasInstance = {};
+
+var hasRequiredEs_symbol_hasInstance;
+
+function requireEs_symbol_hasInstance () {
+	if (hasRequiredEs_symbol_hasInstance) return es_symbol_hasInstance;
+	hasRequiredEs_symbol_hasInstance = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.hasInstance` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.hasinstance
+	defineWellKnownSymbol('hasInstance');
+	return es_symbol_hasInstance;
+}
+
+var es_symbol_isConcatSpreadable = {};
+
+var hasRequiredEs_symbol_isConcatSpreadable;
+
+function requireEs_symbol_isConcatSpreadable () {
+	if (hasRequiredEs_symbol_isConcatSpreadable) return es_symbol_isConcatSpreadable;
+	hasRequiredEs_symbol_isConcatSpreadable = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.isConcatSpreadable` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.isconcatspreadable
+	defineWellKnownSymbol('isConcatSpreadable');
+	return es_symbol_isConcatSpreadable;
+}
+
+var es_symbol_iterator = {};
+
+var hasRequiredEs_symbol_iterator;
+
+function requireEs_symbol_iterator () {
+	if (hasRequiredEs_symbol_iterator) return es_symbol_iterator;
+	hasRequiredEs_symbol_iterator = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.iterator` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.iterator
+	defineWellKnownSymbol('iterator');
+	return es_symbol_iterator;
+}
+
+var es_symbol_match = {};
+
+var hasRequiredEs_symbol_match;
+
+function requireEs_symbol_match () {
+	if (hasRequiredEs_symbol_match) return es_symbol_match;
+	hasRequiredEs_symbol_match = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.match` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.match
+	defineWellKnownSymbol('match');
+	return es_symbol_match;
+}
+
+var es_symbol_matchAll = {};
+
+var hasRequiredEs_symbol_matchAll;
+
+function requireEs_symbol_matchAll () {
+	if (hasRequiredEs_symbol_matchAll) return es_symbol_matchAll;
+	hasRequiredEs_symbol_matchAll = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.matchAll` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.matchall
+	defineWellKnownSymbol('matchAll');
+	return es_symbol_matchAll;
+}
+
+var es_symbol_replace = {};
+
+var hasRequiredEs_symbol_replace;
+
+function requireEs_symbol_replace () {
+	if (hasRequiredEs_symbol_replace) return es_symbol_replace;
+	hasRequiredEs_symbol_replace = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.replace` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.replace
+	defineWellKnownSymbol('replace');
+	return es_symbol_replace;
+}
+
+var es_symbol_search = {};
+
+var hasRequiredEs_symbol_search;
+
+function requireEs_symbol_search () {
+	if (hasRequiredEs_symbol_search) return es_symbol_search;
+	hasRequiredEs_symbol_search = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.search` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.search
+	defineWellKnownSymbol('search');
+	return es_symbol_search;
+}
+
+var es_symbol_species = {};
+
+var hasRequiredEs_symbol_species;
+
+function requireEs_symbol_species () {
+	if (hasRequiredEs_symbol_species) return es_symbol_species;
+	hasRequiredEs_symbol_species = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.species` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.species
+	defineWellKnownSymbol('species');
+	return es_symbol_species;
+}
+
+var es_symbol_split = {};
+
+var hasRequiredEs_symbol_split;
+
+function requireEs_symbol_split () {
+	if (hasRequiredEs_symbol_split) return es_symbol_split;
+	hasRequiredEs_symbol_split = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.split` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.split
+	defineWellKnownSymbol('split');
+	return es_symbol_split;
+}
+
+var es_symbol_toPrimitive = {};
+
+var hasRequiredEs_symbol_toPrimitive;
+
+function requireEs_symbol_toPrimitive () {
+	if (hasRequiredEs_symbol_toPrimitive) return es_symbol_toPrimitive;
+	hasRequiredEs_symbol_toPrimitive = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+	var defineSymbolToPrimitive = /*@__PURE__*/ requireSymbolDefineToPrimitive();
+
+	// `Symbol.toPrimitive` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.toprimitive
+	defineWellKnownSymbol('toPrimitive');
+
+	// `Symbol.prototype[@@toPrimitive]` method
+	// https://tc39.es/ecma262/#sec-symbol.prototype-@@toprimitive
+	defineSymbolToPrimitive();
+	return es_symbol_toPrimitive;
+}
+
+var es_symbol_toStringTag = {};
+
+var hasRequiredEs_symbol_toStringTag;
+
+function requireEs_symbol_toStringTag () {
+	if (hasRequiredEs_symbol_toStringTag) return es_symbol_toStringTag;
+	hasRequiredEs_symbol_toStringTag = 1;
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+	var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
+
+	// `Symbol.toStringTag` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.tostringtag
+	defineWellKnownSymbol('toStringTag');
+
+	// `Symbol.prototype[@@toStringTag]` property
+	// https://tc39.es/ecma262/#sec-symbol.prototype-@@tostringtag
+	setToStringTag(getBuiltIn('Symbol'), 'Symbol');
+	return es_symbol_toStringTag;
+}
+
+var es_symbol_unscopables = {};
+
+var hasRequiredEs_symbol_unscopables;
+
+function requireEs_symbol_unscopables () {
+	if (hasRequiredEs_symbol_unscopables) return es_symbol_unscopables;
+	hasRequiredEs_symbol_unscopables = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.unscopables` well-known symbol
+	// https://tc39.es/ecma262/#sec-symbol.unscopables
+	defineWellKnownSymbol('unscopables');
+	return es_symbol_unscopables;
+}
+
+var es_json_toStringTag = {};
+
+var hasRequiredEs_json_toStringTag;
+
+function requireEs_json_toStringTag () {
+	if (hasRequiredEs_json_toStringTag) return es_json_toStringTag;
+	hasRequiredEs_json_toStringTag = 1;
+	var globalThis = /*@__PURE__*/ requireGlobalThis();
+	var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
+
+	// JSON[@@toStringTag] property
+	// https://tc39.es/ecma262/#sec-json-@@tostringtag
+	setToStringTag(globalThis.JSON, 'JSON', true);
+	return es_json_toStringTag;
+}
+
+var symbol$5;
+var hasRequiredSymbol$5;
+
+function requireSymbol$5 () {
+	if (hasRequiredSymbol$5) return symbol$5;
+	hasRequiredSymbol$5 = 1;
+	requireEs_array_concat();
+	requireEs_symbol();
+	requireEs_symbol_asyncDispose();
+	requireEs_symbol_asyncIterator();
+	requireEs_symbol_dispose();
+	requireEs_symbol_hasInstance();
+	requireEs_symbol_isConcatSpreadable();
+	requireEs_symbol_iterator();
+	requireEs_symbol_match();
+	requireEs_symbol_matchAll();
+	requireEs_symbol_replace();
+	requireEs_symbol_search();
+	requireEs_symbol_species();
+	requireEs_symbol_split();
+	requireEs_symbol_toPrimitive();
+	requireEs_symbol_toStringTag();
+	requireEs_symbol_unscopables();
+	requireEs_json_toStringTag();
+	var path = /*@__PURE__*/ requirePath();
+
+	symbol$5 = path.Symbol;
+	return symbol$5;
+}
+
+var symbol$4;
+var hasRequiredSymbol$4;
+
+function requireSymbol$4 () {
+	if (hasRequiredSymbol$4) return symbol$4;
+	hasRequiredSymbol$4 = 1;
+	var parent = /*@__PURE__*/ requireSymbol$5();
+	requireWeb_domCollections_iterator();
+
+	symbol$4 = parent;
+	return symbol$4;
+}
+
+var symbol$3;
+var hasRequiredSymbol$3;
+
+function requireSymbol$3 () {
+	if (hasRequiredSymbol$3) return symbol$3;
+	hasRequiredSymbol$3 = 1;
+	symbol$3 = /*@__PURE__*/ requireSymbol$4();
+	return symbol$3;
+}
+
+var symbolExports$1 = requireSymbol$3();
+var _Symbol$1 = /*@__PURE__*/getDefaultExportFromCjs(symbolExports$1);
+
+var es_array_slice = {};
+
+var hasRequiredEs_array_slice;
+
+function requireEs_array_slice () {
+	if (hasRequiredEs_array_slice) return es_array_slice;
+	hasRequiredEs_array_slice = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var isArray = /*@__PURE__*/ requireIsArray$3();
+	var isConstructor = /*@__PURE__*/ requireIsConstructor();
+	var isObject = /*@__PURE__*/ requireIsObject();
+	var toAbsoluteIndex = /*@__PURE__*/ requireToAbsoluteIndex();
+	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
+	var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+	var createProperty = /*@__PURE__*/ requireCreateProperty();
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+	var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
+	var nativeSlice = /*@__PURE__*/ requireArraySlice();
+
+	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('slice');
+
+	var SPECIES = wellKnownSymbol('species');
+	var $Array = Array;
+	var max = Math.max;
+
+	// `Array.prototype.slice` method
+	// https://tc39.es/ecma262/#sec-array.prototype.slice
+	// fallback for not array-like ES3 strings and DOM objects
+	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+	  slice: function slice(start, end) {
+	    var O = toIndexedObject(this);
+	    var length = lengthOfArrayLike(O);
+	    var k = toAbsoluteIndex(start, length);
+	    var fin = toAbsoluteIndex(end === undefined ? length : end, length);
+	    // inline `ArraySpeciesCreate` for usage native `Array#slice` where it's possible
+	    var Constructor, result, n;
+	    if (isArray(O)) {
+	      Constructor = O.constructor;
+	      // cross-realm fallback
+	      if (isConstructor(Constructor) && (Constructor === $Array || isArray(Constructor.prototype))) {
+	        Constructor = undefined;
+	      } else if (isObject(Constructor)) {
+	        Constructor = Constructor[SPECIES];
+	        if (Constructor === null) Constructor = undefined;
+	      }
+	      if (Constructor === $Array || Constructor === undefined) {
+	        return nativeSlice(O, k, fin);
+	      }
+	    }
+	    result = new (Constructor === undefined ? $Array : Constructor)(max(fin - k, 0));
+	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
+	    result.length = n;
+	    return result;
+	  }
+	});
+	return es_array_slice;
+}
+
+var slice$3;
+var hasRequiredSlice$3;
+
+function requireSlice$3 () {
+	if (hasRequiredSlice$3) return slice$3;
+	hasRequiredSlice$3 = 1;
+	requireEs_array_slice();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	slice$3 = getBuiltInPrototypeMethod('Array', 'slice');
+	return slice$3;
+}
+
+var slice$2;
+var hasRequiredSlice$2;
+
+function requireSlice$2 () {
+	if (hasRequiredSlice$2) return slice$2;
+	hasRequiredSlice$2 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireSlice$3();
+
+	var ArrayPrototype = Array.prototype;
+
+	slice$2 = function (it) {
+	  var own = it.slice;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.slice) ? method : own;
+	};
+	return slice$2;
+}
+
+var slice$1;
+var hasRequiredSlice$1;
+
+function requireSlice$1 () {
+	if (hasRequiredSlice$1) return slice$1;
+	hasRequiredSlice$1 = 1;
+	var parent = /*@__PURE__*/ requireSlice$2();
+
+	slice$1 = parent;
+	return slice$1;
+}
+
+var slice;
+var hasRequiredSlice;
+
+function requireSlice () {
+	if (hasRequiredSlice) return slice;
+	hasRequiredSlice = 1;
+	slice = /*@__PURE__*/ requireSlice$1();
+	return slice;
+}
+
+var sliceExports = requireSlice();
+var _sliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sliceExports);
+
+var es_reflect_ownKeys = {};
+
+var ownKeys$4;
+var hasRequiredOwnKeys$3;
+
+function requireOwnKeys$3 () {
+	if (hasRequiredOwnKeys$3) return ownKeys$4;
+	hasRequiredOwnKeys$3 = 1;
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var getOwnPropertyNamesModule = /*@__PURE__*/ requireObjectGetOwnPropertyNames();
+	var getOwnPropertySymbolsModule = /*@__PURE__*/ requireObjectGetOwnPropertySymbols();
+	var anObject = /*@__PURE__*/ requireAnObject();
+
+	var concat = uncurryThis([].concat);
+
+	// all object keys, includes non-enumerable and symbols
+	ownKeys$4 = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
+	  var keys = getOwnPropertyNamesModule.f(anObject(it));
+	  var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
+	  return getOwnPropertySymbols ? concat(keys, getOwnPropertySymbols(it)) : keys;
+	};
+	return ownKeys$4;
+}
+
+var hasRequiredEs_reflect_ownKeys;
+
+function requireEs_reflect_ownKeys () {
+	if (hasRequiredEs_reflect_ownKeys) return es_reflect_ownKeys;
+	hasRequiredEs_reflect_ownKeys = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var ownKeys = /*@__PURE__*/ requireOwnKeys$3();
+
+	// `Reflect.ownKeys` method
+	// https://tc39.es/ecma262/#sec-reflect.ownkeys
+	$({ target: 'Reflect', stat: true }, {
+	  ownKeys: ownKeys
+	});
+	return es_reflect_ownKeys;
+}
+
+var ownKeys$3;
+var hasRequiredOwnKeys$2;
+
+function requireOwnKeys$2 () {
+	if (hasRequiredOwnKeys$2) return ownKeys$3;
+	hasRequiredOwnKeys$2 = 1;
+	requireEs_reflect_ownKeys();
+	var path = /*@__PURE__*/ requirePath();
+
+	ownKeys$3 = path.Reflect.ownKeys;
+	return ownKeys$3;
+}
+
+var ownKeys$2;
+var hasRequiredOwnKeys$1;
+
+function requireOwnKeys$1 () {
+	if (hasRequiredOwnKeys$1) return ownKeys$2;
+	hasRequiredOwnKeys$1 = 1;
+	var parent = /*@__PURE__*/ requireOwnKeys$2();
+
+	ownKeys$2 = parent;
+	return ownKeys$2;
+}
+
+var ownKeys$1;
+var hasRequiredOwnKeys;
+
+function requireOwnKeys () {
+	if (hasRequiredOwnKeys) return ownKeys$1;
+	hasRequiredOwnKeys = 1;
+	ownKeys$1 = /*@__PURE__*/ requireOwnKeys$1();
+	return ownKeys$1;
+}
+
+var ownKeysExports = requireOwnKeys();
+var _Reflect$ownKeys = /*@__PURE__*/getDefaultExportFromCjs(ownKeysExports);
+
+var es_array_map = {};
+
+var hasRequiredEs_array_map;
+
+function requireEs_array_map () {
+	if (hasRequiredEs_array_map) return es_array_map;
+	hasRequiredEs_array_map = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var $map = /*@__PURE__*/ requireArrayIteration().map;
+	var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
+
+	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
+
+	// `Array.prototype.map` method
+	// https://tc39.es/ecma262/#sec-array.prototype.map
+	// with adding support of @@species
+	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+	  map: function map(callbackfn /* , thisArg */) {
+	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
+	return es_array_map;
+}
+
+var map$6;
+var hasRequiredMap$6;
+
+function requireMap$6 () {
+	if (hasRequiredMap$6) return map$6;
+	hasRequiredMap$6 = 1;
+	requireEs_array_map();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	map$6 = getBuiltInPrototypeMethod('Array', 'map');
+	return map$6;
+}
+
+var map$5;
+var hasRequiredMap$5;
+
+function requireMap$5 () {
+	if (hasRequiredMap$5) return map$5;
+	hasRequiredMap$5 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireMap$6();
+
+	var ArrayPrototype = Array.prototype;
+
+	map$5 = function (it) {
+	  var own = it.map;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.map) ? method : own;
+	};
+	return map$5;
+}
+
+var map$4;
+var hasRequiredMap$4;
+
+function requireMap$4 () {
+	if (hasRequiredMap$4) return map$4;
+	hasRequiredMap$4 = 1;
+	var parent = /*@__PURE__*/ requireMap$5();
+
+	map$4 = parent;
+	return map$4;
+}
+
+var map$3;
+var hasRequiredMap$3;
+
+function requireMap$3 () {
+	if (hasRequiredMap$3) return map$3;
+	hasRequiredMap$3 = 1;
+	map$3 = /*@__PURE__*/ requireMap$4();
+	return map$3;
+}
+
+var mapExports$1 = requireMap$3();
+var _mapInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(mapExports$1);
+
+var es_object_keys = {};
+
+var hasRequiredEs_object_keys;
+
+function requireEs_object_keys () {
+	if (hasRequiredEs_object_keys) return es_object_keys;
+	hasRequiredEs_object_keys = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var toObject = /*@__PURE__*/ requireToObject();
+	var nativeKeys = /*@__PURE__*/ requireObjectKeys();
+	var fails = /*@__PURE__*/ requireFails();
+
+	var FAILS_ON_PRIMITIVES = fails(function () { nativeKeys(1); });
+
+	// `Object.keys` method
+	// https://tc39.es/ecma262/#sec-object.keys
+	$({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES }, {
+	  keys: function keys(it) {
+	    return nativeKeys(toObject(it));
+	  }
+	});
+	return es_object_keys;
+}
+
+var keys$6;
+var hasRequiredKeys$6;
+
+function requireKeys$6 () {
+	if (hasRequiredKeys$6) return keys$6;
+	hasRequiredKeys$6 = 1;
+	requireEs_object_keys();
+	var path = /*@__PURE__*/ requirePath();
+
+	keys$6 = path.Object.keys;
+	return keys$6;
+}
+
+var keys$5;
+var hasRequiredKeys$5;
+
+function requireKeys$5 () {
+	if (hasRequiredKeys$5) return keys$5;
+	hasRequiredKeys$5 = 1;
+	var parent = /*@__PURE__*/ requireKeys$6();
+
+	keys$5 = parent;
+	return keys$5;
+}
+
+var keys$4;
+var hasRequiredKeys$4;
+
+function requireKeys$4 () {
+	if (hasRequiredKeys$4) return keys$4;
+	hasRequiredKeys$4 = 1;
+	keys$4 = /*@__PURE__*/ requireKeys$5();
+	return keys$4;
+}
+
+var keysExports$1 = requireKeys$4();
+var _Object$keys = /*@__PURE__*/getDefaultExportFromCjs(keysExports$1);
+
+var es_function_bind = {};
+
+var functionBind;
+var hasRequiredFunctionBind;
+
+function requireFunctionBind () {
+	if (hasRequiredFunctionBind) return functionBind;
+	hasRequiredFunctionBind = 1;
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var aCallable = /*@__PURE__*/ requireACallable();
+	var isObject = /*@__PURE__*/ requireIsObject();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+	var arraySlice = /*@__PURE__*/ requireArraySlice();
+	var NATIVE_BIND = /*@__PURE__*/ requireFunctionBindNative();
+
+	var $Function = Function;
+	var concat = uncurryThis([].concat);
+	var join = uncurryThis([].join);
+	var factories = {};
+
+	var construct = function (C, argsLength, args) {
+	  if (!hasOwn(factories, argsLength)) {
+	    var list = [];
+	    var i = 0;
+	    for (; i < argsLength; i++) list[i] = 'a[' + i + ']';
+	    factories[argsLength] = $Function('C,a', 'return new C(' + join(list, ',') + ')');
+	  } return factories[argsLength](C, args);
+	};
+
+	// `Function.prototype.bind` method implementation
+	// https://tc39.es/ecma262/#sec-function.prototype.bind
+	// eslint-disable-next-line es/no-function-prototype-bind -- detection
+	functionBind = NATIVE_BIND ? $Function.bind : function bind(that /* , ...args */) {
+	  var F = aCallable(this);
+	  var Prototype = F.prototype;
+	  var partArgs = arraySlice(arguments, 1);
+	  var boundFunction = function bound(/* args... */) {
+	    var args = concat(partArgs, arraySlice(arguments));
+	    return this instanceof boundFunction ? construct(F, args.length, args) : F.apply(that, args);
+	  };
+	  if (isObject(Prototype)) boundFunction.prototype = Prototype;
+	  return boundFunction;
+	};
+	return functionBind;
+}
+
+var hasRequiredEs_function_bind;
+
+function requireEs_function_bind () {
+	if (hasRequiredEs_function_bind) return es_function_bind;
+	hasRequiredEs_function_bind = 1;
+	// TODO: Remove from `core-js@4`
+	var $ = /*@__PURE__*/ require_export();
+	var bind = /*@__PURE__*/ requireFunctionBind();
+
+	// `Function.prototype.bind` method
+	// https://tc39.es/ecma262/#sec-function.prototype.bind
+	// eslint-disable-next-line es/no-function-prototype-bind -- detection
+	$({ target: 'Function', proto: true, forced: Function.bind !== bind }, {
+	  bind: bind
+	});
+	return es_function_bind;
+}
+
+var bind$3;
+var hasRequiredBind$3;
+
+function requireBind$3 () {
+	if (hasRequiredBind$3) return bind$3;
+	hasRequiredBind$3 = 1;
+	requireEs_function_bind();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	bind$3 = getBuiltInPrototypeMethod('Function', 'bind');
+	return bind$3;
+}
+
+var bind$2;
+var hasRequiredBind$2;
+
+function requireBind$2 () {
+	if (hasRequiredBind$2) return bind$2;
+	hasRequiredBind$2 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireBind$3();
+
+	var FunctionPrototype = Function.prototype;
+
+	bind$2 = function (it) {
+	  var own = it.bind;
+	  return it === FunctionPrototype || (isPrototypeOf(FunctionPrototype, it) && own === FunctionPrototype.bind) ? method : own;
+	};
+	return bind$2;
+}
+
+var bind$1;
+var hasRequiredBind$1;
+
+function requireBind$1 () {
+	if (hasRequiredBind$1) return bind$1;
+	hasRequiredBind$1 = 1;
+	var parent = /*@__PURE__*/ requireBind$2();
+
+	bind$1 = parent;
+	return bind$1;
+}
+
+var bind;
+var hasRequiredBind;
+
+function requireBind () {
+	if (hasRequiredBind) return bind;
+	hasRequiredBind = 1;
+	bind = /*@__PURE__*/ requireBind$1();
+	return bind;
+}
+
+var bindExports = requireBind();
+var _bindInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(bindExports);
+
+var es_array_reverse = {};
+
+var hasRequiredEs_array_reverse;
+
+function requireEs_array_reverse () {
+	if (hasRequiredEs_array_reverse) return es_array_reverse;
+	hasRequiredEs_array_reverse = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var isArray = /*@__PURE__*/ requireIsArray$3();
+
+	var nativeReverse = uncurryThis([].reverse);
+	var test = [1, 2];
+
+	// `Array.prototype.reverse` method
+	// https://tc39.es/ecma262/#sec-array.prototype.reverse
+	// fix for Safari 12.0 bug
+	// https://bugs.webkit.org/show_bug.cgi?id=188794
+	$({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()) }, {
+	  reverse: function reverse() {
+	    // eslint-disable-next-line no-self-assign -- dirty hack
+	    if (isArray(this)) this.length = this.length;
+	    return nativeReverse(this);
+	  }
+	});
+	return es_array_reverse;
+}
+
+var reverse$3;
+var hasRequiredReverse$3;
+
+function requireReverse$3 () {
+	if (hasRequiredReverse$3) return reverse$3;
+	hasRequiredReverse$3 = 1;
+	requireEs_array_reverse();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	reverse$3 = getBuiltInPrototypeMethod('Array', 'reverse');
+	return reverse$3;
+}
+
+var reverse$2;
+var hasRequiredReverse$2;
+
+function requireReverse$2 () {
+	if (hasRequiredReverse$2) return reverse$2;
+	hasRequiredReverse$2 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireReverse$3();
+
+	var ArrayPrototype = Array.prototype;
+
+	reverse$2 = function (it) {
+	  var own = it.reverse;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.reverse) ? method : own;
+	};
+	return reverse$2;
+}
+
+var reverse$1;
+var hasRequiredReverse$1;
+
+function requireReverse$1 () {
+	if (hasRequiredReverse$1) return reverse$1;
+	hasRequiredReverse$1 = 1;
+	var parent = /*@__PURE__*/ requireReverse$2();
+
+	reverse$1 = parent;
+	return reverse$1;
+}
+
+var reverse;
+var hasRequiredReverse;
+
+function requireReverse () {
+	if (hasRequiredReverse) return reverse;
+	hasRequiredReverse = 1;
+	reverse = /*@__PURE__*/ requireReverse$1();
+	return reverse;
+}
+
+var reverseExports = requireReverse();
+var _reverseInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reverseExports);
+
+var es_array_splice = {};
+
+var arraySetLength;
+var hasRequiredArraySetLength;
+
+function requireArraySetLength () {
+	if (hasRequiredArraySetLength) return arraySetLength;
+	hasRequiredArraySetLength = 1;
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var isArray = /*@__PURE__*/ requireIsArray$3();
+
+	var $TypeError = TypeError;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+	// Safari < 13 does not throw an error in this case
+	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+	  // makes no sense without proper strict mode support
+	  if (this !== undefined) return true;
+	  try {
+	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+	  } catch (error) {
+	    return error instanceof TypeError;
+	  }
+	}();
+
+	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+	    throw new $TypeError('Cannot set read only .length');
+	  } return O.length = length;
+	} : function (O, length) {
+	  return O.length = length;
+	};
+	return arraySetLength;
+}
+
+var hasRequiredEs_array_splice;
+
+function requireEs_array_splice () {
+	if (hasRequiredEs_array_splice) return es_array_splice;
+	hasRequiredEs_array_splice = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var toObject = /*@__PURE__*/ requireToObject();
+	var toAbsoluteIndex = /*@__PURE__*/ requireToAbsoluteIndex();
+	var toIntegerOrInfinity = /*@__PURE__*/ requireToIntegerOrInfinity();
+	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
+	var setArrayLength = /*@__PURE__*/ requireArraySetLength();
+	var doesNotExceedSafeInteger = /*@__PURE__*/ requireDoesNotExceedSafeInteger();
+	var arraySpeciesCreate = /*@__PURE__*/ requireArraySpeciesCreate();
+	var createProperty = /*@__PURE__*/ requireCreateProperty();
+	var deletePropertyOrThrow = /*@__PURE__*/ requireDeletePropertyOrThrow();
+	var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
+
+	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('splice');
+
+	var max = Math.max;
+	var min = Math.min;
+
+	// `Array.prototype.splice` method
+	// https://tc39.es/ecma262/#sec-array.prototype.splice
+	// with adding support of @@species
+	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+	  splice: function splice(start, deleteCount /* , ...items */) {
+	    var O = toObject(this);
+	    var len = lengthOfArrayLike(O);
+	    var actualStart = toAbsoluteIndex(start, len);
+	    var argumentsLength = arguments.length;
+	    var insertCount, actualDeleteCount, A, k, from, to;
+	    if (argumentsLength === 0) {
+	      insertCount = actualDeleteCount = 0;
+	    } else if (argumentsLength === 1) {
+	      insertCount = 0;
+	      actualDeleteCount = len - actualStart;
+	    } else {
+	      insertCount = argumentsLength - 2;
+	      actualDeleteCount = min(max(toIntegerOrInfinity(deleteCount), 0), len - actualStart);
+	    }
+	    doesNotExceedSafeInteger(len + insertCount - actualDeleteCount);
+	    A = arraySpeciesCreate(O, actualDeleteCount);
+	    for (k = 0; k < actualDeleteCount; k++) {
+	      from = actualStart + k;
+	      if (from in O) createProperty(A, k, O[from]);
+	    }
+	    A.length = actualDeleteCount;
+	    if (insertCount < actualDeleteCount) {
+	      for (k = actualStart; k < len - actualDeleteCount; k++) {
+	        from = k + actualDeleteCount;
+	        to = k + insertCount;
+	        if (from in O) O[to] = O[from];
+	        else deletePropertyOrThrow(O, to);
+	      }
+	      for (k = len; k > len - actualDeleteCount + insertCount; k--) deletePropertyOrThrow(O, k - 1);
+	    } else if (insertCount > actualDeleteCount) {
+	      for (k = len - actualDeleteCount; k > actualStart; k--) {
+	        from = k + actualDeleteCount - 1;
+	        to = k + insertCount - 1;
+	        if (from in O) O[to] = O[from];
+	        else deletePropertyOrThrow(O, to);
+	      }
+	    }
+	    for (k = 0; k < insertCount; k++) {
+	      O[k + actualStart] = arguments[k + 2];
+	    }
+	    setArrayLength(O, len - actualDeleteCount + insertCount);
+	    return A;
+	  }
+	});
+	return es_array_splice;
+}
+
+var splice$3;
+var hasRequiredSplice$3;
+
+function requireSplice$3 () {
+	if (hasRequiredSplice$3) return splice$3;
+	hasRequiredSplice$3 = 1;
+	requireEs_array_splice();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	splice$3 = getBuiltInPrototypeMethod('Array', 'splice');
+	return splice$3;
+}
+
+var splice$2;
+var hasRequiredSplice$2;
+
+function requireSplice$2 () {
+	if (hasRequiredSplice$2) return splice$2;
+	hasRequiredSplice$2 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireSplice$3();
+
+	var ArrayPrototype = Array.prototype;
+
+	splice$2 = function (it) {
+	  var own = it.splice;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.splice) ? method : own;
+	};
+	return splice$2;
+}
+
+var splice$1;
+var hasRequiredSplice$1;
+
+function requireSplice$1 () {
+	if (hasRequiredSplice$1) return splice$1;
+	hasRequiredSplice$1 = 1;
+	var parent = /*@__PURE__*/ requireSplice$2();
+
+	splice$1 = parent;
+	return splice$1;
+}
+
+var splice;
+var hasRequiredSplice;
+
+function requireSplice () {
+	if (hasRequiredSplice) return splice;
+	hasRequiredSplice = 1;
+	splice = /*@__PURE__*/ requireSplice$1();
+	return splice;
+}
+
+var spliceExports = requireSplice();
+var _spliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(spliceExports);
+
+var es_object_getPrototypeOf = {};
+
+var hasRequiredEs_object_getPrototypeOf;
+
+function requireEs_object_getPrototypeOf () {
+	if (hasRequiredEs_object_getPrototypeOf) return es_object_getPrototypeOf;
+	hasRequiredEs_object_getPrototypeOf = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var fails = /*@__PURE__*/ requireFails();
+	var toObject = /*@__PURE__*/ requireToObject();
+	var nativeGetPrototypeOf = /*@__PURE__*/ requireObjectGetPrototypeOf();
+	var CORRECT_PROTOTYPE_GETTER = /*@__PURE__*/ requireCorrectPrototypeGetter();
+
+	var FAILS_ON_PRIMITIVES = fails(function () { nativeGetPrototypeOf(1); });
+
+	// `Object.getPrototypeOf` method
+	// https://tc39.es/ecma262/#sec-object.getprototypeof
+	$({ target: 'Object', stat: true, forced: FAILS_ON_PRIMITIVES, sham: !CORRECT_PROTOTYPE_GETTER }, {
+	  getPrototypeOf: function getPrototypeOf(it) {
+	    return nativeGetPrototypeOf(toObject(it));
+	  }
+	});
+	return es_object_getPrototypeOf;
+}
+
+var getPrototypeOf$2;
+var hasRequiredGetPrototypeOf$2;
+
+function requireGetPrototypeOf$2 () {
+	if (hasRequiredGetPrototypeOf$2) return getPrototypeOf$2;
+	hasRequiredGetPrototypeOf$2 = 1;
+	requireEs_object_getPrototypeOf();
+	var path = /*@__PURE__*/ requirePath();
+
+	getPrototypeOf$2 = path.Object.getPrototypeOf;
+	return getPrototypeOf$2;
+}
+
+var getPrototypeOf$1;
+var hasRequiredGetPrototypeOf$1;
+
+function requireGetPrototypeOf$1 () {
+	if (hasRequiredGetPrototypeOf$1) return getPrototypeOf$1;
+	hasRequiredGetPrototypeOf$1 = 1;
+	var parent = /*@__PURE__*/ requireGetPrototypeOf$2();
+
+	getPrototypeOf$1 = parent;
+	return getPrototypeOf$1;
+}
+
+var getPrototypeOf;
+var hasRequiredGetPrototypeOf;
+
+function requireGetPrototypeOf () {
+	if (hasRequiredGetPrototypeOf) return getPrototypeOf;
+	hasRequiredGetPrototypeOf = 1;
+	getPrototypeOf = /*@__PURE__*/ requireGetPrototypeOf$1();
+	return getPrototypeOf;
+}
+
+var getPrototypeOfExports = requireGetPrototypeOf();
+var _Object$getPrototypeOf = /*@__PURE__*/getDefaultExportFromCjs(getPrototypeOfExports);
+
+var es_parseInt = {};
+
+var numberParseInt;
+var hasRequiredNumberParseInt;
+
+function requireNumberParseInt () {
+	if (hasRequiredNumberParseInt) return numberParseInt;
+	hasRequiredNumberParseInt = 1;
+	var globalThis = /*@__PURE__*/ requireGlobalThis();
+	var fails = /*@__PURE__*/ requireFails();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var toString = /*@__PURE__*/ requireToString();
+	var trim = /*@__PURE__*/ requireStringTrim().trim;
+	var whitespaces = /*@__PURE__*/ requireWhitespaces();
+
+	var $parseInt = globalThis.parseInt;
+	var Symbol = globalThis.Symbol;
+	var ITERATOR = Symbol && Symbol.iterator;
+	var hex = /^[+-]?0x/i;
+	var exec = uncurryThis(hex.exec);
+	var FORCED = $parseInt(whitespaces + '08') !== 8 || $parseInt(whitespaces + '0x16') !== 22
+	  // MS Edge 18- broken with boxed symbols
+	  || (ITERATOR && !fails(function () { $parseInt(Object(ITERATOR)); }));
+
+	// `parseInt` method
+	// https://tc39.es/ecma262/#sec-parseint-string-radix
+	numberParseInt = FORCED ? function parseInt(string, radix) {
+	  var S = trim(toString(string));
+	  return $parseInt(S, (radix >>> 0) || (exec(hex, S) ? 16 : 10));
+	} : $parseInt;
+	return numberParseInt;
+}
+
+var hasRequiredEs_parseInt;
+
+function requireEs_parseInt () {
+	if (hasRequiredEs_parseInt) return es_parseInt;
+	hasRequiredEs_parseInt = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var $parseInt = /*@__PURE__*/ requireNumberParseInt();
+
+	// `parseInt` method
+	// https://tc39.es/ecma262/#sec-parseint-string-radix
+	$({ global: true, forced: parseInt !== $parseInt }, {
+	  parseInt: $parseInt
+	});
+	return es_parseInt;
+}
+
+var _parseInt$3;
+var hasRequired_parseInt$2;
+
+function require_parseInt$2 () {
+	if (hasRequired_parseInt$2) return _parseInt$3;
+	hasRequired_parseInt$2 = 1;
+	requireEs_parseInt();
+	var path = /*@__PURE__*/ requirePath();
+
+	_parseInt$3 = path.parseInt;
+	return _parseInt$3;
+}
+
+var _parseInt$2;
+var hasRequired_parseInt$1;
+
+function require_parseInt$1 () {
+	if (hasRequired_parseInt$1) return _parseInt$2;
+	hasRequired_parseInt$1 = 1;
+	var parent = /*@__PURE__*/ require_parseInt$2();
+
+	_parseInt$2 = parent;
+	return _parseInt$2;
+}
+
+var _parseInt$1;
+var hasRequired_parseInt;
+
+function require_parseInt () {
+	if (hasRequired_parseInt) return _parseInt$1;
+	hasRequired_parseInt = 1;
+	_parseInt$1 = /*@__PURE__*/ require_parseInt$1();
+	return _parseInt$1;
+}
+
+var _parseIntExports = require_parseInt();
+var _parseInt = /*@__PURE__*/getDefaultExportFromCjs(_parseIntExports);
+
+var es_object_create = {};
+
+var hasRequiredEs_object_create;
+
+function requireEs_object_create () {
+	if (hasRequiredEs_object_create) return es_object_create;
+	hasRequiredEs_object_create = 1;
+	// TODO: Remove from `core-js@4`
+	var $ = /*@__PURE__*/ require_export();
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var create = /*@__PURE__*/ requireObjectCreate();
+
+	// `Object.create` method
+	// https://tc39.es/ecma262/#sec-object.create
+	$({ target: 'Object', stat: true, sham: !DESCRIPTORS }, {
+	  create: create
+	});
+	return es_object_create;
+}
+
+var create$2;
+var hasRequiredCreate$2;
+
+function requireCreate$2 () {
+	if (hasRequiredCreate$2) return create$2;
+	hasRequiredCreate$2 = 1;
+	requireEs_object_create();
+	var path = /*@__PURE__*/ requirePath();
+
+	var Object = path.Object;
+
+	create$2 = function create(P, D) {
+	  return Object.create(P, D);
+	};
+	return create$2;
+}
+
+var create$1;
+var hasRequiredCreate$1;
+
+function requireCreate$1 () {
+	if (hasRequiredCreate$1) return create$1;
+	hasRequiredCreate$1 = 1;
+	var parent = /*@__PURE__*/ requireCreate$2();
+
+	create$1 = parent;
+	return create$1;
+}
+
+var create;
+var hasRequiredCreate;
+
+function requireCreate () {
+	if (hasRequiredCreate) return create;
+	hasRequiredCreate = 1;
+	create = /*@__PURE__*/ requireCreate$1();
+	return create;
+}
+
+var createExports = requireCreate();
+var _Object$create = /*@__PURE__*/getDefaultExportFromCjs(createExports);
+
+var es_date_toJson = {};
+
+var stringRepeat;
+var hasRequiredStringRepeat;
+
+function requireStringRepeat () {
+	if (hasRequiredStringRepeat) return stringRepeat;
+	hasRequiredStringRepeat = 1;
+	var toIntegerOrInfinity = /*@__PURE__*/ requireToIntegerOrInfinity();
+	var toString = /*@__PURE__*/ requireToString();
+	var requireObjectCoercible = /*@__PURE__*/ requireRequireObjectCoercible();
+
+	var $RangeError = RangeError;
+
+	// `String.prototype.repeat` method implementation
+	// https://tc39.es/ecma262/#sec-string.prototype.repeat
+	stringRepeat = function repeat(count) {
+	  var str = toString(requireObjectCoercible(this));
+	  var result = '';
+	  var n = toIntegerOrInfinity(count);
+	  if (n < 0 || n === Infinity) throw new $RangeError('Wrong number of repetitions');
+	  for (;n > 0; (n >>>= 1) && (str += str)) if (n & 1) result += str;
+	  return result;
+	};
+	return stringRepeat;
+}
+
+var stringPad;
+var hasRequiredStringPad;
+
+function requireStringPad () {
+	if (hasRequiredStringPad) return stringPad;
+	hasRequiredStringPad = 1;
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var toLength = /*@__PURE__*/ requireToLength();
+	var toString = /*@__PURE__*/ requireToString();
+	var $repeat = /*@__PURE__*/ requireStringRepeat();
+	var requireObjectCoercible = /*@__PURE__*/ requireRequireObjectCoercible();
+
+	var repeat = uncurryThis($repeat);
+	var stringSlice = uncurryThis(''.slice);
+	var ceil = Math.ceil;
+
+	// `String.prototype.{ padStart, padEnd }` methods implementation
+	var createMethod = function (IS_END) {
+	  return function ($this, maxLength, fillString) {
+	    var S = toString(requireObjectCoercible($this));
+	    var intMaxLength = toLength(maxLength);
+	    var stringLength = S.length;
+	    var fillStr = fillString === undefined ? ' ' : toString(fillString);
+	    var fillLen, stringFiller;
+	    if (intMaxLength <= stringLength || fillStr === '') return S;
+	    fillLen = intMaxLength - stringLength;
+	    stringFiller = repeat(fillStr, ceil(fillLen / fillStr.length));
+	    if (stringFiller.length > fillLen) stringFiller = stringSlice(stringFiller, 0, fillLen);
+	    return IS_END ? S + stringFiller : stringFiller + S;
+	  };
+	};
+
+	stringPad = {
+	  // `String.prototype.padStart` method
+	  // https://tc39.es/ecma262/#sec-string.prototype.padstart
+	  start: createMethod(false),
+	  // `String.prototype.padEnd` method
+	  // https://tc39.es/ecma262/#sec-string.prototype.padend
+	  end: createMethod(true)
+	};
+	return stringPad;
+}
+
+var dateToIsoString;
+var hasRequiredDateToIsoString;
+
+function requireDateToIsoString () {
+	if (hasRequiredDateToIsoString) return dateToIsoString;
+	hasRequiredDateToIsoString = 1;
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var fails = /*@__PURE__*/ requireFails();
+	var padStart = /*@__PURE__*/ requireStringPad().start;
+
+	var $RangeError = RangeError;
+	var $isFinite = isFinite;
+	var abs = Math.abs;
+	var DatePrototype = Date.prototype;
+	var nativeDateToISOString = DatePrototype.toISOString;
+	var thisTimeValue = uncurryThis(DatePrototype.getTime);
+	var getUTCDate = uncurryThis(DatePrototype.getUTCDate);
+	var getUTCFullYear = uncurryThis(DatePrototype.getUTCFullYear);
+	var getUTCHours = uncurryThis(DatePrototype.getUTCHours);
+	var getUTCMilliseconds = uncurryThis(DatePrototype.getUTCMilliseconds);
+	var getUTCMinutes = uncurryThis(DatePrototype.getUTCMinutes);
+	var getUTCMonth = uncurryThis(DatePrototype.getUTCMonth);
+	var getUTCSeconds = uncurryThis(DatePrototype.getUTCSeconds);
+
+	// `Date.prototype.toISOString` method implementation
+	// https://tc39.es/ecma262/#sec-date.prototype.toisostring
+	// PhantomJS / old WebKit fails here:
+	dateToIsoString = (fails(function () {
+	  return nativeDateToISOString.call(new Date(-5e13 - 1)) !== '0385-07-25T07:06:39.999Z';
+	}) || !fails(function () {
+	  nativeDateToISOString.call(new Date(NaN));
+	})) ? function toISOString() {
+	  if (!$isFinite(thisTimeValue(this))) throw new $RangeError('Invalid time value');
+	  var date = this;
+	  var year = getUTCFullYear(date);
+	  var milliseconds = getUTCMilliseconds(date);
+	  var sign = year < 0 ? '-' : year > 9999 ? '+' : '';
+	  return sign + padStart(abs(year), sign ? 6 : 4, 0) +
+	    '-' + padStart(getUTCMonth(date) + 1, 2, 0) +
+	    '-' + padStart(getUTCDate(date), 2, 0) +
+	    'T' + padStart(getUTCHours(date), 2, 0) +
+	    ':' + padStart(getUTCMinutes(date), 2, 0) +
+	    ':' + padStart(getUTCSeconds(date), 2, 0) +
+	    '.' + padStart(milliseconds, 3, 0) +
+	    'Z';
+	} : nativeDateToISOString;
+	return dateToIsoString;
+}
+
+var hasRequiredEs_date_toJson;
+
+function requireEs_date_toJson () {
+	if (hasRequiredEs_date_toJson) return es_date_toJson;
+	hasRequiredEs_date_toJson = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var toObject = /*@__PURE__*/ requireToObject();
+	var toPrimitive = /*@__PURE__*/ requireToPrimitive$5();
+	var toISOString = /*@__PURE__*/ requireDateToIsoString();
+	var classof = /*@__PURE__*/ requireClassofRaw();
+	var fails = /*@__PURE__*/ requireFails();
+
+	var FORCED = fails(function () {
+	  return new Date(NaN).toJSON() !== null
+	    || call(Date.prototype.toJSON, { toISOString: function () { return 1; } }) !== 1;
+	});
+
+	// `Date.prototype.toJSON` method
+	// https://tc39.es/ecma262/#sec-date.prototype.tojson
+	$({ target: 'Date', proto: true, forced: FORCED }, {
+	  // eslint-disable-next-line no-unused-vars -- required for `.length`
+	  toJSON: function toJSON(key) {
+	    var O = toObject(this);
+	    var pv = toPrimitive(O, 'number');
+	    return typeof pv == 'number' && !isFinite(pv) ? null :
+	      (!('toISOString' in O) && classof(O) === 'Date') ? call(toISOString, O) : O.toISOString();
+	  }
+	});
+	return es_date_toJson;
+}
+
+var stringify$2;
+var hasRequiredStringify$2;
+
+function requireStringify$2 () {
+	if (hasRequiredStringify$2) return stringify$2;
+	hasRequiredStringify$2 = 1;
+	requireEs_date_toJson();
+	requireEs_json_stringify();
+	var path = /*@__PURE__*/ requirePath();
+	var apply = /*@__PURE__*/ requireFunctionApply();
+
+	// eslint-disable-next-line es/no-json -- safe
+	if (!path.JSON) path.JSON = { stringify: JSON.stringify };
+
+	// eslint-disable-next-line no-unused-vars -- required for `.length`
+	stringify$2 = function stringify(it, replacer, space) {
+	  return apply(path.JSON.stringify, null, arguments);
+	};
+	return stringify$2;
+}
+
+var stringify$1;
+var hasRequiredStringify$1;
+
+function requireStringify$1 () {
+	if (hasRequiredStringify$1) return stringify$1;
+	hasRequiredStringify$1 = 1;
+	var parent = /*@__PURE__*/ requireStringify$2();
+
+	stringify$1 = parent;
+	return stringify$1;
+}
+
+var stringify;
+var hasRequiredStringify;
+
+function requireStringify () {
+	if (hasRequiredStringify) return stringify;
+	hasRequiredStringify = 1;
+	stringify = /*@__PURE__*/ requireStringify$1();
+	return stringify;
+}
+
+var stringifyExports = requireStringify();
+var _JSON$stringify = /*@__PURE__*/getDefaultExportFromCjs(stringifyExports);
+
 /*! Hammer.JS - v2.0.17-rc - 2019-12-16
  * http://naver.github.io/egjs
  *
@@ -7075,54 +9136,30 @@ function () {
 }();
 
 /**
- * vis-util
- * https://github.com/visjs/vis-util
- *
- * utilitie collection for visjs
- *
- * @version 6.0.0
- * @date    2025-07-12T18:02:43.836Z
- *
- * @copyright (c) 2011-2017 Almende B.V, http://almende.com
- * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
- *
- * @license
- * vis.js is dual licensed under both
- *
- *   1. The Apache 2.0 License
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *   and
- *
- *   2. The MIT License
- *      http://opensource.org/licenses/MIT
- *
- * vis.js may be distributed under either license.
- */
-
-
-/**
  * Use this symbol to delete properies in deepObjectAssign.
  */
-const DELETE = Symbol("DELETE");
+const DELETE = _Symbol$1("DELETE");
 /**
  * Pure version of deepObjectAssign, it doesn't modify any of it's arguments.
  * @param base - The base object that fullfils the whole interface T.
  * @param updates - Updates that may change or delete props.
  * @returns A brand new instance with all the supplied objects deeply merged.
  */
-function pureDeepObjectAssign(base, ...updates) {
-    return deepObjectAssign({}, base, ...updates);
+function pureDeepObjectAssign(base) {
+  for (var _len = arguments.length, updates = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    updates[_key - 1] = arguments[_key];
+  }
+  return deepObjectAssign({}, base, ...updates);
 }
 /**
  * Deep version of object assign with additional deleting by the DELETE symbol.
  * @param values - Objects to be deeply merged.
  * @returns The first object from values.
  */
-function deepObjectAssign(...values) {
-    const merged = deepObjectAssignNonentry(...values);
-    stripDelete(merged);
-    return merged;
+function deepObjectAssign() {
+  const merged = deepObjectAssignNonentry(...arguments);
+  stripDelete(merged);
+  return merged;
 }
 /**
  * Deep version of object assign with additional deleting by the DELETE symbol.
@@ -7131,37 +9168,31 @@ function deepObjectAssign(...values) {
  * @param values - Objects to be deeply merged.
  * @returns The first object from values.
  */
-function deepObjectAssignNonentry(...values) {
-    if (values.length < 2) {
-        return values[0];
-    }
-    else if (values.length > 2) {
-        return deepObjectAssignNonentry(deepObjectAssign(values[0], values[1]), ...values.slice(2));
-    }
-    const a = values[0];
-    const b = values[1];
-    if (a instanceof Date && b instanceof Date) {
-        a.setTime(b.getTime());
-        return a;
-    }
-    for (const prop of Reflect.ownKeys(b)) {
-        if (!Object.prototype.propertyIsEnumerable.call(b, prop)) ;
-        else if (b[prop] === DELETE) {
-            delete a[prop];
-        }
-        else if (a[prop] !== null &&
-            b[prop] !== null &&
-            typeof a[prop] === "object" &&
-            typeof b[prop] === "object" &&
-            !Array.isArray(a[prop]) &&
-            !Array.isArray(b[prop])) {
-            a[prop] = deepObjectAssignNonentry(a[prop], b[prop]);
-        }
-        else {
-            a[prop] = clone(b[prop]);
-        }
-    }
+function deepObjectAssignNonentry() {
+  for (var _len2 = arguments.length, values = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    values[_key2] = arguments[_key2];
+  }
+  if (values.length < 2) {
+    return values[0];
+  } else if (values.length > 2) {
+    return deepObjectAssignNonentry(deepObjectAssign(values[0], values[1]), ..._sliceInstanceProperty(values).call(values, 2));
+  }
+  const a = values[0];
+  const b = values[1];
+  if (a instanceof Date && b instanceof Date) {
+    a.setTime(b.getTime());
     return a;
+  }
+  for (const prop of _Reflect$ownKeys(b)) {
+    if (!Object.prototype.propertyIsEnumerable.call(b, prop)) ;else if (b[prop] === DELETE) {
+      delete a[prop];
+    } else if (a[prop] !== null && b[prop] !== null && typeof a[prop] === "object" && typeof b[prop] === "object" && !_Array$isArray(a[prop]) && !_Array$isArray(b[prop])) {
+      a[prop] = deepObjectAssignNonentry(a[prop], b[prop]);
+    } else {
+      a[prop] = clone(b[prop]);
+    }
+  }
+  return a;
 }
 /**
  * Deep clone given object or array. In case of primitive simply return.
@@ -7169,32 +9200,29 @@ function deepObjectAssignNonentry(...values) {
  * @returns Deep cloned object/array or unchanged a.
  */
 function clone(a) {
-    if (Array.isArray(a)) {
-        return a.map((value) => clone(value));
+  if (_Array$isArray(a)) {
+    return _mapInstanceProperty(a).call(a, value => clone(value));
+  } else if (typeof a === "object" && a !== null) {
+    if (a instanceof Date) {
+      return new Date(a.getTime());
     }
-    else if (typeof a === "object" && a !== null) {
-        if (a instanceof Date) {
-            return new Date(a.getTime());
-        }
-        return deepObjectAssignNonentry({}, a);
-    }
-    else {
-        return a;
-    }
+    return deepObjectAssignNonentry({}, a);
+  } else {
+    return a;
+  }
 }
 /**
  * Strip DELETE from given object.
  * @param a - Object which may contain DELETE but won't after this is executed.
  */
 function stripDelete(a) {
-    for (const prop of Object.keys(a)) {
-        if (a[prop] === DELETE) {
-            delete a[prop];
-        }
-        else if (typeof a[prop] === "object" && a[prop] !== null) {
-            stripDelete(a[prop]);
-        }
+  for (const prop of _Object$keys(a)) {
+    if (a[prop] === DELETE) {
+      delete a[prop];
+    } else if (typeof a[prop] === "object" && a[prop] !== null) {
+      stripDelete(a[prop]);
     }
+  }
 }
 
 /**
@@ -7205,28 +9233,22 @@ function stripDelete(a) {
  */
 function hammerMock() {
   const noop = () => {};
-
   return {
     on: noop,
     off: noop,
     destroy: noop,
     emit: noop,
-
     get() {
       return {
-        set: noop,
+        set: noop
       };
-    },
+    }
   };
 }
-
-const Hammer$1 =
-  typeof window !== "undefined"
-    ? window.Hammer || Hammer
-    : function () {
-        // hammer.js is only available in a browser, not in node.js. Replacing it with a mock object.
-        return hammerMock();
-      };
+const Hammer$1 = typeof window !== "undefined" ? window.Hammer || Hammer : function () {
+  // hammer.js is only available in a browser, not in node.js. Replacing it with a mock object.
+  return hammerMock();
+};
 
 /**
  * Turn an element into an clickToUse element.
@@ -7239,24 +9261,20 @@ const Hammer$1 =
  * @class Activator
  */
 function Activator$1(container) {
+  var _context;
   this._cleanupQueue = [];
-
   this.active = false;
-
   this._dom = {
     container,
-    overlay: document.createElement("div"),
+    overlay: document.createElement("div")
   };
-
   this._dom.overlay.classList.add("vis-overlay");
-
   this._dom.container.appendChild(this._dom.overlay);
   this._cleanupQueue.push(() => {
     this._dom.overlay.parentNode.removeChild(this._dom.overlay);
   });
-
   const hammer = Hammer$1(this._dom.overlay);
-  hammer.on("tap", this._onTapOverlay.bind(this));
+  hammer.on("tap", _bindInstanceProperty(_context = this._onTapOverlay).call(_context, this));
   this._cleanupQueue.push(() => {
     hammer.destroy();
     // FIXME: cleaning up hammer instances doesn't work (Timeline not removed
@@ -7264,25 +9282,16 @@ function Activator$1(container) {
   });
 
   // block all touch events (except tap)
-  const events = [
-    "tap",
-    "doubletap",
-    "press",
-    "pinch",
-    "pan",
-    "panstart",
-    "panmove",
-    "panend",
-  ];
-  events.forEach((event) => {
-    hammer.on(event, (event) => {
+  const events = ["tap", "doubletap", "press", "pinch", "pan", "panstart", "panmove", "panend"];
+  _forEachInstanceProperty(events).call(events, event => {
+    hammer.on(event, event => {
       event.srcEvent.stopPropagation();
     });
   });
 
   // attach a click event to the window, in order to deactivate when clicking outside the timeline
   if (document && document.body) {
-    this._onClick = (event) => {
+    this._onClick = event => {
       if (!_hasParent(event.target, container)) {
         this.deactivate();
       }
@@ -7294,12 +9303,8 @@ function Activator$1(container) {
   }
 
   // prepare escape key listener for deactivating when active
-  this._escListener = (event) => {
-    if (
-      "key" in event
-        ? event.key === "Escape"
-        : event.keyCode === 27 /* the keyCode is for IE11 */
-    ) {
+  this._escListener = event => {
+    if ("key" in event ? event.key === "Escape" : event.keyCode === 27 /* the keyCode is for IE11 */) {
       this.deactivate();
     }
   };
@@ -7316,8 +9321,8 @@ Activator$1.current = null;
  */
 Activator$1.prototype.destroy = function () {
   this.deactivate();
-
-  for (const callback of this._cleanupQueue.splice(0).reverse()) {
+  for (const callback of _reverseInstanceProperty(_context2 = _spliceInstanceProperty(_context3 = this._cleanupQueue).call(_context3, 0)).call(_context2)) {
+    var _context2, _context3;
     callback();
   }
 };
@@ -7332,11 +9337,9 @@ Activator$1.prototype.activate = function () {
     Activator$1.current.deactivate();
   }
   Activator$1.current = this;
-
   this.active = true;
   this._dom.overlay.style.display = "none";
   this._dom.container.classList.add("vis-active");
-
   this.emit("change");
   this.emit("activate");
 
@@ -7354,7 +9357,6 @@ Activator$1.prototype.deactivate = function () {
   this._dom.overlay.style.display = "block";
   this._dom.container.classList.remove("vis-active");
   document.body.removeEventListener("keydown", this._escListener);
-
   this.emit("change");
   this.emit("deactivate");
 };
@@ -7402,16 +9404,15 @@ const shortHexRE = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
  * @param allowDeletion - If true, delete property in a if explicitly set to null in b.
  */
 function copyOrDelete(a, b, prop, allowDeletion) {
-    let doDeletion = false;
-    if (allowDeletion === true) {
-        doDeletion = b[prop] === null && a[prop] !== undefined;
-    }
-    if (doDeletion) {
-        delete a[prop];
-    }
-    else {
-        a[prop] = b[prop]; // Remember, this is a reference copy!
-    }
+  let doDeletion = false;
+  if (allowDeletion === true) {
+    doDeletion = b[prop] === null && a[prop] !== undefined;
+  }
+  if (doDeletion) {
+    delete a[prop];
+  } else {
+    a[prop] = b[prop]; // Remember, this is a reference copy!
+  }
 }
 /**
  * Extend object a with selected properties of object b.
@@ -7426,34 +9427,32 @@ function copyOrDelete(a, b, prop, allowDeletion) {
  * @param allowDeletion - If true, delete property in a if explicitly set to null in b.
  * @returns Argument a.
  */
-function selectiveDeepExtend(props, a, b, allowDeletion = false) {
-    // TODO: add support for Arrays to deepExtend
-    if (Array.isArray(b)) {
-        throw new TypeError("Arrays are not supported by deepExtend");
-    }
-    for (let p = 0; p < props.length; p++) {
-        const prop = props[p];
-        if (Object.prototype.hasOwnProperty.call(b, prop)) {
-            if (b[prop] && b[prop].constructor === Object) {
-                if (a[prop] === undefined) {
-                    a[prop] = {};
-                }
-                if (a[prop].constructor === Object) {
-                    deepExtend(a[prop], b[prop], false, allowDeletion);
-                }
-                else {
-                    copyOrDelete(a, b, prop, allowDeletion);
-                }
-            }
-            else if (Array.isArray(b[prop])) {
-                throw new TypeError("Arrays are not supported by deepExtend");
-            }
-            else {
-                copyOrDelete(a, b, prop, allowDeletion);
-            }
+function selectiveDeepExtend(props, a, b) {
+  let allowDeletion = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  // TODO: add support for Arrays to deepExtend
+  if (_Array$isArray(b)) {
+    throw new TypeError("Arrays are not supported by deepExtend");
+  }
+  for (let p = 0; p < props.length; p++) {
+    const prop = props[p];
+    if (Object.prototype.hasOwnProperty.call(b, prop)) {
+      if (b[prop] && b[prop].constructor === Object) {
+        if (a[prop] === undefined) {
+          a[prop] = {};
         }
+        if (a[prop].constructor === Object) {
+          deepExtend(a[prop], b[prop], false, allowDeletion);
+        } else {
+          copyOrDelete(a, b, prop, allowDeletion);
+        }
+      } else if (_Array$isArray(b[prop])) {
+        throw new TypeError("Arrays are not supported by deepExtend");
+      } else {
+        copyOrDelete(a, b, prop, allowDeletion);
+      }
     }
-    return a;
+  }
+  return a;
 }
 /**
  * Deep extend an object a with the properties of object b.
@@ -7465,33 +9464,28 @@ function selectiveDeepExtend(props, a, b, allowDeletion = false) {
  * @param allowDeletion - If true, the values of fields that are null will be deleted.
  * @returns Argument a.
  */
-function deepExtend(a, b, protoExtend = false, allowDeletion = false) {
-    for (const prop in b) {
-        if (Object.prototype.hasOwnProperty.call(b, prop) || protoExtend === true) {
-            if (typeof b[prop] === "object" &&
-                b[prop] !== null &&
-                Object.getPrototypeOf(b[prop]) === Object.prototype) {
-                if (a[prop] === undefined) {
-                    a[prop] = deepExtend({}, b[prop], protoExtend); // NOTE: allowDeletion not propagated!
-                }
-                else if (typeof a[prop] === "object" &&
-                    a[prop] !== null &&
-                    Object.getPrototypeOf(a[prop]) === Object.prototype) {
-                    deepExtend(a[prop], b[prop], protoExtend); // NOTE: allowDeletion not propagated!
-                }
-                else {
-                    copyOrDelete(a, b, prop, allowDeletion);
-                }
-            }
-            else if (Array.isArray(b[prop])) {
-                a[prop] = b[prop].slice();
-            }
-            else {
-                copyOrDelete(a, b, prop, allowDeletion);
-            }
+function deepExtend(a, b) {
+  let protoExtend = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let allowDeletion = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  for (const prop in b) {
+    if (Object.prototype.hasOwnProperty.call(b, prop) || protoExtend === true) {
+      if (typeof b[prop] === "object" && b[prop] !== null && _Object$getPrototypeOf(b[prop]) === Object.prototype) {
+        if (a[prop] === undefined) {
+          a[prop] = deepExtend({}, b[prop], protoExtend); // NOTE: allowDeletion not propagated!
+        } else if (typeof a[prop] === "object" && a[prop] !== null && _Object$getPrototypeOf(a[prop]) === Object.prototype) {
+          deepExtend(a[prop], b[prop], protoExtend); // NOTE: allowDeletion not propagated!
+        } else {
+          copyOrDelete(a, b, prop, allowDeletion);
         }
+      } else if (_Array$isArray(b[prop])) {
+        var _context4;
+        a[prop] = _sliceInstanceProperty(_context4 = b[prop]).call(_context4);
+      } else {
+        copyOrDelete(a, b, prop, allowDeletion);
+      }
     }
-    return a;
+  }
+  return a;
 }
 /**
  * Used to extend an array and copy it. This is used to propagate paths recursively.
@@ -7500,7 +9494,7 @@ function deepExtend(a, b, protoExtend = false, allowDeletion = false) {
  * @returns A new array with all items from arr and newValue (which is last).
  */
 function copyAndExtendArray(arr, newValue) {
-    return [...arr, newValue];
+  return [...arr, newValue];
 }
 /**
  * Used to extend an array and copy it. This is used to propagate paths recursively.
@@ -7508,24 +9502,22 @@ function copyAndExtendArray(arr, newValue) {
  * @returns Shallow copy of arr.
  */
 function copyArray(arr) {
-    return arr.slice();
+  return _sliceInstanceProperty(arr).call(arr);
 }
 /**
  * Cancels the event's default action if it is cancelable, without stopping further propagation of the event.
  * @param event - The event whose default action should be prevented.
  */
 function preventDefault(event) {
-    if (!event) {
-        event = window.event;
-    }
-    if (!event) ;
-    else if (event.preventDefault) {
-        event.preventDefault(); // non-IE browsers
-    }
-    else {
-        // @TODO: IE types? Does anyone care?
-        event.returnValue = false; // IE browsers
-    }
+  if (!event) {
+    event = window.event;
+  }
+  if (!event) ;else if (event.preventDefault) {
+    event.preventDefault(); // non-IE browsers
+  } else {
+    // @TODO: IE types? Does anyone care?
+    event.returnValue = false; // IE browsers
+  }
 }
 /**
  * Convert hex color string into RGB color object.
@@ -7535,31 +9527,27 @@ function preventDefault(event) {
  * @returns RGB color object.
  */
 function hexToRGB(hex) {
-    let result;
-    switch (hex.length) {
-        case 3:
-        case 4:
-            result = shortHexRE.exec(hex);
-            return result
-                ? {
-                    r: parseInt(result[1] + result[1], 16),
-                    g: parseInt(result[2] + result[2], 16),
-                    b: parseInt(result[3] + result[3], 16),
-                }
-                : null;
-        case 6:
-        case 7:
-            result = fullHexRE.exec(hex);
-            return result
-                ? {
-                    r: parseInt(result[1], 16),
-                    g: parseInt(result[2], 16),
-                    b: parseInt(result[3], 16),
-                }
-                : null;
-        default:
-            return null;
-    }
+  let result;
+  switch (hex.length) {
+    case 3:
+    case 4:
+      result = shortHexRE.exec(hex);
+      return result ? {
+        r: _parseInt(result[1] + result[1], 16),
+        g: _parseInt(result[2] + result[2], 16),
+        b: _parseInt(result[3] + result[3], 16)
+      } : null;
+    case 6:
+    case 7:
+      result = fullHexRE.exec(hex);
+      return result ? {
+        r: _parseInt(result[1], 16),
+        g: _parseInt(result[2], 16),
+        b: _parseInt(result[3], 16)
+      } : null;
+    default:
+      return null;
+  }
 }
 /**
  * Convert HSV \<0, 1\> into RGB color object.
@@ -7571,39 +9559,39 @@ function hexToRGB(hex) {
  * @returns RGB color object.
  */
 function HSVToRGB(h, s, v) {
-    let r;
-    let g;
-    let b;
-    const i = Math.floor(h * 6);
-    const f = h * 6 - i;
-    const p = v * (1 - s);
-    const q = v * (1 - f * s);
-    const t = v * (1 - (1 - f) * s);
-    switch (i % 6) {
-        case 0:
-            ((r = v), (g = t), (b = p));
-            break;
-        case 1:
-            ((r = q), (g = v), (b = p));
-            break;
-        case 2:
-            ((r = p), (g = v), (b = t));
-            break;
-        case 3:
-            ((r = p), (g = q), (b = v));
-            break;
-        case 4:
-            ((r = t), (g = p), (b = v));
-            break;
-        case 5:
-            ((r = v), (g = p), (b = q));
-            break;
-    }
-    return {
-        r: Math.floor(r * 255),
-        g: Math.floor(g * 255),
-        b: Math.floor(b * 255),
-    };
+  let r;
+  let g;
+  let b;
+  const i = Math.floor(h * 6);
+  const f = h * 6 - i;
+  const p = v * (1 - s);
+  const q = v * (1 - f * s);
+  const t = v * (1 - (1 - f) * s);
+  switch (i % 6) {
+    case 0:
+      r = v, g = t, b = p;
+      break;
+    case 1:
+      r = q, g = v, b = p;
+      break;
+    case 2:
+      r = p, g = v, b = t;
+      break;
+    case 3:
+      r = p, g = q, b = v;
+      break;
+    case 4:
+      r = t, g = p, b = v;
+      break;
+    case 5:
+      r = v, g = p, b = q;
+      break;
+  }
+  return {
+    r: Math.floor(r * 255),
+    g: Math.floor(g * 255),
+    b: Math.floor(b * 255)
+  };
 }
 /**
  * Validate hex color string.
@@ -7611,13 +9599,11 @@ function HSVToRGB(h, s, v) {
  * @returns True if the string is valid, false otherwise.
  */
 function isValidHex(hex) {
-    const isOk = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(hex);
-    return isOk;
+  const isOk = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(hex);
+  return isOk;
 }
-
 let errorFound = false;
 let allOptions$1;
-
 const VALIDATOR_PRINT_STYLE$1 = "background: #FFeeee; color: #dd0000";
 
 /**
@@ -7667,21 +9653,13 @@ let Validator$1 = class Validator {
    * @static
    */
   static check(option, options, referenceOptions, path) {
-    if (
-      referenceOptions[option] === undefined &&
-      referenceOptions.__any__ === undefined
-    ) {
+    if (referenceOptions[option] === undefined && referenceOptions.__any__ === undefined) {
       Validator.getSuggestion(option, referenceOptions, path);
       return;
     }
-
     let referenceOption = option;
     let is_object = true;
-
-    if (
-      referenceOptions[option] === undefined &&
-      referenceOptions.__any__ !== undefined
-    ) {
+    if (referenceOptions[option] === undefined && referenceOptions.__any__ !== undefined) {
       // NOTE: This only triggers if the __any__ is in the top level of the options object.
       //       THAT'S A REALLY BAD PLACE TO ALLOW IT!!!!
       // TODO: Examine if needed, remove if possible
@@ -7693,20 +9671,11 @@ let Validator$1 = class Validator {
       // we do not look deeper into the object.
       is_object = Validator.getType(options[option]) === "object";
     }
-
     let refOptionObj = referenceOptions[referenceOption];
     if (is_object && refOptionObj.__type__ !== undefined) {
       refOptionObj = refOptionObj.__type__;
     }
-
-    Validator.checkFields(
-      option,
-      options,
-      referenceOptions,
-      referenceOption,
-      refOptionObj,
-      path,
-    );
+    Validator.checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path);
   }
 
   /**
@@ -7719,62 +9688,24 @@ let Validator$1 = class Validator {
    * @param {Array}   path             | where in the object is the option
    * @static
    */
-  static checkFields(
-    option,
-    options,
-    referenceOptions,
-    referenceOption,
-    refOptionObj,
-    path,
-  ) {
+  static checkFields(option, options, referenceOptions, referenceOption, refOptionObj, path) {
     const log = function (message) {
-      console.error(
-        "%c" + message + Validator.printLocation(path, option),
-        VALIDATOR_PRINT_STYLE$1,
-      );
+      console.error("%c" + message + Validator.printLocation(path, option), VALIDATOR_PRINT_STYLE$1);
     };
-
     const optionType = Validator.getType(options[option]);
     const refOptionType = refOptionObj[optionType];
-
     if (refOptionType !== undefined) {
       // if the type is correct, we check if it is supposed to be one of a few select values
-      if (
-        Validator.getType(refOptionType) === "array" &&
-        refOptionType.indexOf(options[option]) === -1
-      ) {
-        log(
-          'Invalid option detected in "' +
-            option +
-            '".' +
-            " Allowed values are:" +
-            Validator.print(refOptionType) +
-            ' not "' +
-            options[option] +
-            '". ',
-        );
+      if (Validator.getType(refOptionType) === "array" && _indexOfInstanceProperty(refOptionType).call(refOptionType, options[option]) === -1) {
+        log('Invalid option detected in "' + option + '".' + " Allowed values are:" + Validator.print(refOptionType) + ' not "' + options[option] + '". ');
         errorFound = true;
       } else if (optionType === "object" && referenceOption !== "__any__") {
         path = copyAndExtendArray(path, option);
-        Validator.parse(
-          options[option],
-          referenceOptions[referenceOption],
-          path,
-        );
+        Validator.parse(options[option], referenceOptions[referenceOption], path);
       }
     } else if (refOptionObj["any"] === undefined) {
       // type of the field is incorrect and the field cannot be any
-      log(
-        'Invalid type received for "' +
-          option +
-          '". Expected: ' +
-          Validator.print(Object.keys(refOptionObj)) +
-          ". Received [" +
-          optionType +
-          '] "' +
-          options[option] +
-          '"',
-      );
+      log('Invalid type received for "' + option + '". Expected: ' + Validator.print(_Object$keys(refOptionObj)) + ". Received [" + optionType + '] "' + options[option] + '"');
       errorFound = true;
     }
   }
@@ -7787,7 +9718,6 @@ let Validator$1 = class Validator {
    */
   static getType(object) {
     const type = typeof object;
-
     if (type === "object") {
       if (object === null) {
         return "null";
@@ -7801,7 +9731,7 @@ let Validator$1 = class Validator {
       if (object instanceof String) {
         return "string";
       }
-      if (Array.isArray(object)) {
+      if (_Array$isArray(object)) {
         return "array";
       }
       if (object instanceof Date) {
@@ -7835,48 +9765,19 @@ let Validator$1 = class Validator {
   static getSuggestion(option, options, path) {
     const localSearch = Validator.findInOptions(option, options, path, false);
     const globalSearch = Validator.findInOptions(option, allOptions$1, [], true);
-
     const localSearchThreshold = 8;
     const globalSearchThreshold = 4;
-
     let msg;
     if (localSearch.indexMatch !== undefined) {
-      msg =
-        " in " +
-        Validator.printLocation(localSearch.path, option, "") +
-        'Perhaps it was incomplete? Did you mean: "' +
-        localSearch.indexMatch +
-        '"?\n\n';
-    } else if (
-      globalSearch.distance <= globalSearchThreshold &&
-      localSearch.distance > globalSearch.distance
-    ) {
-      msg =
-        " in " +
-        Validator.printLocation(localSearch.path, option, "") +
-        "Perhaps it was misplaced? Matching option found at: " +
-        Validator.printLocation(
-          globalSearch.path,
-          globalSearch.closestMatch,
-          "",
-        );
+      msg = " in " + Validator.printLocation(localSearch.path, option, "") + 'Perhaps it was incomplete? Did you mean: "' + localSearch.indexMatch + '"?\n\n';
+    } else if (globalSearch.distance <= globalSearchThreshold && localSearch.distance > globalSearch.distance) {
+      msg = " in " + Validator.printLocation(localSearch.path, option, "") + "Perhaps it was misplaced? Matching option found at: " + Validator.printLocation(globalSearch.path, globalSearch.closestMatch, "");
     } else if (localSearch.distance <= localSearchThreshold) {
-      msg =
-        '. Did you mean "' +
-        localSearch.closestMatch +
-        '"?' +
-        Validator.printLocation(localSearch.path, option);
+      msg = '. Did you mean "' + localSearch.closestMatch + '"?' + Validator.printLocation(localSearch.path, option);
     } else {
-      msg =
-        ". Did you mean one of these: " +
-        Validator.print(Object.keys(options)) +
-        Validator.printLocation(path, option);
+      msg = ". Did you mean one of these: " + Validator.print(_Object$keys(options)) + Validator.printLocation(path, option);
     }
-
-    console.error(
-      '%cUnknown option detected: "' + option + '"' + msg,
-      VALIDATOR_PRINT_STYLE$1,
-    );
+    console.error('%cUnknown option detected: "' + option + '"' + msg, VALIDATOR_PRINT_STYLE$1);
     errorFound = true;
   }
 
@@ -7889,7 +9790,8 @@ let Validator$1 = class Validator {
    * @returns {{closestMatch: string, path: Array, distance: number}}
    * @static
    */
-  static findInOptions(option, options, path, recursive = false) {
+  static findInOptions(option, options, path) {
+    let recursive = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     let min = 1e9;
     let closestMatch = "";
     let closestMatchPath = [];
@@ -7898,11 +9800,7 @@ let Validator$1 = class Validator {
     for (const op in options) {
       let distance;
       if (options[op].__type__ !== undefined && recursive === true) {
-        const result = Validator.findInOptions(
-          option,
-          options[op],
-          copyAndExtendArray(path, op),
-        );
+        const result = Validator.findInOptions(option, options[op], copyAndExtendArray(path, op));
         if (min > result.distance) {
           closestMatch = result.closestMatch;
           closestMatchPath = result.path;
@@ -7910,7 +9808,8 @@ let Validator$1 = class Validator {
           indexMatch = result.indexMatch;
         }
       } else {
-        if (op.toLowerCase().indexOf(lowerCaseOption) !== -1) {
+        var _context1;
+        if (_indexOfInstanceProperty(_context1 = op.toLowerCase()).call(_context1, lowerCaseOption) !== -1) {
           indexMatch = op;
         }
         distance = Validator.levenshteinDistance(option, op);
@@ -7925,7 +9824,7 @@ let Validator$1 = class Validator {
       closestMatch: closestMatch,
       path: closestMatchPath,
       distance: min,
-      indexMatch: indexMatch,
+      indexMatch: indexMatch
     };
   }
 
@@ -7936,7 +9835,8 @@ let Validator$1 = class Validator {
    * @returns {string}
    * @static
    */
-  static printLocation(path, option, prefix = "Problem value found at: \n") {
+  static printLocation(path, option) {
+    let prefix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Problem value found at: \n";
     let str = "\n\n" + prefix + "options = {\n";
     for (let i = 0; i < path.length; i++) {
       for (let j = 0; j < i + 1; j++) {
@@ -7963,9 +9863,7 @@ let Validator$1 = class Validator {
    * @static
    */
   static print(options) {
-    return JSON.stringify(options)
-      .replace(/(")|(\[)|(\])|(,"__type__")/g, "")
-      .replace(/(,)/g, ", ");
+    return _JSON$stringify(options).replace(/(")|(\[)|(\])|(,"__type__")/g, "").replace(/(,)/g, ", ");
   }
 
   /**
@@ -7987,7 +9885,6 @@ let Validator$1 = class Validator {
   static levenshteinDistance(a, b) {
     if (a.length === 0) return b.length;
     if (b.length === 0) return a.length;
-
     const matrix = [];
 
     // increment along the first column of each row
@@ -8008,17 +9905,14 @@ let Validator$1 = class Validator {
         if (b.charAt(i - 1) == a.charAt(j - 1)) {
           matrix[i][j] = matrix[i - 1][j - 1];
         } else {
-          matrix[i][j] = Math.min(
-            matrix[i - 1][j - 1] + 1, // substitution
-            Math.min(
-              matrix[i][j - 1] + 1, // insertion
-              matrix[i - 1][j] + 1,
-            ),
-          ); // deletion
+          matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1,
+          // substitution
+          Math.min(matrix[i][j - 1] + 1,
+          // insertion
+          matrix[i - 1][j] + 1)); // deletion
         }
       }
     }
-
     return matrix[b.length][a.length];
   }
 };
@@ -8603,284 +10497,6 @@ StepNumber.prototype.next = function () {
 StepNumber.prototype.end = function () {
   return this._current > this._end;
 };
-
-var es_array_slice = {};
-
-var hasRequiredEs_array_slice;
-
-function requireEs_array_slice () {
-	if (hasRequiredEs_array_slice) return es_array_slice;
-	hasRequiredEs_array_slice = 1;
-	var $ = /*@__PURE__*/ require_export();
-	var isArray = /*@__PURE__*/ requireIsArray$3();
-	var isConstructor = /*@__PURE__*/ requireIsConstructor();
-	var isObject = /*@__PURE__*/ requireIsObject();
-	var toAbsoluteIndex = /*@__PURE__*/ requireToAbsoluteIndex();
-	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
-	var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
-	var createProperty = /*@__PURE__*/ requireCreateProperty();
-	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
-	var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
-	var nativeSlice = /*@__PURE__*/ requireArraySlice();
-
-	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('slice');
-
-	var SPECIES = wellKnownSymbol('species');
-	var $Array = Array;
-	var max = Math.max;
-
-	// `Array.prototype.slice` method
-	// https://tc39.es/ecma262/#sec-array.prototype.slice
-	// fallback for not array-like ES3 strings and DOM objects
-	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
-	  slice: function slice(start, end) {
-	    var O = toIndexedObject(this);
-	    var length = lengthOfArrayLike(O);
-	    var k = toAbsoluteIndex(start, length);
-	    var fin = toAbsoluteIndex(end === undefined ? length : end, length);
-	    // inline `ArraySpeciesCreate` for usage native `Array#slice` where it's possible
-	    var Constructor, result, n;
-	    if (isArray(O)) {
-	      Constructor = O.constructor;
-	      // cross-realm fallback
-	      if (isConstructor(Constructor) && (Constructor === $Array || isArray(Constructor.prototype))) {
-	        Constructor = undefined;
-	      } else if (isObject(Constructor)) {
-	        Constructor = Constructor[SPECIES];
-	        if (Constructor === null) Constructor = undefined;
-	      }
-	      if (Constructor === $Array || Constructor === undefined) {
-	        return nativeSlice(O, k, fin);
-	      }
-	    }
-	    result = new (Constructor === undefined ? $Array : Constructor)(max(fin - k, 0));
-	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
-	    result.length = n;
-	    return result;
-	  }
-	});
-	return es_array_slice;
-}
-
-var slice$3;
-var hasRequiredSlice$3;
-
-function requireSlice$3 () {
-	if (hasRequiredSlice$3) return slice$3;
-	hasRequiredSlice$3 = 1;
-	requireEs_array_slice();
-	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
-
-	slice$3 = getBuiltInPrototypeMethod('Array', 'slice');
-	return slice$3;
-}
-
-var slice$2;
-var hasRequiredSlice$2;
-
-function requireSlice$2 () {
-	if (hasRequiredSlice$2) return slice$2;
-	hasRequiredSlice$2 = 1;
-	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
-	var method = /*@__PURE__*/ requireSlice$3();
-
-	var ArrayPrototype = Array.prototype;
-
-	slice$2 = function (it) {
-	  var own = it.slice;
-	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.slice) ? method : own;
-	};
-	return slice$2;
-}
-
-var slice$1;
-var hasRequiredSlice$1;
-
-function requireSlice$1 () {
-	if (hasRequiredSlice$1) return slice$1;
-	hasRequiredSlice$1 = 1;
-	var parent = /*@__PURE__*/ requireSlice$2();
-
-	slice$1 = parent;
-	return slice$1;
-}
-
-var slice;
-var hasRequiredSlice;
-
-function requireSlice () {
-	if (hasRequiredSlice) return slice;
-	hasRequiredSlice = 1;
-	slice = /*@__PURE__*/ requireSlice$1();
-	return slice;
-}
-
-var sliceExports = requireSlice();
-var _sliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sliceExports);
-
-var es_array_reverse = {};
-
-var hasRequiredEs_array_reverse;
-
-function requireEs_array_reverse () {
-	if (hasRequiredEs_array_reverse) return es_array_reverse;
-	hasRequiredEs_array_reverse = 1;
-	var $ = /*@__PURE__*/ require_export();
-	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
-	var isArray = /*@__PURE__*/ requireIsArray$3();
-
-	var nativeReverse = uncurryThis([].reverse);
-	var test = [1, 2];
-
-	// `Array.prototype.reverse` method
-	// https://tc39.es/ecma262/#sec-array.prototype.reverse
-	// fix for Safari 12.0 bug
-	// https://bugs.webkit.org/show_bug.cgi?id=188794
-	$({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()) }, {
-	  reverse: function reverse() {
-	    // eslint-disable-next-line no-self-assign -- dirty hack
-	    if (isArray(this)) this.length = this.length;
-	    return nativeReverse(this);
-	  }
-	});
-	return es_array_reverse;
-}
-
-var reverse$3;
-var hasRequiredReverse$3;
-
-function requireReverse$3 () {
-	if (hasRequiredReverse$3) return reverse$3;
-	hasRequiredReverse$3 = 1;
-	requireEs_array_reverse();
-	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
-
-	reverse$3 = getBuiltInPrototypeMethod('Array', 'reverse');
-	return reverse$3;
-}
-
-var reverse$2;
-var hasRequiredReverse$2;
-
-function requireReverse$2 () {
-	if (hasRequiredReverse$2) return reverse$2;
-	hasRequiredReverse$2 = 1;
-	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
-	var method = /*@__PURE__*/ requireReverse$3();
-
-	var ArrayPrototype = Array.prototype;
-
-	reverse$2 = function (it) {
-	  var own = it.reverse;
-	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.reverse) ? method : own;
-	};
-	return reverse$2;
-}
-
-var reverse$1;
-var hasRequiredReverse$1;
-
-function requireReverse$1 () {
-	if (hasRequiredReverse$1) return reverse$1;
-	hasRequiredReverse$1 = 1;
-	var parent = /*@__PURE__*/ requireReverse$2();
-
-	reverse$1 = parent;
-	return reverse$1;
-}
-
-var reverse;
-var hasRequiredReverse;
-
-function requireReverse () {
-	if (hasRequiredReverse) return reverse;
-	hasRequiredReverse = 1;
-	reverse = /*@__PURE__*/ requireReverse$1();
-	return reverse;
-}
-
-var reverseExports = requireReverse();
-var _reverseInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reverseExports);
-
-var es_array_map = {};
-
-var hasRequiredEs_array_map;
-
-function requireEs_array_map () {
-	if (hasRequiredEs_array_map) return es_array_map;
-	hasRequiredEs_array_map = 1;
-	var $ = /*@__PURE__*/ require_export();
-	var $map = /*@__PURE__*/ requireArrayIteration().map;
-	var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
-
-	var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
-
-	// `Array.prototype.map` method
-	// https://tc39.es/ecma262/#sec-array.prototype.map
-	// with adding support of @@species
-	$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
-	  map: function map(callbackfn /* , thisArg */) {
-	    return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-	  }
-	});
-	return es_array_map;
-}
-
-var map$3;
-var hasRequiredMap$3;
-
-function requireMap$3 () {
-	if (hasRequiredMap$3) return map$3;
-	hasRequiredMap$3 = 1;
-	requireEs_array_map();
-	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
-
-	map$3 = getBuiltInPrototypeMethod('Array', 'map');
-	return map$3;
-}
-
-var map$2;
-var hasRequiredMap$2;
-
-function requireMap$2 () {
-	if (hasRequiredMap$2) return map$2;
-	hasRequiredMap$2 = 1;
-	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
-	var method = /*@__PURE__*/ requireMap$3();
-
-	var ArrayPrototype = Array.prototype;
-
-	map$2 = function (it) {
-	  var own = it.map;
-	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.map) ? method : own;
-	};
-	return map$2;
-}
-
-var map$1;
-var hasRequiredMap$1;
-
-function requireMap$1 () {
-	if (hasRequiredMap$1) return map$1;
-	hasRequiredMap$1 = 1;
-	var parent = /*@__PURE__*/ requireMap$2();
-
-	map$1 = parent;
-	return map$1;
-}
-
-var map;
-var hasRequiredMap;
-
-function requireMap () {
-	if (hasRequiredMap) return map;
-	hasRequiredMap = 1;
-	map = /*@__PURE__*/ requireMap$1();
-	return map;
-}
-
-var mapExports = requireMap();
-var _mapInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(mapExports);
 
 var es_math_sign = {};
 
@@ -9964,6 +11580,3086 @@ const allOptions = {
   }
 };
 
+var getOwnPropertySymbols$2;
+var hasRequiredGetOwnPropertySymbols$2;
+
+function requireGetOwnPropertySymbols$2 () {
+	if (hasRequiredGetOwnPropertySymbols$2) return getOwnPropertySymbols$2;
+	hasRequiredGetOwnPropertySymbols$2 = 1;
+	requireEs_symbol();
+	var path = /*@__PURE__*/ requirePath();
+
+	getOwnPropertySymbols$2 = path.Object.getOwnPropertySymbols;
+	return getOwnPropertySymbols$2;
+}
+
+var getOwnPropertySymbols$1;
+var hasRequiredGetOwnPropertySymbols$1;
+
+function requireGetOwnPropertySymbols$1 () {
+	if (hasRequiredGetOwnPropertySymbols$1) return getOwnPropertySymbols$1;
+	hasRequiredGetOwnPropertySymbols$1 = 1;
+	var parent = /*@__PURE__*/ requireGetOwnPropertySymbols$2();
+
+	getOwnPropertySymbols$1 = parent;
+	return getOwnPropertySymbols$1;
+}
+
+var getOwnPropertySymbols;
+var hasRequiredGetOwnPropertySymbols;
+
+function requireGetOwnPropertySymbols () {
+	if (hasRequiredGetOwnPropertySymbols) return getOwnPropertySymbols;
+	hasRequiredGetOwnPropertySymbols = 1;
+	getOwnPropertySymbols = /*@__PURE__*/ requireGetOwnPropertySymbols$1();
+	return getOwnPropertySymbols;
+}
+
+var getOwnPropertySymbolsExports = requireGetOwnPropertySymbols();
+var _Object$getOwnPropertySymbols = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertySymbolsExports);
+
+var getOwnPropertyDescriptor$2 = {exports: {}};
+
+var es_object_getOwnPropertyDescriptor = {};
+
+var hasRequiredEs_object_getOwnPropertyDescriptor;
+
+function requireEs_object_getOwnPropertyDescriptor () {
+	if (hasRequiredEs_object_getOwnPropertyDescriptor) return es_object_getOwnPropertyDescriptor;
+	hasRequiredEs_object_getOwnPropertyDescriptor = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var fails = /*@__PURE__*/ requireFails();
+	var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+	var nativeGetOwnPropertyDescriptor = /*@__PURE__*/ requireObjectGetOwnPropertyDescriptor().f;
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+
+	var FORCED = !DESCRIPTORS || fails(function () { nativeGetOwnPropertyDescriptor(1); });
+
+	// `Object.getOwnPropertyDescriptor` method
+	// https://tc39.es/ecma262/#sec-object.getownpropertydescriptor
+	$({ target: 'Object', stat: true, forced: FORCED, sham: !DESCRIPTORS }, {
+	  getOwnPropertyDescriptor: function getOwnPropertyDescriptor(it, key) {
+	    return nativeGetOwnPropertyDescriptor(toIndexedObject(it), key);
+	  }
+	});
+	return es_object_getOwnPropertyDescriptor;
+}
+
+var hasRequiredGetOwnPropertyDescriptor$2;
+
+function requireGetOwnPropertyDescriptor$2 () {
+	if (hasRequiredGetOwnPropertyDescriptor$2) return getOwnPropertyDescriptor$2.exports;
+	hasRequiredGetOwnPropertyDescriptor$2 = 1;
+	requireEs_object_getOwnPropertyDescriptor();
+	var path = /*@__PURE__*/ requirePath();
+
+	var Object = path.Object;
+
+	var getOwnPropertyDescriptor = getOwnPropertyDescriptor$2.exports = function getOwnPropertyDescriptor(it, key) {
+	  return Object.getOwnPropertyDescriptor(it, key);
+	};
+
+	if (Object.getOwnPropertyDescriptor.sham) getOwnPropertyDescriptor.sham = true;
+	return getOwnPropertyDescriptor$2.exports;
+}
+
+var getOwnPropertyDescriptor$1;
+var hasRequiredGetOwnPropertyDescriptor$1;
+
+function requireGetOwnPropertyDescriptor$1 () {
+	if (hasRequiredGetOwnPropertyDescriptor$1) return getOwnPropertyDescriptor$1;
+	hasRequiredGetOwnPropertyDescriptor$1 = 1;
+	var parent = /*@__PURE__*/ requireGetOwnPropertyDescriptor$2();
+
+	getOwnPropertyDescriptor$1 = parent;
+	return getOwnPropertyDescriptor$1;
+}
+
+var getOwnPropertyDescriptor;
+var hasRequiredGetOwnPropertyDescriptor;
+
+function requireGetOwnPropertyDescriptor () {
+	if (hasRequiredGetOwnPropertyDescriptor) return getOwnPropertyDescriptor;
+	hasRequiredGetOwnPropertyDescriptor = 1;
+	getOwnPropertyDescriptor = /*@__PURE__*/ requireGetOwnPropertyDescriptor$1();
+	return getOwnPropertyDescriptor;
+}
+
+var getOwnPropertyDescriptorExports = requireGetOwnPropertyDescriptor();
+var _Object$getOwnPropertyDescriptor = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertyDescriptorExports);
+
+var es_object_getOwnPropertyDescriptors = {};
+
+var hasRequiredEs_object_getOwnPropertyDescriptors;
+
+function requireEs_object_getOwnPropertyDescriptors () {
+	if (hasRequiredEs_object_getOwnPropertyDescriptors) return es_object_getOwnPropertyDescriptors;
+	hasRequiredEs_object_getOwnPropertyDescriptors = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var ownKeys = /*@__PURE__*/ requireOwnKeys$3();
+	var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+	var getOwnPropertyDescriptorModule = /*@__PURE__*/ requireObjectGetOwnPropertyDescriptor();
+	var createProperty = /*@__PURE__*/ requireCreateProperty();
+
+	// `Object.getOwnPropertyDescriptors` method
+	// https://tc39.es/ecma262/#sec-object.getownpropertydescriptors
+	$({ target: 'Object', stat: true, sham: !DESCRIPTORS }, {
+	  getOwnPropertyDescriptors: function getOwnPropertyDescriptors(object) {
+	    var O = toIndexedObject(object);
+	    var getOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
+	    var keys = ownKeys(O);
+	    var result = {};
+	    var index = 0;
+	    var key, descriptor;
+	    while (keys.length > index) {
+	      descriptor = getOwnPropertyDescriptor(O, key = keys[index++]);
+	      if (descriptor !== undefined) createProperty(result, key, descriptor);
+	    }
+	    return result;
+	  }
+	});
+	return es_object_getOwnPropertyDescriptors;
+}
+
+var getOwnPropertyDescriptors$2;
+var hasRequiredGetOwnPropertyDescriptors$2;
+
+function requireGetOwnPropertyDescriptors$2 () {
+	if (hasRequiredGetOwnPropertyDescriptors$2) return getOwnPropertyDescriptors$2;
+	hasRequiredGetOwnPropertyDescriptors$2 = 1;
+	requireEs_object_getOwnPropertyDescriptors();
+	var path = /*@__PURE__*/ requirePath();
+
+	getOwnPropertyDescriptors$2 = path.Object.getOwnPropertyDescriptors;
+	return getOwnPropertyDescriptors$2;
+}
+
+var getOwnPropertyDescriptors$1;
+var hasRequiredGetOwnPropertyDescriptors$1;
+
+function requireGetOwnPropertyDescriptors$1 () {
+	if (hasRequiredGetOwnPropertyDescriptors$1) return getOwnPropertyDescriptors$1;
+	hasRequiredGetOwnPropertyDescriptors$1 = 1;
+	var parent = /*@__PURE__*/ requireGetOwnPropertyDescriptors$2();
+
+	getOwnPropertyDescriptors$1 = parent;
+	return getOwnPropertyDescriptors$1;
+}
+
+var getOwnPropertyDescriptors;
+var hasRequiredGetOwnPropertyDescriptors;
+
+function requireGetOwnPropertyDescriptors () {
+	if (hasRequiredGetOwnPropertyDescriptors) return getOwnPropertyDescriptors;
+	hasRequiredGetOwnPropertyDescriptors = 1;
+	getOwnPropertyDescriptors = /*@__PURE__*/ requireGetOwnPropertyDescriptors$1();
+	return getOwnPropertyDescriptors;
+}
+
+var getOwnPropertyDescriptorsExports = requireGetOwnPropertyDescriptors();
+var _Object$getOwnPropertyDescriptors = /*@__PURE__*/getDefaultExportFromCjs(getOwnPropertyDescriptorsExports);
+
+var defineProperties$2 = {exports: {}};
+
+var es_object_defineProperties = {};
+
+var hasRequiredEs_object_defineProperties;
+
+function requireEs_object_defineProperties () {
+	if (hasRequiredEs_object_defineProperties) return es_object_defineProperties;
+	hasRequiredEs_object_defineProperties = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var defineProperties = /*@__PURE__*/ requireObjectDefineProperties().f;
+
+	// `Object.defineProperties` method
+	// https://tc39.es/ecma262/#sec-object.defineproperties
+	// eslint-disable-next-line es/no-object-defineproperties -- safe
+	$({ target: 'Object', stat: true, forced: Object.defineProperties !== defineProperties, sham: !DESCRIPTORS }, {
+	  defineProperties: defineProperties
+	});
+	return es_object_defineProperties;
+}
+
+var hasRequiredDefineProperties$2;
+
+function requireDefineProperties$2 () {
+	if (hasRequiredDefineProperties$2) return defineProperties$2.exports;
+	hasRequiredDefineProperties$2 = 1;
+	requireEs_object_defineProperties();
+	var path = /*@__PURE__*/ requirePath();
+
+	var Object = path.Object;
+
+	var defineProperties = defineProperties$2.exports = function defineProperties(T, D) {
+	  return Object.defineProperties(T, D);
+	};
+
+	if (Object.defineProperties.sham) defineProperties.sham = true;
+	return defineProperties$2.exports;
+}
+
+var defineProperties$1;
+var hasRequiredDefineProperties$1;
+
+function requireDefineProperties$1 () {
+	if (hasRequiredDefineProperties$1) return defineProperties$1;
+	hasRequiredDefineProperties$1 = 1;
+	var parent = /*@__PURE__*/ requireDefineProperties$2();
+
+	defineProperties$1 = parent;
+	return defineProperties$1;
+}
+
+var defineProperties;
+var hasRequiredDefineProperties;
+
+function requireDefineProperties () {
+	if (hasRequiredDefineProperties) return defineProperties;
+	hasRequiredDefineProperties = 1;
+	defineProperties = /*@__PURE__*/ requireDefineProperties$1();
+	return defineProperties;
+}
+
+var definePropertiesExports = requireDefineProperties();
+var _Object$defineProperties = /*@__PURE__*/getDefaultExportFromCjs(definePropertiesExports);
+
+var defineProperty$5 = {exports: {}};
+
+var es_object_defineProperty = {};
+
+var hasRequiredEs_object_defineProperty;
+
+function requireEs_object_defineProperty () {
+	if (hasRequiredEs_object_defineProperty) return es_object_defineProperty;
+	hasRequiredEs_object_defineProperty = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
+
+	// `Object.defineProperty` method
+	// https://tc39.es/ecma262/#sec-object.defineproperty
+	// eslint-disable-next-line es/no-object-defineproperty -- safe
+	$({ target: 'Object', stat: true, forced: Object.defineProperty !== defineProperty, sham: !DESCRIPTORS }, {
+	  defineProperty: defineProperty
+	});
+	return es_object_defineProperty;
+}
+
+var hasRequiredDefineProperty$5;
+
+function requireDefineProperty$5 () {
+	if (hasRequiredDefineProperty$5) return defineProperty$5.exports;
+	hasRequiredDefineProperty$5 = 1;
+	requireEs_object_defineProperty();
+	var path = /*@__PURE__*/ requirePath();
+
+	var Object = path.Object;
+
+	var defineProperty = defineProperty$5.exports = function defineProperty(it, key, desc) {
+	  return Object.defineProperty(it, key, desc);
+	};
+
+	if (Object.defineProperty.sham) defineProperty.sham = true;
+	return defineProperty$5.exports;
+}
+
+var defineProperty$4;
+var hasRequiredDefineProperty$4;
+
+function requireDefineProperty$4 () {
+	if (hasRequiredDefineProperty$4) return defineProperty$4;
+	hasRequiredDefineProperty$4 = 1;
+	var parent = /*@__PURE__*/ requireDefineProperty$5();
+
+	defineProperty$4 = parent;
+	return defineProperty$4;
+}
+
+var defineProperty$3;
+var hasRequiredDefineProperty$3;
+
+function requireDefineProperty$3 () {
+	if (hasRequiredDefineProperty$3) return defineProperty$3;
+	hasRequiredDefineProperty$3 = 1;
+	var parent = /*@__PURE__*/ requireDefineProperty$4();
+
+	defineProperty$3 = parent;
+	return defineProperty$3;
+}
+
+var defineProperty$2;
+var hasRequiredDefineProperty$2;
+
+function requireDefineProperty$2 () {
+	if (hasRequiredDefineProperty$2) return defineProperty$2;
+	hasRequiredDefineProperty$2 = 1;
+	var parent = /*@__PURE__*/ requireDefineProperty$3();
+
+	defineProperty$2 = parent;
+	return defineProperty$2;
+}
+
+var defineProperty$1;
+var hasRequiredDefineProperty$1;
+
+function requireDefineProperty$1 () {
+	if (hasRequiredDefineProperty$1) return defineProperty$1;
+	hasRequiredDefineProperty$1 = 1;
+	defineProperty$1 = /*@__PURE__*/ requireDefineProperty$2();
+	return defineProperty$1;
+}
+
+var definePropertyExports$1 = /*@__PURE__*/ requireDefineProperty$1();
+var _Object$defineProperty$1 = /*@__PURE__*/getDefaultExportFromCjs(definePropertyExports$1);
+
+var esnext_function_metadata = {};
+
+var hasRequiredEsnext_function_metadata;
+
+function requireEsnext_function_metadata () {
+	if (hasRequiredEsnext_function_metadata) return esnext_function_metadata;
+	hasRequiredEsnext_function_metadata = 1;
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+	var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
+
+	var METADATA = wellKnownSymbol('metadata');
+	var FunctionPrototype = Function.prototype;
+
+	// Function.prototype[@@metadata]
+	// https://github.com/tc39/proposal-decorator-metadata
+	if (FunctionPrototype[METADATA] === undefined) {
+	  defineProperty(FunctionPrototype, METADATA, {
+	    value: null
+	  });
+	}
+	return esnext_function_metadata;
+}
+
+var esnext_symbol_asyncDispose = {};
+
+var hasRequiredEsnext_symbol_asyncDispose;
+
+function requireEsnext_symbol_asyncDispose () {
+	if (hasRequiredEsnext_symbol_asyncDispose) return esnext_symbol_asyncDispose;
+	hasRequiredEsnext_symbol_asyncDispose = 1;
+	// TODO: Remove from `core-js@4`
+	requireEs_symbol_asyncDispose();
+	return esnext_symbol_asyncDispose;
+}
+
+var esnext_symbol_dispose = {};
+
+var hasRequiredEsnext_symbol_dispose;
+
+function requireEsnext_symbol_dispose () {
+	if (hasRequiredEsnext_symbol_dispose) return esnext_symbol_dispose;
+	hasRequiredEsnext_symbol_dispose = 1;
+	// TODO: Remove from `core-js@4`
+	requireEs_symbol_dispose();
+	return esnext_symbol_dispose;
+}
+
+var esnext_symbol_metadata = {};
+
+var hasRequiredEsnext_symbol_metadata;
+
+function requireEsnext_symbol_metadata () {
+	if (hasRequiredEsnext_symbol_metadata) return esnext_symbol_metadata;
+	hasRequiredEsnext_symbol_metadata = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.metadata` well-known symbol
+	// https://github.com/tc39/proposal-decorators
+	defineWellKnownSymbol('metadata');
+	return esnext_symbol_metadata;
+}
+
+var symbol$2;
+var hasRequiredSymbol$2;
+
+function requireSymbol$2 () {
+	if (hasRequiredSymbol$2) return symbol$2;
+	hasRequiredSymbol$2 = 1;
+	var parent = /*@__PURE__*/ requireSymbol$4();
+
+	requireEsnext_function_metadata();
+	requireEsnext_symbol_asyncDispose();
+	requireEsnext_symbol_dispose();
+	requireEsnext_symbol_metadata();
+
+	symbol$2 = parent;
+	return symbol$2;
+}
+
+var esnext_symbol_isRegisteredSymbol = {};
+
+var symbolIsRegistered;
+var hasRequiredSymbolIsRegistered;
+
+function requireSymbolIsRegistered () {
+	if (hasRequiredSymbolIsRegistered) return symbolIsRegistered;
+	hasRequiredSymbolIsRegistered = 1;
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+
+	var Symbol = getBuiltIn('Symbol');
+	var keyFor = Symbol.keyFor;
+	var thisSymbolValue = uncurryThis(Symbol.prototype.valueOf);
+
+	// `Symbol.isRegisteredSymbol` method
+	// https://tc39.es/proposal-symbol-predicates/#sec-symbol-isregisteredsymbol
+	symbolIsRegistered = Symbol.isRegisteredSymbol || function isRegisteredSymbol(value) {
+	  try {
+	    return keyFor(thisSymbolValue(value)) !== undefined;
+	  } catch (error) {
+	    return false;
+	  }
+	};
+	return symbolIsRegistered;
+}
+
+var hasRequiredEsnext_symbol_isRegisteredSymbol;
+
+function requireEsnext_symbol_isRegisteredSymbol () {
+	if (hasRequiredEsnext_symbol_isRegisteredSymbol) return esnext_symbol_isRegisteredSymbol;
+	hasRequiredEsnext_symbol_isRegisteredSymbol = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var isRegisteredSymbol = /*@__PURE__*/ requireSymbolIsRegistered();
+
+	// `Symbol.isRegisteredSymbol` method
+	// https://tc39.es/proposal-symbol-predicates/#sec-symbol-isregisteredsymbol
+	$({ target: 'Symbol', stat: true }, {
+	  isRegisteredSymbol: isRegisteredSymbol
+	});
+	return esnext_symbol_isRegisteredSymbol;
+}
+
+var esnext_symbol_isWellKnownSymbol = {};
+
+var symbolIsWellKnown;
+var hasRequiredSymbolIsWellKnown;
+
+function requireSymbolIsWellKnown () {
+	if (hasRequiredSymbolIsWellKnown) return symbolIsWellKnown;
+	hasRequiredSymbolIsWellKnown = 1;
+	var shared = /*@__PURE__*/ requireShared();
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var isSymbol = /*@__PURE__*/ requireIsSymbol();
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+
+	var Symbol = getBuiltIn('Symbol');
+	var $isWellKnownSymbol = Symbol.isWellKnownSymbol;
+	var getOwnPropertyNames = getBuiltIn('Object', 'getOwnPropertyNames');
+	var thisSymbolValue = uncurryThis(Symbol.prototype.valueOf);
+	var WellKnownSymbolsStore = shared('wks');
+
+	for (var i = 0, symbolKeys = getOwnPropertyNames(Symbol), symbolKeysLength = symbolKeys.length; i < symbolKeysLength; i++) {
+	  // some old engines throws on access to some keys like `arguments` or `caller`
+	  try {
+	    var symbolKey = symbolKeys[i];
+	    if (isSymbol(Symbol[symbolKey])) wellKnownSymbol(symbolKey);
+	  } catch (error) { /* empty */ }
+	}
+
+	// `Symbol.isWellKnownSymbol` method
+	// https://tc39.es/proposal-symbol-predicates/#sec-symbol-iswellknownsymbol
+	// We should patch it for newly added well-known symbols. If it's not required, this module just will not be injected
+	symbolIsWellKnown = function isWellKnownSymbol(value) {
+	  if ($isWellKnownSymbol && $isWellKnownSymbol(value)) return true;
+	  try {
+	    var symbol = thisSymbolValue(value);
+	    for (var j = 0, keys = getOwnPropertyNames(WellKnownSymbolsStore), keysLength = keys.length; j < keysLength; j++) {
+	      // eslint-disable-next-line eqeqeq -- polyfilled symbols case
+	      if (WellKnownSymbolsStore[keys[j]] == symbol) return true;
+	    }
+	  } catch (error) { /* empty */ }
+	  return false;
+	};
+	return symbolIsWellKnown;
+}
+
+var hasRequiredEsnext_symbol_isWellKnownSymbol;
+
+function requireEsnext_symbol_isWellKnownSymbol () {
+	if (hasRequiredEsnext_symbol_isWellKnownSymbol) return esnext_symbol_isWellKnownSymbol;
+	hasRequiredEsnext_symbol_isWellKnownSymbol = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var isWellKnownSymbol = /*@__PURE__*/ requireSymbolIsWellKnown();
+
+	// `Symbol.isWellKnownSymbol` method
+	// https://tc39.es/proposal-symbol-predicates/#sec-symbol-iswellknownsymbol
+	// We should patch it for newly added well-known symbols. If it's not required, this module just will not be injected
+	$({ target: 'Symbol', stat: true, forced: true }, {
+	  isWellKnownSymbol: isWellKnownSymbol
+	});
+	return esnext_symbol_isWellKnownSymbol;
+}
+
+var esnext_symbol_customMatcher = {};
+
+var hasRequiredEsnext_symbol_customMatcher;
+
+function requireEsnext_symbol_customMatcher () {
+	if (hasRequiredEsnext_symbol_customMatcher) return esnext_symbol_customMatcher;
+	hasRequiredEsnext_symbol_customMatcher = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.customMatcher` well-known symbol
+	// https://github.com/tc39/proposal-pattern-matching
+	defineWellKnownSymbol('customMatcher');
+	return esnext_symbol_customMatcher;
+}
+
+var esnext_symbol_observable = {};
+
+var hasRequiredEsnext_symbol_observable;
+
+function requireEsnext_symbol_observable () {
+	if (hasRequiredEsnext_symbol_observable) return esnext_symbol_observable;
+	hasRequiredEsnext_symbol_observable = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.observable` well-known symbol
+	// https://github.com/tc39/proposal-observable
+	defineWellKnownSymbol('observable');
+	return esnext_symbol_observable;
+}
+
+var esnext_symbol_isRegistered = {};
+
+var hasRequiredEsnext_symbol_isRegistered;
+
+function requireEsnext_symbol_isRegistered () {
+	if (hasRequiredEsnext_symbol_isRegistered) return esnext_symbol_isRegistered;
+	hasRequiredEsnext_symbol_isRegistered = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var isRegisteredSymbol = /*@__PURE__*/ requireSymbolIsRegistered();
+
+	// `Symbol.isRegistered` method
+	// obsolete version of https://tc39.es/proposal-symbol-predicates/#sec-symbol-isregisteredsymbol
+	$({ target: 'Symbol', stat: true, name: 'isRegisteredSymbol' }, {
+	  isRegistered: isRegisteredSymbol
+	});
+	return esnext_symbol_isRegistered;
+}
+
+var esnext_symbol_isWellKnown = {};
+
+var hasRequiredEsnext_symbol_isWellKnown;
+
+function requireEsnext_symbol_isWellKnown () {
+	if (hasRequiredEsnext_symbol_isWellKnown) return esnext_symbol_isWellKnown;
+	hasRequiredEsnext_symbol_isWellKnown = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var isWellKnownSymbol = /*@__PURE__*/ requireSymbolIsWellKnown();
+
+	// `Symbol.isWellKnown` method
+	// obsolete version of https://tc39.es/proposal-symbol-predicates/#sec-symbol-iswellknownsymbol
+	// We should patch it for newly added well-known symbols. If it's not required, this module just will not be injected
+	$({ target: 'Symbol', stat: true, name: 'isWellKnownSymbol', forced: true }, {
+	  isWellKnown: isWellKnownSymbol
+	});
+	return esnext_symbol_isWellKnown;
+}
+
+var esnext_symbol_matcher = {};
+
+var hasRequiredEsnext_symbol_matcher;
+
+function requireEsnext_symbol_matcher () {
+	if (hasRequiredEsnext_symbol_matcher) return esnext_symbol_matcher;
+	hasRequiredEsnext_symbol_matcher = 1;
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.matcher` well-known symbol
+	// https://github.com/tc39/proposal-pattern-matching
+	defineWellKnownSymbol('matcher');
+	return esnext_symbol_matcher;
+}
+
+var esnext_symbol_metadataKey = {};
+
+var hasRequiredEsnext_symbol_metadataKey;
+
+function requireEsnext_symbol_metadataKey () {
+	if (hasRequiredEsnext_symbol_metadataKey) return esnext_symbol_metadataKey;
+	hasRequiredEsnext_symbol_metadataKey = 1;
+	// TODO: Remove from `core-js@4`
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.metadataKey` well-known symbol
+	// https://github.com/tc39/proposal-decorator-metadata
+	defineWellKnownSymbol('metadataKey');
+	return esnext_symbol_metadataKey;
+}
+
+var esnext_symbol_patternMatch = {};
+
+var hasRequiredEsnext_symbol_patternMatch;
+
+function requireEsnext_symbol_patternMatch () {
+	if (hasRequiredEsnext_symbol_patternMatch) return esnext_symbol_patternMatch;
+	hasRequiredEsnext_symbol_patternMatch = 1;
+	// TODO: remove from `core-js@4`
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	// `Symbol.patternMatch` well-known symbol
+	// https://github.com/tc39/proposal-pattern-matching
+	defineWellKnownSymbol('patternMatch');
+	return esnext_symbol_patternMatch;
+}
+
+var esnext_symbol_replaceAll = {};
+
+var hasRequiredEsnext_symbol_replaceAll;
+
+function requireEsnext_symbol_replaceAll () {
+	if (hasRequiredEsnext_symbol_replaceAll) return esnext_symbol_replaceAll;
+	hasRequiredEsnext_symbol_replaceAll = 1;
+	// TODO: remove from `core-js@4`
+	var defineWellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbolDefine();
+
+	defineWellKnownSymbol('replaceAll');
+	return esnext_symbol_replaceAll;
+}
+
+var symbol$1;
+var hasRequiredSymbol$1;
+
+function requireSymbol$1 () {
+	if (hasRequiredSymbol$1) return symbol$1;
+	hasRequiredSymbol$1 = 1;
+	var parent = /*@__PURE__*/ requireSymbol$2();
+	requireEsnext_symbol_isRegisteredSymbol();
+	requireEsnext_symbol_isWellKnownSymbol();
+	requireEsnext_symbol_customMatcher();
+	requireEsnext_symbol_observable();
+	// TODO: Remove from `core-js@4`
+	requireEsnext_symbol_isRegistered();
+	requireEsnext_symbol_isWellKnown();
+	requireEsnext_symbol_matcher();
+	requireEsnext_symbol_metadataKey();
+	requireEsnext_symbol_patternMatch();
+	requireEsnext_symbol_replaceAll();
+
+	symbol$1 = parent;
+	return symbol$1;
+}
+
+var symbol;
+var hasRequiredSymbol;
+
+function requireSymbol () {
+	if (hasRequiredSymbol) return symbol;
+	hasRequiredSymbol = 1;
+	symbol = /*@__PURE__*/ requireSymbol$1();
+	return symbol;
+}
+
+var symbolExports = /*@__PURE__*/ requireSymbol();
+var _Symbol = /*@__PURE__*/getDefaultExportFromCjs(symbolExports);
+
+var es_string_iterator = {};
+
+var stringMultibyte;
+var hasRequiredStringMultibyte;
+
+function requireStringMultibyte () {
+	if (hasRequiredStringMultibyte) return stringMultibyte;
+	hasRequiredStringMultibyte = 1;
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var toIntegerOrInfinity = /*@__PURE__*/ requireToIntegerOrInfinity();
+	var toString = /*@__PURE__*/ requireToString();
+	var requireObjectCoercible = /*@__PURE__*/ requireRequireObjectCoercible();
+
+	var charAt = uncurryThis(''.charAt);
+	var charCodeAt = uncurryThis(''.charCodeAt);
+	var stringSlice = uncurryThis(''.slice);
+
+	var createMethod = function (CONVERT_TO_STRING) {
+	  return function ($this, pos) {
+	    var S = toString(requireObjectCoercible($this));
+	    var position = toIntegerOrInfinity(pos);
+	    var size = S.length;
+	    var first, second;
+	    if (position < 0 || position >= size) return CONVERT_TO_STRING ? '' : undefined;
+	    first = charCodeAt(S, position);
+	    return first < 0xD800 || first > 0xDBFF || position + 1 === size
+	      || (second = charCodeAt(S, position + 1)) < 0xDC00 || second > 0xDFFF
+	        ? CONVERT_TO_STRING
+	          ? charAt(S, position)
+	          : first
+	        : CONVERT_TO_STRING
+	          ? stringSlice(S, position, position + 2)
+	          : (first - 0xD800 << 10) + (second - 0xDC00) + 0x10000;
+	  };
+	};
+
+	stringMultibyte = {
+	  // `String.prototype.codePointAt` method
+	  // https://tc39.es/ecma262/#sec-string.prototype.codepointat
+	  codeAt: createMethod(false),
+	  // `String.prototype.at` method
+	  // https://github.com/mathiasbynens/String.prototype.at
+	  charAt: createMethod(true)
+	};
+	return stringMultibyte;
+}
+
+var hasRequiredEs_string_iterator;
+
+function requireEs_string_iterator () {
+	if (hasRequiredEs_string_iterator) return es_string_iterator;
+	hasRequiredEs_string_iterator = 1;
+	var charAt = /*@__PURE__*/ requireStringMultibyte().charAt;
+	var toString = /*@__PURE__*/ requireToString();
+	var InternalStateModule = /*@__PURE__*/ requireInternalState();
+	var defineIterator = /*@__PURE__*/ requireIteratorDefine();
+	var createIterResultObject = /*@__PURE__*/ requireCreateIterResultObject();
+
+	var STRING_ITERATOR = 'String Iterator';
+	var setInternalState = InternalStateModule.set;
+	var getInternalState = InternalStateModule.getterFor(STRING_ITERATOR);
+
+	// `String.prototype[@@iterator]` method
+	// https://tc39.es/ecma262/#sec-string.prototype-@@iterator
+	defineIterator(String, 'String', function (iterated) {
+	  setInternalState(this, {
+	    type: STRING_ITERATOR,
+	    string: toString(iterated),
+	    index: 0
+	  });
+	// `%StringIteratorPrototype%.next` method
+	// https://tc39.es/ecma262/#sec-%stringiteratorprototype%.next
+	}, function next() {
+	  var state = getInternalState(this);
+	  var string = state.string;
+	  var index = state.index;
+	  var point;
+	  if (index >= string.length) return createIterResultObject(undefined, true);
+	  point = charAt(string, index);
+	  state.index += point.length;
+	  return createIterResultObject(point, false);
+	});
+	return es_string_iterator;
+}
+
+var iterator$5;
+var hasRequiredIterator$5;
+
+function requireIterator$5 () {
+	if (hasRequiredIterator$5) return iterator$5;
+	hasRequiredIterator$5 = 1;
+	requireEs_array_iterator();
+	requireEs_string_iterator();
+	requireEs_symbol_iterator();
+	var WrappedWellKnownSymbolModule = /*@__PURE__*/ requireWellKnownSymbolWrapped();
+
+	iterator$5 = WrappedWellKnownSymbolModule.f('iterator');
+	return iterator$5;
+}
+
+var iterator$4;
+var hasRequiredIterator$4;
+
+function requireIterator$4 () {
+	if (hasRequiredIterator$4) return iterator$4;
+	hasRequiredIterator$4 = 1;
+	var parent = /*@__PURE__*/ requireIterator$5();
+	requireWeb_domCollections_iterator();
+
+	iterator$4 = parent;
+	return iterator$4;
+}
+
+var iterator$3;
+var hasRequiredIterator$3;
+
+function requireIterator$3 () {
+	if (hasRequiredIterator$3) return iterator$3;
+	hasRequiredIterator$3 = 1;
+	var parent = /*@__PURE__*/ requireIterator$4();
+
+	iterator$3 = parent;
+	return iterator$3;
+}
+
+var iterator$2;
+var hasRequiredIterator$2;
+
+function requireIterator$2 () {
+	if (hasRequiredIterator$2) return iterator$2;
+	hasRequiredIterator$2 = 1;
+	var parent = /*@__PURE__*/ requireIterator$3();
+
+	iterator$2 = parent;
+	return iterator$2;
+}
+
+var iterator$1;
+var hasRequiredIterator$1;
+
+function requireIterator$1 () {
+	if (hasRequiredIterator$1) return iterator$1;
+	hasRequiredIterator$1 = 1;
+	iterator$1 = /*@__PURE__*/ requireIterator$2();
+	return iterator$1;
+}
+
+var iteratorExports$1 = /*@__PURE__*/ requireIterator$1();
+var _Symbol$iterator$1 = /*@__PURE__*/getDefaultExportFromCjs(iteratorExports$1);
+
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof _Symbol && "symbol" == typeof _Symbol$iterator$1 ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof _Symbol && o.constructor === _Symbol && o !== _Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+
+var toPrimitive$5;
+var hasRequiredToPrimitive$4;
+
+function requireToPrimitive$4 () {
+	if (hasRequiredToPrimitive$4) return toPrimitive$5;
+	hasRequiredToPrimitive$4 = 1;
+	requireEs_symbol_toPrimitive();
+	var WrappedWellKnownSymbolModule = /*@__PURE__*/ requireWellKnownSymbolWrapped();
+
+	toPrimitive$5 = WrappedWellKnownSymbolModule.f('toPrimitive');
+	return toPrimitive$5;
+}
+
+var toPrimitive$4;
+var hasRequiredToPrimitive$3;
+
+function requireToPrimitive$3 () {
+	if (hasRequiredToPrimitive$3) return toPrimitive$4;
+	hasRequiredToPrimitive$3 = 1;
+	var parent = /*@__PURE__*/ requireToPrimitive$4();
+
+	toPrimitive$4 = parent;
+	return toPrimitive$4;
+}
+
+var toPrimitive$3;
+var hasRequiredToPrimitive$2;
+
+function requireToPrimitive$2 () {
+	if (hasRequiredToPrimitive$2) return toPrimitive$3;
+	hasRequiredToPrimitive$2 = 1;
+	var parent = /*@__PURE__*/ requireToPrimitive$3();
+
+	toPrimitive$3 = parent;
+	return toPrimitive$3;
+}
+
+var toPrimitive$2;
+var hasRequiredToPrimitive$1;
+
+function requireToPrimitive$1 () {
+	if (hasRequiredToPrimitive$1) return toPrimitive$2;
+	hasRequiredToPrimitive$1 = 1;
+	var parent = /*@__PURE__*/ requireToPrimitive$2();
+
+	toPrimitive$2 = parent;
+	return toPrimitive$2;
+}
+
+var toPrimitive$1;
+var hasRequiredToPrimitive;
+
+function requireToPrimitive () {
+	if (hasRequiredToPrimitive) return toPrimitive$1;
+	hasRequiredToPrimitive = 1;
+	toPrimitive$1 = /*@__PURE__*/ requireToPrimitive$1();
+	return toPrimitive$1;
+}
+
+var toPrimitiveExports = /*@__PURE__*/ requireToPrimitive();
+var _Symbol$toPrimitive = /*@__PURE__*/getDefaultExportFromCjs(toPrimitiveExports);
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[_Symbol$toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r);
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? _Object$defineProperty$1(e, r, {
+    value: t,
+    enumerable: true,
+    configurable: true,
+    writable: true
+  }) : e[r] = t, e;
+}
+
+var es_array_reduce = {};
+
+var arrayReduce;
+var hasRequiredArrayReduce;
+
+function requireArrayReduce () {
+	if (hasRequiredArrayReduce) return arrayReduce;
+	hasRequiredArrayReduce = 1;
+	var aCallable = /*@__PURE__*/ requireACallable();
+	var toObject = /*@__PURE__*/ requireToObject();
+	var IndexedObject = /*@__PURE__*/ requireIndexedObject();
+	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
+
+	var $TypeError = TypeError;
+
+	var REDUCE_EMPTY = 'Reduce of empty array with no initial value';
+
+	// `Array.prototype.{ reduce, reduceRight }` methods implementation
+	var createMethod = function (IS_RIGHT) {
+	  return function (that, callbackfn, argumentsLength, memo) {
+	    var O = toObject(that);
+	    var self = IndexedObject(O);
+	    var length = lengthOfArrayLike(O);
+	    aCallable(callbackfn);
+	    if (length === 0 && argumentsLength < 2) throw new $TypeError(REDUCE_EMPTY);
+	    var index = IS_RIGHT ? length - 1 : 0;
+	    var i = IS_RIGHT ? -1 : 1;
+	    if (argumentsLength < 2) while (true) {
+	      if (index in self) {
+	        memo = self[index];
+	        index += i;
+	        break;
+	      }
+	      index += i;
+	      if (IS_RIGHT ? index < 0 : length <= index) {
+	        throw new $TypeError(REDUCE_EMPTY);
+	      }
+	    }
+	    for (;IS_RIGHT ? index >= 0 : length > index; index += i) if (index in self) {
+	      memo = callbackfn(memo, self[index], index, O);
+	    }
+	    return memo;
+	  };
+	};
+
+	arrayReduce = {
+	  // `Array.prototype.reduce` method
+	  // https://tc39.es/ecma262/#sec-array.prototype.reduce
+	  left: createMethod(false),
+	  // `Array.prototype.reduceRight` method
+	  // https://tc39.es/ecma262/#sec-array.prototype.reduceright
+	  right: createMethod(true)
+	};
+	return arrayReduce;
+}
+
+var environmentIsNode;
+var hasRequiredEnvironmentIsNode;
+
+function requireEnvironmentIsNode () {
+	if (hasRequiredEnvironmentIsNode) return environmentIsNode;
+	hasRequiredEnvironmentIsNode = 1;
+	var ENVIRONMENT = /*@__PURE__*/ requireEnvironment();
+
+	environmentIsNode = ENVIRONMENT === 'NODE';
+	return environmentIsNode;
+}
+
+var hasRequiredEs_array_reduce;
+
+function requireEs_array_reduce () {
+	if (hasRequiredEs_array_reduce) return es_array_reduce;
+	hasRequiredEs_array_reduce = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var $reduce = /*@__PURE__*/ requireArrayReduce().left;
+	var arrayMethodIsStrict = /*@__PURE__*/ requireArrayMethodIsStrict();
+	var CHROME_VERSION = /*@__PURE__*/ requireEnvironmentV8Version();
+	var IS_NODE = /*@__PURE__*/ requireEnvironmentIsNode();
+
+	// Chrome 80-82 has a critical bug
+	// https://bugs.chromium.org/p/chromium/issues/detail?id=1049982
+	var CHROME_BUG = !IS_NODE && CHROME_VERSION > 79 && CHROME_VERSION < 83;
+	var FORCED = CHROME_BUG || !arrayMethodIsStrict('reduce');
+
+	// `Array.prototype.reduce` method
+	// https://tc39.es/ecma262/#sec-array.prototype.reduce
+	$({ target: 'Array', proto: true, forced: FORCED }, {
+	  reduce: function reduce(callbackfn /* , initialValue */) {
+	    var length = arguments.length;
+	    return $reduce(this, callbackfn, length, length > 1 ? arguments[1] : undefined);
+	  }
+	});
+	return es_array_reduce;
+}
+
+var reduce$3;
+var hasRequiredReduce$3;
+
+function requireReduce$3 () {
+	if (hasRequiredReduce$3) return reduce$3;
+	hasRequiredReduce$3 = 1;
+	requireEs_array_reduce();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	reduce$3 = getBuiltInPrototypeMethod('Array', 'reduce');
+	return reduce$3;
+}
+
+var reduce$2;
+var hasRequiredReduce$2;
+
+function requireReduce$2 () {
+	if (hasRequiredReduce$2) return reduce$2;
+	hasRequiredReduce$2 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireReduce$3();
+
+	var ArrayPrototype = Array.prototype;
+
+	reduce$2 = function (it) {
+	  var own = it.reduce;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.reduce) ? method : own;
+	};
+	return reduce$2;
+}
+
+var reduce$1;
+var hasRequiredReduce$1;
+
+function requireReduce$1 () {
+	if (hasRequiredReduce$1) return reduce$1;
+	hasRequiredReduce$1 = 1;
+	var parent = /*@__PURE__*/ requireReduce$2();
+
+	reduce$1 = parent;
+	return reduce$1;
+}
+
+var reduce;
+var hasRequiredReduce;
+
+function requireReduce () {
+	if (hasRequiredReduce) return reduce;
+	hasRequiredReduce = 1;
+	reduce = /*@__PURE__*/ requireReduce$1();
+	return reduce;
+}
+
+var reduceExports = requireReduce();
+var _reduceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reduceExports);
+
+var es_array_flatMap = {};
+
+var flattenIntoArray_1;
+var hasRequiredFlattenIntoArray;
+
+function requireFlattenIntoArray () {
+	if (hasRequiredFlattenIntoArray) return flattenIntoArray_1;
+	hasRequiredFlattenIntoArray = 1;
+	var isArray = /*@__PURE__*/ requireIsArray$3();
+	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
+	var doesNotExceedSafeInteger = /*@__PURE__*/ requireDoesNotExceedSafeInteger();
+	var bind = /*@__PURE__*/ requireFunctionBindContext();
+
+	// `FlattenIntoArray` abstract operation
+	// https://tc39.es/ecma262/#sec-flattenintoarray
+	var flattenIntoArray = function (target, original, source, sourceLen, start, depth, mapper, thisArg) {
+	  var targetIndex = start;
+	  var sourceIndex = 0;
+	  var mapFn = mapper ? bind(mapper, thisArg) : false;
+	  var element, elementLen;
+
+	  while (sourceIndex < sourceLen) {
+	    if (sourceIndex in source) {
+	      element = mapFn ? mapFn(source[sourceIndex], sourceIndex, original) : source[sourceIndex];
+
+	      if (depth > 0 && isArray(element)) {
+	        elementLen = lengthOfArrayLike(element);
+	        targetIndex = flattenIntoArray(target, original, element, elementLen, targetIndex, depth - 1) - 1;
+	      } else {
+	        doesNotExceedSafeInteger(targetIndex + 1);
+	        target[targetIndex] = element;
+	      }
+
+	      targetIndex++;
+	    }
+	    sourceIndex++;
+	  }
+	  return targetIndex;
+	};
+
+	flattenIntoArray_1 = flattenIntoArray;
+	return flattenIntoArray_1;
+}
+
+var hasRequiredEs_array_flatMap;
+
+function requireEs_array_flatMap () {
+	if (hasRequiredEs_array_flatMap) return es_array_flatMap;
+	hasRequiredEs_array_flatMap = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var flattenIntoArray = /*@__PURE__*/ requireFlattenIntoArray();
+	var aCallable = /*@__PURE__*/ requireACallable();
+	var toObject = /*@__PURE__*/ requireToObject();
+	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
+	var arraySpeciesCreate = /*@__PURE__*/ requireArraySpeciesCreate();
+
+	// `Array.prototype.flatMap` method
+	// https://tc39.es/ecma262/#sec-array.prototype.flatmap
+	$({ target: 'Array', proto: true }, {
+	  flatMap: function flatMap(callbackfn /* , thisArg */) {
+	    var O = toObject(this);
+	    var sourceLen = lengthOfArrayLike(O);
+	    var A;
+	    aCallable(callbackfn);
+	    A = arraySpeciesCreate(O, 0);
+	    A.length = flattenIntoArray(A, O, O, sourceLen, 0, 1, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	    return A;
+	  }
+	});
+	return es_array_flatMap;
+}
+
+var es_array_unscopables_flatMap = {};
+
+var hasRequiredEs_array_unscopables_flatMap;
+
+function requireEs_array_unscopables_flatMap () {
+	if (hasRequiredEs_array_unscopables_flatMap) return es_array_unscopables_flatMap;
+	hasRequiredEs_array_unscopables_flatMap = 1;
+	// this method was added to unscopables after implementation
+	// in popular engines, so it's moved to a separate module
+	var addToUnscopables = /*@__PURE__*/ requireAddToUnscopables();
+
+	// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+	addToUnscopables('flatMap');
+	return es_array_unscopables_flatMap;
+}
+
+var flatMap$3;
+var hasRequiredFlatMap$3;
+
+function requireFlatMap$3 () {
+	if (hasRequiredFlatMap$3) return flatMap$3;
+	hasRequiredFlatMap$3 = 1;
+	requireEs_array_flatMap();
+	requireEs_array_unscopables_flatMap();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	flatMap$3 = getBuiltInPrototypeMethod('Array', 'flatMap');
+	return flatMap$3;
+}
+
+var flatMap$2;
+var hasRequiredFlatMap$2;
+
+function requireFlatMap$2 () {
+	if (hasRequiredFlatMap$2) return flatMap$2;
+	hasRequiredFlatMap$2 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireFlatMap$3();
+
+	var ArrayPrototype = Array.prototype;
+
+	flatMap$2 = function (it) {
+	  var own = it.flatMap;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.flatMap) ? method : own;
+	};
+	return flatMap$2;
+}
+
+var flatMap$1;
+var hasRequiredFlatMap$1;
+
+function requireFlatMap$1 () {
+	if (hasRequiredFlatMap$1) return flatMap$1;
+	hasRequiredFlatMap$1 = 1;
+	var parent = /*@__PURE__*/ requireFlatMap$2();
+
+	flatMap$1 = parent;
+	return flatMap$1;
+}
+
+var flatMap;
+var hasRequiredFlatMap;
+
+function requireFlatMap () {
+	if (hasRequiredFlatMap) return flatMap;
+	hasRequiredFlatMap = 1;
+	flatMap = /*@__PURE__*/ requireFlatMap$1();
+	return flatMap;
+}
+
+var flatMapExports = requireFlatMap();
+var _flatMapInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(flatMapExports);
+
+var iterator;
+var hasRequiredIterator;
+
+function requireIterator () {
+	if (hasRequiredIterator) return iterator;
+	hasRequiredIterator = 1;
+	iterator = /*@__PURE__*/ requireIterator$4();
+	return iterator;
+}
+
+var iteratorExports = requireIterator();
+var _Symbol$iterator = /*@__PURE__*/getDefaultExportFromCjs(iteratorExports);
+
+var es_map = {};
+
+var es_map_constructor = {};
+
+var internalMetadata = {exports: {}};
+
+var arrayBufferNonExtensible;
+var hasRequiredArrayBufferNonExtensible;
+
+function requireArrayBufferNonExtensible () {
+	if (hasRequiredArrayBufferNonExtensible) return arrayBufferNonExtensible;
+	hasRequiredArrayBufferNonExtensible = 1;
+	// FF26- bug: ArrayBuffers are non-extensible, but Object.isExtensible does not report it
+	var fails = /*@__PURE__*/ requireFails();
+
+	arrayBufferNonExtensible = fails(function () {
+	  if (typeof ArrayBuffer == 'function') {
+	    var buffer = new ArrayBuffer(8);
+	    // eslint-disable-next-line es/no-object-isextensible, es/no-object-defineproperty -- safe
+	    if (Object.isExtensible(buffer)) Object.defineProperty(buffer, 'a', { value: 8 });
+	  }
+	});
+	return arrayBufferNonExtensible;
+}
+
+var objectIsExtensible;
+var hasRequiredObjectIsExtensible;
+
+function requireObjectIsExtensible () {
+	if (hasRequiredObjectIsExtensible) return objectIsExtensible;
+	hasRequiredObjectIsExtensible = 1;
+	var fails = /*@__PURE__*/ requireFails();
+	var isObject = /*@__PURE__*/ requireIsObject();
+	var classof = /*@__PURE__*/ requireClassofRaw();
+	var ARRAY_BUFFER_NON_EXTENSIBLE = /*@__PURE__*/ requireArrayBufferNonExtensible();
+
+	// eslint-disable-next-line es/no-object-isextensible -- safe
+	var $isExtensible = Object.isExtensible;
+	var FAILS_ON_PRIMITIVES = fails(function () { });
+
+	// `Object.isExtensible` method
+	// https://tc39.es/ecma262/#sec-object.isextensible
+	objectIsExtensible = (FAILS_ON_PRIMITIVES || ARRAY_BUFFER_NON_EXTENSIBLE) ? function isExtensible(it) {
+	  if (!isObject(it)) return false;
+	  if (ARRAY_BUFFER_NON_EXTENSIBLE && classof(it) === 'ArrayBuffer') return false;
+	  return $isExtensible ? $isExtensible(it) : true;
+	} : $isExtensible;
+	return objectIsExtensible;
+}
+
+var freezing;
+var hasRequiredFreezing;
+
+function requireFreezing () {
+	if (hasRequiredFreezing) return freezing;
+	hasRequiredFreezing = 1;
+	var fails = /*@__PURE__*/ requireFails();
+
+	freezing = !fails(function () {
+	  // eslint-disable-next-line es/no-object-isextensible, es/no-object-preventextensions -- required for testing
+	  return Object.isExtensible(Object.preventExtensions({}));
+	});
+	return freezing;
+}
+
+var hasRequiredInternalMetadata;
+
+function requireInternalMetadata () {
+	if (hasRequiredInternalMetadata) return internalMetadata.exports;
+	hasRequiredInternalMetadata = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var hiddenKeys = /*@__PURE__*/ requireHiddenKeys();
+	var isObject = /*@__PURE__*/ requireIsObject();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+	var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
+	var getOwnPropertyNamesModule = /*@__PURE__*/ requireObjectGetOwnPropertyNames();
+	var getOwnPropertyNamesExternalModule = /*@__PURE__*/ requireObjectGetOwnPropertyNamesExternal();
+	var isExtensible = /*@__PURE__*/ requireObjectIsExtensible();
+	var uid = /*@__PURE__*/ requireUid();
+	var FREEZING = /*@__PURE__*/ requireFreezing();
+
+	var REQUIRED = false;
+	var METADATA = uid('meta');
+	var id = 0;
+
+	var setMetadata = function (it) {
+	  defineProperty(it, METADATA, { value: {
+	    objectID: 'O' + id++, // object ID
+	    weakData: {}          // weak collections IDs
+	  } });
+	};
+
+	var fastKey = function (it, create) {
+	  // return a primitive with prefix
+	  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+	  if (!hasOwn(it, METADATA)) {
+	    // can't set metadata to uncaught frozen object
+	    if (!isExtensible(it)) return 'F';
+	    // not necessary to add metadata
+	    if (!create) return 'E';
+	    // add missing metadata
+	    setMetadata(it);
+	  // return object ID
+	  } return it[METADATA].objectID;
+	};
+
+	var getWeakData = function (it, create) {
+	  if (!hasOwn(it, METADATA)) {
+	    // can't set metadata to uncaught frozen object
+	    if (!isExtensible(it)) return true;
+	    // not necessary to add metadata
+	    if (!create) return false;
+	    // add missing metadata
+	    setMetadata(it);
+	  // return the store of weak collections IDs
+	  } return it[METADATA].weakData;
+	};
+
+	// add metadata on freeze-family methods calling
+	var onFreeze = function (it) {
+	  if (FREEZING && REQUIRED && isExtensible(it) && !hasOwn(it, METADATA)) setMetadata(it);
+	  return it;
+	};
+
+	var enable = function () {
+	  meta.enable = function () { /* empty */ };
+	  REQUIRED = true;
+	  var getOwnPropertyNames = getOwnPropertyNamesModule.f;
+	  var splice = uncurryThis([].splice);
+	  var test = {};
+	  test[METADATA] = 1;
+
+	  // prevent exposing of metadata key
+	  if (getOwnPropertyNames(test).length) {
+	    getOwnPropertyNamesModule.f = function (it) {
+	      var result = getOwnPropertyNames(it);
+	      for (var i = 0, length = result.length; i < length; i++) {
+	        if (result[i] === METADATA) {
+	          splice(result, i, 1);
+	          break;
+	        }
+	      } return result;
+	    };
+
+	    $({ target: 'Object', stat: true, forced: true }, {
+	      getOwnPropertyNames: getOwnPropertyNamesExternalModule.f
+	    });
+	  }
+	};
+
+	var meta = internalMetadata.exports = {
+	  enable: enable,
+	  fastKey: fastKey,
+	  getWeakData: getWeakData,
+	  onFreeze: onFreeze
+	};
+
+	hiddenKeys[METADATA] = true;
+	return internalMetadata.exports;
+}
+
+var isArrayIteratorMethod;
+var hasRequiredIsArrayIteratorMethod;
+
+function requireIsArrayIteratorMethod () {
+	if (hasRequiredIsArrayIteratorMethod) return isArrayIteratorMethod;
+	hasRequiredIsArrayIteratorMethod = 1;
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+	var Iterators = /*@__PURE__*/ requireIterators();
+
+	var ITERATOR = wellKnownSymbol('iterator');
+	var ArrayPrototype = Array.prototype;
+
+	// check on default Array iterator
+	isArrayIteratorMethod = function (it) {
+	  return it !== undefined && (Iterators.Array === it || ArrayPrototype[ITERATOR] === it);
+	};
+	return isArrayIteratorMethod;
+}
+
+var getIteratorMethod;
+var hasRequiredGetIteratorMethod;
+
+function requireGetIteratorMethod () {
+	if (hasRequiredGetIteratorMethod) return getIteratorMethod;
+	hasRequiredGetIteratorMethod = 1;
+	var classof = /*@__PURE__*/ requireClassof();
+	var getMethod = /*@__PURE__*/ requireGetMethod();
+	var isNullOrUndefined = /*@__PURE__*/ requireIsNullOrUndefined();
+	var Iterators = /*@__PURE__*/ requireIterators();
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+
+	var ITERATOR = wellKnownSymbol('iterator');
+
+	getIteratorMethod = function (it) {
+	  if (!isNullOrUndefined(it)) return getMethod(it, ITERATOR)
+	    || getMethod(it, '@@iterator')
+	    || Iterators[classof(it)];
+	};
+	return getIteratorMethod;
+}
+
+var getIterator$5;
+var hasRequiredGetIterator$6;
+
+function requireGetIterator$6 () {
+	if (hasRequiredGetIterator$6) return getIterator$5;
+	hasRequiredGetIterator$6 = 1;
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var aCallable = /*@__PURE__*/ requireACallable();
+	var anObject = /*@__PURE__*/ requireAnObject();
+	var tryToString = /*@__PURE__*/ requireTryToString();
+	var getIteratorMethod = /*@__PURE__*/ requireGetIteratorMethod();
+
+	var $TypeError = TypeError;
+
+	getIterator$5 = function (argument, usingIterator) {
+	  var iteratorMethod = arguments.length < 2 ? getIteratorMethod(argument) : usingIterator;
+	  if (aCallable(iteratorMethod)) return anObject(call(iteratorMethod, argument));
+	  throw new $TypeError(tryToString(argument) + ' is not iterable');
+	};
+	return getIterator$5;
+}
+
+var iteratorClose;
+var hasRequiredIteratorClose;
+
+function requireIteratorClose () {
+	if (hasRequiredIteratorClose) return iteratorClose;
+	hasRequiredIteratorClose = 1;
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var anObject = /*@__PURE__*/ requireAnObject();
+	var getMethod = /*@__PURE__*/ requireGetMethod();
+
+	iteratorClose = function (iterator, kind, value) {
+	  var innerResult, innerError;
+	  anObject(iterator);
+	  try {
+	    innerResult = getMethod(iterator, 'return');
+	    if (!innerResult) {
+	      if (kind === 'throw') throw value;
+	      return value;
+	    }
+	    innerResult = call(innerResult, iterator);
+	  } catch (error) {
+	    innerError = true;
+	    innerResult = error;
+	  }
+	  if (kind === 'throw') throw value;
+	  if (innerError) throw innerResult;
+	  anObject(innerResult);
+	  return value;
+	};
+	return iteratorClose;
+}
+
+var iterate;
+var hasRequiredIterate;
+
+function requireIterate () {
+	if (hasRequiredIterate) return iterate;
+	hasRequiredIterate = 1;
+	var bind = /*@__PURE__*/ requireFunctionBindContext();
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var anObject = /*@__PURE__*/ requireAnObject();
+	var tryToString = /*@__PURE__*/ requireTryToString();
+	var isArrayIteratorMethod = /*@__PURE__*/ requireIsArrayIteratorMethod();
+	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var getIterator = /*@__PURE__*/ requireGetIterator$6();
+	var getIteratorMethod = /*@__PURE__*/ requireGetIteratorMethod();
+	var iteratorClose = /*@__PURE__*/ requireIteratorClose();
+
+	var $TypeError = TypeError;
+
+	var Result = function (stopped, result) {
+	  this.stopped = stopped;
+	  this.result = result;
+	};
+
+	var ResultPrototype = Result.prototype;
+
+	iterate = function (iterable, unboundFunction, options) {
+	  var that = options && options.that;
+	  var AS_ENTRIES = !!(options && options.AS_ENTRIES);
+	  var IS_RECORD = !!(options && options.IS_RECORD);
+	  var IS_ITERATOR = !!(options && options.IS_ITERATOR);
+	  var INTERRUPTED = !!(options && options.INTERRUPTED);
+	  var fn = bind(unboundFunction, that);
+	  var iterator, iterFn, index, length, result, next, step;
+
+	  var stop = function (condition) {
+	    if (iterator) iteratorClose(iterator, 'normal');
+	    return new Result(true, condition);
+	  };
+
+	  var callFn = function (value) {
+	    if (AS_ENTRIES) {
+	      anObject(value);
+	      return INTERRUPTED ? fn(value[0], value[1], stop) : fn(value[0], value[1]);
+	    } return INTERRUPTED ? fn(value, stop) : fn(value);
+	  };
+
+	  if (IS_RECORD) {
+	    iterator = iterable.iterator;
+	  } else if (IS_ITERATOR) {
+	    iterator = iterable;
+	  } else {
+	    iterFn = getIteratorMethod(iterable);
+	    if (!iterFn) throw new $TypeError(tryToString(iterable) + ' is not iterable');
+	    // optimisation for array iterators
+	    if (isArrayIteratorMethod(iterFn)) {
+	      for (index = 0, length = lengthOfArrayLike(iterable); length > index; index++) {
+	        result = callFn(iterable[index]);
+	        if (result && isPrototypeOf(ResultPrototype, result)) return result;
+	      } return new Result(false);
+	    }
+	    iterator = getIterator(iterable, iterFn);
+	  }
+
+	  next = IS_RECORD ? iterable.next : iterator.next;
+	  while (!(step = call(next, iterator)).done) {
+	    try {
+	      result = callFn(step.value);
+	    } catch (error) {
+	      iteratorClose(iterator, 'throw', error);
+	    }
+	    if (typeof result == 'object' && result && isPrototypeOf(ResultPrototype, result)) return result;
+	  } return new Result(false);
+	};
+	return iterate;
+}
+
+var anInstance;
+var hasRequiredAnInstance;
+
+function requireAnInstance () {
+	if (hasRequiredAnInstance) return anInstance;
+	hasRequiredAnInstance = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+
+	var $TypeError = TypeError;
+
+	anInstance = function (it, Prototype) {
+	  if (isPrototypeOf(Prototype, it)) return it;
+	  throw new $TypeError('Incorrect invocation');
+	};
+	return anInstance;
+}
+
+var collection;
+var hasRequiredCollection;
+
+function requireCollection () {
+	if (hasRequiredCollection) return collection;
+	hasRequiredCollection = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var globalThis = /*@__PURE__*/ requireGlobalThis();
+	var InternalMetadataModule = /*@__PURE__*/ requireInternalMetadata();
+	var fails = /*@__PURE__*/ requireFails();
+	var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
+	var iterate = /*@__PURE__*/ requireIterate();
+	var anInstance = /*@__PURE__*/ requireAnInstance();
+	var isCallable = /*@__PURE__*/ requireIsCallable();
+	var isObject = /*@__PURE__*/ requireIsObject();
+	var isNullOrUndefined = /*@__PURE__*/ requireIsNullOrUndefined();
+	var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
+	var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
+	var forEach = /*@__PURE__*/ requireArrayIteration().forEach;
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var InternalStateModule = /*@__PURE__*/ requireInternalState();
+
+	var setInternalState = InternalStateModule.set;
+	var internalStateGetterFor = InternalStateModule.getterFor;
+
+	collection = function (CONSTRUCTOR_NAME, wrapper, common) {
+	  var IS_MAP = CONSTRUCTOR_NAME.indexOf('Map') !== -1;
+	  var IS_WEAK = CONSTRUCTOR_NAME.indexOf('Weak') !== -1;
+	  var ADDER = IS_MAP ? 'set' : 'add';
+	  var NativeConstructor = globalThis[CONSTRUCTOR_NAME];
+	  var NativePrototype = NativeConstructor && NativeConstructor.prototype;
+	  var exported = {};
+	  var Constructor;
+
+	  if (!DESCRIPTORS || !isCallable(NativeConstructor)
+	    || !(IS_WEAK || NativePrototype.forEach && !fails(function () { new NativeConstructor().entries().next(); }))
+	  ) {
+	    // create collection constructor
+	    Constructor = common.getConstructor(wrapper, CONSTRUCTOR_NAME, IS_MAP, ADDER);
+	    InternalMetadataModule.enable();
+	  } else {
+	    Constructor = wrapper(function (target, iterable) {
+	      setInternalState(anInstance(target, Prototype), {
+	        type: CONSTRUCTOR_NAME,
+	        collection: new NativeConstructor()
+	      });
+	      if (!isNullOrUndefined(iterable)) iterate(iterable, target[ADDER], { that: target, AS_ENTRIES: IS_MAP });
+	    });
+
+	    var Prototype = Constructor.prototype;
+
+	    var getInternalState = internalStateGetterFor(CONSTRUCTOR_NAME);
+
+	    forEach(['add', 'clear', 'delete', 'forEach', 'get', 'has', 'set', 'keys', 'values', 'entries'], function (KEY) {
+	      var IS_ADDER = KEY === 'add' || KEY === 'set';
+	      if (KEY in NativePrototype && !(IS_WEAK && KEY === 'clear')) {
+	        createNonEnumerableProperty(Prototype, KEY, function (a, b) {
+	          var collection = getInternalState(this).collection;
+	          if (!IS_ADDER && IS_WEAK && !isObject(a)) return KEY === 'get' ? undefined : false;
+	          var result = collection[KEY](a === 0 ? 0 : a, b);
+	          return IS_ADDER ? this : result;
+	        });
+	      }
+	    });
+
+	    IS_WEAK || defineProperty(Prototype, 'size', {
+	      configurable: true,
+	      get: function () {
+	        return getInternalState(this).collection.size;
+	      }
+	    });
+	  }
+
+	  setToStringTag(Constructor, CONSTRUCTOR_NAME, false, true);
+
+	  exported[CONSTRUCTOR_NAME] = Constructor;
+	  $({ global: true, forced: true }, exported);
+
+	  if (!IS_WEAK) common.setStrong(Constructor, CONSTRUCTOR_NAME, IS_MAP);
+
+	  return Constructor;
+	};
+	return collection;
+}
+
+var defineBuiltIns;
+var hasRequiredDefineBuiltIns;
+
+function requireDefineBuiltIns () {
+	if (hasRequiredDefineBuiltIns) return defineBuiltIns;
+	hasRequiredDefineBuiltIns = 1;
+	var defineBuiltIn = /*@__PURE__*/ requireDefineBuiltIn();
+
+	defineBuiltIns = function (target, src, options) {
+	  for (var key in src) {
+	    if (options && options.unsafe && target[key]) target[key] = src[key];
+	    else defineBuiltIn(target, key, src[key], options);
+	  } return target;
+	};
+	return defineBuiltIns;
+}
+
+var setSpecies;
+var hasRequiredSetSpecies;
+
+function requireSetSpecies () {
+	if (hasRequiredSetSpecies) return setSpecies;
+	hasRequiredSetSpecies = 1;
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var defineBuiltInAccessor = /*@__PURE__*/ requireDefineBuiltInAccessor();
+	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+
+	var SPECIES = wellKnownSymbol('species');
+
+	setSpecies = function (CONSTRUCTOR_NAME) {
+	  var Constructor = getBuiltIn(CONSTRUCTOR_NAME);
+
+	  if (DESCRIPTORS && Constructor && !Constructor[SPECIES]) {
+	    defineBuiltInAccessor(Constructor, SPECIES, {
+	      configurable: true,
+	      get: function () { return this; }
+	    });
+	  }
+	};
+	return setSpecies;
+}
+
+var collectionStrong;
+var hasRequiredCollectionStrong;
+
+function requireCollectionStrong () {
+	if (hasRequiredCollectionStrong) return collectionStrong;
+	hasRequiredCollectionStrong = 1;
+	var create = /*@__PURE__*/ requireObjectCreate();
+	var defineBuiltInAccessor = /*@__PURE__*/ requireDefineBuiltInAccessor();
+	var defineBuiltIns = /*@__PURE__*/ requireDefineBuiltIns();
+	var bind = /*@__PURE__*/ requireFunctionBindContext();
+	var anInstance = /*@__PURE__*/ requireAnInstance();
+	var isNullOrUndefined = /*@__PURE__*/ requireIsNullOrUndefined();
+	var iterate = /*@__PURE__*/ requireIterate();
+	var defineIterator = /*@__PURE__*/ requireIteratorDefine();
+	var createIterResultObject = /*@__PURE__*/ requireCreateIterResultObject();
+	var setSpecies = /*@__PURE__*/ requireSetSpecies();
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var fastKey = /*@__PURE__*/ requireInternalMetadata().fastKey;
+	var InternalStateModule = /*@__PURE__*/ requireInternalState();
+
+	var setInternalState = InternalStateModule.set;
+	var internalStateGetterFor = InternalStateModule.getterFor;
+
+	collectionStrong = {
+	  getConstructor: function (wrapper, CONSTRUCTOR_NAME, IS_MAP, ADDER) {
+	    var Constructor = wrapper(function (that, iterable) {
+	      anInstance(that, Prototype);
+	      setInternalState(that, {
+	        type: CONSTRUCTOR_NAME,
+	        index: create(null),
+	        first: null,
+	        last: null,
+	        size: 0
+	      });
+	      if (!DESCRIPTORS) that.size = 0;
+	      if (!isNullOrUndefined(iterable)) iterate(iterable, that[ADDER], { that: that, AS_ENTRIES: IS_MAP });
+	    });
+
+	    var Prototype = Constructor.prototype;
+
+	    var getInternalState = internalStateGetterFor(CONSTRUCTOR_NAME);
+
+	    var define = function (that, key, value) {
+	      var state = getInternalState(that);
+	      var entry = getEntry(that, key);
+	      var previous, index;
+	      // change existing entry
+	      if (entry) {
+	        entry.value = value;
+	      // create new entry
+	      } else {
+	        state.last = entry = {
+	          index: index = fastKey(key, true),
+	          key: key,
+	          value: value,
+	          previous: previous = state.last,
+	          next: null,
+	          removed: false
+	        };
+	        if (!state.first) state.first = entry;
+	        if (previous) previous.next = entry;
+	        if (DESCRIPTORS) state.size++;
+	        else that.size++;
+	        // add to index
+	        if (index !== 'F') state.index[index] = entry;
+	      } return that;
+	    };
+
+	    var getEntry = function (that, key) {
+	      var state = getInternalState(that);
+	      // fast case
+	      var index = fastKey(key);
+	      var entry;
+	      if (index !== 'F') return state.index[index];
+	      // frozen object case
+	      for (entry = state.first; entry; entry = entry.next) {
+	        if (entry.key === key) return entry;
+	      }
+	    };
+
+	    defineBuiltIns(Prototype, {
+	      // `{ Map, Set }.prototype.clear()` methods
+	      // https://tc39.es/ecma262/#sec-map.prototype.clear
+	      // https://tc39.es/ecma262/#sec-set.prototype.clear
+	      clear: function clear() {
+	        var that = this;
+	        var state = getInternalState(that);
+	        var entry = state.first;
+	        while (entry) {
+	          entry.removed = true;
+	          if (entry.previous) entry.previous = entry.previous.next = null;
+	          entry = entry.next;
+	        }
+	        state.first = state.last = null;
+	        state.index = create(null);
+	        if (DESCRIPTORS) state.size = 0;
+	        else that.size = 0;
+	      },
+	      // `{ Map, Set }.prototype.delete(key)` methods
+	      // https://tc39.es/ecma262/#sec-map.prototype.delete
+	      // https://tc39.es/ecma262/#sec-set.prototype.delete
+	      'delete': function (key) {
+	        var that = this;
+	        var state = getInternalState(that);
+	        var entry = getEntry(that, key);
+	        if (entry) {
+	          var next = entry.next;
+	          var prev = entry.previous;
+	          delete state.index[entry.index];
+	          entry.removed = true;
+	          if (prev) prev.next = next;
+	          if (next) next.previous = prev;
+	          if (state.first === entry) state.first = next;
+	          if (state.last === entry) state.last = prev;
+	          if (DESCRIPTORS) state.size--;
+	          else that.size--;
+	        } return !!entry;
+	      },
+	      // `{ Map, Set }.prototype.forEach(callbackfn, thisArg = undefined)` methods
+	      // https://tc39.es/ecma262/#sec-map.prototype.foreach
+	      // https://tc39.es/ecma262/#sec-set.prototype.foreach
+	      forEach: function forEach(callbackfn /* , that = undefined */) {
+	        var state = getInternalState(this);
+	        var boundFunction = bind(callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	        var entry;
+	        while (entry = entry ? entry.next : state.first) {
+	          boundFunction(entry.value, entry.key, this);
+	          // revert to the last existing entry
+	          while (entry && entry.removed) entry = entry.previous;
+	        }
+	      },
+	      // `{ Map, Set}.prototype.has(key)` methods
+	      // https://tc39.es/ecma262/#sec-map.prototype.has
+	      // https://tc39.es/ecma262/#sec-set.prototype.has
+	      has: function has(key) {
+	        return !!getEntry(this, key);
+	      }
+	    });
+
+	    defineBuiltIns(Prototype, IS_MAP ? {
+	      // `Map.prototype.get(key)` method
+	      // https://tc39.es/ecma262/#sec-map.prototype.get
+	      get: function get(key) {
+	        var entry = getEntry(this, key);
+	        return entry && entry.value;
+	      },
+	      // `Map.prototype.set(key, value)` method
+	      // https://tc39.es/ecma262/#sec-map.prototype.set
+	      set: function set(key, value) {
+	        return define(this, key === 0 ? 0 : key, value);
+	      }
+	    } : {
+	      // `Set.prototype.add(value)` method
+	      // https://tc39.es/ecma262/#sec-set.prototype.add
+	      add: function add(value) {
+	        return define(this, value = value === 0 ? 0 : value, value);
+	      }
+	    });
+	    if (DESCRIPTORS) defineBuiltInAccessor(Prototype, 'size', {
+	      configurable: true,
+	      get: function () {
+	        return getInternalState(this).size;
+	      }
+	    });
+	    return Constructor;
+	  },
+	  setStrong: function (Constructor, CONSTRUCTOR_NAME, IS_MAP) {
+	    var ITERATOR_NAME = CONSTRUCTOR_NAME + ' Iterator';
+	    var getInternalCollectionState = internalStateGetterFor(CONSTRUCTOR_NAME);
+	    var getInternalIteratorState = internalStateGetterFor(ITERATOR_NAME);
+	    // `{ Map, Set }.prototype.{ keys, values, entries, @@iterator }()` methods
+	    // https://tc39.es/ecma262/#sec-map.prototype.entries
+	    // https://tc39.es/ecma262/#sec-map.prototype.keys
+	    // https://tc39.es/ecma262/#sec-map.prototype.values
+	    // https://tc39.es/ecma262/#sec-map.prototype-@@iterator
+	    // https://tc39.es/ecma262/#sec-set.prototype.entries
+	    // https://tc39.es/ecma262/#sec-set.prototype.keys
+	    // https://tc39.es/ecma262/#sec-set.prototype.values
+	    // https://tc39.es/ecma262/#sec-set.prototype-@@iterator
+	    defineIterator(Constructor, CONSTRUCTOR_NAME, function (iterated, kind) {
+	      setInternalState(this, {
+	        type: ITERATOR_NAME,
+	        target: iterated,
+	        state: getInternalCollectionState(iterated),
+	        kind: kind,
+	        last: null
+	      });
+	    }, function () {
+	      var state = getInternalIteratorState(this);
+	      var kind = state.kind;
+	      var entry = state.last;
+	      // revert to the last existing entry
+	      while (entry && entry.removed) entry = entry.previous;
+	      // get next entry
+	      if (!state.target || !(state.last = entry = entry ? entry.next : state.state.first)) {
+	        // or finish the iteration
+	        state.target = null;
+	        return createIterResultObject(undefined, true);
+	      }
+	      // return step by kind
+	      if (kind === 'keys') return createIterResultObject(entry.key, false);
+	      if (kind === 'values') return createIterResultObject(entry.value, false);
+	      return createIterResultObject([entry.key, entry.value], false);
+	    }, IS_MAP ? 'entries' : 'values', !IS_MAP, true);
+
+	    // `{ Map, Set }.prototype[@@species]` accessors
+	    // https://tc39.es/ecma262/#sec-get-map-@@species
+	    // https://tc39.es/ecma262/#sec-get-set-@@species
+	    setSpecies(CONSTRUCTOR_NAME);
+	  }
+	};
+	return collectionStrong;
+}
+
+var hasRequiredEs_map_constructor;
+
+function requireEs_map_constructor () {
+	if (hasRequiredEs_map_constructor) return es_map_constructor;
+	hasRequiredEs_map_constructor = 1;
+	var collection = /*@__PURE__*/ requireCollection();
+	var collectionStrong = /*@__PURE__*/ requireCollectionStrong();
+
+	// `Map` constructor
+	// https://tc39.es/ecma262/#sec-map-objects
+	collection('Map', function (init) {
+	  return function Map() { return init(this, arguments.length ? arguments[0] : undefined); };
+	}, collectionStrong);
+	return es_map_constructor;
+}
+
+var hasRequiredEs_map;
+
+function requireEs_map () {
+	if (hasRequiredEs_map) return es_map;
+	hasRequiredEs_map = 1;
+	// TODO: Remove this module from `core-js@4` since it's replaced to module below
+	requireEs_map_constructor();
+	return es_map;
+}
+
+var es_map_groupBy = {};
+
+var caller;
+var hasRequiredCaller;
+
+function requireCaller () {
+	if (hasRequiredCaller) return caller;
+	hasRequiredCaller = 1;
+	caller = function (methodName, numArgs) {
+	  return numArgs === 1 ? function (object, arg) {
+	    return object[methodName](arg);
+	  } : function (object, arg1, arg2) {
+	    return object[methodName](arg1, arg2);
+	  };
+	};
+	return caller;
+}
+
+var mapHelpers;
+var hasRequiredMapHelpers;
+
+function requireMapHelpers () {
+	if (hasRequiredMapHelpers) return mapHelpers;
+	hasRequiredMapHelpers = 1;
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var caller = /*@__PURE__*/ requireCaller();
+
+	var Map = getBuiltIn('Map');
+
+	mapHelpers = {
+	  Map: Map,
+	  set: caller('set', 2),
+	  get: caller('get', 1),
+	  has: caller('has', 1),
+	  remove: caller('delete', 1),
+	  proto: Map.prototype
+	};
+	return mapHelpers;
+}
+
+var hasRequiredEs_map_groupBy;
+
+function requireEs_map_groupBy () {
+	if (hasRequiredEs_map_groupBy) return es_map_groupBy;
+	hasRequiredEs_map_groupBy = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var aCallable = /*@__PURE__*/ requireACallable();
+	var requireObjectCoercible = /*@__PURE__*/ requireRequireObjectCoercible();
+	var iterate = /*@__PURE__*/ requireIterate();
+	var MapHelpers = /*@__PURE__*/ requireMapHelpers();
+	var IS_PURE = /*@__PURE__*/ requireIsPure();
+	var fails = /*@__PURE__*/ requireFails();
+
+	var Map = MapHelpers.Map;
+	var has = MapHelpers.has;
+	var get = MapHelpers.get;
+	var set = MapHelpers.set;
+	var push = uncurryThis([].push);
+
+	// https://bugs.webkit.org/show_bug.cgi?id=271524
+	var DOES_NOT_WORK_WITH_PRIMITIVES = IS_PURE || fails(function () {
+	  return Map.groupBy('ab', function (it) {
+	    return it;
+	  }).get('a').length !== 1;
+	});
+
+	// `Map.groupBy` method
+	// https://tc39.es/ecma262/#sec-map.groupby
+	$({ target: 'Map', stat: true, forced: IS_PURE || DOES_NOT_WORK_WITH_PRIMITIVES }, {
+	  groupBy: function groupBy(items, callbackfn) {
+	    requireObjectCoercible(items);
+	    aCallable(callbackfn);
+	    var map = new Map();
+	    var k = 0;
+	    iterate(items, function (value) {
+	      var key = callbackfn(value, k++);
+	      if (!has(map, key)) set(map, key, [value]);
+	      else push(get(map, key), value);
+	    });
+	    return map;
+	  }
+	});
+	return es_map_groupBy;
+}
+
+var map$2;
+var hasRequiredMap$2;
+
+function requireMap$2 () {
+	if (hasRequiredMap$2) return map$2;
+	hasRequiredMap$2 = 1;
+	requireEs_array_iterator();
+	requireEs_map();
+	requireEs_map_groupBy();
+	requireEs_string_iterator();
+	var path = /*@__PURE__*/ requirePath();
+
+	map$2 = path.Map;
+	return map$2;
+}
+
+var map$1;
+var hasRequiredMap$1;
+
+function requireMap$1 () {
+	if (hasRequiredMap$1) return map$1;
+	hasRequiredMap$1 = 1;
+	var parent = /*@__PURE__*/ requireMap$2();
+	requireWeb_domCollections_iterator();
+
+	map$1 = parent;
+	return map$1;
+}
+
+var map;
+var hasRequiredMap;
+
+function requireMap () {
+	if (hasRequiredMap) return map;
+	hasRequiredMap = 1;
+	map = /*@__PURE__*/ requireMap$1();
+	return map;
+}
+
+var mapExports = requireMap();
+var _Map = /*@__PURE__*/getDefaultExportFromCjs(mapExports);
+
+var es_set = {};
+
+var es_set_constructor = {};
+
+var hasRequiredEs_set_constructor;
+
+function requireEs_set_constructor () {
+	if (hasRequiredEs_set_constructor) return es_set_constructor;
+	hasRequiredEs_set_constructor = 1;
+	var collection = /*@__PURE__*/ requireCollection();
+	var collectionStrong = /*@__PURE__*/ requireCollectionStrong();
+
+	// `Set` constructor
+	// https://tc39.es/ecma262/#sec-set-objects
+	collection('Set', function (init) {
+	  return function Set() { return init(this, arguments.length ? arguments[0] : undefined); };
+	}, collectionStrong);
+	return es_set_constructor;
+}
+
+var hasRequiredEs_set;
+
+function requireEs_set () {
+	if (hasRequiredEs_set) return es_set;
+	hasRequiredEs_set = 1;
+	// TODO: Remove this module from `core-js@4` since it's replaced to module below
+	requireEs_set_constructor();
+	return es_set;
+}
+
+var es_set_difference_v2 = {};
+
+var aSet;
+var hasRequiredASet;
+
+function requireASet () {
+	if (hasRequiredASet) return aSet;
+	hasRequiredASet = 1;
+	var tryToString = /*@__PURE__*/ requireTryToString();
+
+	var $TypeError = TypeError;
+
+	// Perform ? RequireInternalSlot(M, [[SetData]])
+	aSet = function (it) {
+	  if (typeof it == 'object' && 'size' in it && 'has' in it && 'add' in it && 'delete' in it && 'keys' in it) return it;
+	  throw new $TypeError(tryToString(it) + ' is not a set');
+	};
+	return aSet;
+}
+
+var setHelpers;
+var hasRequiredSetHelpers;
+
+function requireSetHelpers () {
+	if (hasRequiredSetHelpers) return setHelpers;
+	hasRequiredSetHelpers = 1;
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var caller = /*@__PURE__*/ requireCaller();
+
+	var Set = getBuiltIn('Set');
+	var SetPrototype = Set.prototype;
+
+	setHelpers = {
+	  Set: Set,
+	  add: caller('add', 1),
+	  has: caller('has', 1),
+	  remove: caller('delete', 1),
+	  proto: SetPrototype
+	};
+	return setHelpers;
+}
+
+var iterateSimple;
+var hasRequiredIterateSimple;
+
+function requireIterateSimple () {
+	if (hasRequiredIterateSimple) return iterateSimple;
+	hasRequiredIterateSimple = 1;
+	var call = /*@__PURE__*/ requireFunctionCall();
+
+	iterateSimple = function (record, fn, ITERATOR_INSTEAD_OF_RECORD) {
+	  var iterator = ITERATOR_INSTEAD_OF_RECORD ? record : record.iterator;
+	  var next = record.next;
+	  var step, result;
+	  while (!(step = call(next, iterator)).done) {
+	    result = fn(step.value);
+	    if (result !== undefined) return result;
+	  }
+	};
+	return iterateSimple;
+}
+
+var setIterate;
+var hasRequiredSetIterate;
+
+function requireSetIterate () {
+	if (hasRequiredSetIterate) return setIterate;
+	hasRequiredSetIterate = 1;
+	var iterateSimple = /*@__PURE__*/ requireIterateSimple();
+
+	setIterate = function (set, fn, interruptible) {
+	  return interruptible ? iterateSimple(set.keys(), fn, true) : set.forEach(fn);
+	};
+	return setIterate;
+}
+
+var setClone;
+var hasRequiredSetClone;
+
+function requireSetClone () {
+	if (hasRequiredSetClone) return setClone;
+	hasRequiredSetClone = 1;
+	var SetHelpers = /*@__PURE__*/ requireSetHelpers();
+	var iterate = /*@__PURE__*/ requireSetIterate();
+
+	var Set = SetHelpers.Set;
+	var add = SetHelpers.add;
+
+	setClone = function (set) {
+	  var result = new Set();
+	  iterate(set, function (it) {
+	    add(result, it);
+	  });
+	  return result;
+	};
+	return setClone;
+}
+
+var setSize;
+var hasRequiredSetSize;
+
+function requireSetSize () {
+	if (hasRequiredSetSize) return setSize;
+	hasRequiredSetSize = 1;
+	setSize = function (set) {
+	  return set.size;
+	};
+	return setSize;
+}
+
+var getIteratorDirect;
+var hasRequiredGetIteratorDirect;
+
+function requireGetIteratorDirect () {
+	if (hasRequiredGetIteratorDirect) return getIteratorDirect;
+	hasRequiredGetIteratorDirect = 1;
+	// `GetIteratorDirect(obj)` abstract operation
+	// https://tc39.es/ecma262/#sec-getiteratordirect
+	getIteratorDirect = function (obj) {
+	  return {
+	    iterator: obj,
+	    next: obj.next,
+	    done: false
+	  };
+	};
+	return getIteratorDirect;
+}
+
+var getSetRecord;
+var hasRequiredGetSetRecord;
+
+function requireGetSetRecord () {
+	if (hasRequiredGetSetRecord) return getSetRecord;
+	hasRequiredGetSetRecord = 1;
+	var aCallable = /*@__PURE__*/ requireACallable();
+	var anObject = /*@__PURE__*/ requireAnObject();
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var toIntegerOrInfinity = /*@__PURE__*/ requireToIntegerOrInfinity();
+	var getIteratorDirect = /*@__PURE__*/ requireGetIteratorDirect();
+
+	var INVALID_SIZE = 'Invalid size';
+	var $RangeError = RangeError;
+	var $TypeError = TypeError;
+	var max = Math.max;
+
+	var SetRecord = function (set, intSize) {
+	  this.set = set;
+	  this.size = max(intSize, 0);
+	  this.has = aCallable(set.has);
+	  this.keys = aCallable(set.keys);
+	};
+
+	SetRecord.prototype = {
+	  getIterator: function () {
+	    return getIteratorDirect(anObject(call(this.keys, this.set)));
+	  },
+	  includes: function (it) {
+	    return call(this.has, this.set, it);
+	  }
+	};
+
+	// `GetSetRecord` abstract operation
+	// https://tc39.es/proposal-set-methods/#sec-getsetrecord
+	getSetRecord = function (obj) {
+	  anObject(obj);
+	  var numSize = +obj.size;
+	  // NOTE: If size is undefined, then numSize will be NaN
+	  // eslint-disable-next-line no-self-compare -- NaN check
+	  if (numSize !== numSize) throw new $TypeError(INVALID_SIZE);
+	  var intSize = toIntegerOrInfinity(numSize);
+	  if (intSize < 0) throw new $RangeError(INVALID_SIZE);
+	  return new SetRecord(obj, intSize);
+	};
+	return getSetRecord;
+}
+
+var setDifference;
+var hasRequiredSetDifference;
+
+function requireSetDifference () {
+	if (hasRequiredSetDifference) return setDifference;
+	hasRequiredSetDifference = 1;
+	var aSet = /*@__PURE__*/ requireASet();
+	var SetHelpers = /*@__PURE__*/ requireSetHelpers();
+	var clone = /*@__PURE__*/ requireSetClone();
+	var size = /*@__PURE__*/ requireSetSize();
+	var getSetRecord = /*@__PURE__*/ requireGetSetRecord();
+	var iterateSet = /*@__PURE__*/ requireSetIterate();
+	var iterateSimple = /*@__PURE__*/ requireIterateSimple();
+
+	var has = SetHelpers.has;
+	var remove = SetHelpers.remove;
+
+	// `Set.prototype.difference` method
+	// https://tc39.es/ecma262/#sec-set.prototype.difference
+	setDifference = function difference(other) {
+	  var O = aSet(this);
+	  var otherRec = getSetRecord(other);
+	  var result = clone(O);
+	  if (size(O) <= otherRec.size) iterateSet(O, function (e) {
+	    if (otherRec.includes(e)) remove(result, e);
+	  });
+	  else iterateSimple(otherRec.getIterator(), function (e) {
+	    if (has(result, e)) remove(result, e);
+	  });
+	  return result;
+	};
+	return setDifference;
+}
+
+var setMethodAcceptSetLike;
+var hasRequiredSetMethodAcceptSetLike;
+
+function requireSetMethodAcceptSetLike () {
+	if (hasRequiredSetMethodAcceptSetLike) return setMethodAcceptSetLike;
+	hasRequiredSetMethodAcceptSetLike = 1;
+	setMethodAcceptSetLike = function () {
+	  return false;
+	};
+	return setMethodAcceptSetLike;
+}
+
+var hasRequiredEs_set_difference_v2;
+
+function requireEs_set_difference_v2 () {
+	if (hasRequiredEs_set_difference_v2) return es_set_difference_v2;
+	hasRequiredEs_set_difference_v2 = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var difference = /*@__PURE__*/ requireSetDifference();
+	var fails = /*@__PURE__*/ requireFails();
+	var setMethodAcceptSetLike = /*@__PURE__*/ requireSetMethodAcceptSetLike();
+
+	var SET_LIKE_INCORRECT_BEHAVIOR = !setMethodAcceptSetLike('difference', function (result) {
+	  return result.size === 0;
+	});
+
+	var FORCED = SET_LIKE_INCORRECT_BEHAVIOR || fails(function () {
+	  // https://bugs.webkit.org/show_bug.cgi?id=288595
+	  var setLike = {
+	    size: 1,
+	    has: function () { return true; },
+	    keys: function () {
+	      var index = 0;
+	      return {
+	        next: function () {
+	          var done = index++ > 1;
+	          if (baseSet.has(1)) baseSet.clear();
+	          return { done: done, value: 2 };
+	        }
+	      };
+	    }
+	  };
+	  // eslint-disable-next-line es/no-set -- testing
+	  var baseSet = new Set([1, 2, 3, 4]);
+	  // eslint-disable-next-line es/no-set-prototype-difference -- testing
+	  return baseSet.difference(setLike).size !== 3;
+	});
+
+	// `Set.prototype.difference` method
+	// https://tc39.es/ecma262/#sec-set.prototype.difference
+	$({ target: 'Set', proto: true, real: true, forced: FORCED }, {
+	  difference: difference
+	});
+	return es_set_difference_v2;
+}
+
+var es_set_intersection_v2 = {};
+
+var setIntersection;
+var hasRequiredSetIntersection;
+
+function requireSetIntersection () {
+	if (hasRequiredSetIntersection) return setIntersection;
+	hasRequiredSetIntersection = 1;
+	var aSet = /*@__PURE__*/ requireASet();
+	var SetHelpers = /*@__PURE__*/ requireSetHelpers();
+	var size = /*@__PURE__*/ requireSetSize();
+	var getSetRecord = /*@__PURE__*/ requireGetSetRecord();
+	var iterateSet = /*@__PURE__*/ requireSetIterate();
+	var iterateSimple = /*@__PURE__*/ requireIterateSimple();
+
+	var Set = SetHelpers.Set;
+	var add = SetHelpers.add;
+	var has = SetHelpers.has;
+
+	// `Set.prototype.intersection` method
+	// https://tc39.es/ecma262/#sec-set.prototype.intersection
+	setIntersection = function intersection(other) {
+	  var O = aSet(this);
+	  var otherRec = getSetRecord(other);
+	  var result = new Set();
+
+	  if (size(O) > otherRec.size) {
+	    iterateSimple(otherRec.getIterator(), function (e) {
+	      if (has(O, e)) add(result, e);
+	    });
+	  } else {
+	    iterateSet(O, function (e) {
+	      if (otherRec.includes(e)) add(result, e);
+	    });
+	  }
+
+	  return result;
+	};
+	return setIntersection;
+}
+
+var hasRequiredEs_set_intersection_v2;
+
+function requireEs_set_intersection_v2 () {
+	if (hasRequiredEs_set_intersection_v2) return es_set_intersection_v2;
+	hasRequiredEs_set_intersection_v2 = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var fails = /*@__PURE__*/ requireFails();
+	var intersection = /*@__PURE__*/ requireSetIntersection();
+	var setMethodAcceptSetLike = /*@__PURE__*/ requireSetMethodAcceptSetLike();
+
+	var INCORRECT = !setMethodAcceptSetLike('intersection', function (result) {
+	  return result.size === 2 && result.has(1) && result.has(2);
+	}) || fails(function () {
+	  // eslint-disable-next-line es/no-array-from, es/no-set, es/no-set-prototype-intersection -- testing
+	  return String(Array.from(new Set([1, 2, 3]).intersection(new Set([3, 2])))) !== '3,2';
+	});
+
+	// `Set.prototype.intersection` method
+	// https://tc39.es/ecma262/#sec-set.prototype.intersection
+	$({ target: 'Set', proto: true, real: true, forced: INCORRECT }, {
+	  intersection: intersection
+	});
+	return es_set_intersection_v2;
+}
+
+var es_set_isDisjointFrom_v2 = {};
+
+var setIsDisjointFrom;
+var hasRequiredSetIsDisjointFrom;
+
+function requireSetIsDisjointFrom () {
+	if (hasRequiredSetIsDisjointFrom) return setIsDisjointFrom;
+	hasRequiredSetIsDisjointFrom = 1;
+	var aSet = /*@__PURE__*/ requireASet();
+	var has = /*@__PURE__*/ requireSetHelpers().has;
+	var size = /*@__PURE__*/ requireSetSize();
+	var getSetRecord = /*@__PURE__*/ requireGetSetRecord();
+	var iterateSet = /*@__PURE__*/ requireSetIterate();
+	var iterateSimple = /*@__PURE__*/ requireIterateSimple();
+	var iteratorClose = /*@__PURE__*/ requireIteratorClose();
+
+	// `Set.prototype.isDisjointFrom` method
+	// https://tc39.es/ecma262/#sec-set.prototype.isdisjointfrom
+	setIsDisjointFrom = function isDisjointFrom(other) {
+	  var O = aSet(this);
+	  var otherRec = getSetRecord(other);
+	  if (size(O) <= otherRec.size) return iterateSet(O, function (e) {
+	    if (otherRec.includes(e)) return false;
+	  }, true) !== false;
+	  var iterator = otherRec.getIterator();
+	  return iterateSimple(iterator, function (e) {
+	    if (has(O, e)) return iteratorClose(iterator, 'normal', false);
+	  }) !== false;
+	};
+	return setIsDisjointFrom;
+}
+
+var hasRequiredEs_set_isDisjointFrom_v2;
+
+function requireEs_set_isDisjointFrom_v2 () {
+	if (hasRequiredEs_set_isDisjointFrom_v2) return es_set_isDisjointFrom_v2;
+	hasRequiredEs_set_isDisjointFrom_v2 = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var isDisjointFrom = /*@__PURE__*/ requireSetIsDisjointFrom();
+	var setMethodAcceptSetLike = /*@__PURE__*/ requireSetMethodAcceptSetLike();
+
+	var INCORRECT = !setMethodAcceptSetLike('isDisjointFrom', function (result) {
+	  return !result;
+	});
+
+	// `Set.prototype.isDisjointFrom` method
+	// https://tc39.es/ecma262/#sec-set.prototype.isdisjointfrom
+	$({ target: 'Set', proto: true, real: true, forced: INCORRECT }, {
+	  isDisjointFrom: isDisjointFrom
+	});
+	return es_set_isDisjointFrom_v2;
+}
+
+var es_set_isSubsetOf_v2 = {};
+
+var setIsSubsetOf;
+var hasRequiredSetIsSubsetOf;
+
+function requireSetIsSubsetOf () {
+	if (hasRequiredSetIsSubsetOf) return setIsSubsetOf;
+	hasRequiredSetIsSubsetOf = 1;
+	var aSet = /*@__PURE__*/ requireASet();
+	var size = /*@__PURE__*/ requireSetSize();
+	var iterate = /*@__PURE__*/ requireSetIterate();
+	var getSetRecord = /*@__PURE__*/ requireGetSetRecord();
+
+	// `Set.prototype.isSubsetOf` method
+	// https://tc39.es/ecma262/#sec-set.prototype.issubsetof
+	setIsSubsetOf = function isSubsetOf(other) {
+	  var O = aSet(this);
+	  var otherRec = getSetRecord(other);
+	  if (size(O) > otherRec.size) return false;
+	  return iterate(O, function (e) {
+	    if (!otherRec.includes(e)) return false;
+	  }, true) !== false;
+	};
+	return setIsSubsetOf;
+}
+
+var hasRequiredEs_set_isSubsetOf_v2;
+
+function requireEs_set_isSubsetOf_v2 () {
+	if (hasRequiredEs_set_isSubsetOf_v2) return es_set_isSubsetOf_v2;
+	hasRequiredEs_set_isSubsetOf_v2 = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var isSubsetOf = /*@__PURE__*/ requireSetIsSubsetOf();
+	var setMethodAcceptSetLike = /*@__PURE__*/ requireSetMethodAcceptSetLike();
+
+	var INCORRECT = !setMethodAcceptSetLike('isSubsetOf', function (result) {
+	  return result;
+	});
+
+	// `Set.prototype.isSubsetOf` method
+	// https://tc39.es/ecma262/#sec-set.prototype.issubsetof
+	$({ target: 'Set', proto: true, real: true, forced: INCORRECT }, {
+	  isSubsetOf: isSubsetOf
+	});
+	return es_set_isSubsetOf_v2;
+}
+
+var es_set_isSupersetOf_v2 = {};
+
+var setIsSupersetOf;
+var hasRequiredSetIsSupersetOf;
+
+function requireSetIsSupersetOf () {
+	if (hasRequiredSetIsSupersetOf) return setIsSupersetOf;
+	hasRequiredSetIsSupersetOf = 1;
+	var aSet = /*@__PURE__*/ requireASet();
+	var has = /*@__PURE__*/ requireSetHelpers().has;
+	var size = /*@__PURE__*/ requireSetSize();
+	var getSetRecord = /*@__PURE__*/ requireGetSetRecord();
+	var iterateSimple = /*@__PURE__*/ requireIterateSimple();
+	var iteratorClose = /*@__PURE__*/ requireIteratorClose();
+
+	// `Set.prototype.isSupersetOf` method
+	// https://tc39.es/ecma262/#sec-set.prototype.issupersetof
+	setIsSupersetOf = function isSupersetOf(other) {
+	  var O = aSet(this);
+	  var otherRec = getSetRecord(other);
+	  if (size(O) < otherRec.size) return false;
+	  var iterator = otherRec.getIterator();
+	  return iterateSimple(iterator, function (e) {
+	    if (!has(O, e)) return iteratorClose(iterator, 'normal', false);
+	  }) !== false;
+	};
+	return setIsSupersetOf;
+}
+
+var hasRequiredEs_set_isSupersetOf_v2;
+
+function requireEs_set_isSupersetOf_v2 () {
+	if (hasRequiredEs_set_isSupersetOf_v2) return es_set_isSupersetOf_v2;
+	hasRequiredEs_set_isSupersetOf_v2 = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var isSupersetOf = /*@__PURE__*/ requireSetIsSupersetOf();
+	var setMethodAcceptSetLike = /*@__PURE__*/ requireSetMethodAcceptSetLike();
+
+	var INCORRECT = !setMethodAcceptSetLike('isSupersetOf', function (result) {
+	  return !result;
+	});
+
+	// `Set.prototype.isSupersetOf` method
+	// https://tc39.es/ecma262/#sec-set.prototype.issupersetof
+	$({ target: 'Set', proto: true, real: true, forced: INCORRECT }, {
+	  isSupersetOf: isSupersetOf
+	});
+	return es_set_isSupersetOf_v2;
+}
+
+var es_set_symmetricDifference_v2 = {};
+
+var setSymmetricDifference;
+var hasRequiredSetSymmetricDifference;
+
+function requireSetSymmetricDifference () {
+	if (hasRequiredSetSymmetricDifference) return setSymmetricDifference;
+	hasRequiredSetSymmetricDifference = 1;
+	var aSet = /*@__PURE__*/ requireASet();
+	var SetHelpers = /*@__PURE__*/ requireSetHelpers();
+	var clone = /*@__PURE__*/ requireSetClone();
+	var getSetRecord = /*@__PURE__*/ requireGetSetRecord();
+	var iterateSimple = /*@__PURE__*/ requireIterateSimple();
+
+	var add = SetHelpers.add;
+	var has = SetHelpers.has;
+	var remove = SetHelpers.remove;
+
+	// `Set.prototype.symmetricDifference` method
+	// https://tc39.es/ecma262/#sec-set.prototype.symmetricdifference
+	setSymmetricDifference = function symmetricDifference(other) {
+	  var O = aSet(this);
+	  var keysIter = getSetRecord(other).getIterator();
+	  var result = clone(O);
+	  iterateSimple(keysIter, function (e) {
+	    if (has(O, e)) remove(result, e);
+	    else add(result, e);
+	  });
+	  return result;
+	};
+	return setSymmetricDifference;
+}
+
+var setMethodGetKeysBeforeCloningDetection;
+var hasRequiredSetMethodGetKeysBeforeCloningDetection;
+
+function requireSetMethodGetKeysBeforeCloningDetection () {
+	if (hasRequiredSetMethodGetKeysBeforeCloningDetection) return setMethodGetKeysBeforeCloningDetection;
+	hasRequiredSetMethodGetKeysBeforeCloningDetection = 1;
+	// Should get iterator record of a set-like object before cloning this
+	// https://bugs.webkit.org/show_bug.cgi?id=289430
+	setMethodGetKeysBeforeCloningDetection = function (METHOD_NAME) {
+	  try {
+	    // eslint-disable-next-line es/no-set -- needed for test
+	    var baseSet = new Set();
+	    var setLike = {
+	      size: 0,
+	      has: function () { return true; },
+	      keys: function () {
+	        // eslint-disable-next-line es/no-object-defineproperty -- needed for test
+	        return Object.defineProperty({}, 'next', {
+	          get: function () {
+	            baseSet.clear();
+	            baseSet.add(4);
+	            return function () {
+	              return { done: true };
+	            };
+	          }
+	        });
+	      }
+	    };
+	    var result = baseSet[METHOD_NAME](setLike);
+
+	    return result.size === 1 && result.values().next().value === 4;
+	  } catch (error) {
+	    return false;
+	  }
+	};
+	return setMethodGetKeysBeforeCloningDetection;
+}
+
+var hasRequiredEs_set_symmetricDifference_v2;
+
+function requireEs_set_symmetricDifference_v2 () {
+	if (hasRequiredEs_set_symmetricDifference_v2) return es_set_symmetricDifference_v2;
+	hasRequiredEs_set_symmetricDifference_v2 = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var symmetricDifference = /*@__PURE__*/ requireSetSymmetricDifference();
+	var setMethodGetKeysBeforeCloning = /*@__PURE__*/ requireSetMethodGetKeysBeforeCloningDetection();
+	var setMethodAcceptSetLike = /*@__PURE__*/ requireSetMethodAcceptSetLike();
+
+	var FORCED = !setMethodAcceptSetLike('symmetricDifference') || !setMethodGetKeysBeforeCloning('symmetricDifference');
+
+	// `Set.prototype.symmetricDifference` method
+	// https://tc39.es/ecma262/#sec-set.prototype.symmetricdifference
+	$({ target: 'Set', proto: true, real: true, forced: FORCED }, {
+	  symmetricDifference: symmetricDifference
+	});
+	return es_set_symmetricDifference_v2;
+}
+
+var es_set_union_v2 = {};
+
+var setUnion;
+var hasRequiredSetUnion;
+
+function requireSetUnion () {
+	if (hasRequiredSetUnion) return setUnion;
+	hasRequiredSetUnion = 1;
+	var aSet = /*@__PURE__*/ requireASet();
+	var add = /*@__PURE__*/ requireSetHelpers().add;
+	var clone = /*@__PURE__*/ requireSetClone();
+	var getSetRecord = /*@__PURE__*/ requireGetSetRecord();
+	var iterateSimple = /*@__PURE__*/ requireIterateSimple();
+
+	// `Set.prototype.union` method
+	// https://tc39.es/ecma262/#sec-set.prototype.union
+	setUnion = function union(other) {
+	  var O = aSet(this);
+	  var keysIter = getSetRecord(other).getIterator();
+	  var result = clone(O);
+	  iterateSimple(keysIter, function (it) {
+	    add(result, it);
+	  });
+	  return result;
+	};
+	return setUnion;
+}
+
+var hasRequiredEs_set_union_v2;
+
+function requireEs_set_union_v2 () {
+	if (hasRequiredEs_set_union_v2) return es_set_union_v2;
+	hasRequiredEs_set_union_v2 = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var union = /*@__PURE__*/ requireSetUnion();
+	var setMethodGetKeysBeforeCloning = /*@__PURE__*/ requireSetMethodGetKeysBeforeCloningDetection();
+	var setMethodAcceptSetLike = /*@__PURE__*/ requireSetMethodAcceptSetLike();
+
+	var FORCED = !setMethodAcceptSetLike('union') || !setMethodGetKeysBeforeCloning('union');
+
+	// `Set.prototype.union` method
+	// https://tc39.es/ecma262/#sec-set.prototype.union
+	$({ target: 'Set', proto: true, real: true, forced: FORCED }, {
+	  union: union
+	});
+	return es_set_union_v2;
+}
+
+var set$2;
+var hasRequiredSet$2;
+
+function requireSet$2 () {
+	if (hasRequiredSet$2) return set$2;
+	hasRequiredSet$2 = 1;
+	requireEs_array_iterator();
+	requireEs_set();
+	requireEs_set_difference_v2();
+	requireEs_set_intersection_v2();
+	requireEs_set_isDisjointFrom_v2();
+	requireEs_set_isSubsetOf_v2();
+	requireEs_set_isSupersetOf_v2();
+	requireEs_set_symmetricDifference_v2();
+	requireEs_set_union_v2();
+	requireEs_string_iterator();
+	var path = /*@__PURE__*/ requirePath();
+
+	set$2 = path.Set;
+	return set$2;
+}
+
+var set$1;
+var hasRequiredSet$1;
+
+function requireSet$1 () {
+	if (hasRequiredSet$1) return set$1;
+	hasRequiredSet$1 = 1;
+	var parent = /*@__PURE__*/ requireSet$2();
+	requireWeb_domCollections_iterator();
+
+	set$1 = parent;
+	return set$1;
+}
+
+var set;
+var hasRequiredSet;
+
+function requireSet () {
+	if (hasRequiredSet) return set;
+	hasRequiredSet = 1;
+	set = /*@__PURE__*/ requireSet$1();
+	return set;
+}
+
+var setExports = requireSet();
+var _Set = /*@__PURE__*/getDefaultExportFromCjs(setExports);
+
+var getIterator_1;
+var hasRequiredGetIterator$5;
+
+function requireGetIterator$5 () {
+	if (hasRequiredGetIterator$5) return getIterator_1;
+	hasRequiredGetIterator$5 = 1;
+	requireEs_array_iterator();
+	requireEs_string_iterator();
+	var getIterator = /*@__PURE__*/ requireGetIterator$6();
+
+	getIterator_1 = getIterator;
+	return getIterator_1;
+}
+
+var getIterator$4;
+var hasRequiredGetIterator$4;
+
+function requireGetIterator$4 () {
+	if (hasRequiredGetIterator$4) return getIterator$4;
+	hasRequiredGetIterator$4 = 1;
+	var parent = /*@__PURE__*/ requireGetIterator$5();
+	requireWeb_domCollections_iterator();
+
+	getIterator$4 = parent;
+	return getIterator$4;
+}
+
+var getIterator$3;
+var hasRequiredGetIterator$3;
+
+function requireGetIterator$3 () {
+	if (hasRequiredGetIterator$3) return getIterator$3;
+	hasRequiredGetIterator$3 = 1;
+	var parent = /*@__PURE__*/ requireGetIterator$4();
+
+	getIterator$3 = parent;
+	return getIterator$3;
+}
+
+var getIterator$2;
+var hasRequiredGetIterator$2;
+
+function requireGetIterator$2 () {
+	if (hasRequiredGetIterator$2) return getIterator$2;
+	hasRequiredGetIterator$2 = 1;
+	var parent = /*@__PURE__*/ requireGetIterator$3();
+
+	getIterator$2 = parent;
+	return getIterator$2;
+}
+
+var getIterator$1;
+var hasRequiredGetIterator$1;
+
+function requireGetIterator$1 () {
+	if (hasRequiredGetIterator$1) return getIterator$1;
+	hasRequiredGetIterator$1 = 1;
+	getIterator$1 = /*@__PURE__*/ requireGetIterator$2();
+	return getIterator$1;
+}
+
+var getIterator;
+var hasRequiredGetIterator;
+
+function requireGetIterator () {
+	if (hasRequiredGetIterator) return getIterator;
+	hasRequiredGetIterator = 1;
+	getIterator = /*@__PURE__*/ requireGetIterator$1();
+	return getIterator;
+}
+
+var getIteratorExports = requireGetIterator();
+var _getIterator = /*@__PURE__*/getDefaultExportFromCjs(getIteratorExports);
+
+var es_array_some = {};
+
+var hasRequiredEs_array_some;
+
+function requireEs_array_some () {
+	if (hasRequiredEs_array_some) return es_array_some;
+	hasRequiredEs_array_some = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var $some = /*@__PURE__*/ requireArrayIteration().some;
+	var arrayMethodIsStrict = /*@__PURE__*/ requireArrayMethodIsStrict();
+
+	var STRICT_METHOD = arrayMethodIsStrict('some');
+
+	// `Array.prototype.some` method
+	// https://tc39.es/ecma262/#sec-array.prototype.some
+	$({ target: 'Array', proto: true, forced: !STRICT_METHOD }, {
+	  some: function some(callbackfn /* , thisArg */) {
+	    return $some(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+	  }
+	});
+	return es_array_some;
+}
+
+var some$3;
+var hasRequiredSome$3;
+
+function requireSome$3 () {
+	if (hasRequiredSome$3) return some$3;
+	hasRequiredSome$3 = 1;
+	requireEs_array_some();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	some$3 = getBuiltInPrototypeMethod('Array', 'some');
+	return some$3;
+}
+
+var some$2;
+var hasRequiredSome$2;
+
+function requireSome$2 () {
+	if (hasRequiredSome$2) return some$2;
+	hasRequiredSome$2 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireSome$3();
+
+	var ArrayPrototype = Array.prototype;
+
+	some$2 = function (it) {
+	  var own = it.some;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.some) ? method : own;
+	};
+	return some$2;
+}
+
+var some$1;
+var hasRequiredSome$1;
+
+function requireSome$1 () {
+	if (hasRequiredSome$1) return some$1;
+	hasRequiredSome$1 = 1;
+	var parent = /*@__PURE__*/ requireSome$2();
+
+	some$1 = parent;
+	return some$1;
+}
+
+var some;
+var hasRequiredSome;
+
+function requireSome () {
+	if (hasRequiredSome) return some;
+	hasRequiredSome = 1;
+	some = /*@__PURE__*/ requireSome$1();
+	return some;
+}
+
+var someExports = requireSome();
+var _someInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(someExports);
+
+var keys$3;
+var hasRequiredKeys$3;
+
+function requireKeys$3 () {
+	if (hasRequiredKeys$3) return keys$3;
+	hasRequiredKeys$3 = 1;
+	requireEs_array_iterator();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	keys$3 = getBuiltInPrototypeMethod('Array', 'keys');
+	return keys$3;
+}
+
+var keys$2;
+var hasRequiredKeys$2;
+
+function requireKeys$2 () {
+	if (hasRequiredKeys$2) return keys$2;
+	hasRequiredKeys$2 = 1;
+	var parent = /*@__PURE__*/ requireKeys$3();
+
+	keys$2 = parent;
+	return keys$2;
+}
+
+var keys$1;
+var hasRequiredKeys$1;
+
+function requireKeys$1 () {
+	if (hasRequiredKeys$1) return keys$1;
+	hasRequiredKeys$1 = 1;
+	requireWeb_domCollections_iterator();
+	var classof = /*@__PURE__*/ requireClassof();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireKeys$2();
+
+	var ArrayPrototype = Array.prototype;
+
+	var DOMIterables = {
+	  DOMTokenList: true,
+	  NodeList: true
+	};
+
+	keys$1 = function (it) {
+	  var own = it.keys;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.keys)
+	    || hasOwn(DOMIterables, classof(it)) ? method : own;
+	};
+	return keys$1;
+}
+
+var keys;
+var hasRequiredKeys;
+
+function requireKeys () {
+	if (hasRequiredKeys) return keys;
+	hasRequiredKeys = 1;
+	keys = /*@__PURE__*/ requireKeys$1();
+	return keys;
+}
+
+var keysExports = requireKeys();
+var _keysInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(keysExports);
+
+var entries$3;
+var hasRequiredEntries$3;
+
+function requireEntries$3 () {
+	if (hasRequiredEntries$3) return entries$3;
+	hasRequiredEntries$3 = 1;
+	requireEs_array_iterator();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	entries$3 = getBuiltInPrototypeMethod('Array', 'entries');
+	return entries$3;
+}
+
+var entries$2;
+var hasRequiredEntries$2;
+
+function requireEntries$2 () {
+	if (hasRequiredEntries$2) return entries$2;
+	hasRequiredEntries$2 = 1;
+	var parent = /*@__PURE__*/ requireEntries$3();
+
+	entries$2 = parent;
+	return entries$2;
+}
+
+var entries$1;
+var hasRequiredEntries$1;
+
+function requireEntries$1 () {
+	if (hasRequiredEntries$1) return entries$1;
+	hasRequiredEntries$1 = 1;
+	requireWeb_domCollections_iterator();
+	var classof = /*@__PURE__*/ requireClassof();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireEntries$2();
+
+	var ArrayPrototype = Array.prototype;
+
+	var DOMIterables = {
+	  DOMTokenList: true,
+	  NodeList: true
+	};
+
+	entries$1 = function (it) {
+	  var own = it.entries;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.entries)
+	    || hasOwn(DOMIterables, classof(it)) ? method : own;
+	};
+	return entries$1;
+}
+
+var entries;
+var hasRequiredEntries;
+
+function requireEntries () {
+	if (hasRequiredEntries) return entries;
+	hasRequiredEntries = 1;
+	entries = /*@__PURE__*/ requireEntries$1();
+	return entries;
+}
+
+var entriesExports = requireEntries();
+var _entriesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(entriesExports);
+
+var defineProperty;
+var hasRequiredDefineProperty;
+
+function requireDefineProperty () {
+	if (hasRequiredDefineProperty) return defineProperty;
+	hasRequiredDefineProperty = 1;
+	defineProperty = /*@__PURE__*/ requireDefineProperty$4();
+	return defineProperty;
+}
+
+var definePropertyExports = requireDefineProperty();
+var _Object$defineProperty = /*@__PURE__*/getDefaultExportFromCjs(definePropertyExports);
+
 const byteToHex = [];
 for (let i = 0; i < 256; ++i) {
     byteToHex.push((i + 0x100).toString(16).slice(1));
@@ -10020,32 +14716,8 @@ function v4(options, buf, offset) {
     return unsafeStringify(rnds);
 }
 
-/**
- * vis-data
- * http://visjs.org/
- *
- * Manage unstructured data using DataSet. Add, update, and remove data, and listen for changes in the data.
- *
- * @version 8.0.1
- * @date    2025-07-13T02:52:37.151Z
- *
- * @copyright (c) 2011-2017 Almende B.V, http://almende.com
- * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
- *
- * @license
- * vis.js is dual licensed under both
- *
- *   1. The Apache 2.0 License
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *   and
- *
- *   2. The MIT License
- *      http://opensource.org/licenses/MIT
- *
- * vis.js may be distributed under either license.
- */
-
+function ownKeys(e, r) { var t = _Object$keys(e); if (_Object$getOwnPropertySymbols) { var o = _Object$getOwnPropertySymbols(e); r && (o = _filterInstanceProperty(o).call(o, function (r) { return _Object$getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var _context21, _context22; var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? _forEachInstanceProperty(_context21 = ownKeys(Object(t), true)).call(_context21, function (r) { _defineProperty(e, r, t[r]); }) : _Object$getOwnPropertyDescriptors ? _Object$defineProperties(e, _Object$getOwnPropertyDescriptors(t)) : _forEachInstanceProperty(_context22 = ownKeys(Object(t))).call(_context22, function (r) { _Object$defineProperty(e, r, _Object$getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 /**
  * Create new data pipe.
@@ -10079,7 +14751,7 @@ function v4(options, buf, offset) {
  * @returns A factory whose methods can be used to configure the pipe.
  */
 function createNewDataPipeFrom(from) {
-    return new DataPipeUnderConstruction(from);
+  return new DataPipeUnderConstruction(from);
 }
 /**
  * Internal implementation of the pipe. This should be accessible only through
@@ -10090,91 +14762,93 @@ function createNewDataPipeFrom(from) {
  * @typeParam TP - Target item type's id property name.
  */
 class SimpleDataPipe {
-    _source;
-    _transformers;
-    _target;
+  /**
+   * Create a new data pipe.
+   * @param source - The data set or data view that will be observed.
+   * @param transformers - An array of transforming functions to be used to
+   * filter or transform the items in the pipe.
+   * @param target - The data set or data view that will receive the items.
+   */
+  constructor(source, transformers, target) {
+    var _context, _context2, _context3;
+    _defineProperty(this, "_source", void 0);
+    _defineProperty(this, "_transformers", void 0);
+    _defineProperty(this, "_target", void 0);
     /**
      * Bound listeners for use with `DataInterface['on' | 'off']`.
      */
-    _listeners = {
-        add: this._add.bind(this),
-        remove: this._remove.bind(this),
-        update: this._update.bind(this),
-    };
-    /**
-     * Create a new data pipe.
-     * @param source - The data set or data view that will be observed.
-     * @param transformers - An array of transforming functions to be used to
-     * filter or transform the items in the pipe.
-     * @param target - The data set or data view that will receive the items.
-     */
-    constructor(source, transformers, target) {
-        this._source = source;
-        this._transformers = transformers;
-        this._target = target;
+    _defineProperty(this, "_listeners", {
+      add: _bindInstanceProperty(_context = this._add).call(_context, this),
+      remove: _bindInstanceProperty(_context2 = this._remove).call(_context2, this),
+      update: _bindInstanceProperty(_context3 = this._update).call(_context3, this)
+    });
+    this._source = source;
+    this._transformers = transformers;
+    this._target = target;
+  }
+  /** @inheritDoc */
+  all() {
+    this._target.update(this._transformItems(this._source.get()));
+    return this;
+  }
+  /** @inheritDoc */
+  start() {
+    this._source.on("add", this._listeners.add);
+    this._source.on("remove", this._listeners.remove);
+    this._source.on("update", this._listeners.update);
+    return this;
+  }
+  /** @inheritDoc */
+  stop() {
+    this._source.off("add", this._listeners.add);
+    this._source.off("remove", this._listeners.remove);
+    this._source.off("update", this._listeners.update);
+    return this;
+  }
+  /**
+   * Apply the transformers to the items.
+   * @param items - The items to be transformed.
+   * @returns The transformed items.
+   */
+  _transformItems(items) {
+    var _context4;
+    return _reduceInstanceProperty(_context4 = this._transformers).call(_context4, (items, transform) => {
+      return transform(items);
+    }, items);
+  }
+  /**
+   * Handle an add event.
+   * @param _name - Ignored.
+   * @param payload - The payload containing the ids of the added items.
+   */
+  _add(_name, payload) {
+    if (payload == null) {
+      return;
     }
-    /** @inheritDoc */
-    all() {
-        this._target.update(this._transformItems(this._source.get()));
-        return this;
+    this._target.add(this._transformItems(this._source.get(payload.items)));
+  }
+  /**
+   * Handle an update event.
+   * @param _name - Ignored.
+   * @param payload - The payload containing the ids of the updated items.
+   */
+  _update(_name, payload) {
+    if (payload == null) {
+      return;
     }
-    /** @inheritDoc */
-    start() {
-        this._source.on("add", this._listeners.add);
-        this._source.on("remove", this._listeners.remove);
-        this._source.on("update", this._listeners.update);
-        return this;
+    this._target.update(this._transformItems(this._source.get(payload.items)));
+  }
+  /**
+   * Handle a remove event.
+   * @param _name - Ignored.
+   * @param payload - The payload containing the data of the removed items.
+   */
+  _remove(_name, payload) {
+    if (payload == null) {
+      return;
     }
-    /** @inheritDoc */
-    stop() {
-        this._source.off("add", this._listeners.add);
-        this._source.off("remove", this._listeners.remove);
-        this._source.off("update", this._listeners.update);
-        return this;
-    }
-    /**
-     * Apply the transformers to the items.
-     * @param items - The items to be transformed.
-     * @returns The transformed items.
-     */
-    _transformItems(items) {
-        return this._transformers.reduce((items, transform) => {
-            return transform(items);
-        }, items);
-    }
-    /**
-     * Handle an add event.
-     * @param _name - Ignored.
-     * @param payload - The payload containing the ids of the added items.
-     */
-    _add(_name, payload) {
-        if (payload == null) {
-            return;
-        }
-        this._target.add(this._transformItems(this._source.get(payload.items)));
-    }
-    /**
-     * Handle an update event.
-     * @param _name - Ignored.
-     * @param payload - The payload containing the ids of the updated items.
-     */
-    _update(_name, payload) {
-        if (payload == null) {
-            return;
-        }
-        this._target.update(this._transformItems(this._source.get(payload.items)));
-    }
-    /**
-     * Handle a remove event.
-     * @param _name - Ignored.
-     * @param payload - The payload containing the data of the removed items.
-     */
-    _remove(_name, payload) {
-        if (payload == null) {
-            return;
-        }
-        this._target.remove(this._transformItems(payload.oldData));
-    }
+    this._target.remove(this._transformItems(payload.oldData));
+  }
 }
 /**
  * Internal implementation of the pipe factory. This should be accessible
@@ -10183,63 +14857,63 @@ class SimpleDataPipe {
  * @typeParam TP - Target item type's id property name.
  */
 class DataPipeUnderConstruction {
-    _source;
+  /**
+   * Create a new data pipe factory. This is an internal constructor that
+   * should never be called from outside of this file.
+   * @param source - The source data set or data view for this pipe.
+   */
+  constructor(source) {
+    _defineProperty(this, "_source", void 0);
     /**
      * Array transformers used to transform items within the pipe. This is typed
      * as any for the sake of simplicity.
      */
-    _transformers = [];
-    /**
-     * Create a new data pipe factory. This is an internal constructor that
-     * should never be called from outside of this file.
-     * @param source - The source data set or data view for this pipe.
-     */
-    constructor(source) {
-        this._source = source;
-    }
-    /**
-     * Filter the items.
-     * @param callback - A filtering function that returns true if given item
-     * should be piped and false if not.
-     * @returns This factory for further configuration.
-     */
-    filter(callback) {
-        this._transformers.push((input) => input.filter(callback));
-        return this;
-    }
-    /**
-     * Map each source item to a new type.
-     * @param callback - A mapping function that takes a source item and returns
-     * corresponding mapped item.
-     * @typeParam TI - Target item type.
-     * @typeParam TP - Target item type's id property name.
-     * @returns This factory for further configuration.
-     */
-    map(callback) {
-        this._transformers.push((input) => input.map(callback));
-        return this;
-    }
-    /**
-     * Map each source item to zero or more items of a new type.
-     * @param callback - A mapping function that takes a source item and returns
-     * an array of corresponding mapped items.
-     * @typeParam TI - Target item type.
-     * @typeParam TP - Target item type's id property name.
-     * @returns This factory for further configuration.
-     */
-    flatMap(callback) {
-        this._transformers.push((input) => input.flatMap(callback));
-        return this;
-    }
-    /**
-     * Connect this pipe to given data set.
-     * @param target - The data set that will receive the items from this pipe.
-     * @returns The pipe connected between given data sets and performing
-     * configured transformation on the processed items.
-     */
-    to(target) {
-        return new SimpleDataPipe(this._source, this._transformers, target);
-    }
+    _defineProperty(this, "_transformers", []);
+    this._source = source;
+  }
+  /**
+   * Filter the items.
+   * @param callback - A filtering function that returns true if given item
+   * should be piped and false if not.
+   * @returns This factory for further configuration.
+   */
+  filter(callback) {
+    this._transformers.push(input => _filterInstanceProperty(input).call(input, callback));
+    return this;
+  }
+  /**
+   * Map each source item to a new type.
+   * @param callback - A mapping function that takes a source item and returns
+   * corresponding mapped item.
+   * @typeParam TI - Target item type.
+   * @typeParam TP - Target item type's id property name.
+   * @returns This factory for further configuration.
+   */
+  map(callback) {
+    this._transformers.push(input => _mapInstanceProperty(input).call(input, callback));
+    return this;
+  }
+  /**
+   * Map each source item to zero or more items of a new type.
+   * @param callback - A mapping function that takes a source item and returns
+   * an array of corresponding mapped items.
+   * @typeParam TI - Target item type.
+   * @typeParam TP - Target item type's id property name.
+   * @returns This factory for further configuration.
+   */
+  flatMap(callback) {
+    this._transformers.push(input => _flatMapInstanceProperty(input).call(input, callback));
+    return this;
+  }
+  /**
+   * Connect this pipe to given data set.
+   * @param target - The data set that will receive the items from this pipe.
+   * @returns The pipe connected between given data sets and performing
+   * configured transformation on the processed items.
+   */
+  to(target) {
+    return new SimpleDataPipe(this._source, this._transformers, target);
+  }
 }
 
 /**
@@ -10248,7 +14922,7 @@ class DataPipeUnderConstruction {
  * @returns True if the value is valid id, false otherwise.
  */
 function isId(value) {
-    return typeof value === "string" || typeof value === "number";
+  return typeof value === "string" || typeof value === "number";
 }
 
 /**
@@ -10256,158 +14930,160 @@ function isId(value) {
  * @typeParam T - The type of method names to be replaced by queued versions.
  */
 class Queue {
+  /**
+   * Construct a new Queue.
+   * @param options - Queue configuration.
+   */
+  constructor(options) {
     /** Delay in milliseconds. If defined the queue will be periodically flushed. */
-    delay;
+    _defineProperty(this, "delay", void 0);
     /** Maximum number of entries in the queue before it will be flushed. */
-    max;
-    _queue = [];
-    _timeout = null;
-    _extended = null;
-    /**
-     * Construct a new Queue.
-     * @param options - Queue configuration.
-     */
-    constructor(options) {
-        // options
-        this.delay = null;
-        this.max = Infinity;
-        this.setOptions(options);
+    _defineProperty(this, "max", void 0);
+    _defineProperty(this, "_queue", []);
+    _defineProperty(this, "_timeout", null);
+    _defineProperty(this, "_extended", null);
+    // options
+    this.delay = null;
+    this.max = Infinity;
+    this.setOptions(options);
+  }
+  /**
+   * Update the configuration of the queue.
+   * @param options - Queue configuration.
+   */
+  setOptions(options) {
+    if (options && typeof options.delay !== "undefined") {
+      this.delay = options.delay;
     }
-    /**
-     * Update the configuration of the queue.
-     * @param options - Queue configuration.
-     */
-    setOptions(options) {
-        if (options && typeof options.delay !== "undefined") {
-            this.delay = options.delay;
-        }
-        if (options && typeof options.max !== "undefined") {
-            this.max = options.max;
-        }
-        this._flushIfNeeded();
+    if (options && typeof options.max !== "undefined") {
+      this.max = options.max;
     }
-    /**
-     * Extend an object with queuing functionality.
-     * The object will be extended with a function flush, and the methods provided in options.replace will be replaced with queued ones.
-     * @param object - The object to be extended.
-     * @param options - Additional options.
-     * @returns The created queue.
-     */
-    static extend(object, options) {
-        const queue = new Queue(options);
-        if (object.flush !== undefined) {
-            throw new Error("Target object already has a property flush");
-        }
-        object.flush = () => {
-            queue.flush();
-        };
-        const methods = [
-            {
-                name: "flush",
-                original: undefined,
-            },
-        ];
-        if (options && options.replace) {
-            for (let i = 0; i < options.replace.length; i++) {
-                const name = options.replace[i];
-                methods.push({
-                    name: name,
-                    // @TODO: better solution?
-                    original: object[name],
-                });
-                // @TODO: better solution?
-                queue.replace(object, name);
-            }
-        }
-        queue._extended = {
-            object: object,
-            methods: methods,
-        };
-        return queue;
+    this._flushIfNeeded();
+  }
+  /**
+   * Extend an object with queuing functionality.
+   * The object will be extended with a function flush, and the methods provided in options.replace will be replaced with queued ones.
+   * @param object - The object to be extended.
+   * @param options - Additional options.
+   * @returns The created queue.
+   */
+  static extend(object, options) {
+    const queue = new Queue(options);
+    if (object.flush !== undefined) {
+      throw new Error("Target object already has a property flush");
     }
-    /**
-     * Destroy the queue. The queue will first flush all queued actions, and in case it has extended an object, will restore the original object.
-     */
-    destroy() {
-        this.flush();
-        if (this._extended) {
-            const object = this._extended.object;
-            const methods = this._extended.methods;
-            for (let i = 0; i < methods.length; i++) {
-                const method = methods[i];
-                if (method.original) {
-                    // @TODO: better solution?
-                    object[method.name] = method.original;
-                }
-                else {
-                    // @TODO: better solution?
-                    delete object[method.name];
-                }
-            }
-            this._extended = null;
-        }
-    }
-    /**
-     * Replace a method on an object with a queued version.
-     * @param object - Object having the method.
-     * @param method - The method name.
-     */
-    replace(object, method) {
-        /* eslint-disable-next-line @typescript-eslint/no-this-alias -- Function this is necessary in the function bellow, so class this has to be saved into a variable here. */
-        const me = this;
-        const original = object[method];
-        if (!original) {
-            throw new Error("Method " + method + " undefined");
-        }
-        object[method] = function (...args) {
-            // add this call to the queue
-            me.queue({
-                args: args,
-                fn: original,
-                context: this,
-            });
-        };
-    }
-    /**
-     * Queue a call.
-     * @param entry - The function or entry to be queued.
-     */
-    queue(entry) {
-        if (typeof entry === "function") {
-            this._queue.push({ fn: entry });
-        }
-        else {
-            this._queue.push(entry);
-        }
-        this._flushIfNeeded();
-    }
-    /**
-     * Check whether the queue needs to be flushed.
-     */
-    _flushIfNeeded() {
-        // flush when the maximum is exceeded.
-        if (this._queue.length > this.max) {
-            this.flush();
-        }
-        // flush after a period of inactivity when a delay is configured
-        if (this._timeout != null) {
-            clearTimeout(this._timeout);
-            this._timeout = null;
-        }
-        if (this.queue.length > 0 && typeof this.delay === "number") {
-            this._timeout = setTimeout(() => {
-                this.flush();
-            }, this.delay);
-        }
-    }
-    /**
-     * Flush all queued calls
-     */
-    flush() {
-        this._queue.splice(0).forEach((entry) => {
-            entry.fn.apply(entry.context || entry.fn, entry.args || []);
+    object.flush = () => {
+      queue.flush();
+    };
+    const methods = [{
+      name: "flush",
+      original: undefined
+    }];
+    if (options && options.replace) {
+      for (let i = 0; i < options.replace.length; i++) {
+        const name = options.replace[i];
+        methods.push({
+          name: name,
+          // @TODO: better solution?
+          original: object[name]
         });
+        // @TODO: better solution?
+        queue.replace(object, name);
+      }
     }
+    queue._extended = {
+      object: object,
+      methods: methods
+    };
+    return queue;
+  }
+  /**
+   * Destroy the queue. The queue will first flush all queued actions, and in case it has extended an object, will restore the original object.
+   */
+  destroy() {
+    this.flush();
+    if (this._extended) {
+      const object = this._extended.object;
+      const methods = this._extended.methods;
+      for (let i = 0; i < methods.length; i++) {
+        const method = methods[i];
+        if (method.original) {
+          // @TODO: better solution?
+          object[method.name] = method.original;
+        } else {
+          // @TODO: better solution?
+          delete object[method.name];
+        }
+      }
+      this._extended = null;
+    }
+  }
+  /**
+   * Replace a method on an object with a queued version.
+   * @param object - Object having the method.
+   * @param method - The method name.
+   */
+  replace(object, method) {
+    /* eslint-disable-next-line @typescript-eslint/no-this-alias -- Function this is necessary in the function bellow, so class this has to be saved into a variable here. */
+    const me = this;
+    const original = object[method];
+    if (!original) {
+      throw new Error("Method " + method + " undefined");
+    }
+    object[method] = function () {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+      // add this call to the queue
+      me.queue({
+        args: args,
+        fn: original,
+        context: this
+      });
+    };
+  }
+  /**
+   * Queue a call.
+   * @param entry - The function or entry to be queued.
+   */
+  queue(entry) {
+    if (typeof entry === "function") {
+      this._queue.push({
+        fn: entry
+      });
+    } else {
+      this._queue.push(entry);
+    }
+    this._flushIfNeeded();
+  }
+  /**
+   * Check whether the queue needs to be flushed.
+   */
+  _flushIfNeeded() {
+    // flush when the maximum is exceeded.
+    if (this._queue.length > this.max) {
+      this.flush();
+    }
+    // flush after a period of inactivity when a delay is configured
+    if (this._timeout != null) {
+      clearTimeout(this._timeout);
+      this._timeout = null;
+    }
+    if (this.queue.length > 0 && typeof this.delay === "number") {
+      this._timeout = _setTimeout(() => {
+        this.flush();
+      }, this.delay);
+    }
+  }
+  /**
+   * Flush all queued calls
+   */
+  flush() {
+    var _context5, _context6;
+    _forEachInstanceProperty(_context5 = _spliceInstanceProperty(_context6 = this._queue).call(_context6, 0)).call(_context5, entry => {
+      entry.fn.apply(entry.context || entry.fn, entry.args || []);
+    });
+  }
 }
 
 /**
@@ -10416,59 +15092,63 @@ class Queue {
  * @typeParam IdProp - Name of the property that contains the id.
  */
 class DataSetPart {
-    _subscribers = {
-        "*": [],
-        add: [],
-        remove: [],
-        update: [],
-    };
-    /**
-     * Trigger an event
-     * @param event - Event name.
-     * @param payload - Event payload.
-     * @param senderId - Id of the sender.
-     */
-    _trigger(event, payload, senderId) {
-        if (event === "*") {
-            throw new Error("Cannot trigger event *");
-        }
-        [...this._subscribers[event], ...this._subscribers["*"]].forEach((subscriber) => {
-            subscriber(event, payload, senderId != null ? senderId : null);
-        });
-    }
-    /**
-     * Subscribe to an event, add an event listener.
-     * @remarks Non-function callbacks are ignored.
-     * @param event - Event name.
-     * @param callback - Callback method.
-     */
-    on(event, callback) {
-        if (typeof callback === "function") {
-            this._subscribers[event].push(callback);
-        }
-        // @TODO: Maybe throw for invalid callbacks?
-    }
-    /**
-     * Unsubscribe from an event, remove an event listener.
-     * @remarks If the same callback was subscribed more than once **all** occurences will be removed.
-     * @param event - Event name.
-     * @param callback - Callback method.
-     */
-    off(event, callback) {
-        this._subscribers[event] = this._subscribers[event].filter((subscriber) => subscriber !== callback);
-    }
+  constructor() {
+    _defineProperty(this, "_subscribers", {
+      "*": [],
+      add: [],
+      remove: [],
+      update: []
+    });
     /**
      * @deprecated Use on instead (PS: DataView.subscribe === DataView.on).
      */
-    subscribe = DataSetPart.prototype.on;
+    _defineProperty(this, "subscribe", DataSetPart.prototype.on);
     /**
      * @deprecated Use off instead (PS: DataView.unsubscribe === DataView.off).
      */
-    unsubscribe = DataSetPart.prototype.off;
-    /* develblock:start */
-    get testLeakSubscribers() {
-        return this._subscribers;
+    _defineProperty(this, "unsubscribe", DataSetPart.prototype.off);
+  }
+  /**
+   * Trigger an event
+   * @param event - Event name.
+   * @param payload - Event payload.
+   * @param senderId - Id of the sender.
+   */
+  _trigger(event, payload, senderId) {
+    var _context7;
+    if (event === "*") {
+      throw new Error("Cannot trigger event *");
     }
+    _forEachInstanceProperty(_context7 = [...this._subscribers[event], ...this._subscribers["*"]]).call(_context7, subscriber => {
+      subscriber(event, payload, senderId != null ? senderId : null);
+    });
+  }
+  /**
+   * Subscribe to an event, add an event listener.
+   * @remarks Non-function callbacks are ignored.
+   * @param event - Event name.
+   * @param callback - Callback method.
+   */
+  on(event, callback) {
+    if (typeof callback === "function") {
+      this._subscribers[event].push(callback);
+    }
+    // @TODO: Maybe throw for invalid callbacks?
+  }
+  /**
+   * Unsubscribe from an event, remove an event listener.
+   * @remarks If the same callback was subscribed more than once **all** occurences will be removed.
+   * @param event - Event name.
+   * @param callback - Callback method.
+   */
+  off(event, callback) {
+    var _context8;
+    this._subscribers[event] = _filterInstanceProperty(_context8 = this._subscribers[event]).call(_context8, subscriber => subscriber !== callback);
+  }
+  /* develblock:start */
+  get testLeakSubscribers() {
+    return this._subscribers;
+  }
 }
 
 /**
@@ -10480,256 +15160,264 @@ class DataSetPart {
  * @typeParam Item - The item type this stream is going to work with.
  */
 class DataStream {
-    _pairs;
-    /**
-     * Create a new data stream.
-     * @param pairs - The id, item pairs.
-     */
-    constructor(pairs) {
-        this._pairs = pairs;
+  /**
+   * Create a new data stream.
+   * @param pairs - The id, item pairs.
+   */
+  constructor(pairs) {
+    _defineProperty(this, "_pairs", void 0);
+    this._pairs = pairs;
+  }
+  /**
+   * Return an iterable of key, value pairs for every entry in the stream.
+   */
+  *[_Symbol$iterator]() {
+    for (const [id, item] of this._pairs) {
+      yield [id, item];
     }
-    /**
-     * Return an iterable of key, value pairs for every entry in the stream.
-     */
-    *[Symbol.iterator]() {
-        for (const [id, item] of this._pairs) {
+  }
+  /**
+   * Return an iterable of key, value pairs for every entry in the stream.
+   */
+  *entries() {
+    for (const [id, item] of this._pairs) {
+      yield [id, item];
+    }
+  }
+  /**
+   * Return an iterable of keys in the stream.
+   */
+  *keys() {
+    for (const [id] of this._pairs) {
+      yield id;
+    }
+  }
+  /**
+   * Return an iterable of values in the stream.
+   */
+  *values() {
+    for (const [, item] of this._pairs) {
+      yield item;
+    }
+  }
+  /**
+   * Return an array containing all the ids in this stream.
+   * @remarks
+   * The array may contain duplicities.
+   * @returns The array with all ids from this stream.
+   */
+  toIdArray() {
+    var _context9;
+    return _mapInstanceProperty(_context9 = [...this._pairs]).call(_context9, pair => pair[0]);
+  }
+  /**
+   * Return an array containing all the items in this stream.
+   * @remarks
+   * The array may contain duplicities.
+   * @returns The array with all items from this stream.
+   */
+  toItemArray() {
+    var _context0;
+    return _mapInstanceProperty(_context0 = [...this._pairs]).call(_context0, pair => pair[1]);
+  }
+  /**
+   * Return an array containing all the entries in this stream.
+   * @remarks
+   * The array may contain duplicities.
+   * @returns The array with all entries from this stream.
+   */
+  toEntryArray() {
+    return [...this._pairs];
+  }
+  /**
+   * Return an object map containing all the items in this stream accessible by ids.
+   * @remarks
+   * In case of duplicate ids (coerced to string so `7 == '7'`) the last encoutered appears in the returned object.
+   * @returns The object map of all id → item pairs from this stream.
+   */
+  toObjectMap() {
+    const map = _Object$create(null);
+    for (const [id, item] of this._pairs) {
+      map[id] = item;
+    }
+    return map;
+  }
+  /**
+   * Return a map containing all the items in this stream accessible by ids.
+   * @returns The map of all id → item pairs from this stream.
+   */
+  toMap() {
+    return new _Map(this._pairs);
+  }
+  /**
+   * Return a set containing all the (unique) ids in this stream.
+   * @returns The set of all ids from this stream.
+   */
+  toIdSet() {
+    return new _Set(this.toIdArray());
+  }
+  /**
+   * Return a set containing all the (unique) items in this stream.
+   * @returns The set of all items from this stream.
+   */
+  toItemSet() {
+    return new _Set(this.toItemArray());
+  }
+  /**
+   * Cache the items from this stream.
+   * @remarks
+   * This method allows for items to be fetched immediatelly and used (possibly multiple times) later.
+   * It can also be used to optimize performance as {@link DataStream} would otherwise reevaluate everything upon each iteration.
+   *
+   * ## Example
+   * ```javascript
+   * const ds = new DataSet([…])
+   *
+   * const cachedStream = ds.stream()
+   *   .filter(…)
+   *   .sort(…)
+   *   .map(…)
+   *   .cached(…) // Data are fetched, processed and cached here.
+   *
+   * ds.clear()
+   * chachedStream // Still has all the items.
+   * ```
+   * @returns A new {@link DataStream} with cached items (detached from the original {@link DataSet}).
+   */
+  cache() {
+    return new DataStream([...this._pairs]);
+  }
+  /**
+   * Get the distinct values of given property.
+   * @param callback - The function that picks and possibly converts the property.
+   * @typeParam T - The type of the distinct value.
+   * @returns A set of all distinct properties.
+   */
+  distinct(callback) {
+    const set = new _Set();
+    for (const [id, item] of this._pairs) {
+      set.add(callback(item, id));
+    }
+    return set;
+  }
+  /**
+   * Filter the items of the stream.
+   * @param callback - The function that decides whether an item will be included.
+   * @returns A new data stream with the filtered items.
+   */
+  filter(callback) {
+    const pairs = this._pairs;
+    return new DataStream({
+      *[_Symbol$iterator]() {
+        for (const [id, item] of pairs) {
+          if (callback(item, id)) {
             yield [id, item];
+          }
         }
+      }
+    });
+  }
+  /**
+   * Execute a callback for each item of the stream.
+   * @param callback - The function that will be invoked for each item.
+   */
+  forEach(callback) {
+    for (const [id, item] of this._pairs) {
+      callback(item, id);
     }
-    /**
-     * Return an iterable of key, value pairs for every entry in the stream.
-     */
-    *entries() {
-        for (const [id, item] of this._pairs) {
-            yield [id, item];
+  }
+  /**
+   * Map the items into a different type.
+   * @param callback - The function that does the conversion.
+   * @typeParam Mapped - The type of the item after mapping.
+   * @returns A new data stream with the mapped items.
+   */
+  map(callback) {
+    const pairs = this._pairs;
+    return new DataStream({
+      *[_Symbol$iterator]() {
+        for (const [id, item] of pairs) {
+          yield [id, callback(item, id)];
         }
+      }
+    });
+  }
+  /**
+   * Get the item with the maximum value of given property.
+   * @param callback - The function that picks and possibly converts the property.
+   * @returns The item with the maximum if found otherwise null.
+   */
+  max(callback) {
+    const iter = _getIterator(this._pairs);
+    let curr = iter.next();
+    if (curr.done) {
+      return null;
     }
-    /**
-     * Return an iterable of keys in the stream.
-     */
-    *keys() {
-        for (const [id] of this._pairs) {
-            yield id;
-        }
+    let maxItem = curr.value[1];
+    let maxValue = callback(curr.value[1], curr.value[0]);
+    while (!(curr = iter.next()).done) {
+      const [id, item] = curr.value;
+      const value = callback(item, id);
+      if (value > maxValue) {
+        maxValue = value;
+        maxItem = item;
+      }
     }
-    /**
-     * Return an iterable of values in the stream.
-     */
-    *values() {
-        for (const [, item] of this._pairs) {
-            yield item;
-        }
+    return maxItem;
+  }
+  /**
+   * Get the item with the minimum value of given property.
+   * @param callback - The function that picks and possibly converts the property.
+   * @returns The item with the minimum if found otherwise null.
+   */
+  min(callback) {
+    const iter = _getIterator(this._pairs);
+    let curr = iter.next();
+    if (curr.done) {
+      return null;
     }
-    /**
-     * Return an array containing all the ids in this stream.
-     * @remarks
-     * The array may contain duplicities.
-     * @returns The array with all ids from this stream.
-     */
-    toIdArray() {
-        return [...this._pairs].map((pair) => pair[0]);
+    let minItem = curr.value[1];
+    let minValue = callback(curr.value[1], curr.value[0]);
+    while (!(curr = iter.next()).done) {
+      const [id, item] = curr.value;
+      const value = callback(item, id);
+      if (value < minValue) {
+        minValue = value;
+        minItem = item;
+      }
     }
-    /**
-     * Return an array containing all the items in this stream.
-     * @remarks
-     * The array may contain duplicities.
-     * @returns The array with all items from this stream.
-     */
-    toItemArray() {
-        return [...this._pairs].map((pair) => pair[1]);
+    return minItem;
+  }
+  /**
+   * Reduce the items into a single value.
+   * @param callback - The function that does the reduction.
+   * @param accumulator - The initial value of the accumulator.
+   * @typeParam T - The type of the accumulated value.
+   * @returns The reduced value.
+   */
+  reduce(callback, accumulator) {
+    for (const [id, item] of this._pairs) {
+      accumulator = callback(accumulator, item, id);
     }
-    /**
-     * Return an array containing all the entries in this stream.
-     * @remarks
-     * The array may contain duplicities.
-     * @returns The array with all entries from this stream.
-     */
-    toEntryArray() {
-        return [...this._pairs];
-    }
-    /**
-     * Return an object map containing all the items in this stream accessible by ids.
-     * @remarks
-     * In case of duplicate ids (coerced to string so `7 == '7'`) the last encoutered appears in the returned object.
-     * @returns The object map of all id → item pairs from this stream.
-     */
-    toObjectMap() {
-        const map = Object.create(null);
-        for (const [id, item] of this._pairs) {
-            map[id] = item;
-        }
-        return map;
-    }
-    /**
-     * Return a map containing all the items in this stream accessible by ids.
-     * @returns The map of all id → item pairs from this stream.
-     */
-    toMap() {
-        return new Map(this._pairs);
-    }
-    /**
-     * Return a set containing all the (unique) ids in this stream.
-     * @returns The set of all ids from this stream.
-     */
-    toIdSet() {
-        return new Set(this.toIdArray());
-    }
-    /**
-     * Return a set containing all the (unique) items in this stream.
-     * @returns The set of all items from this stream.
-     */
-    toItemSet() {
-        return new Set(this.toItemArray());
-    }
-    /**
-     * Cache the items from this stream.
-     * @remarks
-     * This method allows for items to be fetched immediatelly and used (possibly multiple times) later.
-     * It can also be used to optimize performance as {@link DataStream} would otherwise reevaluate everything upon each iteration.
-     *
-     * ## Example
-     * ```javascript
-     * const ds = new DataSet([…])
-     *
-     * const cachedStream = ds.stream()
-     *   .filter(…)
-     *   .sort(…)
-     *   .map(…)
-     *   .cached(…) // Data are fetched, processed and cached here.
-     *
-     * ds.clear()
-     * chachedStream // Still has all the items.
-     * ```
-     * @returns A new {@link DataStream} with cached items (detached from the original {@link DataSet}).
-     */
-    cache() {
-        return new DataStream([...this._pairs]);
-    }
-    /**
-     * Get the distinct values of given property.
-     * @param callback - The function that picks and possibly converts the property.
-     * @typeParam T - The type of the distinct value.
-     * @returns A set of all distinct properties.
-     */
-    distinct(callback) {
-        const set = new Set();
-        for (const [id, item] of this._pairs) {
-            set.add(callback(item, id));
-        }
-        return set;
-    }
-    /**
-     * Filter the items of the stream.
-     * @param callback - The function that decides whether an item will be included.
-     * @returns A new data stream with the filtered items.
-     */
-    filter(callback) {
-        const pairs = this._pairs;
-        return new DataStream({
-            *[Symbol.iterator]() {
-                for (const [id, item] of pairs) {
-                    if (callback(item, id)) {
-                        yield [id, item];
-                    }
-                }
-            },
-        });
-    }
-    /**
-     * Execute a callback for each item of the stream.
-     * @param callback - The function that will be invoked for each item.
-     */
-    forEach(callback) {
-        for (const [id, item] of this._pairs) {
-            callback(item, id);
-        }
-    }
-    /**
-     * Map the items into a different type.
-     * @param callback - The function that does the conversion.
-     * @typeParam Mapped - The type of the item after mapping.
-     * @returns A new data stream with the mapped items.
-     */
-    map(callback) {
-        const pairs = this._pairs;
-        return new DataStream({
-            *[Symbol.iterator]() {
-                for (const [id, item] of pairs) {
-                    yield [id, callback(item, id)];
-                }
-            },
-        });
-    }
-    /**
-     * Get the item with the maximum value of given property.
-     * @param callback - The function that picks and possibly converts the property.
-     * @returns The item with the maximum if found otherwise null.
-     */
-    max(callback) {
-        const iter = this._pairs[Symbol.iterator]();
-        let curr = iter.next();
-        if (curr.done) {
-            return null;
-        }
-        let maxItem = curr.value[1];
-        let maxValue = callback(curr.value[1], curr.value[0]);
-        while (!(curr = iter.next()).done) {
-            const [id, item] = curr.value;
-            const value = callback(item, id);
-            if (value > maxValue) {
-                maxValue = value;
-                maxItem = item;
-            }
-        }
-        return maxItem;
-    }
-    /**
-     * Get the item with the minimum value of given property.
-     * @param callback - The function that picks and possibly converts the property.
-     * @returns The item with the minimum if found otherwise null.
-     */
-    min(callback) {
-        const iter = this._pairs[Symbol.iterator]();
-        let curr = iter.next();
-        if (curr.done) {
-            return null;
-        }
-        let minItem = curr.value[1];
-        let minValue = callback(curr.value[1], curr.value[0]);
-        while (!(curr = iter.next()).done) {
-            const [id, item] = curr.value;
-            const value = callback(item, id);
-            if (value < minValue) {
-                minValue = value;
-                minItem = item;
-            }
-        }
-        return minItem;
-    }
-    /**
-     * Reduce the items into a single value.
-     * @param callback - The function that does the reduction.
-     * @param accumulator - The initial value of the accumulator.
-     * @typeParam T - The type of the accumulated value.
-     * @returns The reduced value.
-     */
-    reduce(callback, accumulator) {
-        for (const [id, item] of this._pairs) {
-            accumulator = callback(accumulator, item, id);
-        }
-        return accumulator;
-    }
-    /**
-     * Sort the items.
-     * @param callback - Item comparator.
-     * @returns A new stream with sorted items.
-     */
-    sort(callback) {
-        return new DataStream({
-            [Symbol.iterator]: () => [...this._pairs]
-                .sort(([idA, itemA], [idB, itemB]) => callback(itemA, itemB, idA, idB))[Symbol.iterator](),
-        });
-    }
+    return accumulator;
+  }
+  /**
+   * Sort the items.
+   * @param callback - Item comparator.
+   * @returns A new stream with sorted items.
+   */
+  sort(callback) {
+    return new DataStream({
+      [_Symbol$iterator]: () => {
+        var _context1;
+        return _getIterator(_sortInstanceProperty(_context1 = [...this._pairs]).call(_context1, (_ref, _ref2) => {
+          let [idA, itemA] = _ref;
+          let [idB, itemB] = _ref2;
+          return callback(itemA, itemB, idA, idB);
+        }));
+      }
+    });
+  }
 }
 
 /**
@@ -10743,11 +15431,11 @@ class DataStream {
  * @returns true
  */
 function ensureFullItem(item, idProp) {
-    if (item[idProp] == null) {
-        // generate an id
-        item[idProp] = v4();
-    }
-    return item;
+  if (item[idProp] == null) {
+    // generate an id
+    item[idProp] = v4();
+  }
+  return item;
 }
 /**
  * # DataSet
@@ -10808,776 +15496,775 @@ function ensureFullItem(item, idProp) {
  * @typeParam IdProp - Name of the property that contains the id.
  */
 class DataSet extends DataSetPart {
+  /** @inheritDoc */
+  get idProp() {
+    return this._idProp;
+  }
+  /**
+   * Construct a new DataSet.
+   * @param data - Initial data or options.
+   * @param options - Options (type error if data is also options).
+   */
+  constructor(data, options) {
+    super();
+    // correctly read optional arguments
     /** Flush all queued calls. */
-    flush;
+    _defineProperty(this, "flush", void 0);
     /** @inheritDoc */
-    length;
-    /** @inheritDoc */
-    get idProp() {
-        return this._idProp;
+    _defineProperty(this, "length", void 0);
+    _defineProperty(this, "_options", void 0);
+    _defineProperty(this, "_data", void 0);
+    _defineProperty(this, "_idProp", void 0);
+    _defineProperty(this, "_queue", null);
+    if (data && !_Array$isArray(data)) {
+      options = data;
+      data = [];
     }
-    _options;
-    _data;
-    _idProp;
-    _queue = null;
-    /**
-     * Construct a new DataSet.
-     * @param data - Initial data or options.
-     * @param options - Options (type error if data is also options).
-     */
-    constructor(data, options) {
-        super();
-        // correctly read optional arguments
-        if (data && !Array.isArray(data)) {
-            options = data;
-            data = [];
-        }
-        this._options = options || {};
-        this._data = new Map(); // map with data indexed by id
-        this.length = 0; // number of items in the DataSet
-        this._idProp = this._options.fieldId || "id"; // name of the field containing id
-        // add initial data when provided
-        if (data && data.length) {
-            this.add(data);
-        }
-        this.setOptions(options);
+    this._options = options || {};
+    this._data = new _Map(); // map with data indexed by id
+    this.length = 0; // number of items in the DataSet
+    this._idProp = this._options.fieldId || "id"; // name of the field containing id
+    // add initial data when provided
+    if (data && data.length) {
+      this.add(data);
     }
-    /**
-     * Set new options.
-     * @param options - The new options.
-     */
-    setOptions(options) {
-        if (options && options.queue !== undefined) {
-            if (options.queue === false) {
-                // delete queue if loaded
-                if (this._queue) {
-                    this._queue.destroy();
-                    this._queue = null;
-                }
-            }
-            else {
-                // create queue and update its options
-                if (!this._queue) {
-                    this._queue = Queue.extend(this, {
-                        replace: ["add", "update", "remove"],
-                    });
-                }
-                if (options.queue && typeof options.queue === "object") {
-                    this._queue.setOptions(options.queue);
-                }
-            }
+    this.setOptions(options);
+  }
+  /**
+   * Set new options.
+   * @param options - The new options.
+   */
+  setOptions(options) {
+    if (options && options.queue !== undefined) {
+      if (options.queue === false) {
+        // delete queue if loaded
+        if (this._queue) {
+          this._queue.destroy();
+          this._queue = null;
         }
+      } else {
+        // create queue and update its options
+        if (!this._queue) {
+          this._queue = Queue.extend(this, {
+            replace: ["add", "update", "remove"]
+          });
+        }
+        if (options.queue && typeof options.queue === "object") {
+          this._queue.setOptions(options.queue);
+        }
+      }
     }
-    /**
-     * Add a data item or an array with items.
-     *
-     * After the items are added to the DataSet, the DataSet will trigger an event `add`. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
-     *
-     * ## Example
-     *
-     * ```javascript
-     * // create a DataSet
-     * const data = new vis.DataSet()
-     *
-     * // add items
-     * const ids = data.add([
-     * { id: 1, text: 'item 1' },
-     * { id: 2, text: 'item 2' },
-     * { text: 'item without an id' }
-     * ])
-     *
-     * console.log(ids) // [1, 2, '<UUIDv4>']
-     * ```
-     * @param data - Items to be added (ids will be generated if missing).
-     * @param senderId - Sender id.
-     * @returns addedIds - Array with the ids (generated if not present) of the added items.
-     * @throws When an item with the same id as any of the added items already exists.
-     */
-    add(data, senderId) {
-        const addedIds = [];
-        let id;
-        if (Array.isArray(data)) {
-            // Array
-            const idsToAdd = data.map((d) => d[this._idProp]);
-            if (idsToAdd.some((id) => this._data.has(id))) {
-                throw new Error("A duplicate id was found in the parameter array.");
-            }
-            for (let i = 0, len = data.length; i < len; i++) {
-                id = this._addItem(data[i]);
-                addedIds.push(id);
-            }
-        }
-        else if (data && typeof data === "object") {
-            // Single item
-            id = this._addItem(data);
-            addedIds.push(id);
-        }
-        else {
-            throw new Error("Unknown dataType");
-        }
-        if (addedIds.length) {
-            this._trigger("add", { items: addedIds }, senderId);
-        }
-        return addedIds;
+  }
+  /**
+   * Add a data item or an array with items.
+   *
+   * After the items are added to the DataSet, the DataSet will trigger an event `add`. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+   *
+   * ## Example
+   *
+   * ```javascript
+   * // create a DataSet
+   * const data = new vis.DataSet()
+   *
+   * // add items
+   * const ids = data.add([
+   * { id: 1, text: 'item 1' },
+   * { id: 2, text: 'item 2' },
+   * { text: 'item without an id' }
+   * ])
+   *
+   * console.log(ids) // [1, 2, '<UUIDv4>']
+   * ```
+   * @param data - Items to be added (ids will be generated if missing).
+   * @param senderId - Sender id.
+   * @returns addedIds - Array with the ids (generated if not present) of the added items.
+   * @throws When an item with the same id as any of the added items already exists.
+   */
+  add(data, senderId) {
+    const addedIds = [];
+    let id;
+    if (_Array$isArray(data)) {
+      // Array
+      const idsToAdd = _mapInstanceProperty(data).call(data, d => d[this._idProp]);
+      if (_someInstanceProperty(idsToAdd).call(idsToAdd, id => this._data.has(id))) {
+        throw new Error("A duplicate id was found in the parameter array.");
+      }
+      for (let i = 0, len = data.length; i < len; i++) {
+        id = this._addItem(data[i]);
+        addedIds.push(id);
+      }
+    } else if (data && typeof data === "object") {
+      // Single item
+      id = this._addItem(data);
+      addedIds.push(id);
+    } else {
+      throw new Error("Unknown dataType");
     }
-    /**
-     * Update existing items. When an item does not exist, it will be created.
-     * @remarks
-     * The provided properties will be merged in the existing item. When an item does not exist, it will be created.
-     *
-     * After the items are updated, the DataSet will trigger an event `add` for the added items, and an event `update`. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
-     *
-     * ## Example
-     *
-     * ```javascript
-     * // create a DataSet
-     * const data = new vis.DataSet([
-     *   { id: 1, text: 'item 1' },
-     *   { id: 2, text: 'item 2' },
-     *   { id: 3, text: 'item 3' }
-     * ])
-     *
-     * // update items
-     * const ids = data.update([
-     *   { id: 2, text: 'item 2 (updated)' },
-     *   { id: 4, text: 'item 4 (new)' }
-     * ])
-     *
-     * console.log(ids) // [2, 4]
-     * ```
-     *
-     * ## Warning for TypeScript users
-     * This method may introduce partial items into the data set. Use add or updateOnly instead for better type safety.
-     * @param data - Items to be updated (if the id is already present) or added (if the id is missing).
-     * @param senderId - Sender id.
-     * @returns updatedIds - The ids of the added (these may be newly generated if there was no id in the item from the data) or updated items.
-     * @throws When the supplied data is neither an item nor an array of items.
-     */
-    update(data, senderId) {
-        const addedIds = [];
-        const updatedIds = [];
-        const oldData = [];
-        const updatedData = [];
-        const idProp = this._idProp;
-        const addOrUpdate = (item) => {
-            const origId = item[idProp];
-            if (origId != null && this._data.has(origId)) {
-                const fullItem = item; // it has an id, therefore it is a fullitem
-                const oldItem = Object.assign({}, this._data.get(origId));
-                // update item
-                const id = this._updateItem(fullItem);
-                updatedIds.push(id);
-                updatedData.push(fullItem);
-                oldData.push(oldItem);
-            }
-            else {
-                // add new item
-                const id = this._addItem(item);
-                addedIds.push(id);
-            }
-        };
-        if (Array.isArray(data)) {
-            // Array
-            for (let i = 0, len = data.length; i < len; i++) {
-                if (data[i] && typeof data[i] === "object") {
-                    addOrUpdate(data[i]);
-                }
-                else {
-                    console.warn("Ignoring input item, which is not an object at index " + i);
-                }
-            }
-        }
-        else if (data && typeof data === "object") {
-            // Single item
-            addOrUpdate(data);
-        }
-        else {
-            throw new Error("Unknown dataType");
-        }
-        if (addedIds.length) {
-            this._trigger("add", { items: addedIds }, senderId);
-        }
-        if (updatedIds.length) {
-            const props = { items: updatedIds, oldData: oldData, data: updatedData };
-            // TODO: remove deprecated property 'data' some day
-            //Object.defineProperty(props, 'data', {
-            //  'get': (function() {
-            //    console.warn('Property data is deprecated. Use DataSet.get(ids) to retrieve the new data, use the oldData property on this object to get the old data');
-            //    return updatedData;
-            //  }).bind(this)
-            //});
-            this._trigger("update", props, senderId);
-        }
-        return addedIds.concat(updatedIds);
+    if (addedIds.length) {
+      this._trigger("add", {
+        items: addedIds
+      }, senderId);
     }
-    /**
-     * Update existing items. When an item does not exist, an error will be thrown.
-     * @remarks
-     * The provided properties will be deeply merged into the existing item.
-     * When an item does not exist (id not present in the data set or absent), an error will be thrown and nothing will be changed.
-     *
-     * After the items are updated, the DataSet will trigger an event `update`.
-     * When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
-     *
-     * ## Example
-     *
-     * ```javascript
-     * // create a DataSet
-     * const data = new vis.DataSet([
-     *   { id: 1, text: 'item 1' },
-     *   { id: 2, text: 'item 2' },
-     *   { id: 3, text: 'item 3' },
-     * ])
-     *
-     * // update items
-     * const ids = data.update([
-     *   { id: 2, text: 'item 2 (updated)' }, // works
-     *   // { id: 4, text: 'item 4 (new)' }, // would throw
-     *   // { text: 'item 4 (new)' }, // would also throw
-     * ])
-     *
-     * console.log(ids) // [2]
-     * ```
-     * @param data - Updates (the id and optionally other props) to the items in this data set.
-     * @param senderId - Sender id.
-     * @returns updatedIds - The ids of the updated items.
-     * @throws When the supplied data is neither an item nor an array of items, when the ids are missing.
-     */
-    updateOnly(data, senderId) {
-        if (!Array.isArray(data)) {
-            data = [data];
+    return addedIds;
+  }
+  /**
+   * Update existing items. When an item does not exist, it will be created.
+   * @remarks
+   * The provided properties will be merged in the existing item. When an item does not exist, it will be created.
+   *
+   * After the items are updated, the DataSet will trigger an event `add` for the added items, and an event `update`. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+   *
+   * ## Example
+   *
+   * ```javascript
+   * // create a DataSet
+   * const data = new vis.DataSet([
+   *   { id: 1, text: 'item 1' },
+   *   { id: 2, text: 'item 2' },
+   *   { id: 3, text: 'item 3' }
+   * ])
+   *
+   * // update items
+   * const ids = data.update([
+   *   { id: 2, text: 'item 2 (updated)' },
+   *   { id: 4, text: 'item 4 (new)' }
+   * ])
+   *
+   * console.log(ids) // [2, 4]
+   * ```
+   *
+   * ## Warning for TypeScript users
+   * This method may introduce partial items into the data set. Use add or updateOnly instead for better type safety.
+   * @param data - Items to be updated (if the id is already present) or added (if the id is missing).
+   * @param senderId - Sender id.
+   * @returns updatedIds - The ids of the added (these may be newly generated if there was no id in the item from the data) or updated items.
+   * @throws When the supplied data is neither an item nor an array of items.
+   */
+  update(data, senderId) {
+    const addedIds = [];
+    const updatedIds = [];
+    const oldData = [];
+    const updatedData = [];
+    const idProp = this._idProp;
+    const addOrUpdate = item => {
+      const origId = item[idProp];
+      if (origId != null && this._data.has(origId)) {
+        const fullItem = item; // it has an id, therefore it is a fullitem
+        const oldItem = _Object$assign({}, this._data.get(origId));
+        // update item
+        const id = this._updateItem(fullItem);
+        updatedIds.push(id);
+        updatedData.push(fullItem);
+        oldData.push(oldItem);
+      } else {
+        // add new item
+        const id = this._addItem(item);
+        addedIds.push(id);
+      }
+    };
+    if (_Array$isArray(data)) {
+      // Array
+      for (let i = 0, len = data.length; i < len; i++) {
+        if (data[i] && typeof data[i] === "object") {
+          addOrUpdate(data[i]);
+        } else {
+          console.warn("Ignoring input item, which is not an object at index " + i);
         }
-        const updateEventData = data
-            .map((update) => {
-            const oldData = this._data.get(update[this._idProp]);
-            if (oldData == null) {
-                throw new Error("Updating non-existent items is not allowed.");
-            }
-            return { oldData, update };
-        })
-            .map(({ oldData, update, }) => {
-            const id = oldData[this._idProp];
-            const updatedData = pureDeepObjectAssign(oldData, update);
-            this._data.set(id, updatedData);
-            return {
-                id,
-                oldData: oldData,
-                updatedData,
-            };
-        });
-        if (updateEventData.length) {
-            const props = {
-                items: updateEventData.map((value) => value.id),
-                oldData: updateEventData.map((value) => value.oldData),
-                data: updateEventData.map((value) => value.updatedData),
-            };
-            // TODO: remove deprecated property 'data' some day
-            //Object.defineProperty(props, 'data', {
-            //  'get': (function() {
-            //    console.warn('Property data is deprecated. Use DataSet.get(ids) to retrieve the new data, use the oldData property on this object to get the old data');
-            //    return updatedData;
-            //  }).bind(this)
-            //});
-            this._trigger("update", props, senderId);
-            return props.items;
-        }
-        else {
-            return [];
-        }
+      }
+    } else if (data && typeof data === "object") {
+      // Single item
+      addOrUpdate(data);
+    } else {
+      throw new Error("Unknown dataType");
     }
-    /** @inheritDoc */
-    get(first, second) {
-        // @TODO: Woudn't it be better to split this into multiple methods?
-        // parse the arguments
-        let id = undefined;
-        let ids = undefined;
-        let options = undefined;
-        if (isId(first)) {
-            // get(id [, options])
-            id = first;
-            options = second;
+    if (addedIds.length) {
+      this._trigger("add", {
+        items: addedIds
+      }, senderId);
+    }
+    if (updatedIds.length) {
+      const props = {
+        items: updatedIds,
+        oldData: oldData,
+        data: updatedData
+      };
+      // TODO: remove deprecated property 'data' some day
+      //Object.defineProperty(props, 'data', {
+      //  'get': (function() {
+      //    console.warn('Property data is deprecated. Use DataSet.get(ids) to retrieve the new data, use the oldData property on this object to get the old data');
+      //    return updatedData;
+      //  }).bind(this)
+      //});
+      this._trigger("update", props, senderId);
+    }
+    return _concatInstanceProperty(addedIds).call(addedIds, updatedIds);
+  }
+  /**
+   * Update existing items. When an item does not exist, an error will be thrown.
+   * @remarks
+   * The provided properties will be deeply merged into the existing item.
+   * When an item does not exist (id not present in the data set or absent), an error will be thrown and nothing will be changed.
+   *
+   * After the items are updated, the DataSet will trigger an event `update`.
+   * When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+   *
+   * ## Example
+   *
+   * ```javascript
+   * // create a DataSet
+   * const data = new vis.DataSet([
+   *   { id: 1, text: 'item 1' },
+   *   { id: 2, text: 'item 2' },
+   *   { id: 3, text: 'item 3' },
+   * ])
+   *
+   * // update items
+   * const ids = data.update([
+   *   { id: 2, text: 'item 2 (updated)' }, // works
+   *   // { id: 4, text: 'item 4 (new)' }, // would throw
+   *   // { text: 'item 4 (new)' }, // would also throw
+   * ])
+   *
+   * console.log(ids) // [2]
+   * ```
+   * @param data - Updates (the id and optionally other props) to the items in this data set.
+   * @param senderId - Sender id.
+   * @returns updatedIds - The ids of the updated items.
+   * @throws When the supplied data is neither an item nor an array of items, when the ids are missing.
+   */
+  updateOnly(data, senderId) {
+    var _context10;
+    if (!_Array$isArray(data)) {
+      data = [data];
+    }
+    const updateEventData = _mapInstanceProperty(_context10 = _mapInstanceProperty(data).call(data, update => {
+      const oldData = this._data.get(update[this._idProp]);
+      if (oldData == null) {
+        throw new Error("Updating non-existent items is not allowed.");
+      }
+      return {
+        oldData,
+        update
+      };
+    })).call(_context10, _ref3 => {
+      let {
+        oldData,
+        update
+      } = _ref3;
+      const id = oldData[this._idProp];
+      const updatedData = pureDeepObjectAssign(oldData, update);
+      this._data.set(id, updatedData);
+      return {
+        id,
+        oldData: oldData,
+        updatedData
+      };
+    });
+    if (updateEventData.length) {
+      const props = {
+        items: _mapInstanceProperty(updateEventData).call(updateEventData, value => value.id),
+        oldData: _mapInstanceProperty(updateEventData).call(updateEventData, value => value.oldData),
+        data: _mapInstanceProperty(updateEventData).call(updateEventData, value => value.updatedData)
+      };
+      // TODO: remove deprecated property 'data' some day
+      //Object.defineProperty(props, 'data', {
+      //  'get': (function() {
+      //    console.warn('Property data is deprecated. Use DataSet.get(ids) to retrieve the new data, use the oldData property on this object to get the old data');
+      //    return updatedData;
+      //  }).bind(this)
+      //});
+      this._trigger("update", props, senderId);
+      return props.items;
+    } else {
+      return [];
+    }
+  }
+  /** @inheritDoc */
+  get(first, second) {
+    // @TODO: Woudn't it be better to split this into multiple methods?
+    // parse the arguments
+    let id = undefined;
+    let ids = undefined;
+    let options = undefined;
+    if (isId(first)) {
+      // get(id [, options])
+      id = first;
+      options = second;
+    } else if (_Array$isArray(first)) {
+      // get(ids [, options])
+      ids = first;
+      options = second;
+    } else {
+      // get([, options])
+      options = first;
+    }
+    // determine the return type
+    const returnType = options && options.returnType === "Object" ? "Object" : "Array";
+    // @TODO: WTF is this? Or am I missing something?
+    // var returnType
+    // if (options && options.returnType) {
+    //   var allowedValues = ['Array', 'Object']
+    //   returnType =
+    //     allowedValues.indexOf(options.returnType) == -1
+    //       ? 'Array'
+    //       : options.returnType
+    // } else {
+    //   returnType = 'Array'
+    // }
+    // build options
+    const filter = options && _filterInstanceProperty(options);
+    const items = [];
+    let item = undefined;
+    let itemIds = undefined;
+    let itemId = undefined;
+    // convert items
+    if (id != null) {
+      // return a single item
+      item = this._data.get(id);
+      if (item && filter && !filter(item)) {
+        item = undefined;
+      }
+    } else if (ids != null) {
+      // return a subset of items
+      for (let i = 0, len = ids.length; i < len; i++) {
+        item = this._data.get(ids[i]);
+        if (item != null && (!filter || filter(item))) {
+          items.push(item);
         }
-        else if (Array.isArray(first)) {
-            // get(ids [, options])
-            ids = first;
-            options = second;
+      }
+    } else {
+      var _context11;
+      // return all items
+      itemIds = [..._keysInstanceProperty(_context11 = this._data).call(_context11)];
+      for (let i = 0, len = itemIds.length; i < len; i++) {
+        itemId = itemIds[i];
+        item = this._data.get(itemId);
+        if (item != null && (!filter || filter(item))) {
+          items.push(item);
         }
-        else {
-            // get([, options])
-            options = first;
+      }
+    }
+    // order the results
+    if (options && options.order && id == undefined) {
+      this._sort(items, options.order);
+    }
+    // filter fields of the items
+    if (options && options.fields) {
+      const fields = options.fields;
+      if (id != undefined && item != null) {
+        item = this._filterFields(item, fields);
+      } else {
+        for (let i = 0, len = items.length; i < len; i++) {
+          items[i] = this._filterFields(items[i], fields);
         }
-        // determine the return type
-        const returnType = options && options.returnType === "Object" ? "Object" : "Array";
-        // @TODO: WTF is this? Or am I missing something?
-        // var returnType
-        // if (options && options.returnType) {
-        //   var allowedValues = ['Array', 'Object']
-        //   returnType =
-        //     allowedValues.indexOf(options.returnType) == -1
-        //       ? 'Array'
-        //       : options.returnType
-        // } else {
-        //   returnType = 'Array'
-        // }
-        // build options
-        const filter = options && options.filter;
+      }
+    }
+    // return the results
+    if (returnType == "Object") {
+      const result = {};
+      for (let i = 0, len = items.length; i < len; i++) {
+        const resultant = items[i];
+        // @TODO: Shoudn't this be this._fieldId?
+        // result[resultant.id] = resultant
+        const id = resultant[this._idProp];
+        result[id] = resultant;
+      }
+      return result;
+    } else {
+      if (id != null) {
+        // a single item
+        return item !== null && item !== void 0 ? item : null;
+      } else {
+        // just return our array
+        return items;
+      }
+    }
+  }
+  /** @inheritDoc */
+  getIds(options) {
+    const data = this._data;
+    const filter = options && _filterInstanceProperty(options);
+    const order = options && options.order;
+    const itemIds = [..._keysInstanceProperty(data).call(data)];
+    const ids = [];
+    if (filter) {
+      // get filtered items
+      if (order) {
+        // create ordered list
         const items = [];
-        let item = undefined;
-        let itemIds = undefined;
-        let itemId = undefined;
-        // convert items
-        if (id != null) {
-            // return a single item
-            item = this._data.get(id);
-            if (item && filter && !filter(item)) {
-                item = undefined;
-            }
-        }
-        else if (ids != null) {
-            // return a subset of items
-            for (let i = 0, len = ids.length; i < len; i++) {
-                item = this._data.get(ids[i]);
-                if (item != null && (!filter || filter(item))) {
-                    items.push(item);
-                }
-            }
-        }
-        else {
-            // return all items
-            itemIds = [...this._data.keys()];
-            for (let i = 0, len = itemIds.length; i < len; i++) {
-                itemId = itemIds[i];
-                item = this._data.get(itemId);
-                if (item != null && (!filter || filter(item))) {
-                    items.push(item);
-                }
-            }
-        }
-        // order the results
-        if (options && options.order && id == undefined) {
-            this._sort(items, options.order);
-        }
-        // filter fields of the items
-        if (options && options.fields) {
-            const fields = options.fields;
-            if (id != undefined && item != null) {
-                item = this._filterFields(item, fields);
-            }
-            else {
-                for (let i = 0, len = items.length; i < len; i++) {
-                    items[i] = this._filterFields(items[i], fields);
-                }
-            }
-        }
-        // return the results
-        if (returnType == "Object") {
-            const result = {};
-            for (let i = 0, len = items.length; i < len; i++) {
-                const resultant = items[i];
-                // @TODO: Shoudn't this be this._fieldId?
-                // result[resultant.id] = resultant
-                const id = resultant[this._idProp];
-                result[id] = resultant;
-            }
-            return result;
-        }
-        else {
-            if (id != null) {
-                // a single item
-                return item ?? null;
-            }
-            else {
-                // just return our array
-                return items;
-            }
-        }
-    }
-    /** @inheritDoc */
-    getIds(options) {
-        const data = this._data;
-        const filter = options && options.filter;
-        const order = options && options.order;
-        const itemIds = [...data.keys()];
-        const ids = [];
-        if (filter) {
-            // get filtered items
-            if (order) {
-                // create ordered list
-                const items = [];
-                for (let i = 0, len = itemIds.length; i < len; i++) {
-                    const id = itemIds[i];
-                    const item = this._data.get(id);
-                    if (item != null && filter(item)) {
-                        items.push(item);
-                    }
-                }
-                this._sort(items, order);
-                for (let i = 0, len = items.length; i < len; i++) {
-                    ids.push(items[i][this._idProp]);
-                }
-            }
-            else {
-                // create unordered list
-                for (let i = 0, len = itemIds.length; i < len; i++) {
-                    const id = itemIds[i];
-                    const item = this._data.get(id);
-                    if (item != null && filter(item)) {
-                        ids.push(item[this._idProp]);
-                    }
-                }
-            }
-        }
-        else {
-            // get all items
-            if (order) {
-                // create an ordered list
-                const items = [];
-                for (let i = 0, len = itemIds.length; i < len; i++) {
-                    const id = itemIds[i];
-                    items.push(data.get(id));
-                }
-                this._sort(items, order);
-                for (let i = 0, len = items.length; i < len; i++) {
-                    ids.push(items[i][this._idProp]);
-                }
-            }
-            else {
-                // create unordered list
-                for (let i = 0, len = itemIds.length; i < len; i++) {
-                    const id = itemIds[i];
-                    const item = data.get(id);
-                    if (item != null) {
-                        ids.push(item[this._idProp]);
-                    }
-                }
-            }
-        }
-        return ids;
-    }
-    /** @inheritDoc */
-    getDataSet() {
-        return this;
-    }
-    /** @inheritDoc */
-    forEach(callback, options) {
-        const filter = options && options.filter;
-        const data = this._data;
-        const itemIds = [...data.keys()];
-        if (options && options.order) {
-            // execute forEach on ordered list
-            const items = this.get(options);
-            for (let i = 0, len = items.length; i < len; i++) {
-                const item = items[i];
-                const id = item[this._idProp];
-                callback(item, id);
-            }
-        }
-        else {
-            // unordered
-            for (let i = 0, len = itemIds.length; i < len; i++) {
-                const id = itemIds[i];
-                const item = this._data.get(id);
-                if (item != null && (!filter || filter(item))) {
-                    callback(item, id);
-                }
-            }
-        }
-    }
-    /** @inheritDoc */
-    map(callback, options) {
-        const filter = options && options.filter;
-        const mappedItems = [];
-        const data = this._data;
-        const itemIds = [...data.keys()];
-        // convert and filter items
         for (let i = 0, len = itemIds.length; i < len; i++) {
-            const id = itemIds[i];
-            const item = this._data.get(id);
-            if (item != null && (!filter || filter(item))) {
-                mappedItems.push(callback(item, id));
-            }
+          const id = itemIds[i];
+          const item = this._data.get(id);
+          if (item != null && filter(item)) {
+            items.push(item);
+          }
         }
-        // order items
-        if (options && options.order) {
-            this._sort(mappedItems, options.order);
+        this._sort(items, order);
+        for (let i = 0, len = items.length; i < len; i++) {
+          ids.push(items[i][this._idProp]);
         }
-        return mappedItems;
-    }
-    /**
-     * Filter the fields of an item.
-     * @param item - The item whose fields should be filtered.
-     * @param fields - The names of the fields that will be kept.
-     * @typeParam K - Field name type.
-     * @returns The item without any additional fields.
-     */
-    _filterFields(item, fields) {
-        if (!item) {
-            // item is null
-            return item;
+      } else {
+        // create unordered list
+        for (let i = 0, len = itemIds.length; i < len; i++) {
+          const id = itemIds[i];
+          const item = this._data.get(id);
+          if (item != null && filter(item)) {
+            ids.push(item[this._idProp]);
+          }
         }
-        return (Array.isArray(fields)
-            ? // Use the supplied array
-                fields
-            : // Use the keys of the supplied object
-                Object.keys(fields)).reduce((filteredItem, field) => {
-            filteredItem[field] = item[field];
-            return filteredItem;
-        }, {});
-    }
-    /**
-     * Sort the provided array with items.
-     * @param items - Items to be sorted in place.
-     * @param order - A field name or custom sort function.
-     * @typeParam T - The type of the items in the items array.
-     */
-    _sort(items, order) {
-        if (typeof order === "string") {
-            // order by provided field name
-            const name = order; // field name
-            items.sort((a, b) => {
-                // @TODO: How to treat missing properties?
-                const av = a[name];
-                const bv = b[name];
-                return av > bv ? 1 : av < bv ? -1 : 0;
-            });
-        }
-        else if (typeof order === "function") {
-            // order by sort function
-            items.sort(order);
-        }
-        else {
-            // TODO: extend order by an Object {field:string, direction:string}
-            //       where direction can be 'asc' or 'desc'
-            throw new TypeError("Order must be a function or a string");
-        }
-    }
-    /**
-     * Remove an item or multiple items by “reference” (only the id is used) or by id.
-     *
-     * The method ignores removal of non-existing items, and returns an array containing the ids of the items which are actually removed from the DataSet.
-     *
-     * After the items are removed, the DataSet will trigger an event `remove` for the removed items. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
-     *
-     * ## Example
-     * ```javascript
-     * // create a DataSet
-     * const data = new vis.DataSet([
-     * { id: 1, text: 'item 1' },
-     * { id: 2, text: 'item 2' },
-     * { id: 3, text: 'item 3' }
-     * ])
-     *
-     * // remove items
-     * const ids = data.remove([2, { id: 3 }, 4])
-     *
-     * console.log(ids) // [2, 3]
-     * ```
-     * @param id - One or more items or ids of items to be removed.
-     * @param senderId - Sender id.
-     * @returns The ids of the removed items.
-     */
-    remove(id, senderId) {
-        const removedIds = [];
-        const removedItems = [];
-        // force everything to be an array for simplicity
-        const ids = Array.isArray(id) ? id : [id];
-        for (let i = 0, len = ids.length; i < len; i++) {
-            const item = this._remove(ids[i]);
-            if (item) {
-                const itemId = item[this._idProp];
-                if (itemId != null) {
-                    removedIds.push(itemId);
-                    removedItems.push(item);
-                }
-            }
-        }
-        if (removedIds.length) {
-            this._trigger("remove", { items: removedIds, oldData: removedItems }, senderId);
-        }
-        return removedIds;
-    }
-    /**
-     * Remove an item by its id or reference.
-     * @param id - Id of an item or the item itself.
-     * @returns The removed item if removed, null otherwise.
-     */
-    _remove(id) {
-        // @TODO: It origianlly returned the item although the docs say id.
-        // The code expects the item, so probably an error in the docs.
-        let ident;
-        // confirm the id to use based on the args type
-        if (isId(id)) {
-            ident = id;
-        }
-        else if (id && typeof id === "object") {
-            ident = id[this._idProp]; // look for the identifier field using ._idProp
-        }
-        // do the removing if the item is found
-        if (ident != null && this._data.has(ident)) {
-            const item = this._data.get(ident) || null;
-            this._data.delete(ident);
-            --this.length;
-            return item;
-        }
-        return null;
-    }
-    /**
-     * Clear the entire data set.
-     *
-     * After the items are removed, the {@link DataSet} will trigger an event `remove` for all removed items. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
-     * @param senderId - Sender id.
-     * @returns removedIds - The ids of all removed items.
-     */
-    clear(senderId) {
-        const ids = [...this._data.keys()];
+      }
+    } else {
+      // get all items
+      if (order) {
+        // create an ordered list
         const items = [];
-        for (let i = 0, len = ids.length; i < len; i++) {
-            items.push(this._data.get(ids[i]));
-        }
-        this._data.clear();
-        this.length = 0;
-        this._trigger("remove", { items: ids, oldData: items }, senderId);
-        return ids;
-    }
-    /**
-     * Find the item with maximum value of a specified field.
-     * @param field - Name of the property that should be searched for max value.
-     * @returns Item containing max value, or null if no items.
-     */
-    max(field) {
-        let max = null;
-        let maxField = null;
-        for (const item of this._data.values()) {
-            const itemField = item[field];
-            if (typeof itemField === "number" &&
-                (maxField == null || itemField > maxField)) {
-                max = item;
-                maxField = itemField;
-            }
-        }
-        return max || null;
-    }
-    /**
-     * Find the item with minimum value of a specified field.
-     * @param field - Name of the property that should be searched for min value.
-     * @returns Item containing min value, or null if no items.
-     */
-    min(field) {
-        let min = null;
-        let minField = null;
-        for (const item of this._data.values()) {
-            const itemField = item[field];
-            if (typeof itemField === "number" &&
-                (minField == null || itemField < minField)) {
-                min = item;
-                minField = itemField;
-            }
-        }
-        return min || null;
-    }
-    /**
-     * Find all distinct values of a specified field
-     * @param prop - The property name whose distinct values should be returned.
-     * @returns Unordered array containing all distinct values. Items without specified property are ignored.
-     */
-    distinct(prop) {
-        const data = this._data;
-        const itemIds = [...data.keys()];
-        const values = [];
-        let count = 0;
         for (let i = 0, len = itemIds.length; i < len; i++) {
-            const id = itemIds[i];
-            const item = data.get(id);
-            const value = item[prop];
-            let exists = false;
-            for (let j = 0; j < count; j++) {
-                if (values[j] == value) {
-                    exists = true;
-                    break;
-                }
-            }
-            if (!exists && value !== undefined) {
-                values[count] = value;
-                count++;
-            }
+          const id = itemIds[i];
+          items.push(data.get(id));
         }
-        return values;
+        this._sort(items, order);
+        for (let i = 0, len = items.length; i < len; i++) {
+          ids.push(items[i][this._idProp]);
+        }
+      } else {
+        // create unordered list
+        for (let i = 0, len = itemIds.length; i < len; i++) {
+          const id = itemIds[i];
+          const item = data.get(id);
+          if (item != null) {
+            ids.push(item[this._idProp]);
+          }
+        }
+      }
     }
-    /**
-     * Add a single item. Will fail when an item with the same id already exists.
-     * @param item - A new item to be added.
-     * @returns Added item's id. An id is generated when it is not present in the item.
-     */
-    _addItem(item) {
-        const fullItem = ensureFullItem(item, this._idProp);
-        const id = fullItem[this._idProp];
-        // check whether this id is already taken
-        if (this._data.has(id)) {
-            // item already exists
-            throw new Error("Cannot add item: item with id " + id + " already exists");
-        }
-        this._data.set(id, fullItem);
-        ++this.length;
-        return id;
-    }
-    /**
-     * Update a single item: merge with existing item.
-     * Will fail when the item has no id, or when there does not exist an item with the same id.
-     * @param update - The new item
-     * @returns The id of the updated item.
-     */
-    _updateItem(update) {
-        const id = update[this._idProp];
-        if (id == null) {
-            throw new Error("Cannot update item: item has no id (item: " +
-                JSON.stringify(update) +
-                ")");
-        }
+    return ids;
+  }
+  /** @inheritDoc */
+  getDataSet() {
+    return this;
+  }
+  /** @inheritDoc */
+  forEach(callback, options) {
+    const filter = options && _filterInstanceProperty(options);
+    const data = this._data;
+    const itemIds = [..._keysInstanceProperty(data).call(data)];
+    if (options && options.order) {
+      // execute forEach on ordered list
+      const items = this.get(options);
+      for (let i = 0, len = items.length; i < len; i++) {
+        const item = items[i];
+        const id = item[this._idProp];
+        callback(item, id);
+      }
+    } else {
+      // unordered
+      for (let i = 0, len = itemIds.length; i < len; i++) {
+        const id = itemIds[i];
         const item = this._data.get(id);
-        if (!item) {
-            // item doesn't exist
-            throw new Error("Cannot update item: no item with id " + id + " found");
+        if (item != null && (!filter || filter(item))) {
+          callback(item, id);
         }
-        this._data.set(id, { ...item, ...update });
-        return id;
+      }
     }
-    /** @inheritDoc */
-    stream(ids) {
-        if (ids) {
-            const data = this._data;
-            return new DataStream({
-                *[Symbol.iterator]() {
-                    for (const id of ids) {
-                        const item = data.get(id);
-                        if (item != null) {
-                            yield [id, item];
-                        }
-                    }
-                },
-            });
+  }
+  /** @inheritDoc */
+  map(callback, options) {
+    const filter = options && _filterInstanceProperty(options);
+    const mappedItems = [];
+    const data = this._data;
+    const itemIds = [..._keysInstanceProperty(data).call(data)];
+    // convert and filter items
+    for (let i = 0, len = itemIds.length; i < len; i++) {
+      const id = itemIds[i];
+      const item = this._data.get(id);
+      if (item != null && (!filter || filter(item))) {
+        mappedItems.push(callback(item, id));
+      }
+    }
+    // order items
+    if (options && options.order) {
+      this._sort(mappedItems, options.order);
+    }
+    return mappedItems;
+  }
+  /**
+   * Filter the fields of an item.
+   * @param item - The item whose fields should be filtered.
+   * @param fields - The names of the fields that will be kept.
+   * @typeParam K - Field name type.
+   * @returns The item without any additional fields.
+   */
+  _filterFields(item, fields) {
+    var _context12;
+    if (!item) {
+      // item is null
+      return item;
+    }
+    return _reduceInstanceProperty(_context12 = _Array$isArray(fields) ?
+    // Use the supplied array
+    fields :
+    // Use the keys of the supplied object
+    _Object$keys(fields)).call(_context12, (filteredItem, field) => {
+      filteredItem[field] = item[field];
+      return filteredItem;
+    }, {});
+  }
+  /**
+   * Sort the provided array with items.
+   * @param items - Items to be sorted in place.
+   * @param order - A field name or custom sort function.
+   * @typeParam T - The type of the items in the items array.
+   */
+  _sort(items, order) {
+    if (typeof order === "string") {
+      // order by provided field name
+      const name = order; // field name
+      _sortInstanceProperty(items).call(items, (a, b) => {
+        // @TODO: How to treat missing properties?
+        const av = a[name];
+        const bv = b[name];
+        return av > bv ? 1 : av < bv ? -1 : 0;
+      });
+    } else if (typeof order === "function") {
+      // order by sort function
+      _sortInstanceProperty(items).call(items, order);
+    } else {
+      // TODO: extend order by an Object {field:string, direction:string}
+      //       where direction can be 'asc' or 'desc'
+      throw new TypeError("Order must be a function or a string");
+    }
+  }
+  /**
+   * Remove an item or multiple items by “reference” (only the id is used) or by id.
+   *
+   * The method ignores removal of non-existing items, and returns an array containing the ids of the items which are actually removed from the DataSet.
+   *
+   * After the items are removed, the DataSet will trigger an event `remove` for the removed items. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+   *
+   * ## Example
+   * ```javascript
+   * // create a DataSet
+   * const data = new vis.DataSet([
+   * { id: 1, text: 'item 1' },
+   * { id: 2, text: 'item 2' },
+   * { id: 3, text: 'item 3' }
+   * ])
+   *
+   * // remove items
+   * const ids = data.remove([2, { id: 3 }, 4])
+   *
+   * console.log(ids) // [2, 3]
+   * ```
+   * @param id - One or more items or ids of items to be removed.
+   * @param senderId - Sender id.
+   * @returns The ids of the removed items.
+   */
+  remove(id, senderId) {
+    const removedIds = [];
+    const removedItems = [];
+    // force everything to be an array for simplicity
+    const ids = _Array$isArray(id) ? id : [id];
+    for (let i = 0, len = ids.length; i < len; i++) {
+      const item = this._remove(ids[i]);
+      if (item) {
+        const itemId = item[this._idProp];
+        if (itemId != null) {
+          removedIds.push(itemId);
+          removedItems.push(item);
         }
-        else {
-            return new DataStream({
-                [Symbol.iterator]: this._data.entries.bind(this._data),
-            });
+      }
+    }
+    if (removedIds.length) {
+      this._trigger("remove", {
+        items: removedIds,
+        oldData: removedItems
+      }, senderId);
+    }
+    return removedIds;
+  }
+  /**
+   * Remove an item by its id or reference.
+   * @param id - Id of an item or the item itself.
+   * @returns The removed item if removed, null otherwise.
+   */
+  _remove(id) {
+    // @TODO: It origianlly returned the item although the docs say id.
+    // The code expects the item, so probably an error in the docs.
+    let ident;
+    // confirm the id to use based on the args type
+    if (isId(id)) {
+      ident = id;
+    } else if (id && typeof id === "object") {
+      ident = id[this._idProp]; // look for the identifier field using ._idProp
+    }
+    // do the removing if the item is found
+    if (ident != null && this._data.has(ident)) {
+      const item = this._data.get(ident) || null;
+      this._data.delete(ident);
+      --this.length;
+      return item;
+    }
+    return null;
+  }
+  /**
+   * Clear the entire data set.
+   *
+   * After the items are removed, the {@link DataSet} will trigger an event `remove` for all removed items. When a `senderId` is provided, this id will be passed with the triggered event to all subscribers.
+   * @param senderId - Sender id.
+   * @returns removedIds - The ids of all removed items.
+   */
+  clear(senderId) {
+    var _context13;
+    const ids = [..._keysInstanceProperty(_context13 = this._data).call(_context13)];
+    const items = [];
+    for (let i = 0, len = ids.length; i < len; i++) {
+      items.push(this._data.get(ids[i]));
+    }
+    this._data.clear();
+    this.length = 0;
+    this._trigger("remove", {
+      items: ids,
+      oldData: items
+    }, senderId);
+    return ids;
+  }
+  /**
+   * Find the item with maximum value of a specified field.
+   * @param field - Name of the property that should be searched for max value.
+   * @returns Item containing max value, or null if no items.
+   */
+  max(field) {
+    let max = null;
+    let maxField = null;
+    for (const item of _valuesInstanceProperty(_context14 = this._data).call(_context14)) {
+      var _context14;
+      const itemField = item[field];
+      if (typeof itemField === "number" && (maxField == null || itemField > maxField)) {
+        max = item;
+        maxField = itemField;
+      }
+    }
+    return max || null;
+  }
+  /**
+   * Find the item with minimum value of a specified field.
+   * @param field - Name of the property that should be searched for min value.
+   * @returns Item containing min value, or null if no items.
+   */
+  min(field) {
+    let min = null;
+    let minField = null;
+    for (const item of _valuesInstanceProperty(_context15 = this._data).call(_context15)) {
+      var _context15;
+      const itemField = item[field];
+      if (typeof itemField === "number" && (minField == null || itemField < minField)) {
+        min = item;
+        minField = itemField;
+      }
+    }
+    return min || null;
+  }
+  /**
+   * Find all distinct values of a specified field
+   * @param prop - The property name whose distinct values should be returned.
+   * @returns Unordered array containing all distinct values. Items without specified property are ignored.
+   */
+  distinct(prop) {
+    const data = this._data;
+    const itemIds = [..._keysInstanceProperty(data).call(data)];
+    const values = [];
+    let count = 0;
+    for (let i = 0, len = itemIds.length; i < len; i++) {
+      const id = itemIds[i];
+      const item = data.get(id);
+      const value = item[prop];
+      let exists = false;
+      for (let j = 0; j < count; j++) {
+        if (values[j] == value) {
+          exists = true;
+          break;
         }
+      }
+      if (!exists && value !== undefined) {
+        values[count] = value;
+        count++;
+      }
     }
-    /* develblock:start */
-    get testLeakData() {
-        return this._data;
+    return values;
+  }
+  /**
+   * Add a single item. Will fail when an item with the same id already exists.
+   * @param item - A new item to be added.
+   * @returns Added item's id. An id is generated when it is not present in the item.
+   */
+  _addItem(item) {
+    const fullItem = ensureFullItem(item, this._idProp);
+    const id = fullItem[this._idProp];
+    // check whether this id is already taken
+    if (this._data.has(id)) {
+      // item already exists
+      throw new Error("Cannot add item: item with id " + id + " already exists");
     }
-    get testLeakIdProp() {
-        return this._idProp;
+    this._data.set(id, fullItem);
+    ++this.length;
+    return id;
+  }
+  /**
+   * Update a single item: merge with existing item.
+   * Will fail when the item has no id, or when there does not exist an item with the same id.
+   * @param update - The new item
+   * @returns The id of the updated item.
+   */
+  _updateItem(update) {
+    const id = update[this._idProp];
+    if (id == null) {
+      throw new Error("Cannot update item: item has no id (item: " + _JSON$stringify(update) + ")");
     }
-    get testLeakOptions() {
-        return this._options;
+    const item = this._data.get(id);
+    if (!item) {
+      // item doesn't exist
+      throw new Error("Cannot update item: no item with id " + id + " found");
     }
-    get testLeakQueue() {
-        return this._queue;
+    this._data.set(id, _objectSpread(_objectSpread({}, item), update));
+    return id;
+  }
+  /** @inheritDoc */
+  stream(ids) {
+    if (ids) {
+      const data = this._data;
+      return new DataStream({
+        *[_Symbol$iterator]() {
+          for (const id of ids) {
+            const item = data.get(id);
+            if (item != null) {
+              yield [id, item];
+            }
+          }
+        }
+      });
+    } else {
+      var _context16;
+      return new DataStream({
+        [_Symbol$iterator]: _bindInstanceProperty(_context16 = _entriesInstanceProperty(this._data)).call(_context16, this._data)
+      });
     }
-    set testLeakQueue(v) {
-        this._queue = v;
-    }
+  }
+  /* develblock:start */
+  get testLeakData() {
+    return this._data;
+  }
+  get testLeakIdProp() {
+    return this._idProp;
+  }
+  get testLeakOptions() {
+    return this._options;
+  }
+  get testLeakQueue() {
+    return this._queue;
+  }
+  set testLeakQueue(v) {
+    this._queue = v;
+  }
 }
 
 /**
@@ -11625,344 +16312,360 @@ class DataSet extends DataSetPart {
  * @typeParam IdProp - Name of the property that contains the id.
  */
 class DataView extends DataSetPart {
+  /** @inheritDoc */
+  get idProp() {
+    return this.getDataSet().idProp;
+  }
+  /**
+   * Create a DataView.
+   * @param data - The instance containing data (directly or indirectly).
+   * @param options - Options to configure this data view.
+   */
+  constructor(data, options) {
+    var _context17;
+    super();
     /** @inheritDoc */
-    length = 0;
-    /** @inheritDoc */
-    get idProp() {
-        return this.getDataSet().idProp;
+    _defineProperty(this, "length", 0);
+    _defineProperty(this, "_listener", void 0);
+    _defineProperty(this, "_data", void 0);
+    // constructor → setData
+    _defineProperty(this, "_ids", new _Set());
+    // ids of the items currently in memory (just contains a boolean true)
+    _defineProperty(this, "_options", void 0);
+    this._options = options || {};
+    this._listener = _bindInstanceProperty(_context17 = this._onEvent).call(_context17, this);
+    this.setData(data);
+  }
+  // TODO: implement a function .config() to dynamically update things like configured filter
+  // and trigger changes accordingly
+  /**
+   * Set a data source for the view.
+   * @param data - The instance containing data (directly or indirectly).
+   * @remarks
+   * Note that when the data view is bound to a data set it won't be garbage
+   * collected unless the data set is too. Use `dataView.setData(null)` or
+   * `dataView.dispose()` to enable garbage collection before you lose the last
+   * reference.
+   */
+  setData(data) {
+    if (this._data) {
+      // unsubscribe from current dataset
+      if (this._data.off) {
+        this._data.off("*", this._listener);
+      }
+      // trigger a remove of all items in memory
+      const ids = this._data.getIds({
+        filter: _filterInstanceProperty(this._options)
+      });
+      const items = this._data.get(ids);
+      this._ids.clear();
+      this.length = 0;
+      this._trigger("remove", {
+        items: ids,
+        oldData: items
+      });
     }
-    _listener;
-    _data; // constructor → setData
-    _ids = new Set(); // ids of the items currently in memory (just contains a boolean true)
-    _options;
-    /**
-     * Create a DataView.
-     * @param data - The instance containing data (directly or indirectly).
-     * @param options - Options to configure this data view.
-     */
-    constructor(data, options) {
-        super();
-        this._options = options || {};
-        this._listener = this._onEvent.bind(this);
-        this.setData(data);
+    if (data != null) {
+      this._data = data;
+      // trigger an add of all added items
+      const ids = this._data.getIds({
+        filter: _filterInstanceProperty(this._options)
+      });
+      for (let i = 0, len = ids.length; i < len; i++) {
+        const id = ids[i];
+        this._ids.add(id);
+      }
+      this.length = ids.length;
+      this._trigger("add", {
+        items: ids
+      });
+    } else {
+      this._data = new DataSet();
     }
-    // TODO: implement a function .config() to dynamically update things like configured filter
-    // and trigger changes accordingly
-    /**
-     * Set a data source for the view.
-     * @param data - The instance containing data (directly or indirectly).
-     * @remarks
-     * Note that when the data view is bound to a data set it won't be garbage
-     * collected unless the data set is too. Use `dataView.setData(null)` or
-     * `dataView.dispose()` to enable garbage collection before you lose the last
-     * reference.
-     */
-    setData(data) {
-        if (this._data) {
-            // unsubscribe from current dataset
-            if (this._data.off) {
-                this._data.off("*", this._listener);
-            }
-            // trigger a remove of all items in memory
-            const ids = this._data.getIds({ filter: this._options.filter });
-            const items = this._data.get(ids);
-            this._ids.clear();
-            this.length = 0;
-            this._trigger("remove", { items: ids, oldData: items });
-        }
-        if (data != null) {
-            this._data = data;
-            // trigger an add of all added items
-            const ids = this._data.getIds({ filter: this._options.filter });
-            for (let i = 0, len = ids.length; i < len; i++) {
-                const id = ids[i];
-                this._ids.add(id);
-            }
-            this.length = ids.length;
-            this._trigger("add", { items: ids });
-        }
-        else {
-            this._data = new DataSet();
-        }
-        // subscribe to new dataset
-        if (this._data.on) {
-            this._data.on("*", this._listener);
-        }
+    // subscribe to new dataset
+    if (this._data.on) {
+      this._data.on("*", this._listener);
     }
-    /**
-     * Refresh the DataView.
-     * Useful when the DataView has a filter function containing a variable parameter.
-     */
-    refresh() {
-        const ids = this._data.getIds({
-            filter: this._options.filter,
-        });
-        const oldIds = [...this._ids];
-        const newIds = {};
-        const addedIds = [];
-        const removedIds = [];
-        const removedItems = [];
-        // check for additions
+  }
+  /**
+   * Refresh the DataView.
+   * Useful when the DataView has a filter function containing a variable parameter.
+   */
+  refresh() {
+    const ids = this._data.getIds({
+      filter: _filterInstanceProperty(this._options)
+    });
+    const oldIds = [...this._ids];
+    const newIds = {};
+    const addedIds = [];
+    const removedIds = [];
+    const removedItems = [];
+    // check for additions
+    for (let i = 0, len = ids.length; i < len; i++) {
+      const id = ids[i];
+      newIds[id] = true;
+      if (!this._ids.has(id)) {
+        addedIds.push(id);
+        this._ids.add(id);
+      }
+    }
+    // check for removals
+    for (let i = 0, len = oldIds.length; i < len; i++) {
+      const id = oldIds[i];
+      const item = this._data.get(id);
+      if (item == null) {
+        // @TODO: Investigate.
+        // Doesn't happen during tests or examples.
+        // Is it really impossible or could it eventually happen?
+        // How to handle it if it does? The types guarantee non-nullable items.
+        console.error("If you see this, report it please.");
+      } else if (!newIds[id]) {
+        removedIds.push(id);
+        removedItems.push(item);
+        this._ids.delete(id);
+      }
+    }
+    this.length += addedIds.length - removedIds.length;
+    // trigger events
+    if (addedIds.length) {
+      this._trigger("add", {
+        items: addedIds
+      });
+    }
+    if (removedIds.length) {
+      this._trigger("remove", {
+        items: removedIds,
+        oldData: removedItems
+      });
+    }
+  }
+  /** @inheritDoc */
+  get(first, second) {
+    if (this._data == null) {
+      return null;
+    }
+    // parse the arguments
+    let ids = null;
+    let options;
+    if (isId(first) || _Array$isArray(first)) {
+      ids = first;
+      options = second;
+    } else {
+      options = first;
+    }
+    // extend the options with the default options and provided options
+    const viewOptions = _Object$assign({}, this._options, options);
+    // create a combined filter method when needed
+    const thisFilter = _filterInstanceProperty(this._options);
+    const optionsFilter = options && _filterInstanceProperty(options);
+    if (thisFilter && optionsFilter) {
+      viewOptions.filter = item => {
+        return thisFilter(item) && optionsFilter(item);
+      };
+    }
+    if (ids == null) {
+      return this._data.get(viewOptions);
+    } else {
+      return this._data.get(ids, viewOptions);
+    }
+  }
+  /** @inheritDoc */
+  getIds(options) {
+    if (this._data.length) {
+      const defaultFilter = _filterInstanceProperty(this._options);
+      const optionsFilter = options != null ? _filterInstanceProperty(options) : null;
+      let filter;
+      if (optionsFilter) {
+        if (defaultFilter) {
+          filter = item => {
+            return defaultFilter(item) && optionsFilter(item);
+          };
+        } else {
+          filter = optionsFilter;
+        }
+      } else {
+        filter = defaultFilter;
+      }
+      return this._data.getIds({
+        filter: filter,
+        order: options && options.order
+      });
+    } else {
+      return [];
+    }
+  }
+  /** @inheritDoc */
+  forEach(callback, options) {
+    if (this._data) {
+      var _context18;
+      const defaultFilter = _filterInstanceProperty(this._options);
+      const optionsFilter = options && _filterInstanceProperty(options);
+      let filter;
+      if (optionsFilter) {
+        if (defaultFilter) {
+          filter = function (item) {
+            return defaultFilter(item) && optionsFilter(item);
+          };
+        } else {
+          filter = optionsFilter;
+        }
+      } else {
+        filter = defaultFilter;
+      }
+      _forEachInstanceProperty(_context18 = this._data).call(_context18, callback, {
+        filter: filter,
+        order: options && options.order
+      });
+    }
+  }
+  /** @inheritDoc */
+  map(callback, options) {
+    if (this._data) {
+      var _context19;
+      const defaultFilter = _filterInstanceProperty(this._options);
+      const optionsFilter = options && _filterInstanceProperty(options);
+      let filter;
+      if (optionsFilter) {
+        if (defaultFilter) {
+          filter = item => {
+            return defaultFilter(item) && optionsFilter(item);
+          };
+        } else {
+          filter = optionsFilter;
+        }
+      } else {
+        filter = defaultFilter;
+      }
+      return _mapInstanceProperty(_context19 = this._data).call(_context19, callback, {
+        filter: filter,
+        order: options && options.order
+      });
+    } else {
+      return [];
+    }
+  }
+  /** @inheritDoc */
+  getDataSet() {
+    return this._data.getDataSet();
+  }
+  /** @inheritDoc */
+  stream(ids) {
+    var _context20;
+    return this._data.stream(ids || {
+      [_Symbol$iterator]: _bindInstanceProperty(_context20 = _keysInstanceProperty(this._ids)).call(_context20, this._ids)
+    });
+  }
+  /**
+   * Render the instance unusable prior to garbage collection.
+   * @remarks
+   * The intention of this method is to help discover scenarios where the data
+   * view is being used when the programmer thinks it has been garbage collected
+   * already. It's stricter version of `dataView.setData(null)`.
+   */
+  dispose() {
+    var _this$_data;
+    if ((_this$_data = this._data) !== null && _this$_data !== void 0 && _this$_data.off) {
+      this._data.off("*", this._listener);
+    }
+    const message = "This data view has already been disposed of.";
+    const replacement = {
+      get: () => {
+        throw new Error(message);
+      },
+      set: () => {
+        throw new Error(message);
+      },
+      configurable: false
+    };
+    for (const key of _Reflect$ownKeys(DataView.prototype)) {
+      _Object$defineProperty(this, key, replacement);
+    }
+  }
+  /**
+   * Event listener. Will propagate all events from the connected data set to the subscribers of the DataView, but will filter the items and only trigger when there are changes in the filtered data set.
+   * @param event - The name of the event.
+   * @param params - Parameters of the event.
+   * @param senderId - Id supplied by the sender.
+   */
+  _onEvent(event, params, senderId) {
+    if (!params || !params.items || !this._data) {
+      return;
+    }
+    const ids = params.items;
+    const addedIds = [];
+    const updatedIds = [];
+    const removedIds = [];
+    const oldItems = [];
+    const updatedItems = [];
+    const removedItems = [];
+    switch (event) {
+      case "add":
+        // filter the ids of the added items
         for (let i = 0, len = ids.length; i < len; i++) {
-            const id = ids[i];
-            newIds[id] = true;
-            if (!this._ids.has(id)) {
-                addedIds.push(id);
-                this._ids.add(id);
+          const id = ids[i];
+          const item = this.get(id);
+          if (item) {
+            this._ids.add(id);
+            addedIds.push(id);
+          }
+        }
+        break;
+      case "update":
+        // determine the event from the views viewpoint: an updated
+        // item can be added, updated, or removed from this view.
+        for (let i = 0, len = ids.length; i < len; i++) {
+          const id = ids[i];
+          const item = this.get(id);
+          if (item) {
+            if (this._ids.has(id)) {
+              updatedIds.push(id);
+              updatedItems.push(params.data[i]);
+              oldItems.push(params.oldData[i]);
+            } else {
+              this._ids.add(id);
+              addedIds.push(id);
             }
-        }
-        // check for removals
-        for (let i = 0, len = oldIds.length; i < len; i++) {
-            const id = oldIds[i];
-            const item = this._data.get(id);
-            if (item == null) {
-                // @TODO: Investigate.
-                // Doesn't happen during tests or examples.
-                // Is it really impossible or could it eventually happen?
-                // How to handle it if it does? The types guarantee non-nullable items.
-                console.error("If you see this, report it please.");
+          } else {
+            if (this._ids.has(id)) {
+              this._ids.delete(id);
+              removedIds.push(id);
+              removedItems.push(params.oldData[i]);
             }
-            else if (!newIds[id]) {
-                removedIds.push(id);
-                removedItems.push(item);
-                this._ids.delete(id);
-            }
+          }
         }
-        this.length += addedIds.length - removedIds.length;
-        // trigger events
-        if (addedIds.length) {
-            this._trigger("add", { items: addedIds });
+        break;
+      case "remove":
+        // filter the ids of the removed items
+        for (let i = 0, len = ids.length; i < len; i++) {
+          const id = ids[i];
+          if (this._ids.has(id)) {
+            this._ids.delete(id);
+            removedIds.push(id);
+            removedItems.push(params.oldData[i]);
+          }
         }
-        if (removedIds.length) {
-            this._trigger("remove", { items: removedIds, oldData: removedItems });
-        }
+        break;
     }
-    /** @inheritDoc */
-    get(first, second) {
-        if (this._data == null) {
-            return null;
-        }
-        // parse the arguments
-        let ids = null;
-        let options;
-        if (isId(first) || Array.isArray(first)) {
-            ids = first;
-            options = second;
-        }
-        else {
-            options = first;
-        }
-        // extend the options with the default options and provided options
-        const viewOptions = Object.assign({}, this._options, options);
-        // create a combined filter method when needed
-        const thisFilter = this._options.filter;
-        const optionsFilter = options && options.filter;
-        if (thisFilter && optionsFilter) {
-            viewOptions.filter = (item) => {
-                return thisFilter(item) && optionsFilter(item);
-            };
-        }
-        if (ids == null) {
-            return this._data.get(viewOptions);
-        }
-        else {
-            return this._data.get(ids, viewOptions);
-        }
+    this.length += addedIds.length - removedIds.length;
+    if (addedIds.length) {
+      this._trigger("add", {
+        items: addedIds
+      }, senderId);
     }
-    /** @inheritDoc */
-    getIds(options) {
-        if (this._data.length) {
-            const defaultFilter = this._options.filter;
-            const optionsFilter = options != null ? options.filter : null;
-            let filter;
-            if (optionsFilter) {
-                if (defaultFilter) {
-                    filter = (item) => {
-                        return defaultFilter(item) && optionsFilter(item);
-                    };
-                }
-                else {
-                    filter = optionsFilter;
-                }
-            }
-            else {
-                filter = defaultFilter;
-            }
-            return this._data.getIds({
-                filter: filter,
-                order: options && options.order,
-            });
-        }
-        else {
-            return [];
-        }
+    if (updatedIds.length) {
+      this._trigger("update", {
+        items: updatedIds,
+        oldData: oldItems,
+        data: updatedItems
+      }, senderId);
     }
-    /** @inheritDoc */
-    forEach(callback, options) {
-        if (this._data) {
-            const defaultFilter = this._options.filter;
-            const optionsFilter = options && options.filter;
-            let filter;
-            if (optionsFilter) {
-                if (defaultFilter) {
-                    filter = function (item) {
-                        return defaultFilter(item) && optionsFilter(item);
-                    };
-                }
-                else {
-                    filter = optionsFilter;
-                }
-            }
-            else {
-                filter = defaultFilter;
-            }
-            this._data.forEach(callback, {
-                filter: filter,
-                order: options && options.order,
-            });
-        }
+    if (removedIds.length) {
+      this._trigger("remove", {
+        items: removedIds,
+        oldData: removedItems
+      }, senderId);
     }
-    /** @inheritDoc */
-    map(callback, options) {
-        if (this._data) {
-            const defaultFilter = this._options.filter;
-            const optionsFilter = options && options.filter;
-            let filter;
-            if (optionsFilter) {
-                if (defaultFilter) {
-                    filter = (item) => {
-                        return defaultFilter(item) && optionsFilter(item);
-                    };
-                }
-                else {
-                    filter = optionsFilter;
-                }
-            }
-            else {
-                filter = defaultFilter;
-            }
-            return this._data.map(callback, {
-                filter: filter,
-                order: options && options.order,
-            });
-        }
-        else {
-            return [];
-        }
-    }
-    /** @inheritDoc */
-    getDataSet() {
-        return this._data.getDataSet();
-    }
-    /** @inheritDoc */
-    stream(ids) {
-        return this._data.stream(ids || {
-            [Symbol.iterator]: this._ids.keys.bind(this._ids),
-        });
-    }
-    /**
-     * Render the instance unusable prior to garbage collection.
-     * @remarks
-     * The intention of this method is to help discover scenarios where the data
-     * view is being used when the programmer thinks it has been garbage collected
-     * already. It's stricter version of `dataView.setData(null)`.
-     */
-    dispose() {
-        if (this._data?.off) {
-            this._data.off("*", this._listener);
-        }
-        const message = "This data view has already been disposed of.";
-        const replacement = {
-            get: () => {
-                throw new Error(message);
-            },
-            set: () => {
-                throw new Error(message);
-            },
-            configurable: false,
-        };
-        for (const key of Reflect.ownKeys(DataView.prototype)) {
-            Object.defineProperty(this, key, replacement);
-        }
-    }
-    /**
-     * Event listener. Will propagate all events from the connected data set to the subscribers of the DataView, but will filter the items and only trigger when there are changes in the filtered data set.
-     * @param event - The name of the event.
-     * @param params - Parameters of the event.
-     * @param senderId - Id supplied by the sender.
-     */
-    _onEvent(event, params, senderId) {
-        if (!params || !params.items || !this._data) {
-            return;
-        }
-        const ids = params.items;
-        const addedIds = [];
-        const updatedIds = [];
-        const removedIds = [];
-        const oldItems = [];
-        const updatedItems = [];
-        const removedItems = [];
-        switch (event) {
-            case "add":
-                // filter the ids of the added items
-                for (let i = 0, len = ids.length; i < len; i++) {
-                    const id = ids[i];
-                    const item = this.get(id);
-                    if (item) {
-                        this._ids.add(id);
-                        addedIds.push(id);
-                    }
-                }
-                break;
-            case "update":
-                // determine the event from the views viewpoint: an updated
-                // item can be added, updated, or removed from this view.
-                for (let i = 0, len = ids.length; i < len; i++) {
-                    const id = ids[i];
-                    const item = this.get(id);
-                    if (item) {
-                        if (this._ids.has(id)) {
-                            updatedIds.push(id);
-                            updatedItems.push(params.data[i]);
-                            oldItems.push(params.oldData[i]);
-                        }
-                        else {
-                            this._ids.add(id);
-                            addedIds.push(id);
-                        }
-                    }
-                    else {
-                        if (this._ids.has(id)) {
-                            this._ids.delete(id);
-                            removedIds.push(id);
-                            removedItems.push(params.oldData[i]);
-                        }
-                    }
-                }
-                break;
-            case "remove":
-                // filter the ids of the removed items
-                for (let i = 0, len = ids.length; i < len; i++) {
-                    const id = ids[i];
-                    if (this._ids.has(id)) {
-                        this._ids.delete(id);
-                        removedIds.push(id);
-                        removedItems.push(params.oldData[i]);
-                    }
-                }
-                break;
-        }
-        this.length += addedIds.length - removedIds.length;
-        if (addedIds.length) {
-            this._trigger("add", { items: addedIds }, senderId);
-        }
-        if (updatedIds.length) {
-            this._trigger("update", { items: updatedIds, oldData: oldItems, data: updatedItems }, senderId);
-        }
-        if (removedIds.length) {
-            this._trigger("remove", { items: removedIds, oldData: removedItems }, senderId);
-        }
-    }
+  }
 }
 
 /**
@@ -11972,27 +16675,7 @@ class DataView extends DataSetPart {
  * @returns True if all expected values and methods match, false otherwise.
  */
 function isDataSetLike(idProp, v) {
-    return (typeof v === "object" &&
-        v !== null &&
-        idProp === v.idProp &&
-        typeof v.add === "function" &&
-        typeof v.clear === "function" &&
-        typeof v.distinct === "function" &&
-        typeof v.forEach === "function" &&
-        typeof v.get === "function" &&
-        typeof v.getDataSet === "function" &&
-        typeof v.getIds === "function" &&
-        typeof v.length === "number" &&
-        typeof v.map === "function" &&
-        typeof v.max === "function" &&
-        typeof v.min === "function" &&
-        typeof v.off === "function" &&
-        typeof v.on === "function" &&
-        typeof v.remove === "function" &&
-        typeof v.setOptions === "function" &&
-        typeof v.stream === "function" &&
-        typeof v.update === "function" &&
-        typeof v.updateOnly === "function");
+  return typeof v === "object" && v !== null && idProp === v.idProp && typeof v.add === "function" && typeof v.clear === "function" && typeof v.distinct === "function" && typeof _forEachInstanceProperty(v) === "function" && typeof v.get === "function" && typeof v.getDataSet === "function" && typeof v.getIds === "function" && typeof v.length === "number" && typeof _mapInstanceProperty(v) === "function" && typeof v.max === "function" && typeof v.min === "function" && typeof v.off === "function" && typeof v.on === "function" && typeof v.remove === "function" && typeof v.setOptions === "function" && typeof v.stream === "function" && typeof v.update === "function" && typeof v.updateOnly === "function";
 }
 
 /**
@@ -12002,19 +16685,7 @@ function isDataSetLike(idProp, v) {
  * @returns True if all expected values and methods match, false otherwise.
  */
 function isDataViewLike(idProp, v) {
-    return (typeof v === "object" &&
-        v !== null &&
-        idProp === v.idProp &&
-        typeof v.forEach === "function" &&
-        typeof v.get === "function" &&
-        typeof v.getDataSet === "function" &&
-        typeof v.getIds === "function" &&
-        typeof v.length === "number" &&
-        typeof v.map === "function" &&
-        typeof v.off === "function" &&
-        typeof v.on === "function" &&
-        typeof v.stream === "function" &&
-        isDataSetLike(idProp, v.getDataSet()));
+  return typeof v === "object" && v !== null && idProp === v.idProp && typeof _forEachInstanceProperty(v) === "function" && typeof v.get === "function" && typeof v.getDataSet === "function" && typeof v.getIds === "function" && typeof v.length === "number" && typeof _mapInstanceProperty(v) === "function" && typeof v.off === "function" && typeof v.on === "function" && typeof v.stream === "function" && isDataSetLike(idProp, v.getDataSet());
 }
 
 /* develblock:start */
