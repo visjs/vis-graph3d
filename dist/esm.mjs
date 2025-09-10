@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2025-09-03T09:56:41.454Z
+ * @date    2025-09-10T21:38:15.578Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -16473,10 +16473,6 @@ class DataSetPart {
     var _context8;
     this._subscribers[event] = _filterInstanceProperty(_context8 = this._subscribers[event]).call(_context8, subscriber => subscriber !== callback);
   }
-  /* develblock:start */
-  get testLeakSubscribers() {
-    return this._subscribers;
-  }
 }
 
 /**
@@ -17577,22 +17573,6 @@ class DataSet extends DataSetPart {
       });
     }
   }
-  /* develblock:start */
-  get testLeakData() {
-    return this._data;
-  }
-  get testLeakIdProp() {
-    return this._idProp;
-  }
-  get testLeakOptions() {
-    return this._options;
-  }
-  get testLeakQueue() {
-    return this._queue;
-  }
-  set testLeakQueue(v) {
-    this._queue = v;
-  }
 }
 
 /**
@@ -17995,9 +17975,6 @@ class DataView extends DataSetPart {
     }
   }
 }
-
-/* develblock:start */
-console.warn("You're running a development build.");
 
 var es_math_sign = {};
 
