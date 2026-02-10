@@ -214,7 +214,7 @@
     "@egjs/hammerjs": "2.0.17",
     "component-emitter": "2.0.0",
     "eslint": "8.57.1",
-    "git-authors-cli": "1.0.52",
+    "git-authors-cli": "1.0.53",
     "husky": "9.1.7",
     "jsdom": "26.1.0",
     "jsdom-global": "3.0.2",
