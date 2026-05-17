@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2026-05-17T13:33:36.274Z
+ * @date    2026-05-17T16:46:04.947Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -5024,18 +5024,40 @@ function requireSymbol$1 () {
 	return symbol$1;
 }
 
-var symbol;
-var hasRequiredSymbol;
+var arraySetLength;
+var hasRequiredArraySetLength;
 
-function requireSymbol () {
-	if (hasRequiredSymbol) return symbol;
-	hasRequiredSymbol = 1;
-	symbol = /*@__PURE__*/ requireSymbol$1();
-	return symbol;
+function requireArraySetLength () {
+	if (hasRequiredArraySetLength) return arraySetLength;
+	hasRequiredArraySetLength = 1;
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var isArray = /*@__PURE__*/ requireIsArray$3();
+
+	var $TypeError = TypeError;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+	// Safari < 13 does not throw an error in this case
+	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+	  // makes no sense without proper strict mode support
+	  if (this !== undefined) return true;
+	  try {
+	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+	  } catch (error) {
+	    return error instanceof TypeError;
+	  }
+	}();
+
+	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+	    throw new $TypeError('Cannot set read only .length');
+	  } return O.length = length;
+	} : function (O, length) {
+	  return O.length = length;
+	};
+	return arraySetLength;
 }
-
-var symbolExports = requireSymbol();
-var _Symbol = /*@__PURE__*/getDefaultExportFromCjs(symbolExports);
 
 var es_array_slice = {};
 
@@ -5137,6 +5159,19 @@ function requireSlice$1 () {
 	slice$1 = parent;
 	return slice$1;
 }
+
+var symbol;
+var hasRequiredSymbol;
+
+function requireSymbol () {
+	if (hasRequiredSymbol) return symbol;
+	hasRequiredSymbol = 1;
+	symbol = /*@__PURE__*/ requireSymbol$1();
+	return symbol;
+}
+
+var symbolExports = requireSymbol();
+var _Symbol = /*@__PURE__*/getDefaultExportFromCjs(symbolExports);
 
 var slice;
 var hasRequiredSlice;
@@ -5498,41 +5533,6 @@ var reverseExports = requireReverse();
 var _reverseInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reverseExports);
 
 var es_array_splice = {};
-
-var arraySetLength;
-var hasRequiredArraySetLength;
-
-function requireArraySetLength () {
-	if (hasRequiredArraySetLength) return arraySetLength;
-	hasRequiredArraySetLength = 1;
-	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
-	var isArray = /*@__PURE__*/ requireIsArray$3();
-
-	var $TypeError = TypeError;
-	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-
-	// Safari < 13 does not throw an error in this case
-	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
-	  // makes no sense without proper strict mode support
-	  if (this !== undefined) return true;
-	  try {
-	    // eslint-disable-next-line es/no-object-defineproperty -- safe
-	    Object.defineProperty([], 'length', { writable: false }).length = 1;
-	  } catch (error) {
-	    return error instanceof TypeError;
-	  }
-	}();
-
-	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
-	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
-	    throw new $TypeError('Cannot set read only .length');
-	  } return O.length = length;
-	} : function (O, length) {
-	  return O.length = length;
-	};
-	return arraySetLength;
-}
 
 var hasRequiredEs_array_splice;
 
@@ -13485,19 +13485,17 @@ Graph3d.prototype._colormap = function (x) {
     g = min.g + innerRatio * (max.g - min.g);
     b = min.b + innerRatio * (max.b - min.b);
   } else if (typeof colormap === "function") {
-    ({
-      r,
-      g,
-      b,
-      a
-    } = colormap(x));
+    var _colormap = colormap(x);
+    r = _colormap.r;
+    g = _colormap.g;
+    b = _colormap.b;
+    a = _colormap.a;
   } else {
     const hue = (1 - x) * 240;
-    ({
-      r,
-      g,
-      b
-    } = HSVToRGB(hue / 360, 1, 1));
+    var _util$HSVToRGB = HSVToRGB(hue / 360, 1, 1);
+    r = _util$HSVToRGB.r;
+    g = _util$HSVToRGB.g;
+    b = _util$HSVToRGB.b;
   }
   if (typeof a === "number" && !_Number$isNaN(a)) {
     var _context, _context2, _context3;
