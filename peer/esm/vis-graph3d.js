@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2026-07-02T02:00:36.064Z
+ * @date    2026-07-02T17:00:50.237Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -58,7 +58,7 @@ function requireFunctionBindNative () {
 
 	functionBindNative = !fails(function () {
 	  // eslint-disable-next-line es/no-function-prototype-bind -- safe
-	  var test = (function () { /* empty */ }).bind();
+	  var test = function () { /* empty */ }.bind();
 	  // eslint-disable-next-line no-prototype-builtins -- safe
 	  return typeof test != 'function' || test.hasOwnProperty('prototype');
 	});
@@ -630,10 +630,10 @@ function requireSharedStore () {
 	var store = sharedStore.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
 	(store.versions || (store.versions = [])).push({
-	  version: '3.44.0',
+	  version: '3.49.0',
 	  mode: IS_PURE ? 'pure' : 'global',
-	  copyright: '© 2014-2025 Denis Pushkarev (zloirock.ru)',
-	  license: 'https://github.com/zloirock/core-js/blob/v3.44.0/LICENSE',
+	  copyright: '© 2013–2025 Denis Pushkarev (zloirock.ru), 2025–2026 CoreJS Company (core-js.io). All rights reserved.',
+	  license: 'https://github.com/zloirock/core-js/blob/v3.49.0/LICENSE',
 	  source: 'https://github.com/zloirock/core-js'
 	});
 	return sharedStore.exports;
@@ -1230,7 +1230,7 @@ function requireToStringTagSupport () {
 
 	var TO_STRING_TAG = wellKnownSymbol('toStringTag');
 	var test = {};
-
+	// eslint-disable-next-line unicorn/no-immediate-mutation -- ES3 syntax limitation
 	test[TO_STRING_TAG] = 'z';
 
 	toStringTagSupport = String(test) === '[object z]';
@@ -1489,7 +1489,9 @@ function requireEs_array_sort () {
 	    if (y === undefined) return -1;
 	    if (x === undefined) return 1;
 	    if (comparefn !== undefined) return +comparefn(x, y) || 0;
-	    return toString(x) > toString(y) ? 1 : -1;
+	    var xString = toString(x);
+	    var yString = toString(y);
+	    return xString === yString ? 0 : xString > yString ? 1 : -1;
 	  };
 	};
 
@@ -1901,6 +1903,23 @@ function requireArraySpeciesCreate () {
 	return arraySpeciesCreate;
 }
 
+var createProperty;
+var hasRequiredCreateProperty;
+
+function requireCreateProperty () {
+	if (hasRequiredCreateProperty) return createProperty;
+	hasRequiredCreateProperty = 1;
+	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+	var definePropertyModule = /*@__PURE__*/ requireObjectDefineProperty();
+	var createPropertyDescriptor = /*@__PURE__*/ requireCreatePropertyDescriptor();
+
+	createProperty = function (object, key, value) {
+	  if (DESCRIPTORS) definePropertyModule.f(object, key, createPropertyDescriptor(0, value));
+	  else object[key] = value;
+	};
+	return createProperty;
+}
+
 var arrayIteration;
 var hasRequiredArrayIteration;
 
@@ -1908,13 +1927,11 @@ function requireArrayIteration () {
 	if (hasRequiredArrayIteration) return arrayIteration;
 	hasRequiredArrayIteration = 1;
 	var bind = /*@__PURE__*/ requireFunctionBindContext();
-	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
 	var IndexedObject = /*@__PURE__*/ requireIndexedObject();
 	var toObject = /*@__PURE__*/ requireToObject();
 	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
 	var arraySpeciesCreate = /*@__PURE__*/ requireArraySpeciesCreate();
-
-	var push = uncurryThis([].push);
+	var createProperty = /*@__PURE__*/ requireCreateProperty();
 
 	// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
 	var createMethod = function (TYPE) {
@@ -1925,28 +1942,28 @@ function requireArrayIteration () {
 	  var IS_FIND_INDEX = TYPE === 6;
 	  var IS_FILTER_REJECT = TYPE === 7;
 	  var NO_HOLES = TYPE === 5 || IS_FIND_INDEX;
-	  return function ($this, callbackfn, that, specificCreate) {
+	  return function ($this, callbackfn, that) {
 	    var O = toObject($this);
 	    var self = IndexedObject(O);
 	    var length = lengthOfArrayLike(self);
 	    var boundFunction = bind(callbackfn, that);
 	    var index = 0;
-	    var create = specificCreate || arraySpeciesCreate;
-	    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+	    var resIndex = 0;
+	    var target = IS_MAP ? arraySpeciesCreate($this, length) : IS_FILTER || IS_FILTER_REJECT ? arraySpeciesCreate($this, 0) : undefined;
 	    var value, result;
 	    for (;length > index; index++) if (NO_HOLES || index in self) {
 	      value = self[index];
 	      result = boundFunction(value, index, O);
 	      if (TYPE) {
-	        if (IS_MAP) target[index] = result; // map
+	        if (IS_MAP) createProperty(target, index, result);    // map
 	        else if (result) switch (TYPE) {
-	          case 3: return true;              // some
-	          case 5: return value;             // find
-	          case 6: return index;             // findIndex
-	          case 2: push(target, value);      // filter
+	          case 3: return true;                                // some
+	          case 5: return value;                               // find
+	          case 6: return index;                               // findIndex
+	          case 2: createProperty(target, resIndex++, value);  // filter
 	        } else switch (TYPE) {
-	          case 4: return false;             // every
-	          case 7: push(target, value);      // filterReject
+	          case 4: return false;                               // every
+	          case 7: createProperty(target, resIndex++, value);  // filterReject
 	        }
 	      }
 	    }
@@ -2488,7 +2505,7 @@ function requireFunctionName () {
 
 	var EXISTS = hasOwn(FunctionPrototype, 'name');
 	// additional protection from minified / mangled / dropped function names
-	var PROPER = EXISTS && (function something() { /* empty */ }).name === 'something';
+	var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
 	var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
 
 	functionName = {
@@ -3527,27 +3544,45 @@ function requireDoesNotExceedSafeInteger () {
 	var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF; // 2 ** 53 - 1 == 9007199254740991
 
 	doesNotExceedSafeInteger = function (it) {
-	  if (it > MAX_SAFE_INTEGER) throw $TypeError('Maximum allowed index exceeded');
+	  if (it > MAX_SAFE_INTEGER) throw new $TypeError('Maximum allowed index exceeded');
 	  return it;
 	};
 	return doesNotExceedSafeInteger;
 }
 
-var createProperty;
-var hasRequiredCreateProperty;
+var arraySetLength;
+var hasRequiredArraySetLength;
 
-function requireCreateProperty () {
-	if (hasRequiredCreateProperty) return createProperty;
-	hasRequiredCreateProperty = 1;
+function requireArraySetLength () {
+	if (hasRequiredArraySetLength) return arraySetLength;
+	hasRequiredArraySetLength = 1;
 	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
-	var definePropertyModule = /*@__PURE__*/ requireObjectDefineProperty();
-	var createPropertyDescriptor = /*@__PURE__*/ requireCreatePropertyDescriptor();
+	var isArray = /*@__PURE__*/ requireIsArray$3();
 
-	createProperty = function (object, key, value) {
-	  if (DESCRIPTORS) definePropertyModule.f(object, key, createPropertyDescriptor(0, value));
-	  else object[key] = value;
+	var $TypeError = TypeError;
+	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+
+	// Safari < 13 does not throw an error in this case
+	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
+	  // makes no sense without proper strict mode support
+	  if (this !== undefined) return true;
+	  try {
+	    // eslint-disable-next-line es/no-object-defineproperty -- safe
+	    Object.defineProperty([], 'length', { writable: false }).length = 1;
+	  } catch (error) {
+	    return error instanceof TypeError;
+	  }
+	}();
+
+	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+	    throw new $TypeError('Cannot set read only .length');
+	  } return O.length = length;
+	} : function (O, length) {
+	  return O.length = length;
 	};
-	return createProperty;
+	return arraySetLength;
 }
 
 var hasRequiredEs_array_concat;
@@ -3563,6 +3598,7 @@ function requireEs_array_concat () {
 	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
 	var doesNotExceedSafeInteger = /*@__PURE__*/ requireDoesNotExceedSafeInteger();
 	var createProperty = /*@__PURE__*/ requireCreateProperty();
+	var setArrayLength = /*@__PURE__*/ requireArraySetLength();
 	var arraySpeciesCreate = /*@__PURE__*/ requireArraySpeciesCreate();
 	var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
 	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
@@ -3608,7 +3644,7 @@ function requireEs_array_concat () {
 	        createProperty(A, n++, E);
 	      }
 	    }
-	    A.length = n;
+	    setArrayLength(A, n);
 	    return A;
 	  }
 	});
@@ -4301,7 +4337,7 @@ function requireEs_symbol_constructor () {
 	  nativeDefineProperty(O, P, Attributes);
 	  if (ObjectPrototypeDescriptor && O !== ObjectPrototype) {
 	    nativeDefineProperty(ObjectPrototype, P, ObjectPrototypeDescriptor);
-	  }
+	  } return O;
 	};
 
 	var setSymbolDescriptor = DESCRIPTORS && fails(function () {
@@ -4327,7 +4363,8 @@ function requireEs_symbol_constructor () {
 	  var key = toPropertyKey(P);
 	  anObject(Attributes);
 	  if (hasOwn(AllSymbols, key)) {
-	    if (!Attributes.enumerable) {
+	    // first definition - default non-enumerable; redefinition - preserve existing state
+	    if (!('enumerable' in Attributes) ? !hasOwn(O, key) || (hasOwn(O, HIDDEN) && O[HIDDEN][key]) : !Attributes.enumerable) {
 	      if (!hasOwn(O, HIDDEN)) nativeDefineProperty(O, HIDDEN, createPropertyDescriptor(1, nativeObjectCreate(null)));
 	      O[HIDDEN][key] = true;
 	    } else {
@@ -4569,21 +4606,186 @@ function requireEs_symbol_keyFor () {
 
 var es_json_stringify = {};
 
-var getJsonReplacerFunction;
-var hasRequiredGetJsonReplacerFunction;
+var isRawJson;
+var hasRequiredIsRawJson;
 
-function requireGetJsonReplacerFunction () {
-	if (hasRequiredGetJsonReplacerFunction) return getJsonReplacerFunction;
-	hasRequiredGetJsonReplacerFunction = 1;
+function requireIsRawJson () {
+	if (hasRequiredIsRawJson) return isRawJson;
+	hasRequiredIsRawJson = 1;
+	var isObject = /*@__PURE__*/ requireIsObject();
+	var getInternalState = /*@__PURE__*/ requireInternalState().get;
+
+	isRawJson = function isRawJSON(O) {
+	  if (!isObject(O)) return false;
+	  var state = getInternalState(O);
+	  return !!state && state.type === 'RawJSON';
+	};
+	return isRawJson;
+}
+
+var parseJsonString;
+var hasRequiredParseJsonString;
+
+function requireParseJsonString () {
+	if (hasRequiredParseJsonString) return parseJsonString;
+	hasRequiredParseJsonString = 1;
 	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+
+	var $SyntaxError = SyntaxError;
+	var $parseInt = parseInt;
+	var fromCharCode = String.fromCharCode;
+	var at = uncurryThis(''.charAt);
+	var slice = uncurryThis(''.slice);
+	var exec = uncurryThis(/./.exec);
+
+	var codePoints = {
+	  '\\"': '"',
+	  '\\\\': '\\',
+	  '\\/': '/',
+	  '\\b': '\b',
+	  '\\f': '\f',
+	  '\\n': '\n',
+	  '\\r': '\r',
+	  '\\t': '\t'
+	};
+
+	var IS_4_HEX_DIGITS = /^[\da-f]{4}$/i;
+	// eslint-disable-next-line regexp/no-control-character -- safe
+	var IS_C0_CONTROL_CODE = /^[\u0000-\u001F]$/;
+
+	parseJsonString = function (source, i) {
+	  var unterminated = true;
+	  var value = '';
+	  while (i < source.length) {
+	    var chr = at(source, i);
+	    if (chr === '\\') {
+	      var twoChars = slice(source, i, i + 2);
+	      if (hasOwn(codePoints, twoChars)) {
+	        value += codePoints[twoChars];
+	        i += 2;
+	      } else if (twoChars === '\\u') {
+	        i += 2;
+	        var fourHexDigits = slice(source, i, i + 4);
+	        if (!exec(IS_4_HEX_DIGITS, fourHexDigits)) throw new $SyntaxError('Bad Unicode escape at: ' + i);
+	        value += fromCharCode($parseInt(fourHexDigits, 16));
+	        i += 4;
+	      } else throw new $SyntaxError('Unknown escape sequence: "' + twoChars + '"');
+	    } else if (chr === '"') {
+	      unterminated = false;
+	      i++;
+	      break;
+	    } else {
+	      if (exec(IS_C0_CONTROL_CODE, chr)) throw new $SyntaxError('Bad control character in string literal at: ' + i);
+	      value += chr;
+	      i++;
+	    }
+	  }
+	  if (unterminated) throw new $SyntaxError('Unterminated string at: ' + i);
+	  return { value: value, end: i };
+	};
+	return parseJsonString;
+}
+
+var nativeRawJson;
+var hasRequiredNativeRawJson;
+
+function requireNativeRawJson () {
+	if (hasRequiredNativeRawJson) return nativeRawJson;
+	hasRequiredNativeRawJson = 1;
+	/* eslint-disable es/no-json -- safe */
+	var fails = /*@__PURE__*/ requireFails();
+
+	nativeRawJson = !fails(function () {
+	  var unsafeInt = '9007199254740993';
+	  // eslint-disable-next-line es/no-json-rawjson -- feature detection
+	  var raw = JSON.rawJSON(unsafeInt);
+	  // eslint-disable-next-line es/no-json-israwjson -- feature detection
+	  return !JSON.isRawJSON(raw) || JSON.stringify(raw) !== unsafeInt;
+	});
+	return nativeRawJson;
+}
+
+var hasRequiredEs_json_stringify;
+
+function requireEs_json_stringify () {
+	if (hasRequiredEs_json_stringify) return es_json_stringify;
+	hasRequiredEs_json_stringify = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+	var apply = /*@__PURE__*/ requireFunctionApply();
+	var call = /*@__PURE__*/ requireFunctionCall();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var fails = /*@__PURE__*/ requireFails();
 	var isArray = /*@__PURE__*/ requireIsArray$3();
 	var isCallable = /*@__PURE__*/ requireIsCallable();
+	var isRawJSON = /*@__PURE__*/ requireIsRawJson();
+	var isSymbol = /*@__PURE__*/ requireIsSymbol();
 	var classof = /*@__PURE__*/ requireClassofRaw();
 	var toString = /*@__PURE__*/ requireToString();
+	var arraySlice = /*@__PURE__*/ requireArraySlice();
+	var parseJSONString = /*@__PURE__*/ requireParseJsonString();
+	var uid = /*@__PURE__*/ requireUid();
+	var NATIVE_SYMBOL = /*@__PURE__*/ requireSymbolConstructorDetection();
+	var NATIVE_RAW_JSON = /*@__PURE__*/ requireNativeRawJson();
 
+	var $String = String;
+	var $stringify = getBuiltIn('JSON', 'stringify');
+	var exec = uncurryThis(/./.exec);
+	var charAt = uncurryThis(''.charAt);
+	var charCodeAt = uncurryThis(''.charCodeAt);
+	var replace = uncurryThis(''.replace);
+	var slice = uncurryThis(''.slice);
 	var push = uncurryThis([].push);
+	var numberToString = uncurryThis(1.1.toString);
 
-	getJsonReplacerFunction = function (replacer) {
+	var surrogates = /[\uD800-\uDFFF]/g;
+	var leadingSurrogates = /^[\uD800-\uDBFF]$/;
+	var trailingSurrogates = /^[\uDC00-\uDFFF]$/;
+
+	var MARK = uid();
+	var MARK_LENGTH = MARK.length;
+
+	var WRONG_SYMBOLS_CONVERSION = !NATIVE_SYMBOL || fails(function () {
+	  var symbol = getBuiltIn('Symbol')('stringify detection');
+	  // MS Edge converts symbol values to JSON as {}
+	  return $stringify([symbol]) !== '[null]'
+	    // WebKit converts symbol values to JSON as null
+	    || $stringify({ a: symbol }) !== '{}'
+	    // V8 throws on boxed symbols
+	    || $stringify(Object(symbol)) !== '{}';
+	});
+
+	// https://github.com/tc39/proposal-well-formed-stringify
+	var ILL_FORMED_UNICODE = fails(function () {
+	  return $stringify('\uDF06\uD834') !== '"\\udf06\\ud834"'
+	    || $stringify('\uDEAD') !== '"\\udead"';
+	});
+
+	var stringifyWithProperSymbolsConversion = WRONG_SYMBOLS_CONVERSION ? function (it, replacer) {
+	  var args = arraySlice(arguments);
+	  var $replacer = getReplacerFunction(replacer);
+	  if (!isCallable($replacer) && (it === undefined || isSymbol(it))) return; // IE8 returns string on undefined
+	  args[1] = function (key, value) {
+	    // some old implementations (like WebKit) could pass numbers as keys
+	    if (isCallable($replacer)) value = call($replacer, this, $String(key), value);
+	    if (!isSymbol(value)) return value;
+	  };
+	  return apply($stringify, null, args);
+	} : $stringify;
+
+	var fixIllFormedJSON = function (match, offset, string) {
+	  var prev = charAt(string, offset - 1);
+	  var next = charAt(string, offset + 1);
+	  if (
+	    (exec(leadingSurrogates, match) && !exec(trailingSurrogates, next)) ||
+	    (exec(trailingSurrogates, match) && !exec(leadingSurrogates, prev))
+	  ) {
+	    return '\\u' + numberToString(charCodeAt(match, 0), 16);
+	  } return match;
+	};
+
+	var getReplacerFunction = function (replacer) {
 	  if (isCallable(replacer)) return replacer;
 	  if (!isArray(replacer)) return;
 	  var rawLength = replacer.length;
@@ -4604,86 +4806,45 @@ function requireGetJsonReplacerFunction () {
 	    for (var j = 0; j < keysLength; j++) if (keys[j] === key) return value;
 	  };
 	};
-	return getJsonReplacerFunction;
-}
 
-var hasRequiredEs_json_stringify;
+	// `JSON.stringify` method
+	// https://tc39.es/ecma262/#sec-json.stringify
+	// https://github.com/tc39/proposal-json-parse-with-source
+	if ($stringify) $({ target: 'JSON', stat: true, arity: 3, forced: WRONG_SYMBOLS_CONVERSION || ILL_FORMED_UNICODE || !NATIVE_RAW_JSON }, {
+	  stringify: function stringify(text, replacer, space) {
+	    var replacerFunction = getReplacerFunction(replacer);
+	    var rawStrings = [];
 
-function requireEs_json_stringify () {
-	if (hasRequiredEs_json_stringify) return es_json_stringify;
-	hasRequiredEs_json_stringify = 1;
-	var $ = /*@__PURE__*/ require_export();
-	var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
-	var apply = /*@__PURE__*/ requireFunctionApply();
-	var call = /*@__PURE__*/ requireFunctionCall();
-	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
-	var fails = /*@__PURE__*/ requireFails();
-	var isCallable = /*@__PURE__*/ requireIsCallable();
-	var isSymbol = /*@__PURE__*/ requireIsSymbol();
-	var arraySlice = /*@__PURE__*/ requireArraySlice();
-	var getReplacerFunction = /*@__PURE__*/ requireGetJsonReplacerFunction();
-	var NATIVE_SYMBOL = /*@__PURE__*/ requireSymbolConstructorDetection();
+	    var json = stringifyWithProperSymbolsConversion(text, function (key, value) {
+	      // some old implementations (like WebKit) could pass numbers as keys
+	      var v = isCallable(replacerFunction) ? call(replacerFunction, this, $String(key), value) : value;
+	      return !NATIVE_RAW_JSON && isRawJSON(v) ? MARK + (push(rawStrings, v.rawJSON) - 1) : v;
+	    }, space);
 
-	var $String = String;
-	var $stringify = getBuiltIn('JSON', 'stringify');
-	var exec = uncurryThis(/./.exec);
-	var charAt = uncurryThis(''.charAt);
-	var charCodeAt = uncurryThis(''.charCodeAt);
-	var replace = uncurryThis(''.replace);
-	var numberToString = uncurryThis(1.1.toString);
+	    if (typeof json != 'string') return json;
 
-	var tester = /[\uD800-\uDFFF]/g;
-	var low = /^[\uD800-\uDBFF]$/;
-	var hi = /^[\uDC00-\uDFFF]$/;
+	    if (ILL_FORMED_UNICODE) json = replace(json, surrogates, fixIllFormedJSON);
 
-	var WRONG_SYMBOLS_CONVERSION = !NATIVE_SYMBOL || fails(function () {
-	  var symbol = getBuiltIn('Symbol')('stringify detection');
-	  // MS Edge converts symbol values to JSON as {}
-	  return $stringify([symbol]) !== '[null]'
-	    // WebKit converts symbol values to JSON as null
-	    || $stringify({ a: symbol }) !== '{}'
-	    // V8 throws on boxed symbols
-	    || $stringify(Object(symbol)) !== '{}';
-	});
+	    if (NATIVE_RAW_JSON) return json;
 
-	// https://github.com/tc39/proposal-well-formed-stringify
-	var ILL_FORMED_UNICODE = fails(function () {
-	  return $stringify('\uDF06\uD834') !== '"\\udf06\\ud834"'
-	    || $stringify('\uDEAD') !== '"\\udead"';
-	});
+	    var result = '';
+	    var length = json.length;
 
-	var stringifyWithSymbolsFix = function (it, replacer) {
-	  var args = arraySlice(arguments);
-	  var $replacer = getReplacerFunction(replacer);
-	  if (!isCallable($replacer) && (it === undefined || isSymbol(it))) return; // IE8 returns string on undefined
-	  args[1] = function (key, value) {
-	    // some old implementations (like WebKit) could pass numbers as keys
-	    if (isCallable($replacer)) value = call($replacer, this, $String(key), value);
-	    if (!isSymbol(value)) return value;
-	  };
-	  return apply($stringify, null, args);
-	};
-
-	var fixIllFormed = function (match, offset, string) {
-	  var prev = charAt(string, offset - 1);
-	  var next = charAt(string, offset + 1);
-	  if ((exec(low, match) && !exec(hi, next)) || (exec(hi, match) && !exec(low, prev))) {
-	    return '\\u' + numberToString(charCodeAt(match, 0), 16);
-	  } return match;
-	};
-
-	if ($stringify) {
-	  // `JSON.stringify` method
-	  // https://tc39.es/ecma262/#sec-json.stringify
-	  $({ target: 'JSON', stat: true, arity: 3, forced: WRONG_SYMBOLS_CONVERSION || ILL_FORMED_UNICODE }, {
-	    // eslint-disable-next-line no-unused-vars -- required for `.length`
-	    stringify: function stringify(it, replacer, space) {
-	      var args = arraySlice(arguments);
-	      var result = apply(WRONG_SYMBOLS_CONVERSION ? stringifyWithSymbolsFix : $stringify, null, args);
-	      return ILL_FORMED_UNICODE && typeof result == 'string' ? replace(result, tester, fixIllFormed) : result;
+	    for (var i = 0; i < length; i++) {
+	      var chr = charAt(json, i);
+	      if (chr === '"') {
+	        var end = parseJSONString(json, ++i).end - 1;
+	        var string = slice(json, i, end);
+	        result += slice(string, 0, MARK_LENGTH) === MARK
+	          ? rawStrings[slice(string, MARK_LENGTH)]
+	          : '"' + string + '"';
+	        i = end;
+	      } else result += chr;
 	    }
-	  });
-	}
+
+	    return result;
+	  }
+	});
 	return es_json_stringify;
 }
 
@@ -5024,41 +5185,6 @@ function requireSymbol$1 () {
 	return symbol$1;
 }
 
-var arraySetLength;
-var hasRequiredArraySetLength;
-
-function requireArraySetLength () {
-	if (hasRequiredArraySetLength) return arraySetLength;
-	hasRequiredArraySetLength = 1;
-	var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
-	var isArray = /*@__PURE__*/ requireIsArray$3();
-
-	var $TypeError = TypeError;
-	// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-
-	// Safari < 13 does not throw an error in this case
-	var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !function () {
-	  // makes no sense without proper strict mode support
-	  if (this !== undefined) return true;
-	  try {
-	    // eslint-disable-next-line es/no-object-defineproperty -- safe
-	    Object.defineProperty([], 'length', { writable: false }).length = 1;
-	  } catch (error) {
-	    return error instanceof TypeError;
-	  }
-	}();
-
-	arraySetLength = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
-	  if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
-	    throw new $TypeError('Cannot set read only .length');
-	  } return O.length = length;
-	} : function (O, length) {
-	  return O.length = length;
-	};
-	return arraySetLength;
-}
-
 var es_array_slice = {};
 
 var hasRequiredEs_array_slice;
@@ -5074,6 +5200,7 @@ function requireEs_array_slice () {
 	var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
 	var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
 	var createProperty = /*@__PURE__*/ requireCreateProperty();
+	var setArrayLength = /*@__PURE__*/ requireArraySetLength();
 	var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
 	var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
 	var nativeSlice = /*@__PURE__*/ requireArraySlice();
@@ -5110,7 +5237,7 @@ function requireEs_array_slice () {
 	    }
 	    result = new (Constructor === undefined ? $Array : Constructor)(max(fin - k, 0));
 	    for (n = 0; k < fin; k++, n++) if (k in O) createProperty(result, n, O[k]);
-	    result.length = n;
+	    setArrayLength(result, n);
 	    return result;
 	  }
 	});
@@ -5581,7 +5708,7 @@ function requireEs_array_splice () {
 	      from = actualStart + k;
 	      if (from in O) createProperty(A, k, O[from]);
 	    }
-	    A.length = actualDeleteCount;
+	    setArrayLength(A, actualDeleteCount);
 	    if (insertCount < actualDeleteCount) {
 	      for (k = actualStart; k < len - actualDeleteCount; k++) {
 	        from = k + actualDeleteCount;
@@ -5827,6 +5954,7 @@ function requireStringRepeat () {
 	var requireObjectCoercible = /*@__PURE__*/ requireRequireObjectCoercible();
 
 	var $RangeError = RangeError;
+	var floor = Math.floor;
 
 	// `String.prototype.repeat` method implementation
 	// https://tc39.es/ecma262/#sec-string.prototype.repeat
@@ -5835,7 +5963,7 @@ function requireStringRepeat () {
 	  var result = '';
 	  var n = toIntegerOrInfinity(count);
 	  if (n < 0 || n === Infinity) throw new $RangeError('Wrong number of repetitions');
-	  for (;n > 0; (n >>>= 1) && (str += str)) if (n & 1) result += str;
+	  for (;n > 0; (n = floor(n / 2)) && (str += str)) if (n % 2) result += str;
 	  return result;
 	};
 	return stringRepeat;
@@ -5863,9 +5991,10 @@ function requireStringPad () {
 	    var S = toString(requireObjectCoercible($this));
 	    var intMaxLength = toLength(maxLength);
 	    var stringLength = S.length;
+	    if (intMaxLength <= stringLength) return S;
 	    var fillStr = fillString === undefined ? ' ' : toString(fillString);
 	    var fillLen, stringFiller;
-	    if (intMaxLength <= stringLength || fillStr === '') return S;
+	    if (fillStr === '') return S;
 	    fillLen = intMaxLength - stringLength;
 	    stringFiller = repeat(fillStr, ceil(fillLen / fillStr.length));
 	    if (stringFiller.length > fillLen) stringFiller = stringSlice(stringFiller, 0, fillLen);
