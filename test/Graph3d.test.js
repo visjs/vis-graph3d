@@ -1,4 +1,4 @@
-import assert from "assert";
+import { expect } from "chai";
 import Graph3d from "../lib/graph3d/Graph3d.js";
 import canvasMockify from "./canvas-mock.js";
 import testConsole from "test-console";
@@ -16,7 +16,7 @@ describe("Graph3d", function () {
   });
 
   it("should pass validation for the default options", function () {
-    assert(Graph3d.DEFAULTS !== undefined);
+    expect(Graph3d.DEFAULTS).to.not.be.undefined;
 
     let errorFound;
     // Useful during debugging:
@@ -29,11 +29,12 @@ describe("Graph3d", function () {
     //if (errorFound === true) {
     //  console.log(JSON.stringify(output, null, 2));
     //}
-    assert(!errorFound, "DEFAULTS options object does not pass validation");
+    expect(errorFound, "DEFAULTS options object does not pass validation").to.be
+      .false;
   });
 
   it("accepts new option values on defined instance", function () {
-    assert(this.container !== null, "Container div not found");
+    expect(this.container, "Container div not found").to.not.be.null;
 
     const BAR_STYLE = 0; // from var STYLE in Settings.js
     const DOT_STYLE = 3; // idem
@@ -50,9 +51,9 @@ describe("Graph3d", function () {
     };
 
     const graph = new Graph3d(this.container, data, options);
-    assert.equal(graph.style, DOT_STYLE, "Style not set to expected 'dot'");
+    expect(graph.style, "Style not set to expected 'dot'").to.equal(DOT_STYLE);
 
     graph.setOptions({ style: "bar" }); // Call should just work, no exception thrown
-    assert.equal(graph.style, BAR_STYLE, "Style not set to expected 'bar'");
+    expect(graph.style, "Style not set to expected 'bar'").to.equal(BAR_STYLE);
   });
 });
