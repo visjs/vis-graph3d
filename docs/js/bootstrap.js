@@ -1420,7 +1420,7 @@ if (typeof jQuery === "undefined") {
 
     var triggers = this.options.trigger.split(" ");
 
-    for (var i = triggers.length; i--; ) {
+    for (var i = triggers.length; i--;) {
       var trigger = triggers[i];
 
       if (trigger == "click") {
@@ -2190,7 +2190,7 @@ if (typeof jQuery === "undefined") {
       return this.clear();
     }
 
-    for (i = offsets.length; i--; ) {
+    for (i = offsets.length; i--;) {
       activeTarget != targets[i] &&
         scrollTop >= offsets[i] &&
         (!offsets[i + 1] || scrollTop <= offsets[i + 1]) &&

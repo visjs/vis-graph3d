@@ -37,7 +37,7 @@ window._pr_isIE6 = function () {
           n = l.length;
         if (n) {
           if (i) {
-            for (var r = [], j = n; --j >= 0; ) r[j] = l[j];
+            for (var r = [], j = n; --j >= 0;) r[j] = l[j];
             r.sort(function (q, m) {
               return q.name < m.name ? -1 : q.name === m.name ? 0 : 1;
             });
@@ -311,7 +311,7 @@ window._pr_isIE6 = function () {
       ) {
         var p = r[m],
           c = p[3];
-        if (c) for (var d = c.length; --d >= 0; ) i[c.charAt(d)] = p;
+        if (c) for (var d = c.length; --d >= 0;) i[c.charAt(d)] = p;
         p = p[1];
         c = "" + p;
         if (!q.hasOwnProperty(c)) {
@@ -546,7 +546,7 @@ window._pr_isIE6 = function () {
    * @param f
    */
   function u(b, f) {
-    for (var i = f.length; --i >= 0; ) {
+    for (var i = f.length; --i >= 0;) {
       var o = f[i];
       if (G.hasOwnProperty(o))
         "console" in window &&
@@ -618,7 +618,7 @@ window._pr_isIE6 = function () {
             var k = p.indexOf("&");
             if (k < 0) a = p;
             else {
-              for (--k; (k = p.indexOf("&#", k + 1)) >= 0; ) {
+              for (--k; (k = p.indexOf("&#", k + 1)) >= 0;) {
                 var e = p.indexOf(";", k);
                 if (e >= 0) {
                   var h = p.substring(k + 3, e),

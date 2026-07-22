@@ -1,9 +1,10 @@
 import { expect } from "chai";
-import Graph3d from "../lib/graph3d/Graph3d.js";
-import canvasMockify from "./canvas-mock.js";
 import testConsole from "test-console";
 import { Validator } from "vis-util/esnext";
+
+import Graph3d from "../lib/graph3d/Graph3d.js";
 import { allOptions } from "../lib/graph3d/options.js";
+import canvasMockify from "./canvas-mock.js";
 
 describe("Graph3d", function () {
   before(function () {
