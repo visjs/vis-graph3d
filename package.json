@@ -182,20 +182,20 @@
     "watch": "rollup --watch --config rollup.config.js",
     "watch-dev": "npm run watch-dev",
     "generate-examples-index": "generate-examples-index --config generate-examples-index.json",
-    "style": "prettier --check .",
-    "style-fix": "prettier --write .",
-    "lint": "eslint .",
-    "lint-fix": "eslint --fix .",
+    "style": "oxfmt --check .",
+    "style-fix": "oxfmt .",
+    "lint": "oxlint --report-unused-disable-directives-severity error .",
+    "lint-fix": "oxlint --report-unused-disable-directives-severity error --fix .",
     "clean": "shx rm -rf \"{dist,esnext,peer,standalone}/*\"",
     "prepublishOnly": "npm run contributors:update && npm run build",
     "contributors:update": "git-authors-cli",
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,ts,css,html,json,md,yml,yaml}": "prettier --write",
-    "*.{js,ts}": "eslint --fix",
-    ".*.{js,ts,css,html,json,md,yml,yaml}": "prettier --write",
-    ".*.{js,ts}": "eslint --fix"
+    "*.{js,ts,css,html,json,md,yml,yaml}": "oxfmt --no-error-on-unmatched-pattern",
+    "*.{js,ts}": "oxlint --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --fix",
+    ".*.{js,ts,css,html,json,md,yml,yaml}": "oxfmt --no-error-on-unmatched-pattern",
+    ".*.{js,ts}": "oxlint --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --fix"
   },
   "peerDependencies": {
     "@egjs/hammerjs": "^2.0.0",
@@ -208,7 +208,6 @@
   "devDependencies": {
     "@egjs/hammerjs": "2.0.17",
     "component-emitter": "2.0.0",
-    "eslint": "8.57.1",
     "git-authors-cli": "1.0.53",
     "husky": "9.1.7",
     "jsdom": "29.1.1",
@@ -217,6 +216,8 @@
     "lint-staged": "17.1.0",
     "mocha": "11.7.6",
     "nyc": "18.0.0",
+    "oxfmt": "^0.60.0",
+    "oxlint": "^1.75.0",
     "postcss": "8.5.19",
     "semantic-release": "25.0.8",
     "shx": "0.4.0",
