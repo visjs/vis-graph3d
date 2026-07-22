@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2026-07-22T15:35:09.004Z
+ * @date    2026-07-22T15:41:12.568Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -24,10 +24,10 @@
  * vis.js may be distributed under either license.
  */
 
+import { DataView, DataSet } from 'vis-data/esnext/umd/vis-data.js';
 import Emitter from 'component-emitter';
 import * as util from 'vis-util/esnext/umd/vis-util.js';
 import { Validator, VALIDATOR_PRINT_STYLE } from 'vis-util/esnext/umd/vis-util.js';
-import { DataView, DataSet } from 'vis-data/esnext/umd/vis-data.js';
 
 /**
  * @param {number} [x]
@@ -130,536 +130,6 @@ Point3d.prototype.length = function () {
  */
 Point3d.prototype.normalize = function () {
   return Point3d.scalarProduct(this, 1 / this.length());
-};
-
-/**
- * @param {number} [x]
- * @param {number} [y]
- */
-function Point2d(x, y) {
-  this.x = x !== undefined ? x : 0;
-  this.y = y !== undefined ? y : 0;
-}
-
-/**
- * An html slider control with start/stop/prev/next buttons
- * @function Object() { [native code] } Slider
- * @param {Element} container  The element where the slider will be created
- * @param {object} options   Available options:
- *                 {boolean} visible   If true (default) the
- *                           slider is visible.
- */
-function Slider(container, options) {
-  if (container === undefined) {
-    throw new Error("No container element defined");
-  }
-  this.container = container;
-  this.visible =
-    options && options.visible != undefined ? options.visible : true;
-
-  if (this.visible) {
-    this.frame = document.createElement("DIV");
-    //this.frame.style.backgroundColor = '#E5E5E5';
-    this.frame.style.width = "100%";
-    this.frame.style.position = "relative";
-    this.container.appendChild(this.frame);
-
-    this.frame.prev = document.createElement("INPUT");
-    this.frame.prev.type = "BUTTON";
-    this.frame.prev.value = "Prev";
-    this.frame.appendChild(this.frame.prev);
-
-    this.frame.play = document.createElement("INPUT");
-    this.frame.play.type = "BUTTON";
-    this.frame.play.value = "Play";
-    this.frame.appendChild(this.frame.play);
-
-    this.frame.next = document.createElement("INPUT");
-    this.frame.next.type = "BUTTON";
-    this.frame.next.value = "Next";
-    this.frame.appendChild(this.frame.next);
-
-    this.frame.bar = document.createElement("INPUT");
-    this.frame.bar.type = "BUTTON";
-    this.frame.bar.style.position = "absolute";
-    this.frame.bar.style.border = "1px solid red";
-    this.frame.bar.style.width = "100px";
-    this.frame.bar.style.height = "6px";
-    this.frame.bar.style.borderRadius = "2px";
-    this.frame.bar.style.MozBorderRadius = "2px";
-    this.frame.bar.style.border = "1px solid #7F7F7F";
-    this.frame.bar.style.backgroundColor = "#E5E5E5";
-    this.frame.appendChild(this.frame.bar);
-
-    this.frame.slide = document.createElement("INPUT");
-    this.frame.slide.type = "BUTTON";
-    this.frame.slide.style.margin = "0px";
-    this.frame.slide.value = " ";
-    this.frame.slide.style.position = "relative";
-    this.frame.slide.style.left = "-100px";
-    this.frame.appendChild(this.frame.slide);
-
-    // create events
-    const me = this;
-    this.frame.slide.onmousedown = function (event) {
-      me._onMouseDown(event);
-    };
-    this.frame.prev.onclick = function (event) {
-      me.prev(event);
-    };
-    this.frame.play.onclick = function (event) {
-      me.togglePlay(event);
-    };
-    this.frame.next.onclick = function (event) {
-      me.next(event);
-    };
-  }
-
-  this.onChangeCallback = undefined;
-
-  this.values = [];
-  this.index = undefined;
-
-  this.playTimeout = undefined;
-  this.playInterval = 1000; // milliseconds
-  this.playLoop = true;
-}
-
-/**
- * Select the previous index
- */
-Slider.prototype.prev = function () {
-  let index = this.getIndex();
-  if (index > 0) {
-    index--;
-    this.setIndex(index);
-  }
-};
-
-/**
- * Select the next index
- */
-Slider.prototype.next = function () {
-  let index = this.getIndex();
-  if (index < this.values.length - 1) {
-    index++;
-    this.setIndex(index);
-  }
-};
-
-/**
- * Select the next index
- */
-Slider.prototype.playNext = function () {
-  const start = new Date();
-
-  let index = this.getIndex();
-  if (index < this.values.length - 1) {
-    index++;
-    this.setIndex(index);
-  } else if (this.playLoop) {
-    // jump to the start
-    index = 0;
-    this.setIndex(index);
-  }
-
-  const end = new Date();
-  const diff = end - start;
-
-  // calculate how much time it to to set the index and to execute the callback
-  // function.
-  const interval = Math.max(this.playInterval - diff, 0);
-  // document.title = diff // TODO: cleanup
-
-  const me = this;
-  this.playTimeout = setTimeout(function () {
-    me.playNext();
-  }, interval);
-};
-
-/**
- * Toggle start or stop playing
- */
-Slider.prototype.togglePlay = function () {
-  if (this.playTimeout === undefined) {
-    this.play();
-  } else {
-    this.stop();
-  }
-};
-
-/**
- * Start playing
- */
-Slider.prototype.play = function () {
-  // Test whether already playing
-  if (this.playTimeout) return;
-
-  this.playNext();
-
-  if (this.frame) {
-    this.frame.play.value = "Stop";
-  }
-};
-
-/**
- * Stop playing
- */
-Slider.prototype.stop = function () {
-  clearInterval(this.playTimeout);
-  this.playTimeout = undefined;
-
-  if (this.frame) {
-    this.frame.play.value = "Play";
-  }
-};
-
-/**
- * Set a callback function which will be triggered when the value of the
- * slider bar has changed.
- * @param {Function} callback
- */
-Slider.prototype.setOnChangeCallback = function (callback) {
-  this.onChangeCallback = callback;
-};
-
-/**
- * Set the interval for playing the list
- * @param {number} interval   The interval in milliseconds
- */
-Slider.prototype.setPlayInterval = function (interval) {
-  this.playInterval = interval;
-};
-
-/**
- * Retrieve the current play interval
- * @returns {number} interval   The interval in milliseconds
- */
-Slider.prototype.getPlayInterval = function () {
-  return this.playInterval;
-};
-
-/**
- * Set looping on or off
- * @param {boolean} doLoop  If true, the slider will jump to the start when
- *               the end is passed, and will jump to the end
- *               when the start is passed.
- */
-Slider.prototype.setPlayLoop = function (doLoop) {
-  this.playLoop = doLoop;
-};
-
-/**
- * Execute the onchange callback function
- */
-Slider.prototype.onChange = function () {
-  if (this.onChangeCallback !== undefined) {
-    this.onChangeCallback();
-  }
-};
-
-/**
- * redraw the slider on the correct place
- */
-Slider.prototype.redraw = function () {
-  if (this.frame) {
-    // resize the bar
-    this.frame.bar.style.top =
-      this.frame.clientHeight / 2 - this.frame.bar.offsetHeight / 2 + "px";
-    this.frame.bar.style.width =
-      this.frame.clientWidth -
-      this.frame.prev.clientWidth -
-      this.frame.play.clientWidth -
-      this.frame.next.clientWidth -
-      30 +
-      "px";
-
-    // position the slider button
-    const left = this.indexToLeft(this.index);
-    this.frame.slide.style.left = left + "px";
-  }
-};
-
-/**
- * Set the list with values for the slider
- * @param {Array} values   A javascript array with values (any type)
- */
-Slider.prototype.setValues = function (values) {
-  this.values = values;
-
-  if (this.values.length > 0) this.setIndex(0);
-  else this.index = undefined;
-};
-
-/**
- * Select a value by its index
- * @param {number} index
- */
-Slider.prototype.setIndex = function (index) {
-  if (index < this.values.length) {
-    this.index = index;
-
-    this.redraw();
-    this.onChange();
-  } else {
-    throw new Error("Index out of range");
-  }
-};
-
-/**
- * retrieve the index of the currently selected vaue
- * @returns {number} index
- */
-Slider.prototype.getIndex = function () {
-  return this.index;
-};
-
-/**
- * retrieve the currently selected value
- * @returns {*} value
- */
-Slider.prototype.get = function () {
-  return this.values[this.index];
-};
-
-Slider.prototype._onMouseDown = function (event) {
-  // only react on left mouse button down
-  const leftButtonDown = event.which ? event.which === 1 : event.button === 1;
-  if (!leftButtonDown) return;
-
-  this.startClientX = event.clientX;
-  this.startSlideX = parseFloat(this.frame.slide.style.left);
-
-  this.frame.style.cursor = "move";
-
-  // add event listeners to handle moving the contents
-  // we store the function onmousemove and onmouseup in the graph, so we can
-  // remove the eventlisteners lateron in the function mouseUp()
-  const me = this;
-  this.onmousemove = function (event) {
-    me._onMouseMove(event);
-  };
-  this.onmouseup = function (event) {
-    me._onMouseUp(event);
-  };
-  document.addEventListener("mousemove", this.onmousemove);
-  document.addEventListener("mouseup", this.onmouseup);
-  util.preventDefault(event);
-};
-
-Slider.prototype.leftToIndex = function (left) {
-  const width =
-    parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
-  const x = left - 3;
-
-  let index = Math.round((x / width) * (this.values.length - 1));
-  if (index < 0) index = 0;
-  if (index > this.values.length - 1) index = this.values.length - 1;
-
-  return index;
-};
-
-Slider.prototype.indexToLeft = function (index) {
-  const width =
-    parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
-
-  const x = (index / (this.values.length - 1)) * width;
-  const left = x + 3;
-
-  return left;
-};
-
-Slider.prototype._onMouseMove = function (event) {
-  const diff = event.clientX - this.startClientX;
-  const x = this.startSlideX + diff;
-
-  const index = this.leftToIndex(x);
-
-  this.setIndex(index);
-
-  util.preventDefault();
-};
-
-Slider.prototype._onMouseUp = function () {
-  this.frame.style.cursor = "auto";
-
-  // remove event listeners
-  document.removeEventListener("mousemove", this.onmousemove);
-  document.removeEventListener("mouseup", this.onmouseup);
-
-  util.preventDefault();
-};
-
-/**
- * The class StepNumber is an iterator for Numbers. You provide a start and end
- * value, and a best step size. StepNumber itself rounds to fixed values and
- * a finds the step that best fits the provided step.
- *
- * If prettyStep is true, the step size is chosen as close as possible to the
- * provided step, but being a round value like 1, 2, 5, 10, 20, 50, ....
- *
- * Example usage:
- *   var step = new StepNumber(0, 10, 2.5, true);
- *   step.start();
- *   while (!step.end()) {
- *   alert(step.getCurrent());
- *   step.next();
- *   }
- *
- * Version: 1.0
- * @param {number} start     The start value
- * @param {number} end     The end value
- * @param {number} step    Optional. Step size. Must be a positive value.
- * @param {boolean} prettyStep Optional. If true, the step size is rounded
- *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
- */
-function StepNumber(start, end, step, prettyStep) {
-  // set default values
-  this._start = 0;
-  this._end = 0;
-  this._step = 1;
-  this.prettyStep = true;
-  this.precision = 5;
-
-  this._current = 0;
-  this.setRange(start, end, step, prettyStep);
-}
-
-/**
- * Check for input values, to prevent disasters from happening
- *
- * Source: http://stackoverflow.com/a/1830844
- * @param {string} n
- * @returns {boolean}
- */
-StepNumber.prototype.isNumeric = function (n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-};
-
-/**
- * Set a new range: start, end and step.
- * @param {number} start     The start value
- * @param {number} end     The end value
- * @param {number} step    Optional. Step size. Must be a positive value.
- * @param {boolean} prettyStep Optional. If true, the step size is rounded
- *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
- */
-StepNumber.prototype.setRange = function (start, end, step, prettyStep) {
-  if (!this.isNumeric(start)) {
-    throw new Error("Parameter 'start' is not numeric; value: " + start);
-  }
-  if (!this.isNumeric(end)) {
-    throw new Error("Parameter 'end' is not numeric; value: " + start);
-  }
-  if (!this.isNumeric(step)) {
-    throw new Error("Parameter 'step' is not numeric; value: " + start);
-  }
-
-  this._start = start ? start : 0;
-  this._end = end ? end : 0;
-
-  this.setStep(step, prettyStep);
-};
-
-/**
- * Set a new step size
- * @param {number} step    New step size. Must be a positive value
- * @param {boolean} prettyStep Optional. If true, the provided step is rounded
- *               to a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
- */
-StepNumber.prototype.setStep = function (step, prettyStep) {
-  if (step === undefined || step <= 0) return;
-
-  if (prettyStep !== undefined) this.prettyStep = prettyStep;
-
-  if (this.prettyStep === true)
-    this._step = StepNumber.calculatePrettyStep(step);
-  else this._step = step;
-};
-
-/**
- * Calculate a nice step size, closest to the desired step size.
- * Returns a value in one of the ranges 1*10^n, 2*10^n, or 5*10^n, where n is an
- * integer Number. For example 1, 2, 5, 10, 20, 50, etc...
- * @param {number}  step  Desired step size
- * @returns {number}     Nice step size
- */
-StepNumber.calculatePrettyStep = function (step) {
-  const log10 = function (x) {
-    return Math.log(x) / Math.LN10;
-  };
-
-  // try three steps (multiple of 1, 2, or 5
-  const step1 = Math.pow(10, Math.round(log10(step))),
-    step2 = 2 * Math.pow(10, Math.round(log10(step / 2))),
-    step5 = 5 * Math.pow(10, Math.round(log10(step / 5)));
-
-  // choose the best step (closest to minimum step)
-  let prettyStep = step1;
-  if (Math.abs(step2 - step) <= Math.abs(prettyStep - step)) prettyStep = step2;
-  if (Math.abs(step5 - step) <= Math.abs(prettyStep - step)) prettyStep = step5;
-
-  // for safety
-  if (prettyStep <= 0) {
-    prettyStep = 1;
-  }
-
-  return prettyStep;
-};
-
-/**
- * returns the current value of the step
- * @returns {number} current value
- */
-StepNumber.prototype.getCurrent = function () {
-  return parseFloat(this._current.toPrecision(this.precision));
-};
-
-/**
- * returns the current step size
- * @returns {number} current step size
- */
-StepNumber.prototype.getStep = function () {
-  return this._step;
-};
-
-/**
- * Set the current to its starting value.
- *
- * By default, this will be the largest value smaller than start, which
- * is a multiple of the step size.
- *
- * Parameters checkFirst is optional, default false.
- * If set to true, move the current value one step if smaller than start.
- * @param {boolean} [checkFirst]
- */
-StepNumber.prototype.start = function (checkFirst) {
-  if (checkFirst === undefined) {
-    checkFirst = false;
-  }
-
-  this._current = this._start - (this._start % this._step);
-
-  if (checkFirst) {
-    if (this.getCurrent() < this._start) {
-      this.next();
-    }
-  }
-};
-
-/**
- * Do a step, add the step size to the current value
- */
-StepNumber.prototype.next = function () {
-  this._current += this._step;
-};
-
-/**
- * Returns true whether the end is reached
- * @returns {boolean}  True if the current value has passed the end value.
- */
-StepNumber.prototype.end = function () {
-  return this._current > this._end;
 };
 
 /**
@@ -847,6 +317,285 @@ Camera.prototype.calculateCameraOrientation = function () {
   this.cameraLocation.y =
     this.cameraLocation.y + dx * sin(za) + dy * cos(za) * cos(xa);
   this.cameraLocation.z = this.cameraLocation.z + dy * sin(xa);
+};
+
+/**
+ * @class Filter
+ * @param {DataGroup} dataGroup the data group
+ * @param {number}  column             The index of the column to be filtered
+ * @param {Graph3d} graph              The graph
+ */
+function Filter(dataGroup, column, graph) {
+  this.dataGroup = dataGroup;
+  this.column = column;
+  this.graph = graph; // the parent graph
+
+  this.index = undefined;
+  this.value = undefined;
+
+  // read all distinct values and select the first one
+  this.values = dataGroup.getDistinctValues(this.column);
+
+  if (this.values.length > 0) {
+    this.selectValue(0);
+  }
+
+  // create an array with the filtered datapoints. this will be loaded afterwards
+  this.dataPoints = [];
+
+  this.loaded = false;
+  this.onLoadCallback = undefined;
+
+  if (graph.animationPreload) {
+    this.loaded = false;
+    this.loadInBackground();
+  } else {
+    this.loaded = true;
+  }
+}
+
+/**
+ * Return the label
+ * @returns {string} label
+ */
+Filter.prototype.isLoaded = function () {
+  return this.loaded;
+};
+
+/**
+ * Return the loaded progress
+ * @returns {number} percentage between 0 and 100
+ */
+Filter.prototype.getLoadedProgress = function () {
+  const len = this.values.length;
+
+  let i = 0;
+  while (this.dataPoints[i]) {
+    i++;
+  }
+
+  return Math.round((i / len) * 100);
+};
+
+/**
+ * Return the label
+ * @returns {string} label
+ */
+Filter.prototype.getLabel = function () {
+  return this.graph.filterLabel;
+};
+
+/**
+ * Return the columnIndex of the filter
+ * @returns {number} columnIndex
+ */
+Filter.prototype.getColumn = function () {
+  return this.column;
+};
+
+/**
+ * Return the currently selected value. Returns undefined if there is no selection
+ * @returns {*} value
+ */
+Filter.prototype.getSelectedValue = function () {
+  if (this.index === undefined) return undefined;
+
+  return this.values[this.index];
+};
+
+/**
+ * Retrieve all values of the filter
+ * @returns {Array} values
+ */
+Filter.prototype.getValues = function () {
+  return this.values;
+};
+
+/**
+ * Retrieve one value of the filter
+ * @param {number}  index
+ * @returns {*} value
+ */
+Filter.prototype.getValue = function (index) {
+  if (index >= this.values.length) throw new Error("Index out of range");
+
+  return this.values[index];
+};
+
+/**
+ * Retrieve the (filtered) dataPoints for the currently selected filter index
+ * @param {number} [index] (optional)
+ * @returns {Array} dataPoints
+ */
+Filter.prototype._getDataPoints = function (index) {
+  if (index === undefined) index = this.index;
+
+  if (index === undefined) return [];
+
+  let dataPoints;
+  if (this.dataPoints[index]) {
+    dataPoints = this.dataPoints[index];
+  } else {
+    const f = {};
+    f.column = this.column;
+    f.value = this.values[index];
+
+    const dataView = new DataView(this.dataGroup.getDataSet(), {
+      filter: function (item) {
+        return item[f.column] == f.value;
+      },
+    }).get();
+    dataPoints = this.dataGroup._getDataPoints(dataView);
+
+    this.dataPoints[index] = dataPoints;
+  }
+
+  return dataPoints;
+};
+
+/**
+ * Set a callback function when the filter is fully loaded.
+ * @param {Function} callback
+ */
+Filter.prototype.setOnLoadCallback = function (callback) {
+  this.onLoadCallback = callback;
+};
+
+/**
+ * Add a value to the list with available values for this filter
+ * No double entries will be created.
+ * @param {number} index
+ */
+Filter.prototype.selectValue = function (index) {
+  if (index >= this.values.length) throw new Error("Index out of range");
+
+  this.index = index;
+  this.value = this.values[index];
+};
+
+/**
+ * Load all filtered rows in the background one by one
+ * Start this method without providing an index!
+ * @param {number} [index]
+ */
+Filter.prototype.loadInBackground = function (index) {
+  if (index === undefined) index = 0;
+
+  const frame = this.graph.frame;
+
+  if (index < this.values.length) {
+    // create a progress box
+    if (frame.progress === undefined) {
+      frame.progress = document.createElement("DIV");
+      frame.progress.style.position = "absolute";
+      frame.progress.style.color = "gray";
+      frame.appendChild(frame.progress);
+    }
+    const progress = this.getLoadedProgress();
+    frame.progress.innerHTML = "Loading animation... " + progress + "%";
+    // TODO: this is no nice solution...
+    frame.progress.style.bottom = 60 + "px"; // TODO: use height of slider
+    frame.progress.style.left = 10 + "px";
+
+    const me = this;
+    setTimeout(function () {
+      me.loadInBackground(index + 1);
+    }, 10);
+    this.loaded = false;
+  } else {
+    this.loaded = true;
+
+    // remove the progress box
+    if (frame.progress !== undefined) {
+      frame.removeChild(frame.progress);
+      frame.progress = undefined;
+    }
+
+    if (this.onLoadCallback) this.onLoadCallback();
+  }
+};
+
+/**
+ * Helper class to make working with related min and max values easier.
+ *
+ * The range is inclusive; a given value is considered part of the range if:
+ *
+ *    this.min <= value <= this.max
+ */
+function Range() {
+  this.min = undefined;
+  this.max = undefined;
+}
+
+/**
+ * Adjust the range so that the passed value fits in it.
+ *
+ * If the value is outside of the current extremes, adjust
+ * the min or max so that the value is within the range.
+ * @param {number} value Numeric value to fit in range
+ */
+Range.prototype.adjust = function (value) {
+  if (value === undefined) return;
+
+  if (this.min === undefined || this.min > value) {
+    this.min = value;
+  }
+
+  if (this.max === undefined || this.max < value) {
+    this.max = value;
+  }
+};
+
+/**
+ * Adjust the current range so that the passed range fits in it.
+ * @param {Range} range Range instance to fit in current instance
+ */
+Range.prototype.combine = function (range) {
+  this.add(range.min);
+  this.add(range.max);
+};
+
+/**
+ * Expand the range by the given value
+ *
+ * min will be lowered by given value;
+ * max will be raised by given value
+ *
+ * Shrinking by passing a negative value is allowed.
+ * @param {number} val Amount by which to expand or shrink current range with
+ */
+Range.prototype.expand = function (val) {
+  if (val === undefined) {
+    return;
+  }
+
+  const newMin = this.min - val;
+  const newMax = this.max + val;
+
+  // Note that following allows newMin === newMax.
+  // This should be OK, since method expand() allows this also.
+  if (newMin > newMax) {
+    throw new Error("Passed expansion value makes range invalid");
+  }
+
+  this.min = newMin;
+  this.max = newMax;
+};
+
+/**
+ * Determine the full range width of current instance.
+ * @returns {num} The calculated width of this range
+ */
+Range.prototype.range = function () {
+  return this.max - this.min;
+};
+
+/**
+ * Determine the central point of current instance.
+ * @returns {number} the value in the middle of min and max
+ */
+Range.prototype.center = function () {
+  return (this.min + this.max) / 2;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1441,449 +1190,6 @@ function setCameraPosition(cameraPosition, dst) {
 }
 
 /**
- * This object contains all possible options. It will check if the types are correct, if required if the option is one
- * of the allowed values.
- *
- * __any__ means that the name of the property does not matter.
- * __type__ is a required field for all objects and contains the allowed types of all objects
- */
-const string = "string";
-const bool = "boolean";
-const number = "number";
-const object = "object"; // should only be in a __type__ property
-const array = "array";
-// Following not used here, but useful for reference
-//let dom      = 'dom';
-//let any      = 'any';
-
-const colorOptions = {
-  fill: { string },
-  stroke: { string },
-  strokeWidth: { number },
-  __type__: { string, object, undefined: "undefined" },
-};
-
-const surfaceColorsOptions = {
-  hue: {
-    start: { number },
-    end: { number },
-    saturation: { number },
-    brightness: { number },
-    colorStops: { number },
-    __type__: { object },
-  },
-  __type__: { boolean: bool, array, object, undefined: "undefined" },
-};
-
-const colormapOptions = {
-  hue: {
-    start: { number },
-    end: { number },
-    saturation: { number },
-    brightness: { number },
-    colorStops: { number },
-    __type__: { object },
-  },
-  __type__: { array, object, function: "function", undefined: "undefined" },
-};
-
-/**
- * Order attempted to be alphabetical.
- *   - x/y/z-prefixes ignored in sorting
- *   - __type__ always at end
- *   - globals at end
- */
-const allOptions = {
-  animationAutoStart: { boolean: bool, undefined: "undefined" },
-  animationInterval: { number },
-  animationPreload: { boolean: bool },
-  axisColor: { string },
-  axisFontSize: { number: number },
-  axisFontType: { string: string },
-  backgroundColor: colorOptions,
-  xBarWidth: { number, undefined: "undefined" },
-  yBarWidth: { number, undefined: "undefined" },
-  cameraPosition: {
-    distance: { number },
-    horizontal: { number },
-    vertical: { number },
-    __type__: { object },
-  },
-  zoomable: { boolean: bool },
-  ctrlToZoom: { boolean: bool },
-  xCenter: { string },
-  yCenter: { string },
-  colormap: colormapOptions,
-  dataColor: colorOptions,
-  dotSizeMinFraction: { number },
-  dotSizeMaxFraction: { number },
-  dotSizeRatio: { number },
-  filterLabel: { string },
-  gridColor: { string },
-  onclick: { function: "function" },
-  keepAspectRatio: { boolean: bool },
-  xLabel: { string },
-  yLabel: { string },
-  zLabel: { string },
-  legendLabel: { string },
-  xMin: { number, undefined: "undefined" },
-  yMin: { number, undefined: "undefined" },
-  zMin: { number, undefined: "undefined" },
-  xMax: { number, undefined: "undefined" },
-  yMax: { number, undefined: "undefined" },
-  zMax: { number, undefined: "undefined" },
-  showAnimationControls: { boolean: bool, undefined: "undefined" },
-  showGrayBottom: { boolean: bool },
-  showGrid: { boolean: bool },
-  showLegend: { boolean: bool, undefined: "undefined" },
-  showPerspective: { boolean: bool },
-  showShadow: { boolean: bool },
-  showSurfaceGrid: { boolean: bool },
-  showXAxis: { boolean: bool },
-  showYAxis: { boolean: bool },
-  showZAxis: { boolean: bool },
-  rotateAxisLabels: { boolean: bool },
-  surfaceColors: surfaceColorsOptions,
-  xStep: { number, undefined: "undefined" },
-  yStep: { number, undefined: "undefined" },
-  zStep: { number, undefined: "undefined" },
-  style: {
-    number, // TODO: either Graph3d.DEFAULT has string, or number allowed in documentation
-    string: [
-      "bar",
-      "bar-color",
-      "bar-size",
-      "dot",
-      "dot-line",
-      "dot-color",
-      "dot-size",
-      "line",
-      "grid",
-      "surface",
-    ],
-  },
-  tooltip: { boolean: bool, function: "function" },
-  tooltipDelay: { number: number },
-  tooltipStyle: {
-    content: {
-      color: { string },
-      background: { string },
-      border: { string },
-      borderRadius: { string },
-      boxShadow: { string },
-      padding: { string },
-      __type__: { object },
-    },
-    line: {
-      borderLeft: { string },
-      height: { string },
-      width: { string },
-      pointerEvents: { string },
-      __type__: { object },
-    },
-    dot: {
-      border: { string },
-      borderRadius: { string },
-      height: { string },
-      width: { string },
-      pointerEvents: { string },
-      __type__: { object },
-    },
-    __type__: { object },
-  },
-  xValueLabel: { function: "function" },
-  yValueLabel: { function: "function" },
-  zValueLabel: { function: "function" },
-  valueMax: { number, undefined: "undefined" },
-  valueMin: { number, undefined: "undefined" },
-  verticalRatio: { number },
-
-  //globals :
-  height: { string },
-  width: { string },
-  __type__: { object },
-};
-
-/**
- * Helper class to make working with related min and max values easier.
- *
- * The range is inclusive; a given value is considered part of the range if:
- *
- *    this.min <= value <= this.max
- */
-function Range() {
-  this.min = undefined;
-  this.max = undefined;
-}
-
-/**
- * Adjust the range so that the passed value fits in it.
- *
- * If the value is outside of the current extremes, adjust
- * the min or max so that the value is within the range.
- * @param {number} value Numeric value to fit in range
- */
-Range.prototype.adjust = function (value) {
-  if (value === undefined) return;
-
-  if (this.min === undefined || this.min > value) {
-    this.min = value;
-  }
-
-  if (this.max === undefined || this.max < value) {
-    this.max = value;
-  }
-};
-
-/**
- * Adjust the current range so that the passed range fits in it.
- * @param {Range} range Range instance to fit in current instance
- */
-Range.prototype.combine = function (range) {
-  this.add(range.min);
-  this.add(range.max);
-};
-
-/**
- * Expand the range by the given value
- *
- * min will be lowered by given value;
- * max will be raised by given value
- *
- * Shrinking by passing a negative value is allowed.
- * @param {number} val Amount by which to expand or shrink current range with
- */
-Range.prototype.expand = function (val) {
-  if (val === undefined) {
-    return;
-  }
-
-  const newMin = this.min - val;
-  const newMax = this.max + val;
-
-  // Note that following allows newMin === newMax.
-  // This should be OK, since method expand() allows this also.
-  if (newMin > newMax) {
-    throw new Error("Passed expansion value makes range invalid");
-  }
-
-  this.min = newMin;
-  this.max = newMax;
-};
-
-/**
- * Determine the full range width of current instance.
- * @returns {num} The calculated width of this range
- */
-Range.prototype.range = function () {
-  return this.max - this.min;
-};
-
-/**
- * Determine the central point of current instance.
- * @returns {number} the value in the middle of min and max
- */
-Range.prototype.center = function () {
-  return (this.min + this.max) / 2;
-};
-
-/**
- * @class Filter
- * @param {DataGroup} dataGroup the data group
- * @param {number}  column             The index of the column to be filtered
- * @param {Graph3d} graph              The graph
- */
-function Filter(dataGroup, column, graph) {
-  this.dataGroup = dataGroup;
-  this.column = column;
-  this.graph = graph; // the parent graph
-
-  this.index = undefined;
-  this.value = undefined;
-
-  // read all distinct values and select the first one
-  this.values = dataGroup.getDistinctValues(this.column);
-
-  if (this.values.length > 0) {
-    this.selectValue(0);
-  }
-
-  // create an array with the filtered datapoints. this will be loaded afterwards
-  this.dataPoints = [];
-
-  this.loaded = false;
-  this.onLoadCallback = undefined;
-
-  if (graph.animationPreload) {
-    this.loaded = false;
-    this.loadInBackground();
-  } else {
-    this.loaded = true;
-  }
-}
-
-/**
- * Return the label
- * @returns {string} label
- */
-Filter.prototype.isLoaded = function () {
-  return this.loaded;
-};
-
-/**
- * Return the loaded progress
- * @returns {number} percentage between 0 and 100
- */
-Filter.prototype.getLoadedProgress = function () {
-  const len = this.values.length;
-
-  let i = 0;
-  while (this.dataPoints[i]) {
-    i++;
-  }
-
-  return Math.round((i / len) * 100);
-};
-
-/**
- * Return the label
- * @returns {string} label
- */
-Filter.prototype.getLabel = function () {
-  return this.graph.filterLabel;
-};
-
-/**
- * Return the columnIndex of the filter
- * @returns {number} columnIndex
- */
-Filter.prototype.getColumn = function () {
-  return this.column;
-};
-
-/**
- * Return the currently selected value. Returns undefined if there is no selection
- * @returns {*} value
- */
-Filter.prototype.getSelectedValue = function () {
-  if (this.index === undefined) return undefined;
-
-  return this.values[this.index];
-};
-
-/**
- * Retrieve all values of the filter
- * @returns {Array} values
- */
-Filter.prototype.getValues = function () {
-  return this.values;
-};
-
-/**
- * Retrieve one value of the filter
- * @param {number}  index
- * @returns {*} value
- */
-Filter.prototype.getValue = function (index) {
-  if (index >= this.values.length) throw new Error("Index out of range");
-
-  return this.values[index];
-};
-
-/**
- * Retrieve the (filtered) dataPoints for the currently selected filter index
- * @param {number} [index] (optional)
- * @returns {Array} dataPoints
- */
-Filter.prototype._getDataPoints = function (index) {
-  if (index === undefined) index = this.index;
-
-  if (index === undefined) return [];
-
-  let dataPoints;
-  if (this.dataPoints[index]) {
-    dataPoints = this.dataPoints[index];
-  } else {
-    const f = {};
-    f.column = this.column;
-    f.value = this.values[index];
-
-    const dataView = new DataView(this.dataGroup.getDataSet(), {
-      filter: function (item) {
-        return item[f.column] == f.value;
-      },
-    }).get();
-    dataPoints = this.dataGroup._getDataPoints(dataView);
-
-    this.dataPoints[index] = dataPoints;
-  }
-
-  return dataPoints;
-};
-
-/**
- * Set a callback function when the filter is fully loaded.
- * @param {Function} callback
- */
-Filter.prototype.setOnLoadCallback = function (callback) {
-  this.onLoadCallback = callback;
-};
-
-/**
- * Add a value to the list with available values for this filter
- * No double entries will be created.
- * @param {number} index
- */
-Filter.prototype.selectValue = function (index) {
-  if (index >= this.values.length) throw new Error("Index out of range");
-
-  this.index = index;
-  this.value = this.values[index];
-};
-
-/**
- * Load all filtered rows in the background one by one
- * Start this method without providing an index!
- * @param {number} [index]
- */
-Filter.prototype.loadInBackground = function (index) {
-  if (index === undefined) index = 0;
-
-  const frame = this.graph.frame;
-
-  if (index < this.values.length) {
-    // create a progress box
-    if (frame.progress === undefined) {
-      frame.progress = document.createElement("DIV");
-      frame.progress.style.position = "absolute";
-      frame.progress.style.color = "gray";
-      frame.appendChild(frame.progress);
-    }
-    const progress = this.getLoadedProgress();
-    frame.progress.innerHTML = "Loading animation... " + progress + "%";
-    // TODO: this is no nice solution...
-    frame.progress.style.bottom = 60 + "px"; // TODO: use height of slider
-    frame.progress.style.left = 10 + "px";
-
-    const me = this;
-    setTimeout(function () {
-      me.loadInBackground(index + 1);
-    }, 10);
-    this.loaded = false;
-  } else {
-    this.loaded = true;
-
-    // remove the progress box
-    if (frame.progress !== undefined) {
-      frame.removeChild(frame.progress);
-      frame.progress = undefined;
-    }
-
-    if (this.onLoadCallback) this.onLoadCallback();
-  }
-};
-
-/**
  * Creates a container for all data of one specific 3D-graph.
  *
  * On construction, the container is totally empty; the data
@@ -2094,7 +1400,7 @@ DataGroup.prototype.getDistinctValues = function (column, data) {
     }
   }
 
-  return values.sort(function (a, b) {
+  return values.toSorted(function (a, b) {
     return a - b;
   });
 };
@@ -2319,6 +1625,700 @@ DataGroup.prototype._getDataPoints = function (data) {
   }
 
   return dataPoints;
+};
+
+/**
+ * This object contains all possible options. It will check if the types are correct, if required if the option is one
+ * of the allowed values.
+ *
+ * __any__ means that the name of the property does not matter.
+ * __type__ is a required field for all objects and contains the allowed types of all objects
+ */
+const string = "string";
+const bool = "boolean";
+const number = "number";
+const object = "object"; // should only be in a __type__ property
+const array = "array";
+// Following not used here, but useful for reference
+//let dom      = 'dom';
+//let any      = 'any';
+
+const colorOptions = {
+  fill: { string },
+  stroke: { string },
+  strokeWidth: { number },
+  __type__: { string, object, undefined: "undefined" },
+};
+
+const surfaceColorsOptions = {
+  hue: {
+    start: { number },
+    end: { number },
+    saturation: { number },
+    brightness: { number },
+    colorStops: { number },
+    __type__: { object },
+  },
+  __type__: { boolean: bool, array, object, undefined: "undefined" },
+};
+
+const colormapOptions = {
+  hue: {
+    start: { number },
+    end: { number },
+    saturation: { number },
+    brightness: { number },
+    colorStops: { number },
+    __type__: { object },
+  },
+  __type__: { array, object, function: "function", undefined: "undefined" },
+};
+
+/**
+ * Order attempted to be alphabetical.
+ *   - x/y/z-prefixes ignored in sorting
+ *   - __type__ always at end
+ *   - globals at end
+ */
+const allOptions = {
+  animationAutoStart: { boolean: bool, undefined: "undefined" },
+  animationInterval: { number },
+  animationPreload: { boolean: bool },
+  axisColor: { string },
+  axisFontSize: { number: number },
+  axisFontType: { string: string },
+  backgroundColor: colorOptions,
+  xBarWidth: { number, undefined: "undefined" },
+  yBarWidth: { number, undefined: "undefined" },
+  cameraPosition: {
+    distance: { number },
+    horizontal: { number },
+    vertical: { number },
+    __type__: { object },
+  },
+  zoomable: { boolean: bool },
+  ctrlToZoom: { boolean: bool },
+  xCenter: { string },
+  yCenter: { string },
+  colormap: colormapOptions,
+  dataColor: colorOptions,
+  dotSizeMinFraction: { number },
+  dotSizeMaxFraction: { number },
+  dotSizeRatio: { number },
+  filterLabel: { string },
+  gridColor: { string },
+  onclick: { function: "function" },
+  keepAspectRatio: { boolean: bool },
+  xLabel: { string },
+  yLabel: { string },
+  zLabel: { string },
+  legendLabel: { string },
+  xMin: { number, undefined: "undefined" },
+  yMin: { number, undefined: "undefined" },
+  zMin: { number, undefined: "undefined" },
+  xMax: { number, undefined: "undefined" },
+  yMax: { number, undefined: "undefined" },
+  zMax: { number, undefined: "undefined" },
+  showAnimationControls: { boolean: bool, undefined: "undefined" },
+  showGrayBottom: { boolean: bool },
+  showGrid: { boolean: bool },
+  showLegend: { boolean: bool, undefined: "undefined" },
+  showPerspective: { boolean: bool },
+  showShadow: { boolean: bool },
+  showSurfaceGrid: { boolean: bool },
+  showXAxis: { boolean: bool },
+  showYAxis: { boolean: bool },
+  showZAxis: { boolean: bool },
+  rotateAxisLabels: { boolean: bool },
+  surfaceColors: surfaceColorsOptions,
+  xStep: { number, undefined: "undefined" },
+  yStep: { number, undefined: "undefined" },
+  zStep: { number, undefined: "undefined" },
+  style: {
+    number, // TODO: either Graph3d.DEFAULT has string, or number allowed in documentation
+    string: [
+      "bar",
+      "bar-color",
+      "bar-size",
+      "dot",
+      "dot-line",
+      "dot-color",
+      "dot-size",
+      "line",
+      "grid",
+      "surface",
+    ],
+  },
+  tooltip: { boolean: bool, function: "function" },
+  tooltipDelay: { number: number },
+  tooltipStyle: {
+    content: {
+      color: { string },
+      background: { string },
+      border: { string },
+      borderRadius: { string },
+      boxShadow: { string },
+      padding: { string },
+      __type__: { object },
+    },
+    line: {
+      borderLeft: { string },
+      height: { string },
+      width: { string },
+      pointerEvents: { string },
+      __type__: { object },
+    },
+    dot: {
+      border: { string },
+      borderRadius: { string },
+      height: { string },
+      width: { string },
+      pointerEvents: { string },
+      __type__: { object },
+    },
+    __type__: { object },
+  },
+  xValueLabel: { function: "function" },
+  yValueLabel: { function: "function" },
+  zValueLabel: { function: "function" },
+  valueMax: { number, undefined: "undefined" },
+  valueMin: { number, undefined: "undefined" },
+  verticalRatio: { number },
+
+  //globals :
+  height: { string },
+  width: { string },
+  __type__: { object },
+};
+
+/**
+ * @param {number} [x]
+ * @param {number} [y]
+ */
+function Point2d(x, y) {
+  this.x = x !== undefined ? x : 0;
+  this.y = y !== undefined ? y : 0;
+}
+
+/**
+ * An html slider control with start/stop/prev/next buttons
+ * @function Object() { [native code] } Slider
+ * @param {Element} container  The element where the slider will be created
+ * @param {object} options   Available options:
+ *                 {boolean} visible   If true (default) the
+ *                           slider is visible.
+ */
+function Slider(container, options) {
+  if (container === undefined) {
+    throw new Error("No container element defined");
+  }
+  this.container = container;
+  this.visible =
+    options && options.visible != undefined ? options.visible : true;
+
+  if (this.visible) {
+    this.frame = document.createElement("DIV");
+    //this.frame.style.backgroundColor = '#E5E5E5';
+    this.frame.style.width = "100%";
+    this.frame.style.position = "relative";
+    this.container.appendChild(this.frame);
+
+    this.frame.prev = document.createElement("INPUT");
+    this.frame.prev.type = "BUTTON";
+    this.frame.prev.value = "Prev";
+    this.frame.appendChild(this.frame.prev);
+
+    this.frame.play = document.createElement("INPUT");
+    this.frame.play.type = "BUTTON";
+    this.frame.play.value = "Play";
+    this.frame.appendChild(this.frame.play);
+
+    this.frame.next = document.createElement("INPUT");
+    this.frame.next.type = "BUTTON";
+    this.frame.next.value = "Next";
+    this.frame.appendChild(this.frame.next);
+
+    this.frame.bar = document.createElement("INPUT");
+    this.frame.bar.type = "BUTTON";
+    this.frame.bar.style.position = "absolute";
+    this.frame.bar.style.border = "1px solid red";
+    this.frame.bar.style.width = "100px";
+    this.frame.bar.style.height = "6px";
+    this.frame.bar.style.borderRadius = "2px";
+    this.frame.bar.style.MozBorderRadius = "2px";
+    this.frame.bar.style.border = "1px solid #7F7F7F";
+    this.frame.bar.style.backgroundColor = "#E5E5E5";
+    this.frame.appendChild(this.frame.bar);
+
+    this.frame.slide = document.createElement("INPUT");
+    this.frame.slide.type = "BUTTON";
+    this.frame.slide.style.margin = "0px";
+    this.frame.slide.value = " ";
+    this.frame.slide.style.position = "relative";
+    this.frame.slide.style.left = "-100px";
+    this.frame.appendChild(this.frame.slide);
+
+    // create events
+    const me = this;
+    this.frame.slide.onmousedown = function (event) {
+      me._onMouseDown(event);
+    };
+    this.frame.prev.onclick = function (event) {
+      me.prev(event);
+    };
+    this.frame.play.onclick = function (event) {
+      me.togglePlay(event);
+    };
+    this.frame.next.onclick = function (event) {
+      me.next(event);
+    };
+  }
+
+  this.onChangeCallback = undefined;
+
+  this.values = [];
+  this.index = undefined;
+
+  this.playTimeout = undefined;
+  this.playInterval = 1000; // milliseconds
+  this.playLoop = true;
+}
+
+/**
+ * Select the previous index
+ */
+Slider.prototype.prev = function () {
+  let index = this.getIndex();
+  if (index > 0) {
+    index--;
+    this.setIndex(index);
+  }
+};
+
+/**
+ * Select the next index
+ */
+Slider.prototype.next = function () {
+  let index = this.getIndex();
+  if (index < this.values.length - 1) {
+    index++;
+    this.setIndex(index);
+  }
+};
+
+/**
+ * Select the next index
+ */
+Slider.prototype.playNext = function () {
+  const start = new Date();
+
+  let index = this.getIndex();
+  if (index < this.values.length - 1) {
+    index++;
+    this.setIndex(index);
+  } else if (this.playLoop) {
+    // jump to the start
+    index = 0;
+    this.setIndex(index);
+  }
+
+  const end = new Date();
+  const diff = end - start;
+
+  // calculate how much time it to to set the index and to execute the callback
+  // function.
+  const interval = Math.max(this.playInterval - diff, 0);
+  // document.title = diff // TODO: cleanup
+
+  const me = this;
+  this.playTimeout = setTimeout(function () {
+    me.playNext();
+  }, interval);
+};
+
+/**
+ * Toggle start or stop playing
+ */
+Slider.prototype.togglePlay = function () {
+  if (this.playTimeout === undefined) {
+    this.play();
+  } else {
+    this.stop();
+  }
+};
+
+/**
+ * Start playing
+ */
+Slider.prototype.play = function () {
+  // Test whether already playing
+  if (this.playTimeout) return;
+
+  this.playNext();
+
+  if (this.frame) {
+    this.frame.play.value = "Stop";
+  }
+};
+
+/**
+ * Stop playing
+ */
+Slider.prototype.stop = function () {
+  clearInterval(this.playTimeout);
+  this.playTimeout = undefined;
+
+  if (this.frame) {
+    this.frame.play.value = "Play";
+  }
+};
+
+/**
+ * Set a callback function which will be triggered when the value of the
+ * slider bar has changed.
+ * @param {Function} callback
+ */
+Slider.prototype.setOnChangeCallback = function (callback) {
+  this.onChangeCallback = callback;
+};
+
+/**
+ * Set the interval for playing the list
+ * @param {number} interval   The interval in milliseconds
+ */
+Slider.prototype.setPlayInterval = function (interval) {
+  this.playInterval = interval;
+};
+
+/**
+ * Retrieve the current play interval
+ * @returns {number} interval   The interval in milliseconds
+ */
+Slider.prototype.getPlayInterval = function () {
+  return this.playInterval;
+};
+
+/**
+ * Set looping on or off
+ * @param {boolean} doLoop  If true, the slider will jump to the start when
+ *               the end is passed, and will jump to the end
+ *               when the start is passed.
+ */
+Slider.prototype.setPlayLoop = function (doLoop) {
+  this.playLoop = doLoop;
+};
+
+/**
+ * Execute the onchange callback function
+ */
+Slider.prototype.onChange = function () {
+  if (this.onChangeCallback !== undefined) {
+    this.onChangeCallback();
+  }
+};
+
+/**
+ * redraw the slider on the correct place
+ */
+Slider.prototype.redraw = function () {
+  if (this.frame) {
+    // resize the bar
+    this.frame.bar.style.top =
+      this.frame.clientHeight / 2 - this.frame.bar.offsetHeight / 2 + "px";
+    this.frame.bar.style.width =
+      this.frame.clientWidth -
+      this.frame.prev.clientWidth -
+      this.frame.play.clientWidth -
+      this.frame.next.clientWidth -
+      30 +
+      "px";
+
+    // position the slider button
+    const left = this.indexToLeft(this.index);
+    this.frame.slide.style.left = left + "px";
+  }
+};
+
+/**
+ * Set the list with values for the slider
+ * @param {Array} values   A javascript array with values (any type)
+ */
+Slider.prototype.setValues = function (values) {
+  this.values = values;
+
+  if (this.values.length > 0) this.setIndex(0);
+  else this.index = undefined;
+};
+
+/**
+ * Select a value by its index
+ * @param {number} index
+ */
+Slider.prototype.setIndex = function (index) {
+  if (index < this.values.length) {
+    this.index = index;
+
+    this.redraw();
+    this.onChange();
+  } else {
+    throw new Error("Index out of range");
+  }
+};
+
+/**
+ * retrieve the index of the currently selected vaue
+ * @returns {number} index
+ */
+Slider.prototype.getIndex = function () {
+  return this.index;
+};
+
+/**
+ * retrieve the currently selected value
+ * @returns {*} value
+ */
+Slider.prototype.get = function () {
+  return this.values[this.index];
+};
+
+Slider.prototype._onMouseDown = function (event) {
+  // only react on left mouse button down
+  const leftButtonDown = event.which ? event.which === 1 : event.button === 1;
+  if (!leftButtonDown) return;
+
+  this.startClientX = event.clientX;
+  this.startSlideX = parseFloat(this.frame.slide.style.left);
+
+  this.frame.style.cursor = "move";
+
+  // add event listeners to handle moving the contents
+  // we store the function onmousemove and onmouseup in the graph, so we can
+  // remove the eventlisteners lateron in the function mouseUp()
+  const me = this;
+  this.onmousemove = function (event) {
+    me._onMouseMove(event);
+  };
+  this.onmouseup = function (event) {
+    me._onMouseUp(event);
+  };
+  document.addEventListener("mousemove", this.onmousemove);
+  document.addEventListener("mouseup", this.onmouseup);
+  util.preventDefault(event);
+};
+
+Slider.prototype.leftToIndex = function (left) {
+  const width =
+    parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
+  const x = left - 3;
+
+  let index = Math.round((x / width) * (this.values.length - 1));
+  if (index < 0) index = 0;
+  if (index > this.values.length - 1) index = this.values.length - 1;
+
+  return index;
+};
+
+Slider.prototype.indexToLeft = function (index) {
+  const width =
+    parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
+
+  const x = (index / (this.values.length - 1)) * width;
+  const left = x + 3;
+
+  return left;
+};
+
+Slider.prototype._onMouseMove = function (event) {
+  const diff = event.clientX - this.startClientX;
+  const x = this.startSlideX + diff;
+
+  const index = this.leftToIndex(x);
+
+  this.setIndex(index);
+
+  util.preventDefault();
+};
+
+Slider.prototype._onMouseUp = function () {
+  this.frame.style.cursor = "auto";
+
+  // remove event listeners
+  document.removeEventListener("mousemove", this.onmousemove);
+  document.removeEventListener("mouseup", this.onmouseup);
+
+  util.preventDefault();
+};
+
+/**
+ * The class StepNumber is an iterator for Numbers. You provide a start and end
+ * value, and a best step size. StepNumber itself rounds to fixed values and
+ * a finds the step that best fits the provided step.
+ *
+ * If prettyStep is true, the step size is chosen as close as possible to the
+ * provided step, but being a round value like 1, 2, 5, 10, 20, 50, ....
+ *
+ * Example usage:
+ *   var step = new StepNumber(0, 10, 2.5, true);
+ *   step.start();
+ *   while (!step.end()) {
+ *   alert(step.getCurrent());
+ *   step.next();
+ *   }
+ *
+ * Version: 1.0
+ * @param {number} start     The start value
+ * @param {number} end     The end value
+ * @param {number} step    Optional. Step size. Must be a positive value.
+ * @param {boolean} prettyStep Optional. If true, the step size is rounded
+ *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
+ */
+function StepNumber(start, end, step, prettyStep) {
+  // set default values
+  this._start = 0;
+  this._end = 0;
+  this._step = 1;
+  this.prettyStep = true;
+  this.precision = 5;
+
+  this._current = 0;
+  this.setRange(start, end, step, prettyStep);
+}
+
+/**
+ * Check for input values, to prevent disasters from happening
+ *
+ * Source: http://stackoverflow.com/a/1830844
+ * @param {string} n
+ * @returns {boolean}
+ */
+StepNumber.prototype.isNumeric = function (n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+};
+
+/**
+ * Set a new range: start, end and step.
+ * @param {number} start     The start value
+ * @param {number} end     The end value
+ * @param {number} step    Optional. Step size. Must be a positive value.
+ * @param {boolean} prettyStep Optional. If true, the step size is rounded
+ *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
+ */
+StepNumber.prototype.setRange = function (start, end, step, prettyStep) {
+  if (!this.isNumeric(start)) {
+    throw new Error("Parameter 'start' is not numeric; value: " + start);
+  }
+  if (!this.isNumeric(end)) {
+    throw new Error("Parameter 'end' is not numeric; value: " + start);
+  }
+  if (!this.isNumeric(step)) {
+    throw new Error("Parameter 'step' is not numeric; value: " + start);
+  }
+
+  this._start = start ? start : 0;
+  this._end = end ? end : 0;
+
+  this.setStep(step, prettyStep);
+};
+
+/**
+ * Set a new step size
+ * @param {number} step    New step size. Must be a positive value
+ * @param {boolean} prettyStep Optional. If true, the provided step is rounded
+ *               to a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
+ */
+StepNumber.prototype.setStep = function (step, prettyStep) {
+  if (step === undefined || step <= 0) return;
+
+  if (prettyStep !== undefined) this.prettyStep = prettyStep;
+
+  if (this.prettyStep === true)
+    this._step = StepNumber.calculatePrettyStep(step);
+  else this._step = step;
+};
+
+/**
+ * Calculate a nice step size, closest to the desired step size.
+ * Returns a value in one of the ranges 1*10^n, 2*10^n, or 5*10^n, where n is an
+ * integer Number. For example 1, 2, 5, 10, 20, 50, etc...
+ * @param {number}  step  Desired step size
+ * @returns {number}     Nice step size
+ */
+StepNumber.calculatePrettyStep = function (step) {
+  const log10 = function (x) {
+    return Math.log(x) / Math.LN10;
+  };
+
+  // try three steps (multiple of 1, 2, or 5
+  const step1 = Math.pow(10, Math.round(log10(step))),
+    step2 = 2 * Math.pow(10, Math.round(log10(step / 2))),
+    step5 = 5 * Math.pow(10, Math.round(log10(step / 5)));
+
+  // choose the best step (closest to minimum step)
+  let prettyStep = step1;
+  if (Math.abs(step2 - step) <= Math.abs(prettyStep - step)) prettyStep = step2;
+  if (Math.abs(step5 - step) <= Math.abs(prettyStep - step)) prettyStep = step5;
+
+  // for safety
+  if (prettyStep <= 0) {
+    prettyStep = 1;
+  }
+
+  return prettyStep;
+};
+
+/**
+ * returns the current value of the step
+ * @returns {number} current value
+ */
+StepNumber.prototype.getCurrent = function () {
+  return parseFloat(this._current.toPrecision(this.precision));
+};
+
+/**
+ * returns the current step size
+ * @returns {number} current step size
+ */
+StepNumber.prototype.getStep = function () {
+  return this._step;
+};
+
+/**
+ * Set the current to its starting value.
+ *
+ * By default, this will be the largest value smaller than start, which
+ * is a multiple of the step size.
+ *
+ * Parameters checkFirst is optional, default false.
+ * If set to true, move the current value one step if smaller than start.
+ * @param {boolean} [checkFirst]
+ */
+StepNumber.prototype.start = function (checkFirst) {
+  if (checkFirst === undefined) {
+    checkFirst = false;
+  }
+
+  this._current = this._start - (this._start % this._step);
+
+  if (checkFirst) {
+    if (this.getCurrent() < this._start) {
+      this.next();
+    }
+  }
+};
+
+/**
+ * Do a step, add the step size to the current value
+ */
+StepNumber.prototype.next = function () {
+  this._current += this._step;
+};
+
+/**
+ * Returns true whether the end is reached
+ * @returns {boolean}  True if the current value has passed the end value.
+ */
+StepNumber.prototype.end = function () {
+  return this._current > this._end;
 };
 
 /// enumerate the available styles

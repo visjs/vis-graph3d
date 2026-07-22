@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2026-07-22T15:35:09.004Z
+ * @date    2026-07-22T15:41:12.568Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -33,6 +33,32 @@
 
 	function getDefaultExportFromCjs (x) {
 		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+	}
+
+	var es_math_sign = {};
+
+	var globalThis_1;
+	var hasRequiredGlobalThis;
+
+	function requireGlobalThis () {
+		if (hasRequiredGlobalThis) return globalThis_1;
+		hasRequiredGlobalThis = 1;
+		var check = function (it) {
+		  return it && it.Math === Math && it;
+		};
+
+		// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+		globalThis_1 =
+		  // eslint-disable-next-line es/no-global-this -- safe
+		  check(typeof globalThis == 'object' && globalThis) ||
+		  check(typeof window == 'object' && window) ||
+		  // eslint-disable-next-line no-restricted-globals -- safe
+		  check(typeof self == 'object' && self) ||
+		  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
+		  check(typeof globalThis_1 == 'object' && globalThis_1) ||
+		  // eslint-disable-next-line no-new-func -- fallback
+		  (function () { return this; })() || Function('return this')();
+		return globalThis_1;
 	}
 
 	var fails;
@@ -68,6 +94,25 @@
 		return functionBindNative;
 	}
 
+	var functionApply;
+	var hasRequiredFunctionApply;
+
+	function requireFunctionApply () {
+		if (hasRequiredFunctionApply) return functionApply;
+		hasRequiredFunctionApply = 1;
+		var NATIVE_BIND = /*@__PURE__*/ requireFunctionBindNative();
+
+		var FunctionPrototype = Function.prototype;
+		var apply = FunctionPrototype.apply;
+		var call = FunctionPrototype.call;
+
+		// eslint-disable-next-line es/no-function-prototype-bind, es/no-reflect -- safe
+		functionApply = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
+		  return call.apply(apply, arguments);
+		});
+		return functionApply;
+	}
+
 	var functionUncurryThis;
 	var hasRequiredFunctionUncurryThis;
 
@@ -87,63 +132,6 @@
 		  };
 		};
 		return functionUncurryThis;
-	}
-
-	var objectIsPrototypeOf;
-	var hasRequiredObjectIsPrototypeOf;
-
-	function requireObjectIsPrototypeOf () {
-		if (hasRequiredObjectIsPrototypeOf) return objectIsPrototypeOf;
-		hasRequiredObjectIsPrototypeOf = 1;
-		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
-
-		objectIsPrototypeOf = uncurryThis({}.isPrototypeOf);
-		return objectIsPrototypeOf;
-	}
-
-	var es_array_sort = {};
-
-	var globalThis_1;
-	var hasRequiredGlobalThis;
-
-	function requireGlobalThis () {
-		if (hasRequiredGlobalThis) return globalThis_1;
-		hasRequiredGlobalThis = 1;
-		var check = function (it) {
-		  return it && it.Math === Math && it;
-		};
-
-		// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-		globalThis_1 =
-		  // eslint-disable-next-line es/no-global-this -- safe
-		  check(typeof globalThis == 'object' && globalThis) ||
-		  check(typeof window == 'object' && window) ||
-		  // eslint-disable-next-line no-restricted-globals -- safe
-		  check(typeof self == 'object' && self) ||
-		  check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
-		  check(typeof globalThis_1 == 'object' && globalThis_1) ||
-		  // eslint-disable-next-line no-new-func -- fallback
-		  (function () { return this; })() || Function('return this')();
-		return globalThis_1;
-	}
-
-	var functionApply;
-	var hasRequiredFunctionApply;
-
-	function requireFunctionApply () {
-		if (hasRequiredFunctionApply) return functionApply;
-		hasRequiredFunctionApply = 1;
-		var NATIVE_BIND = /*@__PURE__*/ requireFunctionBindNative();
-
-		var FunctionPrototype = Function.prototype;
-		var apply = FunctionPrototype.apply;
-		var call = FunctionPrototype.call;
-
-		// eslint-disable-next-line es/no-function-prototype-bind, es/no-reflect -- safe
-		functionApply = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
-		  return call.apply(apply, arguments);
-		});
-		return functionApply;
 	}
 
 	var classofRaw;
@@ -391,6 +379,18 @@
 		    : path[namespace] && path[namespace][method] || globalThis[namespace] && globalThis[namespace][method];
 		};
 		return getBuiltIn;
+	}
+
+	var objectIsPrototypeOf;
+	var hasRequiredObjectIsPrototypeOf;
+
+	function requireObjectIsPrototypeOf () {
+		if (hasRequiredObjectIsPrototypeOf) return objectIsPrototypeOf;
+		hasRequiredObjectIsPrototypeOf = 1;
+		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+
+		objectIsPrototypeOf = uncurryThis({}.isPrototypeOf);
+		return objectIsPrototypeOf;
 	}
 
 	var environmentUserAgent;
@@ -1135,6 +1135,513 @@
 		return _export;
 	}
 
+	var mathSign;
+	var hasRequiredMathSign;
+
+	function requireMathSign () {
+		if (hasRequiredMathSign) return mathSign;
+		hasRequiredMathSign = 1;
+		// `Math.sign` method implementation
+		// https://tc39.es/ecma262/#sec-math.sign
+		// eslint-disable-next-line es/no-math-sign -- safe
+		mathSign = Math.sign || function sign(x) {
+		  var n = +x;
+		  // eslint-disable-next-line no-self-compare -- NaN check
+		  return n === 0 || n !== n ? n : n < 0 ? -1 : 1;
+		};
+		return mathSign;
+	}
+
+	var hasRequiredEs_math_sign;
+
+	function requireEs_math_sign () {
+		if (hasRequiredEs_math_sign) return es_math_sign;
+		hasRequiredEs_math_sign = 1;
+		var $ = /*@__PURE__*/ require_export();
+		var sign = /*@__PURE__*/ requireMathSign();
+
+		// `Math.sign` method
+		// https://tc39.es/ecma262/#sec-math.sign
+		$({ target: 'Math', stat: true }, {
+		  sign: sign
+		});
+		return es_math_sign;
+	}
+
+	var sign$2;
+	var hasRequiredSign$2;
+
+	function requireSign$2 () {
+		if (hasRequiredSign$2) return sign$2;
+		hasRequiredSign$2 = 1;
+		requireEs_math_sign();
+		var path = /*@__PURE__*/ requirePath();
+
+		sign$2 = path.Math.sign;
+		return sign$2;
+	}
+
+	var sign$1;
+	var hasRequiredSign$1;
+
+	function requireSign$1 () {
+		if (hasRequiredSign$1) return sign$1;
+		hasRequiredSign$1 = 1;
+		var parent = /*@__PURE__*/ requireSign$2();
+
+		sign$1 = parent;
+		return sign$1;
+	}
+
+	var sign;
+	var hasRequiredSign;
+
+	function requireSign () {
+		if (hasRequiredSign) return sign;
+		hasRequiredSign = 1;
+		sign = /*@__PURE__*/ requireSign$1();
+		return sign;
+	}
+
+	var signExports = requireSign();
+	var _Math$sign = /*@__PURE__*/getDefaultExportFromCjs(signExports);
+
+	/**
+	 * @param {number} [x]
+	 * @param {number} [y]
+	 * @param {number} [z]
+	 */
+	function Point3d(x, y, z) {
+	  this.x = x !== undefined ? x : 0;
+	  this.y = y !== undefined ? y : 0;
+	  this.z = z !== undefined ? z : 0;
+	}
+
+	/**
+	 * Subtract the two provided points, returns a-b
+	 * @param {Point3d} a
+	 * @param {Point3d} b
+	 * @returns {Point3d} a-b
+	 */
+	Point3d.subtract = function (a, b) {
+	  const sub = new Point3d();
+	  sub.x = a.x - b.x;
+	  sub.y = a.y - b.y;
+	  sub.z = a.z - b.z;
+	  return sub;
+	};
+
+	/**
+	 * Add the two provided points, returns a+b
+	 * @param {Point3d} a
+	 * @param {Point3d} b
+	 * @returns {Point3d} a+b
+	 */
+	Point3d.add = function (a, b) {
+	  const sum = new Point3d();
+	  sum.x = a.x + b.x;
+	  sum.y = a.y + b.y;
+	  sum.z = a.z + b.z;
+	  return sum;
+	};
+
+	/**
+	 * Calculate the average of two 3d points
+	 * @param {Point3d} a
+	 * @param {Point3d} b
+	 * @returns {Point3d} The average, (a+b)/2
+	 */
+	Point3d.avg = function (a, b) {
+	  return new Point3d((a.x + b.x) / 2, (a.y + b.y) / 2, (a.z + b.z) / 2);
+	};
+
+	/**
+	 * Scale the provided point by a scalar, returns p*c
+	 * @param {Point3d} p
+	 * @param {number} c
+	 * @returns {Point3d} p*c
+	 */
+	Point3d.scalarProduct = function (p, c) {
+	  return new Point3d(p.x * c, p.y * c, p.z * c);
+	};
+
+	/**
+	 * Calculate the dot product of the two provided points, returns a.b
+	 * Documentation: http://en.wikipedia.org/wiki/Dot_product
+	 * @param {Point3d} a
+	 * @param {Point3d} b
+	 * @returns {Point3d} dot product a.b
+	 */
+	Point3d.dotProduct = function (a, b) {
+	  return a.x * b.x + a.y * b.y + a.z * b.z;
+	};
+
+	/**
+	 * Calculate the cross product of the two provided points, returns axb
+	 * Documentation: http://en.wikipedia.org/wiki/Cross_product
+	 * @param {Point3d} a
+	 * @param {Point3d} b
+	 * @returns {Point3d} cross product axb
+	 */
+	Point3d.crossProduct = function (a, b) {
+	  const crossproduct = new Point3d();
+	  crossproduct.x = a.y * b.z - a.z * b.y;
+	  crossproduct.y = a.z * b.x - a.x * b.z;
+	  crossproduct.z = a.x * b.y - a.y * b.x;
+	  return crossproduct;
+	};
+
+	/**
+	 * Retrieve the length of the vector (or the distance from this point to the origin
+	 * @returns {number}  length
+	 */
+	Point3d.prototype.length = function () {
+	  return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+	};
+
+	/**
+	 * Return a normalized vector pointing in the same direction.
+	 * @returns {Point3d}  normalized
+	 */
+	Point3d.prototype.normalize = function () {
+	  return Point3d.scalarProduct(this, 1 / this.length());
+	};
+
+	/**
+	 * The camera is mounted on a (virtual) camera arm. The camera arm can rotate
+	 * The camera is always looking in the direction of the origin of the arm.
+	 * This way, the camera always rotates around one fixed point, the location
+	 * of the camera arm.
+	 *
+	 * Documentation:
+	 * http://en.wikipedia.org/wiki/3D_projection
+	 * @class Camera
+	 */
+	function Camera() {
+	  this.armLocation = new Point3d();
+	  this.armRotation = {};
+	  this.armRotation.horizontal = 0;
+	  this.armRotation.vertical = 0;
+	  this.armLength = 1.7;
+	  this.cameraOffset = new Point3d();
+	  this.offsetMultiplier = 0.6;
+	  this.cameraLocation = new Point3d();
+	  this.cameraRotation = new Point3d(0.5 * Math.PI, 0, 0);
+	  this.calculateCameraOrientation();
+	}
+
+	/**
+	 * Set offset camera in camera coordinates
+	 * @param {number} x offset by camera horisontal
+	 * @param {number} y offset by camera vertical
+	 */
+	Camera.prototype.setOffset = function (x, y) {
+	  const abs = Math.abs,
+	    sign = _Math$sign,
+	    mul = this.offsetMultiplier,
+	    border = this.armLength * mul;
+	  if (abs(x) > border) {
+	    x = sign(x) * border;
+	  }
+	  if (abs(y) > border) {
+	    y = sign(y) * border;
+	  }
+	  this.cameraOffset.x = x;
+	  this.cameraOffset.y = y;
+	  this.calculateCameraOrientation();
+	};
+
+	/**
+	 * Get camera offset by horizontal and vertical
+	 * @returns {number}
+	 */
+	Camera.prototype.getOffset = function () {
+	  return this.cameraOffset;
+	};
+
+	/**
+	 * Set the location (origin) of the arm
+	 * @param {number} x  Normalized value of x
+	 * @param {number} y  Normalized value of y
+	 * @param {number} z  Normalized value of z
+	 */
+	Camera.prototype.setArmLocation = function (x, y, z) {
+	  this.armLocation.x = x;
+	  this.armLocation.y = y;
+	  this.armLocation.z = z;
+	  this.calculateCameraOrientation();
+	};
+
+	/**
+	 * Set the rotation of the camera arm
+	 * @param {number} horizontal   The horizontal rotation, between 0 and 2*PI.
+	 *                Optional, can be left undefined.
+	 * @param {number} vertical   The vertical rotation, between 0 and 0.5*PI
+	 *                if vertical=0.5*PI, the graph is shown from the
+	 *                top. Optional, can be left undefined.
+	 */
+	Camera.prototype.setArmRotation = function (horizontal, vertical) {
+	  if (horizontal !== undefined) {
+	    this.armRotation.horizontal = horizontal;
+	  }
+	  if (vertical !== undefined) {
+	    this.armRotation.vertical = vertical;
+	    if (this.armRotation.vertical < 0) this.armRotation.vertical = 0;
+	    if (this.armRotation.vertical > 0.5 * Math.PI) this.armRotation.vertical = 0.5 * Math.PI;
+	  }
+	  if (horizontal !== undefined || vertical !== undefined) {
+	    this.calculateCameraOrientation();
+	  }
+	};
+
+	/**
+	 * Retrieve the current arm rotation
+	 * @returns {object}   An object with parameters horizontal and vertical
+	 */
+	Camera.prototype.getArmRotation = function () {
+	  const rot = {};
+	  rot.horizontal = this.armRotation.horizontal;
+	  rot.vertical = this.armRotation.vertical;
+	  return rot;
+	};
+
+	/**
+	 * Set the (normalized) length of the camera arm.
+	 * @param {number} length A length between 0.71 and 5.0
+	 */
+	Camera.prototype.setArmLength = function (length) {
+	  if (length === undefined) return;
+	  this.armLength = length;
+
+	  // Radius must be larger than the corner of the graph,
+	  // which has a distance of sqrt(0.5^2+0.5^2) = 0.71 from the center of the
+	  // graph
+	  if (this.armLength < 0.71) this.armLength = 0.71;
+	  if (this.armLength > 5.0) this.armLength = 5.0;
+	  this.setOffset(this.cameraOffset.x, this.cameraOffset.y);
+	  this.calculateCameraOrientation();
+	};
+
+	/**
+	 * Retrieve the arm length
+	 * @returns {number} length
+	 */
+	Camera.prototype.getArmLength = function () {
+	  return this.armLength;
+	};
+
+	/**
+	 * Retrieve the camera location
+	 * @returns {Point3d} cameraLocation
+	 */
+	Camera.prototype.getCameraLocation = function () {
+	  return this.cameraLocation;
+	};
+
+	/**
+	 * Retrieve the camera rotation
+	 * @returns {Point3d} cameraRotation
+	 */
+	Camera.prototype.getCameraRotation = function () {
+	  return this.cameraRotation;
+	};
+
+	/**
+	 * Calculate the location and rotation of the camera based on the
+	 * position and orientation of the camera arm
+	 */
+	Camera.prototype.calculateCameraOrientation = function () {
+	  // calculate location of the camera
+	  this.cameraLocation.x = this.armLocation.x - this.armLength * Math.sin(this.armRotation.horizontal) * Math.cos(this.armRotation.vertical);
+	  this.cameraLocation.y = this.armLocation.y - this.armLength * Math.cos(this.armRotation.horizontal) * Math.cos(this.armRotation.vertical);
+	  this.cameraLocation.z = this.armLocation.z + this.armLength * Math.sin(this.armRotation.vertical);
+
+	  // calculate rotation of the camera
+	  this.cameraRotation.x = Math.PI / 2 - this.armRotation.vertical;
+	  this.cameraRotation.y = 0;
+	  this.cameraRotation.z = -this.armRotation.horizontal;
+	  const xa = this.cameraRotation.x;
+	  const za = this.cameraRotation.z;
+	  const dx = this.cameraOffset.x;
+	  const dy = this.cameraOffset.y;
+	  const sin = Math.sin,
+	    cos = Math.cos;
+	  this.cameraLocation.x = this.cameraLocation.x + dx * cos(za) + dy * -sin(za) * cos(xa);
+	  this.cameraLocation.y = this.cameraLocation.y + dx * sin(za) + dy * cos(za) * cos(xa);
+	  this.cameraLocation.z = this.cameraLocation.z + dy * sin(xa);
+	};
+
+	var web_domCollections_iterator = {};
+
+	var addToUnscopables;
+	var hasRequiredAddToUnscopables;
+
+	function requireAddToUnscopables () {
+		if (hasRequiredAddToUnscopables) return addToUnscopables;
+		hasRequiredAddToUnscopables = 1;
+		addToUnscopables = function () { /* empty */ };
+		return addToUnscopables;
+	}
+
+	var iterators;
+	var hasRequiredIterators;
+
+	function requireIterators () {
+		if (hasRequiredIterators) return iterators;
+		hasRequiredIterators = 1;
+		iterators = {};
+		return iterators;
+	}
+
+	var weakMapBasicDetection;
+	var hasRequiredWeakMapBasicDetection;
+
+	function requireWeakMapBasicDetection () {
+		if (hasRequiredWeakMapBasicDetection) return weakMapBasicDetection;
+		hasRequiredWeakMapBasicDetection = 1;
+		var globalThis = /*@__PURE__*/ requireGlobalThis();
+		var isCallable = /*@__PURE__*/ requireIsCallable();
+
+		var WeakMap = globalThis.WeakMap;
+
+		weakMapBasicDetection = isCallable(WeakMap) && /native code/.test(String(WeakMap));
+		return weakMapBasicDetection;
+	}
+
+	var sharedKey;
+	var hasRequiredSharedKey;
+
+	function requireSharedKey () {
+		if (hasRequiredSharedKey) return sharedKey;
+		hasRequiredSharedKey = 1;
+		var shared = /*@__PURE__*/ requireShared();
+		var uid = /*@__PURE__*/ requireUid();
+
+		var keys = shared('keys');
+
+		sharedKey = function (key) {
+		  return keys[key] || (keys[key] = uid(key));
+		};
+		return sharedKey;
+	}
+
+	var hiddenKeys;
+	var hasRequiredHiddenKeys;
+
+	function requireHiddenKeys () {
+		if (hasRequiredHiddenKeys) return hiddenKeys;
+		hasRequiredHiddenKeys = 1;
+		hiddenKeys = {};
+		return hiddenKeys;
+	}
+
+	var internalState;
+	var hasRequiredInternalState;
+
+	function requireInternalState () {
+		if (hasRequiredInternalState) return internalState;
+		hasRequiredInternalState = 1;
+		var NATIVE_WEAK_MAP = /*@__PURE__*/ requireWeakMapBasicDetection();
+		var globalThis = /*@__PURE__*/ requireGlobalThis();
+		var isObject = /*@__PURE__*/ requireIsObject();
+		var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
+		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+		var shared = /*@__PURE__*/ requireSharedStore();
+		var sharedKey = /*@__PURE__*/ requireSharedKey();
+		var hiddenKeys = /*@__PURE__*/ requireHiddenKeys();
+
+		var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
+		var TypeError = globalThis.TypeError;
+		var WeakMap = globalThis.WeakMap;
+		var set, get, has;
+
+		var enforce = function (it) {
+		  return has(it) ? get(it) : set(it, {});
+		};
+
+		var getterFor = function (TYPE) {
+		  return function (it) {
+		    var state;
+		    if (!isObject(it) || (state = get(it)).type !== TYPE) {
+		      throw new TypeError('Incompatible receiver, ' + TYPE + ' required');
+		    } return state;
+		  };
+		};
+
+		if (NATIVE_WEAK_MAP || shared.state) {
+		  var store = shared.state || (shared.state = new WeakMap());
+		  /* eslint-disable no-self-assign -- prototype methods protection */
+		  store.get = store.get;
+		  store.has = store.has;
+		  store.set = store.set;
+		  /* eslint-enable no-self-assign -- prototype methods protection */
+		  set = function (it, metadata) {
+		    if (store.has(it)) throw new TypeError(OBJECT_ALREADY_INITIALIZED);
+		    metadata.facade = it;
+		    store.set(it, metadata);
+		    return metadata;
+		  };
+		  get = function (it) {
+		    return store.get(it) || {};
+		  };
+		  has = function (it) {
+		    return store.has(it);
+		  };
+		} else {
+		  var STATE = sharedKey('state');
+		  hiddenKeys[STATE] = true;
+		  set = function (it, metadata) {
+		    if (hasOwn(it, STATE)) throw new TypeError(OBJECT_ALREADY_INITIALIZED);
+		    metadata.facade = it;
+		    createNonEnumerableProperty(it, STATE, metadata);
+		    return metadata;
+		  };
+		  get = function (it) {
+		    return hasOwn(it, STATE) ? it[STATE] : {};
+		  };
+		  has = function (it) {
+		    return hasOwn(it, STATE);
+		  };
+		}
+
+		internalState = {
+		  set: set,
+		  get: get,
+		  has: has,
+		  enforce: enforce,
+		  getterFor: getterFor
+		};
+		return internalState;
+	}
+
+	var functionName;
+	var hasRequiredFunctionName;
+
+	function requireFunctionName () {
+		if (hasRequiredFunctionName) return functionName;
+		hasRequiredFunctionName = 1;
+		var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+
+		var FunctionPrototype = Function.prototype;
+		// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+		var getDescriptor = DESCRIPTORS && Object.getOwnPropertyDescriptor;
+
+		var EXISTS = hasOwn(FunctionPrototype, 'name');
+		// additional protection from minified / mangled / dropped function names
+		var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
+		var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
+
+		functionName = {
+		  EXISTS: EXISTS,
+		  PROPER: PROPER,
+		  CONFIGURABLE: CONFIGURABLE
+		};
+		return functionName;
+	}
+
+	var objectDefineProperties = {};
+
 	var mathTrunc;
 	var hasRequiredMathTrunc;
 
@@ -1172,6 +1679,27 @@
 		return toIntegerOrInfinity;
 	}
 
+	var toAbsoluteIndex;
+	var hasRequiredToAbsoluteIndex;
+
+	function requireToAbsoluteIndex () {
+		if (hasRequiredToAbsoluteIndex) return toAbsoluteIndex;
+		hasRequiredToAbsoluteIndex = 1;
+		var toIntegerOrInfinity = /*@__PURE__*/ requireToIntegerOrInfinity();
+
+		var max = Math.max;
+		var min = Math.min;
+
+		// Helper for a popular repeating case of the spec:
+		// Let integer be ? ToInteger(index).
+		// If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
+		toAbsoluteIndex = function (index, length) {
+		  var integer = toIntegerOrInfinity(index);
+		  return integer < 0 ? max(integer + length, 0) : min(integer, length);
+		};
+		return toAbsoluteIndex;
+	}
+
 	var toLength;
 	var hasRequiredToLength;
 
@@ -1207,20 +1735,365 @@
 		return lengthOfArrayLike;
 	}
 
-	var deletePropertyOrThrow;
-	var hasRequiredDeletePropertyOrThrow;
+	var arrayIncludes;
+	var hasRequiredArrayIncludes;
 
-	function requireDeletePropertyOrThrow () {
-		if (hasRequiredDeletePropertyOrThrow) return deletePropertyOrThrow;
-		hasRequiredDeletePropertyOrThrow = 1;
-		var tryToString = /*@__PURE__*/ requireTryToString();
+	function requireArrayIncludes () {
+		if (hasRequiredArrayIncludes) return arrayIncludes;
+		hasRequiredArrayIncludes = 1;
+		var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+		var toAbsoluteIndex = /*@__PURE__*/ requireToAbsoluteIndex();
+		var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
 
-		var $TypeError = TypeError;
-
-		deletePropertyOrThrow = function (O, P) {
-		  if (!delete O[P]) throw new $TypeError('Cannot delete property ' + tryToString(P) + ' of ' + tryToString(O));
+		// `Array.prototype.{ indexOf, includes }` methods implementation
+		var createMethod = function (IS_INCLUDES) {
+		  return function ($this, el, fromIndex) {
+		    var O = toIndexedObject($this);
+		    var length = lengthOfArrayLike(O);
+		    if (length === 0) return !IS_INCLUDES && -1;
+		    var index = toAbsoluteIndex(fromIndex, length);
+		    var value;
+		    // Array#includes uses SameValueZero equality algorithm
+		    // eslint-disable-next-line no-self-compare -- NaN check
+		    if (IS_INCLUDES && el !== el) while (length > index) {
+		      value = O[index++];
+		      // eslint-disable-next-line no-self-compare -- NaN check
+		      if (value !== value) return true;
+		    // Array#indexOf ignores holes, Array#includes - not
+		    } else for (;length > index; index++) {
+		      if ((IS_INCLUDES || index in O) && O[index] === el) return IS_INCLUDES || index || 0;
+		    } return !IS_INCLUDES && -1;
+		  };
 		};
-		return deletePropertyOrThrow;
+
+		arrayIncludes = {
+		  // `Array.prototype.includes` method
+		  // https://tc39.es/ecma262/#sec-array.prototype.includes
+		  includes: createMethod(true),
+		  // `Array.prototype.indexOf` method
+		  // https://tc39.es/ecma262/#sec-array.prototype.indexof
+		  indexOf: createMethod(false)
+		};
+		return arrayIncludes;
+	}
+
+	var objectKeysInternal;
+	var hasRequiredObjectKeysInternal;
+
+	function requireObjectKeysInternal () {
+		if (hasRequiredObjectKeysInternal) return objectKeysInternal;
+		hasRequiredObjectKeysInternal = 1;
+		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+		var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+		var indexOf = /*@__PURE__*/ requireArrayIncludes().indexOf;
+		var hiddenKeys = /*@__PURE__*/ requireHiddenKeys();
+
+		var push = uncurryThis([].push);
+
+		objectKeysInternal = function (object, names) {
+		  var O = toIndexedObject(object);
+		  var i = 0;
+		  var result = [];
+		  var key;
+		  for (key in O) !hasOwn(hiddenKeys, key) && hasOwn(O, key) && push(result, key);
+		  // Don't enum bug & hidden keys
+		  while (names.length > i) if (hasOwn(O, key = names[i++])) {
+		    ~indexOf(result, key) || push(result, key);
+		  }
+		  return result;
+		};
+		return objectKeysInternal;
+	}
+
+	var enumBugKeys;
+	var hasRequiredEnumBugKeys;
+
+	function requireEnumBugKeys () {
+		if (hasRequiredEnumBugKeys) return enumBugKeys;
+		hasRequiredEnumBugKeys = 1;
+		// IE8- don't enum bug keys
+		enumBugKeys = [
+		  'constructor',
+		  'hasOwnProperty',
+		  'isPrototypeOf',
+		  'propertyIsEnumerable',
+		  'toLocaleString',
+		  'toString',
+		  'valueOf'
+		];
+		return enumBugKeys;
+	}
+
+	var objectKeys;
+	var hasRequiredObjectKeys;
+
+	function requireObjectKeys () {
+		if (hasRequiredObjectKeys) return objectKeys;
+		hasRequiredObjectKeys = 1;
+		var internalObjectKeys = /*@__PURE__*/ requireObjectKeysInternal();
+		var enumBugKeys = /*@__PURE__*/ requireEnumBugKeys();
+
+		// `Object.keys` method
+		// https://tc39.es/ecma262/#sec-object.keys
+		// eslint-disable-next-line es/no-object-keys -- safe
+		objectKeys = Object.keys || function keys(O) {
+		  return internalObjectKeys(O, enumBugKeys);
+		};
+		return objectKeys;
+	}
+
+	var hasRequiredObjectDefineProperties;
+
+	function requireObjectDefineProperties () {
+		if (hasRequiredObjectDefineProperties) return objectDefineProperties;
+		hasRequiredObjectDefineProperties = 1;
+		var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+		var V8_PROTOTYPE_DEFINE_BUG = /*@__PURE__*/ requireV8PrototypeDefineBug();
+		var definePropertyModule = /*@__PURE__*/ requireObjectDefineProperty();
+		var anObject = /*@__PURE__*/ requireAnObject();
+		var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+		var objectKeys = /*@__PURE__*/ requireObjectKeys();
+
+		// `Object.defineProperties` method
+		// https://tc39.es/ecma262/#sec-object.defineproperties
+		// eslint-disable-next-line es/no-object-defineproperties -- safe
+		objectDefineProperties.f = DESCRIPTORS && !V8_PROTOTYPE_DEFINE_BUG ? Object.defineProperties : function defineProperties(O, Properties) {
+		  anObject(O);
+		  var props = toIndexedObject(Properties);
+		  var keys = objectKeys(Properties);
+		  var length = keys.length;
+		  var index = 0;
+		  var key;
+		  while (length > index) definePropertyModule.f(O, key = keys[index++], props[key]);
+		  return O;
+		};
+		return objectDefineProperties;
+	}
+
+	var html;
+	var hasRequiredHtml;
+
+	function requireHtml () {
+		if (hasRequiredHtml) return html;
+		hasRequiredHtml = 1;
+		var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
+
+		html = getBuiltIn('document', 'documentElement');
+		return html;
+	}
+
+	var objectCreate;
+	var hasRequiredObjectCreate;
+
+	function requireObjectCreate () {
+		if (hasRequiredObjectCreate) return objectCreate;
+		hasRequiredObjectCreate = 1;
+		/* global ActiveXObject -- old IE, WSH */
+		var anObject = /*@__PURE__*/ requireAnObject();
+		var definePropertiesModule = /*@__PURE__*/ requireObjectDefineProperties();
+		var enumBugKeys = /*@__PURE__*/ requireEnumBugKeys();
+		var hiddenKeys = /*@__PURE__*/ requireHiddenKeys();
+		var html = /*@__PURE__*/ requireHtml();
+		var documentCreateElement = /*@__PURE__*/ requireDocumentCreateElement();
+		var sharedKey = /*@__PURE__*/ requireSharedKey();
+
+		var GT = '>';
+		var LT = '<';
+		var PROTOTYPE = 'prototype';
+		var SCRIPT = 'script';
+		var IE_PROTO = sharedKey('IE_PROTO');
+
+		var EmptyConstructor = function () { /* empty */ };
+
+		var scriptTag = function (content) {
+		  return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
+		};
+
+		// Create object with fake `null` prototype: use ActiveX Object with cleared prototype
+		var NullProtoObjectViaActiveX = function (activeXDocument) {
+		  activeXDocument.write(scriptTag(''));
+		  activeXDocument.close();
+		  var temp = activeXDocument.parentWindow.Object;
+		  // eslint-disable-next-line no-useless-assignment -- avoid memory leak
+		  activeXDocument = null;
+		  return temp;
+		};
+
+		// Create object with fake `null` prototype: use iframe Object with cleared prototype
+		var NullProtoObjectViaIFrame = function () {
+		  // Thrash, waste and sodomy: IE GC bug
+		  var iframe = documentCreateElement('iframe');
+		  var JS = 'java' + SCRIPT + ':';
+		  var iframeDocument;
+		  iframe.style.display = 'none';
+		  html.appendChild(iframe);
+		  // https://github.com/zloirock/core-js/issues/475
+		  iframe.src = String(JS);
+		  iframeDocument = iframe.contentWindow.document;
+		  iframeDocument.open();
+		  iframeDocument.write(scriptTag('document.F=Object'));
+		  iframeDocument.close();
+		  return iframeDocument.F;
+		};
+
+		// Check for document.domain and active x support
+		// No need to use active x approach when document.domain is not set
+		// see https://github.com/es-shims/es5-shim/issues/150
+		// variation of https://github.com/kitcambridge/es5-shim/commit/4f738ac066346
+		// avoid IE GC bug
+		var activeXDocument;
+		var NullProtoObject = function () {
+		  try {
+		    activeXDocument = new ActiveXObject('htmlfile');
+		  } catch (error) { /* ignore */ }
+		  NullProtoObject = typeof document != 'undefined'
+		    ? document.domain && activeXDocument
+		      ? NullProtoObjectViaActiveX(activeXDocument) // old IE
+		      : NullProtoObjectViaIFrame()
+		    : NullProtoObjectViaActiveX(activeXDocument); // WSH
+		  var length = enumBugKeys.length;
+		  while (length--) delete NullProtoObject[PROTOTYPE][enumBugKeys[length]];
+		  return NullProtoObject();
+		};
+
+		hiddenKeys[IE_PROTO] = true;
+
+		// `Object.create` method
+		// https://tc39.es/ecma262/#sec-object.create
+		// eslint-disable-next-line es/no-object-create -- safe
+		objectCreate = Object.create || function create(O, Properties) {
+		  var result;
+		  if (O !== null) {
+		    EmptyConstructor[PROTOTYPE] = anObject(O);
+		    result = new EmptyConstructor();
+		    EmptyConstructor[PROTOTYPE] = null;
+		    // add "__proto__" for Object.getPrototypeOf polyfill
+		    result[IE_PROTO] = O;
+		  } else result = NullProtoObject();
+		  return Properties === undefined ? result : definePropertiesModule.f(result, Properties);
+		};
+		return objectCreate;
+	}
+
+	var correctPrototypeGetter;
+	var hasRequiredCorrectPrototypeGetter;
+
+	function requireCorrectPrototypeGetter () {
+		if (hasRequiredCorrectPrototypeGetter) return correctPrototypeGetter;
+		hasRequiredCorrectPrototypeGetter = 1;
+		var fails = /*@__PURE__*/ requireFails();
+
+		correctPrototypeGetter = !fails(function () {
+		  function F() { /* empty */ }
+		  F.prototype.constructor = null;
+		  // eslint-disable-next-line es/no-object-getprototypeof -- required for testing
+		  return Object.getPrototypeOf(new F()) !== F.prototype;
+		});
+		return correctPrototypeGetter;
+	}
+
+	var objectGetPrototypeOf;
+	var hasRequiredObjectGetPrototypeOf;
+
+	function requireObjectGetPrototypeOf () {
+		if (hasRequiredObjectGetPrototypeOf) return objectGetPrototypeOf;
+		hasRequiredObjectGetPrototypeOf = 1;
+		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+		var isCallable = /*@__PURE__*/ requireIsCallable();
+		var toObject = /*@__PURE__*/ requireToObject();
+		var sharedKey = /*@__PURE__*/ requireSharedKey();
+		var CORRECT_PROTOTYPE_GETTER = /*@__PURE__*/ requireCorrectPrototypeGetter();
+
+		var IE_PROTO = sharedKey('IE_PROTO');
+		var $Object = Object;
+		var ObjectPrototype = $Object.prototype;
+
+		// `Object.getPrototypeOf` method
+		// https://tc39.es/ecma262/#sec-object.getprototypeof
+		// eslint-disable-next-line es/no-object-getprototypeof -- safe
+		objectGetPrototypeOf = CORRECT_PROTOTYPE_GETTER ? $Object.getPrototypeOf : function (O) {
+		  var object = toObject(O);
+		  if (hasOwn(object, IE_PROTO)) return object[IE_PROTO];
+		  var constructor = object.constructor;
+		  if (isCallable(constructor) && object instanceof constructor) {
+		    return constructor.prototype;
+		  } return object instanceof $Object ? ObjectPrototype : null;
+		};
+		return objectGetPrototypeOf;
+	}
+
+	var defineBuiltIn;
+	var hasRequiredDefineBuiltIn;
+
+	function requireDefineBuiltIn () {
+		if (hasRequiredDefineBuiltIn) return defineBuiltIn;
+		hasRequiredDefineBuiltIn = 1;
+		var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
+
+		defineBuiltIn = function (target, key, value, options) {
+		  if (options && options.enumerable) target[key] = value;
+		  else createNonEnumerableProperty(target, key, value);
+		  return target;
+		};
+		return defineBuiltIn;
+	}
+
+	var iteratorsCore;
+	var hasRequiredIteratorsCore;
+
+	function requireIteratorsCore () {
+		if (hasRequiredIteratorsCore) return iteratorsCore;
+		hasRequiredIteratorsCore = 1;
+		var fails = /*@__PURE__*/ requireFails();
+		var isCallable = /*@__PURE__*/ requireIsCallable();
+		var isObject = /*@__PURE__*/ requireIsObject();
+		var create = /*@__PURE__*/ requireObjectCreate();
+		var getPrototypeOf = /*@__PURE__*/ requireObjectGetPrototypeOf();
+		var defineBuiltIn = /*@__PURE__*/ requireDefineBuiltIn();
+		var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+		var IS_PURE = /*@__PURE__*/ requireIsPure();
+
+		var ITERATOR = wellKnownSymbol('iterator');
+		var BUGGY_SAFARI_ITERATORS = false;
+
+		// `%IteratorPrototype%` object
+		// https://tc39.es/ecma262/#sec-%iteratorprototype%-object
+		var IteratorPrototype, PrototypeOfArrayIteratorPrototype, arrayIterator;
+
+		/* eslint-disable es/no-array-prototype-keys -- safe */
+		if ([].keys) {
+		  arrayIterator = [].keys();
+		  // Safari 8 has buggy iterators w/o `next`
+		  if (!('next' in arrayIterator)) BUGGY_SAFARI_ITERATORS = true;
+		  else {
+		    PrototypeOfArrayIteratorPrototype = getPrototypeOf(getPrototypeOf(arrayIterator));
+		    if (PrototypeOfArrayIteratorPrototype !== Object.prototype) IteratorPrototype = PrototypeOfArrayIteratorPrototype;
+		  }
+		}
+
+		var NEW_ITERATOR_PROTOTYPE = !isObject(IteratorPrototype) || fails(function () {
+		  var test = {};
+		  // FF44- legacy iterators case
+		  return IteratorPrototype[ITERATOR].call(test) !== test;
+		});
+
+		if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype = {};
+		else if (IS_PURE) IteratorPrototype = create(IteratorPrototype);
+
+		// `%IteratorPrototype%[@@iterator]()` method
+		// https://tc39.es/ecma262/#sec-%iteratorprototype%-@@iterator
+		if (!isCallable(IteratorPrototype[ITERATOR])) {
+		  defineBuiltIn(IteratorPrototype, ITERATOR, function () {
+		    return this;
+		  });
+		}
+
+		iteratorsCore = {
+		  IteratorPrototype: IteratorPrototype,
+		  BUGGY_SAFARI_ITERATORS: BUGGY_SAFARI_ITERATORS
+		};
+		return iteratorsCore;
 	}
 
 	var toStringTagSupport;
@@ -1278,6 +2151,877 @@
 		return classof;
 	}
 
+	var objectToString;
+	var hasRequiredObjectToString;
+
+	function requireObjectToString () {
+		if (hasRequiredObjectToString) return objectToString;
+		hasRequiredObjectToString = 1;
+		var TO_STRING_TAG_SUPPORT = /*@__PURE__*/ requireToStringTagSupport();
+		var classof = /*@__PURE__*/ requireClassof();
+
+		// `Object.prototype.toString` method implementation
+		// https://tc39.es/ecma262/#sec-object.prototype.tostring
+		objectToString = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
+		  return '[object ' + classof(this) + ']';
+		};
+		return objectToString;
+	}
+
+	var setToStringTag;
+	var hasRequiredSetToStringTag;
+
+	function requireSetToStringTag () {
+		if (hasRequiredSetToStringTag) return setToStringTag;
+		hasRequiredSetToStringTag = 1;
+		var TO_STRING_TAG_SUPPORT = /*@__PURE__*/ requireToStringTagSupport();
+		var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
+		var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
+		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+		var toString = /*@__PURE__*/ requireObjectToString();
+		var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+
+		var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+
+		setToStringTag = function (it, TAG, STATIC, SET_METHOD) {
+		  var target = STATIC ? it : it && it.prototype;
+		  if (target) {
+		    if (!hasOwn(target, TO_STRING_TAG)) {
+		      defineProperty(target, TO_STRING_TAG, { configurable: true, value: TAG });
+		    }
+		    if (SET_METHOD && !TO_STRING_TAG_SUPPORT) {
+		      createNonEnumerableProperty(target, 'toString', toString);
+		    }
+		  }
+		};
+		return setToStringTag;
+	}
+
+	var iteratorCreateConstructor;
+	var hasRequiredIteratorCreateConstructor;
+
+	function requireIteratorCreateConstructor () {
+		if (hasRequiredIteratorCreateConstructor) return iteratorCreateConstructor;
+		hasRequiredIteratorCreateConstructor = 1;
+		var IteratorPrototype = /*@__PURE__*/ requireIteratorsCore().IteratorPrototype;
+		var create = /*@__PURE__*/ requireObjectCreate();
+		var createPropertyDescriptor = /*@__PURE__*/ requireCreatePropertyDescriptor();
+		var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
+		var Iterators = /*@__PURE__*/ requireIterators();
+
+		var returnThis = function () { return this; };
+
+		iteratorCreateConstructor = function (IteratorConstructor, NAME, next, ENUMERABLE_NEXT) {
+		  var TO_STRING_TAG = NAME + ' Iterator';
+		  IteratorConstructor.prototype = create(IteratorPrototype, { next: createPropertyDescriptor(+!ENUMERABLE_NEXT, next) });
+		  setToStringTag(IteratorConstructor, TO_STRING_TAG, false, true);
+		  Iterators[TO_STRING_TAG] = returnThis;
+		  return IteratorConstructor;
+		};
+		return iteratorCreateConstructor;
+	}
+
+	var functionUncurryThisAccessor;
+	var hasRequiredFunctionUncurryThisAccessor;
+
+	function requireFunctionUncurryThisAccessor () {
+		if (hasRequiredFunctionUncurryThisAccessor) return functionUncurryThisAccessor;
+		hasRequiredFunctionUncurryThisAccessor = 1;
+		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+		var aCallable = /*@__PURE__*/ requireACallable();
+
+		functionUncurryThisAccessor = function (object, key, method) {
+		  try {
+		    // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+		    return uncurryThis(aCallable(Object.getOwnPropertyDescriptor(object, key)[method]));
+		  } catch (error) { /* empty */ }
+		};
+		return functionUncurryThisAccessor;
+	}
+
+	var isPossiblePrototype;
+	var hasRequiredIsPossiblePrototype;
+
+	function requireIsPossiblePrototype () {
+		if (hasRequiredIsPossiblePrototype) return isPossiblePrototype;
+		hasRequiredIsPossiblePrototype = 1;
+		var isObject = /*@__PURE__*/ requireIsObject();
+
+		isPossiblePrototype = function (argument) {
+		  return isObject(argument) || argument === null;
+		};
+		return isPossiblePrototype;
+	}
+
+	var aPossiblePrototype;
+	var hasRequiredAPossiblePrototype;
+
+	function requireAPossiblePrototype () {
+		if (hasRequiredAPossiblePrototype) return aPossiblePrototype;
+		hasRequiredAPossiblePrototype = 1;
+		var isPossiblePrototype = /*@__PURE__*/ requireIsPossiblePrototype();
+
+		var $String = String;
+		var $TypeError = TypeError;
+
+		aPossiblePrototype = function (argument) {
+		  if (isPossiblePrototype(argument)) return argument;
+		  throw new $TypeError("Can't set " + $String(argument) + ' as a prototype');
+		};
+		return aPossiblePrototype;
+	}
+
+	var objectSetPrototypeOf;
+	var hasRequiredObjectSetPrototypeOf;
+
+	function requireObjectSetPrototypeOf () {
+		if (hasRequiredObjectSetPrototypeOf) return objectSetPrototypeOf;
+		hasRequiredObjectSetPrototypeOf = 1;
+		/* eslint-disable no-proto -- safe */
+		var uncurryThisAccessor = /*@__PURE__*/ requireFunctionUncurryThisAccessor();
+		var isObject = /*@__PURE__*/ requireIsObject();
+		var requireObjectCoercible = /*@__PURE__*/ requireRequireObjectCoercible();
+		var aPossiblePrototype = /*@__PURE__*/ requireAPossiblePrototype();
+
+		// `Object.setPrototypeOf` method
+		// https://tc39.es/ecma262/#sec-object.setprototypeof
+		// Works with __proto__ only. Old v8 can't work with null proto objects.
+		// eslint-disable-next-line es/no-object-setprototypeof -- safe
+		objectSetPrototypeOf = Object.setPrototypeOf || ('__proto__' in {} ? function () {
+		  var CORRECT_SETTER = false;
+		  var test = {};
+		  var setter;
+		  try {
+		    setter = uncurryThisAccessor(Object.prototype, '__proto__', 'set');
+		    setter(test, []);
+		    CORRECT_SETTER = test instanceof Array;
+		  } catch (error) { /* empty */ }
+		  return function setPrototypeOf(O, proto) {
+		    requireObjectCoercible(O);
+		    aPossiblePrototype(proto);
+		    if (!isObject(O)) return O;
+		    if (CORRECT_SETTER) setter(O, proto);
+		    else O.__proto__ = proto;
+		    return O;
+		  };
+		}() : undefined);
+		return objectSetPrototypeOf;
+	}
+
+	var iteratorDefine;
+	var hasRequiredIteratorDefine;
+
+	function requireIteratorDefine () {
+		if (hasRequiredIteratorDefine) return iteratorDefine;
+		hasRequiredIteratorDefine = 1;
+		var $ = /*@__PURE__*/ require_export();
+		var call = /*@__PURE__*/ requireFunctionCall();
+		var IS_PURE = /*@__PURE__*/ requireIsPure();
+		var FunctionName = /*@__PURE__*/ requireFunctionName();
+		var isCallable = /*@__PURE__*/ requireIsCallable();
+		var createIteratorConstructor = /*@__PURE__*/ requireIteratorCreateConstructor();
+		var getPrototypeOf = /*@__PURE__*/ requireObjectGetPrototypeOf();
+		var setPrototypeOf = /*@__PURE__*/ requireObjectSetPrototypeOf();
+		var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
+		var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
+		var defineBuiltIn = /*@__PURE__*/ requireDefineBuiltIn();
+		var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
+		var Iterators = /*@__PURE__*/ requireIterators();
+		var IteratorsCore = /*@__PURE__*/ requireIteratorsCore();
+
+		var PROPER_FUNCTION_NAME = FunctionName.PROPER;
+		var CONFIGURABLE_FUNCTION_NAME = FunctionName.CONFIGURABLE;
+		var IteratorPrototype = IteratorsCore.IteratorPrototype;
+		var BUGGY_SAFARI_ITERATORS = IteratorsCore.BUGGY_SAFARI_ITERATORS;
+		var ITERATOR = wellKnownSymbol('iterator');
+		var KEYS = 'keys';
+		var VALUES = 'values';
+		var ENTRIES = 'entries';
+
+		var returnThis = function () { return this; };
+
+		iteratorDefine = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, IS_SET, FORCED) {
+		  createIteratorConstructor(IteratorConstructor, NAME, next);
+
+		  var getIterationMethod = function (KIND) {
+		    if (KIND === DEFAULT && defaultIterator) return defaultIterator;
+		    if (!BUGGY_SAFARI_ITERATORS && KIND && KIND in IterablePrototype) return IterablePrototype[KIND];
+
+		    switch (KIND) {
+		      case KEYS: return function keys() { return new IteratorConstructor(this, KIND); };
+		      case VALUES: return function values() { return new IteratorConstructor(this, KIND); };
+		      case ENTRIES: return function entries() { return new IteratorConstructor(this, KIND); };
+		    }
+
+		    return function () { return new IteratorConstructor(this); };
+		  };
+
+		  var TO_STRING_TAG = NAME + ' Iterator';
+		  var INCORRECT_VALUES_NAME = false;
+		  var IterablePrototype = Iterable.prototype;
+		  var nativeIterator = IterablePrototype[ITERATOR]
+		    || IterablePrototype['@@iterator']
+		    || DEFAULT && IterablePrototype[DEFAULT];
+		  var defaultIterator = !BUGGY_SAFARI_ITERATORS && nativeIterator || getIterationMethod(DEFAULT);
+		  var anyNativeIterator = NAME === 'Array' ? IterablePrototype.entries || nativeIterator : nativeIterator;
+		  var CurrentIteratorPrototype, methods, KEY;
+
+		  // fix native
+		  if (anyNativeIterator) {
+		    CurrentIteratorPrototype = getPrototypeOf(anyNativeIterator.call(new Iterable()));
+		    if (CurrentIteratorPrototype !== Object.prototype && CurrentIteratorPrototype.next) {
+		      if (!IS_PURE && getPrototypeOf(CurrentIteratorPrototype) !== IteratorPrototype) {
+		        if (setPrototypeOf) {
+		          setPrototypeOf(CurrentIteratorPrototype, IteratorPrototype);
+		        } else if (!isCallable(CurrentIteratorPrototype[ITERATOR])) {
+		          defineBuiltIn(CurrentIteratorPrototype, ITERATOR, returnThis);
+		        }
+		      }
+		      // Set @@toStringTag to native iterators
+		      setToStringTag(CurrentIteratorPrototype, TO_STRING_TAG, true, true);
+		      if (IS_PURE) Iterators[TO_STRING_TAG] = returnThis;
+		    }
+		  }
+
+		  // fix Array.prototype.{ values, @@iterator }.name in V8 / FF
+		  if (PROPER_FUNCTION_NAME && DEFAULT === VALUES && nativeIterator && nativeIterator.name !== VALUES) {
+		    if (!IS_PURE && CONFIGURABLE_FUNCTION_NAME) {
+		      createNonEnumerableProperty(IterablePrototype, 'name', VALUES);
+		    } else {
+		      INCORRECT_VALUES_NAME = true;
+		      defaultIterator = function values() { return call(nativeIterator, this); };
+		    }
+		  }
+
+		  // export additional methods
+		  if (DEFAULT) {
+		    methods = {
+		      values: getIterationMethod(VALUES),
+		      keys: IS_SET ? defaultIterator : getIterationMethod(KEYS),
+		      entries: getIterationMethod(ENTRIES)
+		    };
+		    if (FORCED) for (KEY in methods) {
+		      if (BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME || !(KEY in IterablePrototype)) {
+		        defineBuiltIn(IterablePrototype, KEY, methods[KEY]);
+		      }
+		    } else $({ target: NAME, proto: true, forced: BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME }, methods);
+		  }
+
+		  // define iterator
+		  if ((!IS_PURE || FORCED) && IterablePrototype[ITERATOR] !== defaultIterator) {
+		    defineBuiltIn(IterablePrototype, ITERATOR, defaultIterator, { name: DEFAULT });
+		  }
+		  Iterators[NAME] = defaultIterator;
+
+		  return methods;
+		};
+		return iteratorDefine;
+	}
+
+	var createIterResultObject;
+	var hasRequiredCreateIterResultObject;
+
+	function requireCreateIterResultObject () {
+		if (hasRequiredCreateIterResultObject) return createIterResultObject;
+		hasRequiredCreateIterResultObject = 1;
+		// `CreateIterResultObject` abstract operation
+		// https://tc39.es/ecma262/#sec-createiterresultobject
+		createIterResultObject = function (value, done) {
+		  return { value: value, done: done };
+		};
+		return createIterResultObject;
+	}
+
+	var es_array_iterator;
+	var hasRequiredEs_array_iterator;
+
+	function requireEs_array_iterator () {
+		if (hasRequiredEs_array_iterator) return es_array_iterator;
+		hasRequiredEs_array_iterator = 1;
+		var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
+		var addToUnscopables = /*@__PURE__*/ requireAddToUnscopables();
+		var Iterators = /*@__PURE__*/ requireIterators();
+		var InternalStateModule = /*@__PURE__*/ requireInternalState();
+		var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
+		var defineIterator = /*@__PURE__*/ requireIteratorDefine();
+		var createIterResultObject = /*@__PURE__*/ requireCreateIterResultObject();
+		var IS_PURE = /*@__PURE__*/ requireIsPure();
+		var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
+
+		var ARRAY_ITERATOR = 'Array Iterator';
+		var setInternalState = InternalStateModule.set;
+		var getInternalState = InternalStateModule.getterFor(ARRAY_ITERATOR);
+
+		// `Array.prototype.entries` method
+		// https://tc39.es/ecma262/#sec-array.prototype.entries
+		// `Array.prototype.keys` method
+		// https://tc39.es/ecma262/#sec-array.prototype.keys
+		// `Array.prototype.values` method
+		// https://tc39.es/ecma262/#sec-array.prototype.values
+		// `Array.prototype[@@iterator]` method
+		// https://tc39.es/ecma262/#sec-array.prototype-@@iterator
+		// `CreateArrayIterator` internal method
+		// https://tc39.es/ecma262/#sec-createarrayiterator
+		es_array_iterator = defineIterator(Array, 'Array', function (iterated, kind) {
+		  setInternalState(this, {
+		    type: ARRAY_ITERATOR,
+		    target: toIndexedObject(iterated), // target
+		    index: 0,                          // next index
+		    kind: kind                         // kind
+		  });
+		// `%ArrayIteratorPrototype%.next` method
+		// https://tc39.es/ecma262/#sec-%arrayiteratorprototype%.next
+		}, function () {
+		  var state = getInternalState(this);
+		  var target = state.target;
+		  var index = state.index++;
+		  if (!target || index >= target.length) {
+		    state.target = null;
+		    return createIterResultObject(undefined, true);
+		  }
+		  switch (state.kind) {
+		    case 'keys': return createIterResultObject(index, false);
+		    case 'values': return createIterResultObject(target[index], false);
+		  } return createIterResultObject([index, target[index]], false);
+		}, 'values');
+
+		// argumentsList[@@iterator] is %ArrayProto_values%
+		// https://tc39.es/ecma262/#sec-createunmappedargumentsobject
+		// https://tc39.es/ecma262/#sec-createmappedargumentsobject
+		var values = Iterators.Arguments = Iterators.Array;
+
+		// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+		addToUnscopables('keys');
+		addToUnscopables('values');
+		addToUnscopables('entries');
+
+		// V8 ~ Chrome 45- bug
+		if (!IS_PURE && DESCRIPTORS && values.name !== 'values') try {
+		  defineProperty(values, 'name', { value: 'values' });
+		} catch (error) { /* empty */ }
+		return es_array_iterator;
+	}
+
+	var domIterables;
+	var hasRequiredDomIterables;
+
+	function requireDomIterables () {
+		if (hasRequiredDomIterables) return domIterables;
+		hasRequiredDomIterables = 1;
+		// iterable DOM collections
+		// flag - `iterable` interface - 'entries', 'keys', 'values', 'forEach' methods
+		domIterables = {
+		  CSSRuleList: 0,
+		  CSSStyleDeclaration: 0,
+		  CSSValueList: 0,
+		  ClientRectList: 0,
+		  DOMRectList: 0,
+		  DOMStringList: 0,
+		  DOMTokenList: 1,
+		  DataTransferItemList: 0,
+		  FileList: 0,
+		  HTMLAllCollection: 0,
+		  HTMLCollection: 0,
+		  HTMLFormElement: 0,
+		  HTMLSelectElement: 0,
+		  MediaList: 0,
+		  MimeTypeArray: 0,
+		  NamedNodeMap: 0,
+		  NodeList: 1,
+		  PaintRequestList: 0,
+		  Plugin: 0,
+		  PluginArray: 0,
+		  SVGLengthList: 0,
+		  SVGNumberList: 0,
+		  SVGPathSegList: 0,
+		  SVGPointList: 0,
+		  SVGStringList: 0,
+		  SVGTransformList: 0,
+		  SourceBufferList: 0,
+		  StyleSheetList: 0,
+		  TextTrackCueList: 0,
+		  TextTrackList: 0,
+		  TouchList: 0
+		};
+		return domIterables;
+	}
+
+	var hasRequiredWeb_domCollections_iterator;
+
+	function requireWeb_domCollections_iterator () {
+		if (hasRequiredWeb_domCollections_iterator) return web_domCollections_iterator;
+		hasRequiredWeb_domCollections_iterator = 1;
+		requireEs_array_iterator();
+		var DOMIterables = /*@__PURE__*/ requireDomIterables();
+		var globalThis = /*@__PURE__*/ requireGlobalThis();
+		var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
+		var Iterators = /*@__PURE__*/ requireIterators();
+
+		for (var COLLECTION_NAME in DOMIterables) {
+		  setToStringTag(globalThis[COLLECTION_NAME], COLLECTION_NAME);
+		  Iterators[COLLECTION_NAME] = Iterators.Array;
+		}
+		return web_domCollections_iterator;
+	}
+
+	var getBuiltInPrototypeMethod;
+	var hasRequiredGetBuiltInPrototypeMethod;
+
+	function requireGetBuiltInPrototypeMethod () {
+		if (hasRequiredGetBuiltInPrototypeMethod) return getBuiltInPrototypeMethod;
+		hasRequiredGetBuiltInPrototypeMethod = 1;
+		var globalThis = /*@__PURE__*/ requireGlobalThis();
+		var path = /*@__PURE__*/ requirePath();
+
+		getBuiltInPrototypeMethod = function (CONSTRUCTOR, METHOD) {
+		  var Namespace = path[CONSTRUCTOR + 'Prototype'];
+		  var pureMethod = Namespace && Namespace[METHOD];
+		  if (pureMethod) return pureMethod;
+		  var NativeConstructor = globalThis[CONSTRUCTOR];
+		  var NativePrototype = NativeConstructor && NativeConstructor.prototype;
+		  return NativePrototype && NativePrototype[METHOD];
+		};
+		return getBuiltInPrototypeMethod;
+	}
+
+	var values$3;
+	var hasRequiredValues$3;
+
+	function requireValues$3 () {
+		if (hasRequiredValues$3) return values$3;
+		hasRequiredValues$3 = 1;
+		requireEs_array_iterator();
+		var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+		values$3 = getBuiltInPrototypeMethod('Array', 'values');
+		return values$3;
+	}
+
+	var values$2;
+	var hasRequiredValues$2;
+
+	function requireValues$2 () {
+		if (hasRequiredValues$2) return values$2;
+		hasRequiredValues$2 = 1;
+		var parent = /*@__PURE__*/ requireValues$3();
+
+		values$2 = parent;
+		return values$2;
+	}
+
+	var values$1;
+	var hasRequiredValues$1;
+
+	function requireValues$1 () {
+		if (hasRequiredValues$1) return values$1;
+		hasRequiredValues$1 = 1;
+		requireWeb_domCollections_iterator();
+		var classof = /*@__PURE__*/ requireClassof();
+		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
+		var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+		var method = /*@__PURE__*/ requireValues$2();
+
+		var ArrayPrototype = Array.prototype;
+
+		var DOMIterables = {
+		  DOMTokenList: true,
+		  NodeList: true
+		};
+
+		values$1 = function (it) {
+		  var own = it.values;
+		  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.values)
+		    || hasOwn(DOMIterables, classof(it)) ? method : own;
+		};
+		return values$1;
+	}
+
+	var values;
+	var hasRequiredValues;
+
+	function requireValues () {
+		if (hasRequiredValues) return values;
+		hasRequiredValues = 1;
+		values = /*@__PURE__*/ requireValues$1();
+		return values;
+	}
+
+	var valuesExports = requireValues();
+	var _valuesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(valuesExports);
+
+	var web_timers = {};
+
+	var web_setInterval = {};
+
+	var environment;
+	var hasRequiredEnvironment;
+
+	function requireEnvironment () {
+		if (hasRequiredEnvironment) return environment;
+		hasRequiredEnvironment = 1;
+		/* global Bun, Deno -- detection */
+		var globalThis = /*@__PURE__*/ requireGlobalThis();
+		var userAgent = /*@__PURE__*/ requireEnvironmentUserAgent();
+		var classof = /*@__PURE__*/ requireClassofRaw();
+
+		var userAgentStartsWith = function (string) {
+		  return userAgent.slice(0, string.length) === string;
+		};
+
+		environment = (function () {
+		  if (userAgentStartsWith('Bun/')) return 'BUN';
+		  if (userAgentStartsWith('Cloudflare-Workers')) return 'CLOUDFLARE';
+		  if (userAgentStartsWith('Deno/')) return 'DENO';
+		  if (userAgentStartsWith('Node.js/')) return 'NODE';
+		  if (globalThis.Bun && typeof Bun.version == 'string') return 'BUN';
+		  if (globalThis.Deno && typeof Deno.version == 'object') return 'DENO';
+		  if (classof(globalThis.process) === 'process') return 'NODE';
+		  if (globalThis.window && globalThis.document) return 'BROWSER';
+		  return 'REST';
+		})();
+		return environment;
+	}
+
+	var arraySlice;
+	var hasRequiredArraySlice;
+
+	function requireArraySlice () {
+		if (hasRequiredArraySlice) return arraySlice;
+		hasRequiredArraySlice = 1;
+		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+
+		arraySlice = uncurryThis([].slice);
+		return arraySlice;
+	}
+
+	var validateArgumentsLength;
+	var hasRequiredValidateArgumentsLength;
+
+	function requireValidateArgumentsLength () {
+		if (hasRequiredValidateArgumentsLength) return validateArgumentsLength;
+		hasRequiredValidateArgumentsLength = 1;
+		var $TypeError = TypeError;
+
+		validateArgumentsLength = function (passed, required) {
+		  if (passed < required) throw new $TypeError('Not enough arguments');
+		  return passed;
+		};
+		return validateArgumentsLength;
+	}
+
+	var schedulersFix;
+	var hasRequiredSchedulersFix;
+
+	function requireSchedulersFix () {
+		if (hasRequiredSchedulersFix) return schedulersFix;
+		hasRequiredSchedulersFix = 1;
+		var globalThis = /*@__PURE__*/ requireGlobalThis();
+		var apply = /*@__PURE__*/ requireFunctionApply();
+		var isCallable = /*@__PURE__*/ requireIsCallable();
+		var ENVIRONMENT = /*@__PURE__*/ requireEnvironment();
+		var USER_AGENT = /*@__PURE__*/ requireEnvironmentUserAgent();
+		var arraySlice = /*@__PURE__*/ requireArraySlice();
+		var validateArgumentsLength = /*@__PURE__*/ requireValidateArgumentsLength();
+
+		var Function = globalThis.Function;
+		// dirty IE9- and Bun 0.3.0- checks
+		var WRAP = /MSIE .\./.test(USER_AGENT) || ENVIRONMENT === 'BUN' && (function () {
+		  var version = globalThis.Bun.version.split('.');
+		  return version.length < 3 || version[0] === '0' && (version[1] < 3 || version[1] === '3' && version[2] === '0');
+		})();
+
+		// IE9- / Bun 0.3.0- setTimeout / setInterval / setImmediate additional parameters fix
+		// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers
+		// https://github.com/oven-sh/bun/issues/1633
+		schedulersFix = function (scheduler, hasTimeArg) {
+		  var firstParamIndex = hasTimeArg ? 2 : 1;
+		  return WRAP ? function (handler, timeout /* , ...arguments */) {
+		    var boundArgs = validateArgumentsLength(arguments.length, 1) > firstParamIndex;
+		    var fn = isCallable(handler) ? handler : Function(handler);
+		    var params = boundArgs ? arraySlice(arguments, firstParamIndex) : [];
+		    var callback = boundArgs ? function () {
+		      apply(fn, this, params);
+		    } : fn;
+		    return hasTimeArg ? scheduler(callback, timeout) : scheduler(callback);
+		  } : scheduler;
+		};
+		return schedulersFix;
+	}
+
+	var hasRequiredWeb_setInterval;
+
+	function requireWeb_setInterval () {
+		if (hasRequiredWeb_setInterval) return web_setInterval;
+		hasRequiredWeb_setInterval = 1;
+		var $ = /*@__PURE__*/ require_export();
+		var globalThis = /*@__PURE__*/ requireGlobalThis();
+		var schedulersFix = /*@__PURE__*/ requireSchedulersFix();
+
+		var setInterval = schedulersFix(globalThis.setInterval, true);
+
+		// Bun / IE9- setInterval additional parameters fix
+		// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-setinterval
+		$({ global: true, bind: true, forced: globalThis.setInterval !== setInterval }, {
+		  setInterval: setInterval
+		});
+		return web_setInterval;
+	}
+
+	var web_setTimeout = {};
+
+	var hasRequiredWeb_setTimeout;
+
+	function requireWeb_setTimeout () {
+		if (hasRequiredWeb_setTimeout) return web_setTimeout;
+		hasRequiredWeb_setTimeout = 1;
+		var $ = /*@__PURE__*/ require_export();
+		var globalThis = /*@__PURE__*/ requireGlobalThis();
+		var schedulersFix = /*@__PURE__*/ requireSchedulersFix();
+
+		var setTimeout = schedulersFix(globalThis.setTimeout, true);
+
+		// Bun / IE9- setTimeout additional parameters fix
+		// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-settimeout
+		$({ global: true, bind: true, forced: globalThis.setTimeout !== setTimeout }, {
+		  setTimeout: setTimeout
+		});
+		return web_setTimeout;
+	}
+
+	var hasRequiredWeb_timers;
+
+	function requireWeb_timers () {
+		if (hasRequiredWeb_timers) return web_timers;
+		hasRequiredWeb_timers = 1;
+		// TODO: Remove this module from `core-js@4` since it's split to modules listed below
+		requireWeb_setInterval();
+		requireWeb_setTimeout();
+		return web_timers;
+	}
+
+	var setTimeout$2;
+	var hasRequiredSetTimeout$1;
+
+	function requireSetTimeout$1 () {
+		if (hasRequiredSetTimeout$1) return setTimeout$2;
+		hasRequiredSetTimeout$1 = 1;
+		requireWeb_timers();
+		var path = /*@__PURE__*/ requirePath();
+
+		setTimeout$2 = path.setTimeout;
+		return setTimeout$2;
+	}
+
+	var setTimeout$1;
+	var hasRequiredSetTimeout;
+
+	function requireSetTimeout () {
+		if (hasRequiredSetTimeout) return setTimeout$1;
+		hasRequiredSetTimeout = 1;
+		setTimeout$1 = /*@__PURE__*/ requireSetTimeout$1();
+		return setTimeout$1;
+	}
+
+	var setTimeoutExports = requireSetTimeout();
+	var _setTimeout = /*@__PURE__*/getDefaultExportFromCjs(setTimeoutExports);
+
+	/**
+	 * @class Filter
+	 * @param {DataGroup} dataGroup the data group
+	 * @param {number}  column             The index of the column to be filtered
+	 * @param {Graph3d} graph              The graph
+	 */
+	function Filter(dataGroup, column, graph) {
+	  this.dataGroup = dataGroup;
+	  this.column = column;
+	  this.graph = graph; // the parent graph
+
+	  this.index = undefined;
+	  this.value = undefined;
+
+	  // read all distinct values and select the first one
+	  this.values = dataGroup.getDistinctValues(this.column);
+	  if (_valuesInstanceProperty(this).length > 0) {
+	    this.selectValue(0);
+	  }
+
+	  // create an array with the filtered datapoints. this will be loaded afterwards
+	  this.dataPoints = [];
+	  this.loaded = false;
+	  this.onLoadCallback = undefined;
+	  if (graph.animationPreload) {
+	    this.loaded = false;
+	    this.loadInBackground();
+	  } else {
+	    this.loaded = true;
+	  }
+	}
+
+	/**
+	 * Return the label
+	 * @returns {string} label
+	 */
+	Filter.prototype.isLoaded = function () {
+	  return this.loaded;
+	};
+
+	/**
+	 * Return the loaded progress
+	 * @returns {number} percentage between 0 and 100
+	 */
+	Filter.prototype.getLoadedProgress = function () {
+	  const len = _valuesInstanceProperty(this).length;
+	  let i = 0;
+	  while (this.dataPoints[i]) {
+	    i++;
+	  }
+	  return Math.round(i / len * 100);
+	};
+
+	/**
+	 * Return the label
+	 * @returns {string} label
+	 */
+	Filter.prototype.getLabel = function () {
+	  return this.graph.filterLabel;
+	};
+
+	/**
+	 * Return the columnIndex of the filter
+	 * @returns {number} columnIndex
+	 */
+	Filter.prototype.getColumn = function () {
+	  return this.column;
+	};
+
+	/**
+	 * Return the currently selected value. Returns undefined if there is no selection
+	 * @returns {*} value
+	 */
+	Filter.prototype.getSelectedValue = function () {
+	  if (this.index === undefined) return undefined;
+	  return _valuesInstanceProperty(this)[this.index];
+	};
+
+	/**
+	 * Retrieve all values of the filter
+	 * @returns {Array} values
+	 */
+	Filter.prototype.getValues = function () {
+	  return _valuesInstanceProperty(this);
+	};
+
+	/**
+	 * Retrieve one value of the filter
+	 * @param {number}  index
+	 * @returns {*} value
+	 */
+	Filter.prototype.getValue = function (index) {
+	  if (index >= _valuesInstanceProperty(this).length) throw new Error("Index out of range");
+	  return _valuesInstanceProperty(this)[index];
+	};
+
+	/**
+	 * Retrieve the (filtered) dataPoints for the currently selected filter index
+	 * @param {number} [index] (optional)
+	 * @returns {Array} dataPoints
+	 */
+	Filter.prototype._getDataPoints = function (index) {
+	  if (index === undefined) index = this.index;
+	  if (index === undefined) return [];
+	  let dataPoints;
+	  if (this.dataPoints[index]) {
+	    dataPoints = this.dataPoints[index];
+	  } else {
+	    const f = {};
+	    f.column = this.column;
+	    f.value = _valuesInstanceProperty(this)[index];
+	    const dataView = new esnext.DataView(this.dataGroup.getDataSet(), {
+	      filter: function (item) {
+	        return item[f.column] == f.value;
+	      }
+	    }).get();
+	    dataPoints = this.dataGroup._getDataPoints(dataView);
+	    this.dataPoints[index] = dataPoints;
+	  }
+	  return dataPoints;
+	};
+
+	/**
+	 * Set a callback function when the filter is fully loaded.
+	 * @param {Function} callback
+	 */
+	Filter.prototype.setOnLoadCallback = function (callback) {
+	  this.onLoadCallback = callback;
+	};
+
+	/**
+	 * Add a value to the list with available values for this filter
+	 * No double entries will be created.
+	 * @param {number} index
+	 */
+	Filter.prototype.selectValue = function (index) {
+	  if (index >= _valuesInstanceProperty(this).length) throw new Error("Index out of range");
+	  this.index = index;
+	  this.value = _valuesInstanceProperty(this)[index];
+	};
+
+	/**
+	 * Load all filtered rows in the background one by one
+	 * Start this method without providing an index!
+	 * @param {number} [index]
+	 */
+	Filter.prototype.loadInBackground = function (index) {
+	  if (index === undefined) index = 0;
+	  const frame = this.graph.frame;
+	  if (index < _valuesInstanceProperty(this).length) {
+	    // create a progress box
+	    if (frame.progress === undefined) {
+	      frame.progress = document.createElement("DIV");
+	      frame.progress.style.position = "absolute";
+	      frame.progress.style.color = "gray";
+	      frame.appendChild(frame.progress);
+	    }
+	    const progress = this.getLoadedProgress();
+	    frame.progress.innerHTML = "Loading animation... " + progress + "%";
+	    // TODO: this is no nice solution...
+	    frame.progress.style.bottom = 60 + "px"; // TODO: use height of slider
+	    frame.progress.style.left = 10 + "px";
+	    const me = this;
+	    _setTimeout(function () {
+	      me.loadInBackground(index + 1);
+	    }, 10);
+	    this.loaded = false;
+	  } else {
+	    this.loaded = true;
+
+	    // remove the progress box
+	    if (frame.progress !== undefined) {
+	      frame.removeChild(frame.progress);
+	      frame.progress = undefined;
+	    }
+	    if (this.onLoadCallback) this.onLoadCallback();
+	  }
+	};
+
+	var es_array_sort = {};
+
+	var deletePropertyOrThrow;
+	var hasRequiredDeletePropertyOrThrow;
+
+	function requireDeletePropertyOrThrow () {
+		if (hasRequiredDeletePropertyOrThrow) return deletePropertyOrThrow;
+		hasRequiredDeletePropertyOrThrow = 1;
+		var tryToString = /*@__PURE__*/ requireTryToString();
+
+		var $TypeError = TypeError;
+
+		deletePropertyOrThrow = function (O, P) {
+		  if (!delete O[P]) throw new $TypeError('Cannot delete property ' + tryToString(P) + ' of ' + tryToString(O));
+		};
+		return deletePropertyOrThrow;
+	}
+
 	var toString;
 	var hasRequiredToString;
 
@@ -1293,18 +3037,6 @@
 		  return $String(argument);
 		};
 		return toString;
-	}
-
-	var arraySlice;
-	var hasRequiredArraySlice;
-
-	function requireArraySlice () {
-		if (hasRequiredArraySlice) return arraySlice;
-		hasRequiredArraySlice = 1;
-		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
-
-		arraySlice = uncurryThis([].slice);
-		return arraySlice;
 	}
 
 	var arraySort;
@@ -1530,26 +3262,6 @@
 		return es_array_sort;
 	}
 
-	var getBuiltInPrototypeMethod;
-	var hasRequiredGetBuiltInPrototypeMethod;
-
-	function requireGetBuiltInPrototypeMethod () {
-		if (hasRequiredGetBuiltInPrototypeMethod) return getBuiltInPrototypeMethod;
-		hasRequiredGetBuiltInPrototypeMethod = 1;
-		var globalThis = /*@__PURE__*/ requireGlobalThis();
-		var path = /*@__PURE__*/ requirePath();
-
-		getBuiltInPrototypeMethod = function (CONSTRUCTOR, METHOD) {
-		  var Namespace = path[CONSTRUCTOR + 'Prototype'];
-		  var pureMethod = Namespace && Namespace[METHOD];
-		  if (pureMethod) return pureMethod;
-		  var NativeConstructor = globalThis[CONSTRUCTOR];
-		  var NativePrototype = NativeConstructor && NativeConstructor.prototype;
-		  return NativePrototype && NativePrototype[METHOD];
-		};
-		return getBuiltInPrototypeMethod;
-	}
-
 	var sort$3;
 	var hasRequiredSort$3;
 
@@ -1607,69 +3319,6 @@
 	var _sortInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sortExports);
 
 	var es_array_indexOf = {};
-
-	var toAbsoluteIndex;
-	var hasRequiredToAbsoluteIndex;
-
-	function requireToAbsoluteIndex () {
-		if (hasRequiredToAbsoluteIndex) return toAbsoluteIndex;
-		hasRequiredToAbsoluteIndex = 1;
-		var toIntegerOrInfinity = /*@__PURE__*/ requireToIntegerOrInfinity();
-
-		var max = Math.max;
-		var min = Math.min;
-
-		// Helper for a popular repeating case of the spec:
-		// Let integer be ? ToInteger(index).
-		// If integer < 0, let result be max((length + integer), 0); else let result be min(integer, length).
-		toAbsoluteIndex = function (index, length) {
-		  var integer = toIntegerOrInfinity(index);
-		  return integer < 0 ? max(integer + length, 0) : min(integer, length);
-		};
-		return toAbsoluteIndex;
-	}
-
-	var arrayIncludes;
-	var hasRequiredArrayIncludes;
-
-	function requireArrayIncludes () {
-		if (hasRequiredArrayIncludes) return arrayIncludes;
-		hasRequiredArrayIncludes = 1;
-		var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
-		var toAbsoluteIndex = /*@__PURE__*/ requireToAbsoluteIndex();
-		var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
-
-		// `Array.prototype.{ indexOf, includes }` methods implementation
-		var createMethod = function (IS_INCLUDES) {
-		  return function ($this, el, fromIndex) {
-		    var O = toIndexedObject($this);
-		    var length = lengthOfArrayLike(O);
-		    if (length === 0) return !IS_INCLUDES && -1;
-		    var index = toAbsoluteIndex(fromIndex, length);
-		    var value;
-		    // Array#includes uses SameValueZero equality algorithm
-		    // eslint-disable-next-line no-self-compare -- NaN check
-		    if (IS_INCLUDES && el !== el) while (length > index) {
-		      value = O[index++];
-		      // eslint-disable-next-line no-self-compare -- NaN check
-		      if (value !== value) return true;
-		    // Array#indexOf ignores holes, Array#includes - not
-		    } else for (;length > index; index++) {
-		      if ((IS_INCLUDES || index in O) && O[index] === el) return IS_INCLUDES || index || 0;
-		    } return !IS_INCLUDES && -1;
-		  };
-		};
-
-		arrayIncludes = {
-		  // `Array.prototype.includes` method
-		  // https://tc39.es/ecma262/#sec-array.prototype.includes
-		  includes: createMethod(true),
-		  // `Array.prototype.indexOf` method
-		  // https://tc39.es/ecma262/#sec-array.prototype.indexof
-		  indexOf: createMethod(false)
-		};
-		return arrayIncludes;
-	}
 
 	var hasRequiredEs_array_indexOf;
 
@@ -2274,16 +3923,6 @@
 		return arrayFill;
 	}
 
-	var addToUnscopables;
-	var hasRequiredAddToUnscopables;
-
-	function requireAddToUnscopables () {
-		if (hasRequiredAddToUnscopables) return addToUnscopables;
-		hasRequiredAddToUnscopables = 1;
-		addToUnscopables = function () { /* empty */ };
-		return addToUnscopables;
-	}
-
 	var hasRequiredEs_array_fill;
 
 	function requireEs_array_fill () {
@@ -2359,964 +3998,6 @@
 
 	var fillExports = requireFill();
 	var _fillInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(fillExports);
-
-	var web_domCollections_iterator = {};
-
-	var iterators;
-	var hasRequiredIterators;
-
-	function requireIterators () {
-		if (hasRequiredIterators) return iterators;
-		hasRequiredIterators = 1;
-		iterators = {};
-		return iterators;
-	}
-
-	var weakMapBasicDetection;
-	var hasRequiredWeakMapBasicDetection;
-
-	function requireWeakMapBasicDetection () {
-		if (hasRequiredWeakMapBasicDetection) return weakMapBasicDetection;
-		hasRequiredWeakMapBasicDetection = 1;
-		var globalThis = /*@__PURE__*/ requireGlobalThis();
-		var isCallable = /*@__PURE__*/ requireIsCallable();
-
-		var WeakMap = globalThis.WeakMap;
-
-		weakMapBasicDetection = isCallable(WeakMap) && /native code/.test(String(WeakMap));
-		return weakMapBasicDetection;
-	}
-
-	var sharedKey;
-	var hasRequiredSharedKey;
-
-	function requireSharedKey () {
-		if (hasRequiredSharedKey) return sharedKey;
-		hasRequiredSharedKey = 1;
-		var shared = /*@__PURE__*/ requireShared();
-		var uid = /*@__PURE__*/ requireUid();
-
-		var keys = shared('keys');
-
-		sharedKey = function (key) {
-		  return keys[key] || (keys[key] = uid(key));
-		};
-		return sharedKey;
-	}
-
-	var hiddenKeys;
-	var hasRequiredHiddenKeys;
-
-	function requireHiddenKeys () {
-		if (hasRequiredHiddenKeys) return hiddenKeys;
-		hasRequiredHiddenKeys = 1;
-		hiddenKeys = {};
-		return hiddenKeys;
-	}
-
-	var internalState;
-	var hasRequiredInternalState;
-
-	function requireInternalState () {
-		if (hasRequiredInternalState) return internalState;
-		hasRequiredInternalState = 1;
-		var NATIVE_WEAK_MAP = /*@__PURE__*/ requireWeakMapBasicDetection();
-		var globalThis = /*@__PURE__*/ requireGlobalThis();
-		var isObject = /*@__PURE__*/ requireIsObject();
-		var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
-		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
-		var shared = /*@__PURE__*/ requireSharedStore();
-		var sharedKey = /*@__PURE__*/ requireSharedKey();
-		var hiddenKeys = /*@__PURE__*/ requireHiddenKeys();
-
-		var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
-		var TypeError = globalThis.TypeError;
-		var WeakMap = globalThis.WeakMap;
-		var set, get, has;
-
-		var enforce = function (it) {
-		  return has(it) ? get(it) : set(it, {});
-		};
-
-		var getterFor = function (TYPE) {
-		  return function (it) {
-		    var state;
-		    if (!isObject(it) || (state = get(it)).type !== TYPE) {
-		      throw new TypeError('Incompatible receiver, ' + TYPE + ' required');
-		    } return state;
-		  };
-		};
-
-		if (NATIVE_WEAK_MAP || shared.state) {
-		  var store = shared.state || (shared.state = new WeakMap());
-		  /* eslint-disable no-self-assign -- prototype methods protection */
-		  store.get = store.get;
-		  store.has = store.has;
-		  store.set = store.set;
-		  /* eslint-enable no-self-assign -- prototype methods protection */
-		  set = function (it, metadata) {
-		    if (store.has(it)) throw new TypeError(OBJECT_ALREADY_INITIALIZED);
-		    metadata.facade = it;
-		    store.set(it, metadata);
-		    return metadata;
-		  };
-		  get = function (it) {
-		    return store.get(it) || {};
-		  };
-		  has = function (it) {
-		    return store.has(it);
-		  };
-		} else {
-		  var STATE = sharedKey('state');
-		  hiddenKeys[STATE] = true;
-		  set = function (it, metadata) {
-		    if (hasOwn(it, STATE)) throw new TypeError(OBJECT_ALREADY_INITIALIZED);
-		    metadata.facade = it;
-		    createNonEnumerableProperty(it, STATE, metadata);
-		    return metadata;
-		  };
-		  get = function (it) {
-		    return hasOwn(it, STATE) ? it[STATE] : {};
-		  };
-		  has = function (it) {
-		    return hasOwn(it, STATE);
-		  };
-		}
-
-		internalState = {
-		  set: set,
-		  get: get,
-		  has: has,
-		  enforce: enforce,
-		  getterFor: getterFor
-		};
-		return internalState;
-	}
-
-	var functionName;
-	var hasRequiredFunctionName;
-
-	function requireFunctionName () {
-		if (hasRequiredFunctionName) return functionName;
-		hasRequiredFunctionName = 1;
-		var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
-		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
-
-		var FunctionPrototype = Function.prototype;
-		// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-		var getDescriptor = DESCRIPTORS && Object.getOwnPropertyDescriptor;
-
-		var EXISTS = hasOwn(FunctionPrototype, 'name');
-		// additional protection from minified / mangled / dropped function names
-		var PROPER = EXISTS && function something() { /* empty */ }.name === 'something';
-		var CONFIGURABLE = EXISTS && (!DESCRIPTORS || (DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable));
-
-		functionName = {
-		  EXISTS: EXISTS,
-		  PROPER: PROPER,
-		  CONFIGURABLE: CONFIGURABLE
-		};
-		return functionName;
-	}
-
-	var objectDefineProperties = {};
-
-	var objectKeysInternal;
-	var hasRequiredObjectKeysInternal;
-
-	function requireObjectKeysInternal () {
-		if (hasRequiredObjectKeysInternal) return objectKeysInternal;
-		hasRequiredObjectKeysInternal = 1;
-		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
-		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
-		var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
-		var indexOf = /*@__PURE__*/ requireArrayIncludes().indexOf;
-		var hiddenKeys = /*@__PURE__*/ requireHiddenKeys();
-
-		var push = uncurryThis([].push);
-
-		objectKeysInternal = function (object, names) {
-		  var O = toIndexedObject(object);
-		  var i = 0;
-		  var result = [];
-		  var key;
-		  for (key in O) !hasOwn(hiddenKeys, key) && hasOwn(O, key) && push(result, key);
-		  // Don't enum bug & hidden keys
-		  while (names.length > i) if (hasOwn(O, key = names[i++])) {
-		    ~indexOf(result, key) || push(result, key);
-		  }
-		  return result;
-		};
-		return objectKeysInternal;
-	}
-
-	var enumBugKeys;
-	var hasRequiredEnumBugKeys;
-
-	function requireEnumBugKeys () {
-		if (hasRequiredEnumBugKeys) return enumBugKeys;
-		hasRequiredEnumBugKeys = 1;
-		// IE8- don't enum bug keys
-		enumBugKeys = [
-		  'constructor',
-		  'hasOwnProperty',
-		  'isPrototypeOf',
-		  'propertyIsEnumerable',
-		  'toLocaleString',
-		  'toString',
-		  'valueOf'
-		];
-		return enumBugKeys;
-	}
-
-	var objectKeys;
-	var hasRequiredObjectKeys;
-
-	function requireObjectKeys () {
-		if (hasRequiredObjectKeys) return objectKeys;
-		hasRequiredObjectKeys = 1;
-		var internalObjectKeys = /*@__PURE__*/ requireObjectKeysInternal();
-		var enumBugKeys = /*@__PURE__*/ requireEnumBugKeys();
-
-		// `Object.keys` method
-		// https://tc39.es/ecma262/#sec-object.keys
-		// eslint-disable-next-line es/no-object-keys -- safe
-		objectKeys = Object.keys || function keys(O) {
-		  return internalObjectKeys(O, enumBugKeys);
-		};
-		return objectKeys;
-	}
-
-	var hasRequiredObjectDefineProperties;
-
-	function requireObjectDefineProperties () {
-		if (hasRequiredObjectDefineProperties) return objectDefineProperties;
-		hasRequiredObjectDefineProperties = 1;
-		var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
-		var V8_PROTOTYPE_DEFINE_BUG = /*@__PURE__*/ requireV8PrototypeDefineBug();
-		var definePropertyModule = /*@__PURE__*/ requireObjectDefineProperty();
-		var anObject = /*@__PURE__*/ requireAnObject();
-		var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
-		var objectKeys = /*@__PURE__*/ requireObjectKeys();
-
-		// `Object.defineProperties` method
-		// https://tc39.es/ecma262/#sec-object.defineproperties
-		// eslint-disable-next-line es/no-object-defineproperties -- safe
-		objectDefineProperties.f = DESCRIPTORS && !V8_PROTOTYPE_DEFINE_BUG ? Object.defineProperties : function defineProperties(O, Properties) {
-		  anObject(O);
-		  var props = toIndexedObject(Properties);
-		  var keys = objectKeys(Properties);
-		  var length = keys.length;
-		  var index = 0;
-		  var key;
-		  while (length > index) definePropertyModule.f(O, key = keys[index++], props[key]);
-		  return O;
-		};
-		return objectDefineProperties;
-	}
-
-	var html;
-	var hasRequiredHtml;
-
-	function requireHtml () {
-		if (hasRequiredHtml) return html;
-		hasRequiredHtml = 1;
-		var getBuiltIn = /*@__PURE__*/ requireGetBuiltIn();
-
-		html = getBuiltIn('document', 'documentElement');
-		return html;
-	}
-
-	var objectCreate;
-	var hasRequiredObjectCreate;
-
-	function requireObjectCreate () {
-		if (hasRequiredObjectCreate) return objectCreate;
-		hasRequiredObjectCreate = 1;
-		/* global ActiveXObject -- old IE, WSH */
-		var anObject = /*@__PURE__*/ requireAnObject();
-		var definePropertiesModule = /*@__PURE__*/ requireObjectDefineProperties();
-		var enumBugKeys = /*@__PURE__*/ requireEnumBugKeys();
-		var hiddenKeys = /*@__PURE__*/ requireHiddenKeys();
-		var html = /*@__PURE__*/ requireHtml();
-		var documentCreateElement = /*@__PURE__*/ requireDocumentCreateElement();
-		var sharedKey = /*@__PURE__*/ requireSharedKey();
-
-		var GT = '>';
-		var LT = '<';
-		var PROTOTYPE = 'prototype';
-		var SCRIPT = 'script';
-		var IE_PROTO = sharedKey('IE_PROTO');
-
-		var EmptyConstructor = function () { /* empty */ };
-
-		var scriptTag = function (content) {
-		  return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
-		};
-
-		// Create object with fake `null` prototype: use ActiveX Object with cleared prototype
-		var NullProtoObjectViaActiveX = function (activeXDocument) {
-		  activeXDocument.write(scriptTag(''));
-		  activeXDocument.close();
-		  var temp = activeXDocument.parentWindow.Object;
-		  // eslint-disable-next-line no-useless-assignment -- avoid memory leak
-		  activeXDocument = null;
-		  return temp;
-		};
-
-		// Create object with fake `null` prototype: use iframe Object with cleared prototype
-		var NullProtoObjectViaIFrame = function () {
-		  // Thrash, waste and sodomy: IE GC bug
-		  var iframe = documentCreateElement('iframe');
-		  var JS = 'java' + SCRIPT + ':';
-		  var iframeDocument;
-		  iframe.style.display = 'none';
-		  html.appendChild(iframe);
-		  // https://github.com/zloirock/core-js/issues/475
-		  iframe.src = String(JS);
-		  iframeDocument = iframe.contentWindow.document;
-		  iframeDocument.open();
-		  iframeDocument.write(scriptTag('document.F=Object'));
-		  iframeDocument.close();
-		  return iframeDocument.F;
-		};
-
-		// Check for document.domain and active x support
-		// No need to use active x approach when document.domain is not set
-		// see https://github.com/es-shims/es5-shim/issues/150
-		// variation of https://github.com/kitcambridge/es5-shim/commit/4f738ac066346
-		// avoid IE GC bug
-		var activeXDocument;
-		var NullProtoObject = function () {
-		  try {
-		    activeXDocument = new ActiveXObject('htmlfile');
-		  } catch (error) { /* ignore */ }
-		  NullProtoObject = typeof document != 'undefined'
-		    ? document.domain && activeXDocument
-		      ? NullProtoObjectViaActiveX(activeXDocument) // old IE
-		      : NullProtoObjectViaIFrame()
-		    : NullProtoObjectViaActiveX(activeXDocument); // WSH
-		  var length = enumBugKeys.length;
-		  while (length--) delete NullProtoObject[PROTOTYPE][enumBugKeys[length]];
-		  return NullProtoObject();
-		};
-
-		hiddenKeys[IE_PROTO] = true;
-
-		// `Object.create` method
-		// https://tc39.es/ecma262/#sec-object.create
-		// eslint-disable-next-line es/no-object-create -- safe
-		objectCreate = Object.create || function create(O, Properties) {
-		  var result;
-		  if (O !== null) {
-		    EmptyConstructor[PROTOTYPE] = anObject(O);
-		    result = new EmptyConstructor();
-		    EmptyConstructor[PROTOTYPE] = null;
-		    // add "__proto__" for Object.getPrototypeOf polyfill
-		    result[IE_PROTO] = O;
-		  } else result = NullProtoObject();
-		  return Properties === undefined ? result : definePropertiesModule.f(result, Properties);
-		};
-		return objectCreate;
-	}
-
-	var correctPrototypeGetter;
-	var hasRequiredCorrectPrototypeGetter;
-
-	function requireCorrectPrototypeGetter () {
-		if (hasRequiredCorrectPrototypeGetter) return correctPrototypeGetter;
-		hasRequiredCorrectPrototypeGetter = 1;
-		var fails = /*@__PURE__*/ requireFails();
-
-		correctPrototypeGetter = !fails(function () {
-		  function F() { /* empty */ }
-		  F.prototype.constructor = null;
-		  // eslint-disable-next-line es/no-object-getprototypeof -- required for testing
-		  return Object.getPrototypeOf(new F()) !== F.prototype;
-		});
-		return correctPrototypeGetter;
-	}
-
-	var objectGetPrototypeOf;
-	var hasRequiredObjectGetPrototypeOf;
-
-	function requireObjectGetPrototypeOf () {
-		if (hasRequiredObjectGetPrototypeOf) return objectGetPrototypeOf;
-		hasRequiredObjectGetPrototypeOf = 1;
-		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
-		var isCallable = /*@__PURE__*/ requireIsCallable();
-		var toObject = /*@__PURE__*/ requireToObject();
-		var sharedKey = /*@__PURE__*/ requireSharedKey();
-		var CORRECT_PROTOTYPE_GETTER = /*@__PURE__*/ requireCorrectPrototypeGetter();
-
-		var IE_PROTO = sharedKey('IE_PROTO');
-		var $Object = Object;
-		var ObjectPrototype = $Object.prototype;
-
-		// `Object.getPrototypeOf` method
-		// https://tc39.es/ecma262/#sec-object.getprototypeof
-		// eslint-disable-next-line es/no-object-getprototypeof -- safe
-		objectGetPrototypeOf = CORRECT_PROTOTYPE_GETTER ? $Object.getPrototypeOf : function (O) {
-		  var object = toObject(O);
-		  if (hasOwn(object, IE_PROTO)) return object[IE_PROTO];
-		  var constructor = object.constructor;
-		  if (isCallable(constructor) && object instanceof constructor) {
-		    return constructor.prototype;
-		  } return object instanceof $Object ? ObjectPrototype : null;
-		};
-		return objectGetPrototypeOf;
-	}
-
-	var defineBuiltIn;
-	var hasRequiredDefineBuiltIn;
-
-	function requireDefineBuiltIn () {
-		if (hasRequiredDefineBuiltIn) return defineBuiltIn;
-		hasRequiredDefineBuiltIn = 1;
-		var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
-
-		defineBuiltIn = function (target, key, value, options) {
-		  if (options && options.enumerable) target[key] = value;
-		  else createNonEnumerableProperty(target, key, value);
-		  return target;
-		};
-		return defineBuiltIn;
-	}
-
-	var iteratorsCore;
-	var hasRequiredIteratorsCore;
-
-	function requireIteratorsCore () {
-		if (hasRequiredIteratorsCore) return iteratorsCore;
-		hasRequiredIteratorsCore = 1;
-		var fails = /*@__PURE__*/ requireFails();
-		var isCallable = /*@__PURE__*/ requireIsCallable();
-		var isObject = /*@__PURE__*/ requireIsObject();
-		var create = /*@__PURE__*/ requireObjectCreate();
-		var getPrototypeOf = /*@__PURE__*/ requireObjectGetPrototypeOf();
-		var defineBuiltIn = /*@__PURE__*/ requireDefineBuiltIn();
-		var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
-		var IS_PURE = /*@__PURE__*/ requireIsPure();
-
-		var ITERATOR = wellKnownSymbol('iterator');
-		var BUGGY_SAFARI_ITERATORS = false;
-
-		// `%IteratorPrototype%` object
-		// https://tc39.es/ecma262/#sec-%iteratorprototype%-object
-		var IteratorPrototype, PrototypeOfArrayIteratorPrototype, arrayIterator;
-
-		/* eslint-disable es/no-array-prototype-keys -- safe */
-		if ([].keys) {
-		  arrayIterator = [].keys();
-		  // Safari 8 has buggy iterators w/o `next`
-		  if (!('next' in arrayIterator)) BUGGY_SAFARI_ITERATORS = true;
-		  else {
-		    PrototypeOfArrayIteratorPrototype = getPrototypeOf(getPrototypeOf(arrayIterator));
-		    if (PrototypeOfArrayIteratorPrototype !== Object.prototype) IteratorPrototype = PrototypeOfArrayIteratorPrototype;
-		  }
-		}
-
-		var NEW_ITERATOR_PROTOTYPE = !isObject(IteratorPrototype) || fails(function () {
-		  var test = {};
-		  // FF44- legacy iterators case
-		  return IteratorPrototype[ITERATOR].call(test) !== test;
-		});
-
-		if (NEW_ITERATOR_PROTOTYPE) IteratorPrototype = {};
-		else if (IS_PURE) IteratorPrototype = create(IteratorPrototype);
-
-		// `%IteratorPrototype%[@@iterator]()` method
-		// https://tc39.es/ecma262/#sec-%iteratorprototype%-@@iterator
-		if (!isCallable(IteratorPrototype[ITERATOR])) {
-		  defineBuiltIn(IteratorPrototype, ITERATOR, function () {
-		    return this;
-		  });
-		}
-
-		iteratorsCore = {
-		  IteratorPrototype: IteratorPrototype,
-		  BUGGY_SAFARI_ITERATORS: BUGGY_SAFARI_ITERATORS
-		};
-		return iteratorsCore;
-	}
-
-	var objectToString;
-	var hasRequiredObjectToString;
-
-	function requireObjectToString () {
-		if (hasRequiredObjectToString) return objectToString;
-		hasRequiredObjectToString = 1;
-		var TO_STRING_TAG_SUPPORT = /*@__PURE__*/ requireToStringTagSupport();
-		var classof = /*@__PURE__*/ requireClassof();
-
-		// `Object.prototype.toString` method implementation
-		// https://tc39.es/ecma262/#sec-object.prototype.tostring
-		objectToString = TO_STRING_TAG_SUPPORT ? {}.toString : function toString() {
-		  return '[object ' + classof(this) + ']';
-		};
-		return objectToString;
-	}
-
-	var setToStringTag;
-	var hasRequiredSetToStringTag;
-
-	function requireSetToStringTag () {
-		if (hasRequiredSetToStringTag) return setToStringTag;
-		hasRequiredSetToStringTag = 1;
-		var TO_STRING_TAG_SUPPORT = /*@__PURE__*/ requireToStringTagSupport();
-		var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
-		var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
-		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
-		var toString = /*@__PURE__*/ requireObjectToString();
-		var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
-
-		var TO_STRING_TAG = wellKnownSymbol('toStringTag');
-
-		setToStringTag = function (it, TAG, STATIC, SET_METHOD) {
-		  var target = STATIC ? it : it && it.prototype;
-		  if (target) {
-		    if (!hasOwn(target, TO_STRING_TAG)) {
-		      defineProperty(target, TO_STRING_TAG, { configurable: true, value: TAG });
-		    }
-		    if (SET_METHOD && !TO_STRING_TAG_SUPPORT) {
-		      createNonEnumerableProperty(target, 'toString', toString);
-		    }
-		  }
-		};
-		return setToStringTag;
-	}
-
-	var iteratorCreateConstructor;
-	var hasRequiredIteratorCreateConstructor;
-
-	function requireIteratorCreateConstructor () {
-		if (hasRequiredIteratorCreateConstructor) return iteratorCreateConstructor;
-		hasRequiredIteratorCreateConstructor = 1;
-		var IteratorPrototype = /*@__PURE__*/ requireIteratorsCore().IteratorPrototype;
-		var create = /*@__PURE__*/ requireObjectCreate();
-		var createPropertyDescriptor = /*@__PURE__*/ requireCreatePropertyDescriptor();
-		var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
-		var Iterators = /*@__PURE__*/ requireIterators();
-
-		var returnThis = function () { return this; };
-
-		iteratorCreateConstructor = function (IteratorConstructor, NAME, next, ENUMERABLE_NEXT) {
-		  var TO_STRING_TAG = NAME + ' Iterator';
-		  IteratorConstructor.prototype = create(IteratorPrototype, { next: createPropertyDescriptor(+!ENUMERABLE_NEXT, next) });
-		  setToStringTag(IteratorConstructor, TO_STRING_TAG, false, true);
-		  Iterators[TO_STRING_TAG] = returnThis;
-		  return IteratorConstructor;
-		};
-		return iteratorCreateConstructor;
-	}
-
-	var functionUncurryThisAccessor;
-	var hasRequiredFunctionUncurryThisAccessor;
-
-	function requireFunctionUncurryThisAccessor () {
-		if (hasRequiredFunctionUncurryThisAccessor) return functionUncurryThisAccessor;
-		hasRequiredFunctionUncurryThisAccessor = 1;
-		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
-		var aCallable = /*@__PURE__*/ requireACallable();
-
-		functionUncurryThisAccessor = function (object, key, method) {
-		  try {
-		    // eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
-		    return uncurryThis(aCallable(Object.getOwnPropertyDescriptor(object, key)[method]));
-		  } catch (error) { /* empty */ }
-		};
-		return functionUncurryThisAccessor;
-	}
-
-	var isPossiblePrototype;
-	var hasRequiredIsPossiblePrototype;
-
-	function requireIsPossiblePrototype () {
-		if (hasRequiredIsPossiblePrototype) return isPossiblePrototype;
-		hasRequiredIsPossiblePrototype = 1;
-		var isObject = /*@__PURE__*/ requireIsObject();
-
-		isPossiblePrototype = function (argument) {
-		  return isObject(argument) || argument === null;
-		};
-		return isPossiblePrototype;
-	}
-
-	var aPossiblePrototype;
-	var hasRequiredAPossiblePrototype;
-
-	function requireAPossiblePrototype () {
-		if (hasRequiredAPossiblePrototype) return aPossiblePrototype;
-		hasRequiredAPossiblePrototype = 1;
-		var isPossiblePrototype = /*@__PURE__*/ requireIsPossiblePrototype();
-
-		var $String = String;
-		var $TypeError = TypeError;
-
-		aPossiblePrototype = function (argument) {
-		  if (isPossiblePrototype(argument)) return argument;
-		  throw new $TypeError("Can't set " + $String(argument) + ' as a prototype');
-		};
-		return aPossiblePrototype;
-	}
-
-	var objectSetPrototypeOf;
-	var hasRequiredObjectSetPrototypeOf;
-
-	function requireObjectSetPrototypeOf () {
-		if (hasRequiredObjectSetPrototypeOf) return objectSetPrototypeOf;
-		hasRequiredObjectSetPrototypeOf = 1;
-		/* eslint-disable no-proto -- safe */
-		var uncurryThisAccessor = /*@__PURE__*/ requireFunctionUncurryThisAccessor();
-		var isObject = /*@__PURE__*/ requireIsObject();
-		var requireObjectCoercible = /*@__PURE__*/ requireRequireObjectCoercible();
-		var aPossiblePrototype = /*@__PURE__*/ requireAPossiblePrototype();
-
-		// `Object.setPrototypeOf` method
-		// https://tc39.es/ecma262/#sec-object.setprototypeof
-		// Works with __proto__ only. Old v8 can't work with null proto objects.
-		// eslint-disable-next-line es/no-object-setprototypeof -- safe
-		objectSetPrototypeOf = Object.setPrototypeOf || ('__proto__' in {} ? function () {
-		  var CORRECT_SETTER = false;
-		  var test = {};
-		  var setter;
-		  try {
-		    setter = uncurryThisAccessor(Object.prototype, '__proto__', 'set');
-		    setter(test, []);
-		    CORRECT_SETTER = test instanceof Array;
-		  } catch (error) { /* empty */ }
-		  return function setPrototypeOf(O, proto) {
-		    requireObjectCoercible(O);
-		    aPossiblePrototype(proto);
-		    if (!isObject(O)) return O;
-		    if (CORRECT_SETTER) setter(O, proto);
-		    else O.__proto__ = proto;
-		    return O;
-		  };
-		}() : undefined);
-		return objectSetPrototypeOf;
-	}
-
-	var iteratorDefine;
-	var hasRequiredIteratorDefine;
-
-	function requireIteratorDefine () {
-		if (hasRequiredIteratorDefine) return iteratorDefine;
-		hasRequiredIteratorDefine = 1;
-		var $ = /*@__PURE__*/ require_export();
-		var call = /*@__PURE__*/ requireFunctionCall();
-		var IS_PURE = /*@__PURE__*/ requireIsPure();
-		var FunctionName = /*@__PURE__*/ requireFunctionName();
-		var isCallable = /*@__PURE__*/ requireIsCallable();
-		var createIteratorConstructor = /*@__PURE__*/ requireIteratorCreateConstructor();
-		var getPrototypeOf = /*@__PURE__*/ requireObjectGetPrototypeOf();
-		var setPrototypeOf = /*@__PURE__*/ requireObjectSetPrototypeOf();
-		var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
-		var createNonEnumerableProperty = /*@__PURE__*/ requireCreateNonEnumerableProperty();
-		var defineBuiltIn = /*@__PURE__*/ requireDefineBuiltIn();
-		var wellKnownSymbol = /*@__PURE__*/ requireWellKnownSymbol();
-		var Iterators = /*@__PURE__*/ requireIterators();
-		var IteratorsCore = /*@__PURE__*/ requireIteratorsCore();
-
-		var PROPER_FUNCTION_NAME = FunctionName.PROPER;
-		var CONFIGURABLE_FUNCTION_NAME = FunctionName.CONFIGURABLE;
-		var IteratorPrototype = IteratorsCore.IteratorPrototype;
-		var BUGGY_SAFARI_ITERATORS = IteratorsCore.BUGGY_SAFARI_ITERATORS;
-		var ITERATOR = wellKnownSymbol('iterator');
-		var KEYS = 'keys';
-		var VALUES = 'values';
-		var ENTRIES = 'entries';
-
-		var returnThis = function () { return this; };
-
-		iteratorDefine = function (Iterable, NAME, IteratorConstructor, next, DEFAULT, IS_SET, FORCED) {
-		  createIteratorConstructor(IteratorConstructor, NAME, next);
-
-		  var getIterationMethod = function (KIND) {
-		    if (KIND === DEFAULT && defaultIterator) return defaultIterator;
-		    if (!BUGGY_SAFARI_ITERATORS && KIND && KIND in IterablePrototype) return IterablePrototype[KIND];
-
-		    switch (KIND) {
-		      case KEYS: return function keys() { return new IteratorConstructor(this, KIND); };
-		      case VALUES: return function values() { return new IteratorConstructor(this, KIND); };
-		      case ENTRIES: return function entries() { return new IteratorConstructor(this, KIND); };
-		    }
-
-		    return function () { return new IteratorConstructor(this); };
-		  };
-
-		  var TO_STRING_TAG = NAME + ' Iterator';
-		  var INCORRECT_VALUES_NAME = false;
-		  var IterablePrototype = Iterable.prototype;
-		  var nativeIterator = IterablePrototype[ITERATOR]
-		    || IterablePrototype['@@iterator']
-		    || DEFAULT && IterablePrototype[DEFAULT];
-		  var defaultIterator = !BUGGY_SAFARI_ITERATORS && nativeIterator || getIterationMethod(DEFAULT);
-		  var anyNativeIterator = NAME === 'Array' ? IterablePrototype.entries || nativeIterator : nativeIterator;
-		  var CurrentIteratorPrototype, methods, KEY;
-
-		  // fix native
-		  if (anyNativeIterator) {
-		    CurrentIteratorPrototype = getPrototypeOf(anyNativeIterator.call(new Iterable()));
-		    if (CurrentIteratorPrototype !== Object.prototype && CurrentIteratorPrototype.next) {
-		      if (!IS_PURE && getPrototypeOf(CurrentIteratorPrototype) !== IteratorPrototype) {
-		        if (setPrototypeOf) {
-		          setPrototypeOf(CurrentIteratorPrototype, IteratorPrototype);
-		        } else if (!isCallable(CurrentIteratorPrototype[ITERATOR])) {
-		          defineBuiltIn(CurrentIteratorPrototype, ITERATOR, returnThis);
-		        }
-		      }
-		      // Set @@toStringTag to native iterators
-		      setToStringTag(CurrentIteratorPrototype, TO_STRING_TAG, true, true);
-		      if (IS_PURE) Iterators[TO_STRING_TAG] = returnThis;
-		    }
-		  }
-
-		  // fix Array.prototype.{ values, @@iterator }.name in V8 / FF
-		  if (PROPER_FUNCTION_NAME && DEFAULT === VALUES && nativeIterator && nativeIterator.name !== VALUES) {
-		    if (!IS_PURE && CONFIGURABLE_FUNCTION_NAME) {
-		      createNonEnumerableProperty(IterablePrototype, 'name', VALUES);
-		    } else {
-		      INCORRECT_VALUES_NAME = true;
-		      defaultIterator = function values() { return call(nativeIterator, this); };
-		    }
-		  }
-
-		  // export additional methods
-		  if (DEFAULT) {
-		    methods = {
-		      values: getIterationMethod(VALUES),
-		      keys: IS_SET ? defaultIterator : getIterationMethod(KEYS),
-		      entries: getIterationMethod(ENTRIES)
-		    };
-		    if (FORCED) for (KEY in methods) {
-		      if (BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME || !(KEY in IterablePrototype)) {
-		        defineBuiltIn(IterablePrototype, KEY, methods[KEY]);
-		      }
-		    } else $({ target: NAME, proto: true, forced: BUGGY_SAFARI_ITERATORS || INCORRECT_VALUES_NAME }, methods);
-		  }
-
-		  // define iterator
-		  if ((!IS_PURE || FORCED) && IterablePrototype[ITERATOR] !== defaultIterator) {
-		    defineBuiltIn(IterablePrototype, ITERATOR, defaultIterator, { name: DEFAULT });
-		  }
-		  Iterators[NAME] = defaultIterator;
-
-		  return methods;
-		};
-		return iteratorDefine;
-	}
-
-	var createIterResultObject;
-	var hasRequiredCreateIterResultObject;
-
-	function requireCreateIterResultObject () {
-		if (hasRequiredCreateIterResultObject) return createIterResultObject;
-		hasRequiredCreateIterResultObject = 1;
-		// `CreateIterResultObject` abstract operation
-		// https://tc39.es/ecma262/#sec-createiterresultobject
-		createIterResultObject = function (value, done) {
-		  return { value: value, done: done };
-		};
-		return createIterResultObject;
-	}
-
-	var es_array_iterator;
-	var hasRequiredEs_array_iterator;
-
-	function requireEs_array_iterator () {
-		if (hasRequiredEs_array_iterator) return es_array_iterator;
-		hasRequiredEs_array_iterator = 1;
-		var toIndexedObject = /*@__PURE__*/ requireToIndexedObject();
-		var addToUnscopables = /*@__PURE__*/ requireAddToUnscopables();
-		var Iterators = /*@__PURE__*/ requireIterators();
-		var InternalStateModule = /*@__PURE__*/ requireInternalState();
-		var defineProperty = /*@__PURE__*/ requireObjectDefineProperty().f;
-		var defineIterator = /*@__PURE__*/ requireIteratorDefine();
-		var createIterResultObject = /*@__PURE__*/ requireCreateIterResultObject();
-		var IS_PURE = /*@__PURE__*/ requireIsPure();
-		var DESCRIPTORS = /*@__PURE__*/ requireDescriptors();
-
-		var ARRAY_ITERATOR = 'Array Iterator';
-		var setInternalState = InternalStateModule.set;
-		var getInternalState = InternalStateModule.getterFor(ARRAY_ITERATOR);
-
-		// `Array.prototype.entries` method
-		// https://tc39.es/ecma262/#sec-array.prototype.entries
-		// `Array.prototype.keys` method
-		// https://tc39.es/ecma262/#sec-array.prototype.keys
-		// `Array.prototype.values` method
-		// https://tc39.es/ecma262/#sec-array.prototype.values
-		// `Array.prototype[@@iterator]` method
-		// https://tc39.es/ecma262/#sec-array.prototype-@@iterator
-		// `CreateArrayIterator` internal method
-		// https://tc39.es/ecma262/#sec-createarrayiterator
-		es_array_iterator = defineIterator(Array, 'Array', function (iterated, kind) {
-		  setInternalState(this, {
-		    type: ARRAY_ITERATOR,
-		    target: toIndexedObject(iterated), // target
-		    index: 0,                          // next index
-		    kind: kind                         // kind
-		  });
-		// `%ArrayIteratorPrototype%.next` method
-		// https://tc39.es/ecma262/#sec-%arrayiteratorprototype%.next
-		}, function () {
-		  var state = getInternalState(this);
-		  var target = state.target;
-		  var index = state.index++;
-		  if (!target || index >= target.length) {
-		    state.target = null;
-		    return createIterResultObject(undefined, true);
-		  }
-		  switch (state.kind) {
-		    case 'keys': return createIterResultObject(index, false);
-		    case 'values': return createIterResultObject(target[index], false);
-		  } return createIterResultObject([index, target[index]], false);
-		}, 'values');
-
-		// argumentsList[@@iterator] is %ArrayProto_values%
-		// https://tc39.es/ecma262/#sec-createunmappedargumentsobject
-		// https://tc39.es/ecma262/#sec-createmappedargumentsobject
-		var values = Iterators.Arguments = Iterators.Array;
-
-		// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
-		addToUnscopables('keys');
-		addToUnscopables('values');
-		addToUnscopables('entries');
-
-		// V8 ~ Chrome 45- bug
-		if (!IS_PURE && DESCRIPTORS && values.name !== 'values') try {
-		  defineProperty(values, 'name', { value: 'values' });
-		} catch (error) { /* empty */ }
-		return es_array_iterator;
-	}
-
-	var domIterables;
-	var hasRequiredDomIterables;
-
-	function requireDomIterables () {
-		if (hasRequiredDomIterables) return domIterables;
-		hasRequiredDomIterables = 1;
-		// iterable DOM collections
-		// flag - `iterable` interface - 'entries', 'keys', 'values', 'forEach' methods
-		domIterables = {
-		  CSSRuleList: 0,
-		  CSSStyleDeclaration: 0,
-		  CSSValueList: 0,
-		  ClientRectList: 0,
-		  DOMRectList: 0,
-		  DOMStringList: 0,
-		  DOMTokenList: 1,
-		  DataTransferItemList: 0,
-		  FileList: 0,
-		  HTMLAllCollection: 0,
-		  HTMLCollection: 0,
-		  HTMLFormElement: 0,
-		  HTMLSelectElement: 0,
-		  MediaList: 0,
-		  MimeTypeArray: 0,
-		  NamedNodeMap: 0,
-		  NodeList: 1,
-		  PaintRequestList: 0,
-		  Plugin: 0,
-		  PluginArray: 0,
-		  SVGLengthList: 0,
-		  SVGNumberList: 0,
-		  SVGPathSegList: 0,
-		  SVGPointList: 0,
-		  SVGStringList: 0,
-		  SVGTransformList: 0,
-		  SourceBufferList: 0,
-		  StyleSheetList: 0,
-		  TextTrackCueList: 0,
-		  TextTrackList: 0,
-		  TouchList: 0
-		};
-		return domIterables;
-	}
-
-	var hasRequiredWeb_domCollections_iterator;
-
-	function requireWeb_domCollections_iterator () {
-		if (hasRequiredWeb_domCollections_iterator) return web_domCollections_iterator;
-		hasRequiredWeb_domCollections_iterator = 1;
-		requireEs_array_iterator();
-		var DOMIterables = /*@__PURE__*/ requireDomIterables();
-		var globalThis = /*@__PURE__*/ requireGlobalThis();
-		var setToStringTag = /*@__PURE__*/ requireSetToStringTag();
-		var Iterators = /*@__PURE__*/ requireIterators();
-
-		for (var COLLECTION_NAME in DOMIterables) {
-		  setToStringTag(globalThis[COLLECTION_NAME], COLLECTION_NAME);
-		  Iterators[COLLECTION_NAME] = Iterators.Array;
-		}
-		return web_domCollections_iterator;
-	}
-
-	var values$3;
-	var hasRequiredValues$3;
-
-	function requireValues$3 () {
-		if (hasRequiredValues$3) return values$3;
-		hasRequiredValues$3 = 1;
-		requireEs_array_iterator();
-		var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
-
-		values$3 = getBuiltInPrototypeMethod('Array', 'values');
-		return values$3;
-	}
-
-	var values$2;
-	var hasRequiredValues$2;
-
-	function requireValues$2 () {
-		if (hasRequiredValues$2) return values$2;
-		hasRequiredValues$2 = 1;
-		var parent = /*@__PURE__*/ requireValues$3();
-
-		values$2 = parent;
-		return values$2;
-	}
-
-	var values$1;
-	var hasRequiredValues$1;
-
-	function requireValues$1 () {
-		if (hasRequiredValues$1) return values$1;
-		hasRequiredValues$1 = 1;
-		requireWeb_domCollections_iterator();
-		var classof = /*@__PURE__*/ requireClassof();
-		var hasOwn = /*@__PURE__*/ requireHasOwnProperty();
-		var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
-		var method = /*@__PURE__*/ requireValues$2();
-
-		var ArrayPrototype = Array.prototype;
-
-		var DOMIterables = {
-		  DOMTokenList: true,
-		  NodeList: true
-		};
-
-		values$1 = function (it) {
-		  var own = it.values;
-		  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.values)
-		    || hasOwn(DOMIterables, classof(it)) ? method : own;
-		};
-		return values$1;
-	}
-
-	var values;
-	var hasRequiredValues;
-
-	function requireValues () {
-		if (hasRequiredValues) return values;
-		hasRequiredValues = 1;
-		values = /*@__PURE__*/ requireValues$1();
-		return values;
-	}
-
-	var valuesExports = requireValues();
-	var _valuesInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(valuesExports);
 
 	var es_array_forEach = {};
 
@@ -3709,170 +4390,6 @@
 
 	var concatExports = requireConcat();
 	var _concatInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(concatExports);
-
-	var web_timers = {};
-
-	var web_setInterval = {};
-
-	var environment;
-	var hasRequiredEnvironment;
-
-	function requireEnvironment () {
-		if (hasRequiredEnvironment) return environment;
-		hasRequiredEnvironment = 1;
-		/* global Bun, Deno -- detection */
-		var globalThis = /*@__PURE__*/ requireGlobalThis();
-		var userAgent = /*@__PURE__*/ requireEnvironmentUserAgent();
-		var classof = /*@__PURE__*/ requireClassofRaw();
-
-		var userAgentStartsWith = function (string) {
-		  return userAgent.slice(0, string.length) === string;
-		};
-
-		environment = (function () {
-		  if (userAgentStartsWith('Bun/')) return 'BUN';
-		  if (userAgentStartsWith('Cloudflare-Workers')) return 'CLOUDFLARE';
-		  if (userAgentStartsWith('Deno/')) return 'DENO';
-		  if (userAgentStartsWith('Node.js/')) return 'NODE';
-		  if (globalThis.Bun && typeof Bun.version == 'string') return 'BUN';
-		  if (globalThis.Deno && typeof Deno.version == 'object') return 'DENO';
-		  if (classof(globalThis.process) === 'process') return 'NODE';
-		  if (globalThis.window && globalThis.document) return 'BROWSER';
-		  return 'REST';
-		})();
-		return environment;
-	}
-
-	var validateArgumentsLength;
-	var hasRequiredValidateArgumentsLength;
-
-	function requireValidateArgumentsLength () {
-		if (hasRequiredValidateArgumentsLength) return validateArgumentsLength;
-		hasRequiredValidateArgumentsLength = 1;
-		var $TypeError = TypeError;
-
-		validateArgumentsLength = function (passed, required) {
-		  if (passed < required) throw new $TypeError('Not enough arguments');
-		  return passed;
-		};
-		return validateArgumentsLength;
-	}
-
-	var schedulersFix;
-	var hasRequiredSchedulersFix;
-
-	function requireSchedulersFix () {
-		if (hasRequiredSchedulersFix) return schedulersFix;
-		hasRequiredSchedulersFix = 1;
-		var globalThis = /*@__PURE__*/ requireGlobalThis();
-		var apply = /*@__PURE__*/ requireFunctionApply();
-		var isCallable = /*@__PURE__*/ requireIsCallable();
-		var ENVIRONMENT = /*@__PURE__*/ requireEnvironment();
-		var USER_AGENT = /*@__PURE__*/ requireEnvironmentUserAgent();
-		var arraySlice = /*@__PURE__*/ requireArraySlice();
-		var validateArgumentsLength = /*@__PURE__*/ requireValidateArgumentsLength();
-
-		var Function = globalThis.Function;
-		// dirty IE9- and Bun 0.3.0- checks
-		var WRAP = /MSIE .\./.test(USER_AGENT) || ENVIRONMENT === 'BUN' && (function () {
-		  var version = globalThis.Bun.version.split('.');
-		  return version.length < 3 || version[0] === '0' && (version[1] < 3 || version[1] === '3' && version[2] === '0');
-		})();
-
-		// IE9- / Bun 0.3.0- setTimeout / setInterval / setImmediate additional parameters fix
-		// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#timers
-		// https://github.com/oven-sh/bun/issues/1633
-		schedulersFix = function (scheduler, hasTimeArg) {
-		  var firstParamIndex = hasTimeArg ? 2 : 1;
-		  return WRAP ? function (handler, timeout /* , ...arguments */) {
-		    var boundArgs = validateArgumentsLength(arguments.length, 1) > firstParamIndex;
-		    var fn = isCallable(handler) ? handler : Function(handler);
-		    var params = boundArgs ? arraySlice(arguments, firstParamIndex) : [];
-		    var callback = boundArgs ? function () {
-		      apply(fn, this, params);
-		    } : fn;
-		    return hasTimeArg ? scheduler(callback, timeout) : scheduler(callback);
-		  } : scheduler;
-		};
-		return schedulersFix;
-	}
-
-	var hasRequiredWeb_setInterval;
-
-	function requireWeb_setInterval () {
-		if (hasRequiredWeb_setInterval) return web_setInterval;
-		hasRequiredWeb_setInterval = 1;
-		var $ = /*@__PURE__*/ require_export();
-		var globalThis = /*@__PURE__*/ requireGlobalThis();
-		var schedulersFix = /*@__PURE__*/ requireSchedulersFix();
-
-		var setInterval = schedulersFix(globalThis.setInterval, true);
-
-		// Bun / IE9- setInterval additional parameters fix
-		// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-setinterval
-		$({ global: true, bind: true, forced: globalThis.setInterval !== setInterval }, {
-		  setInterval: setInterval
-		});
-		return web_setInterval;
-	}
-
-	var web_setTimeout = {};
-
-	var hasRequiredWeb_setTimeout;
-
-	function requireWeb_setTimeout () {
-		if (hasRequiredWeb_setTimeout) return web_setTimeout;
-		hasRequiredWeb_setTimeout = 1;
-		var $ = /*@__PURE__*/ require_export();
-		var globalThis = /*@__PURE__*/ requireGlobalThis();
-		var schedulersFix = /*@__PURE__*/ requireSchedulersFix();
-
-		var setTimeout = schedulersFix(globalThis.setTimeout, true);
-
-		// Bun / IE9- setTimeout additional parameters fix
-		// https://html.spec.whatwg.org/multipage/timers-and-user-prompts.html#dom-settimeout
-		$({ global: true, bind: true, forced: globalThis.setTimeout !== setTimeout }, {
-		  setTimeout: setTimeout
-		});
-		return web_setTimeout;
-	}
-
-	var hasRequiredWeb_timers;
-
-	function requireWeb_timers () {
-		if (hasRequiredWeb_timers) return web_timers;
-		hasRequiredWeb_timers = 1;
-		// TODO: Remove this module from `core-js@4` since it's split to modules listed below
-		requireWeb_setInterval();
-		requireWeb_setTimeout();
-		return web_timers;
-	}
-
-	var setTimeout$2;
-	var hasRequiredSetTimeout$1;
-
-	function requireSetTimeout$1 () {
-		if (hasRequiredSetTimeout$1) return setTimeout$2;
-		hasRequiredSetTimeout$1 = 1;
-		requireWeb_timers();
-		var path = /*@__PURE__*/ requirePath();
-
-		setTimeout$2 = path.setTimeout;
-		return setTimeout$2;
-	}
-
-	var setTimeout$1;
-	var hasRequiredSetTimeout;
-
-	function requireSetTimeout () {
-		if (hasRequiredSetTimeout) return setTimeout$1;
-		hasRequiredSetTimeout = 1;
-		setTimeout$1 = /*@__PURE__*/ requireSetTimeout$1();
-		return setTimeout$1;
-	}
-
-	var setTimeoutExports = requireSetTimeout();
-	var _setTimeout = /*@__PURE__*/getDefaultExportFromCjs(setTimeoutExports);
 
 	var es_object_assign = {};
 
@@ -9828,819 +10345,82 @@
 	const Validator = Validator$1;
 
 	/**
-	 * @param {number} [x]
-	 * @param {number} [y]
-	 * @param {number} [z]
-	 */
-	function Point3d(x, y, z) {
-	  this.x = x !== undefined ? x : 0;
-	  this.y = y !== undefined ? y : 0;
-	  this.z = z !== undefined ? z : 0;
-	}
-
-	/**
-	 * Subtract the two provided points, returns a-b
-	 * @param {Point3d} a
-	 * @param {Point3d} b
-	 * @returns {Point3d} a-b
-	 */
-	Point3d.subtract = function (a, b) {
-	  const sub = new Point3d();
-	  sub.x = a.x - b.x;
-	  sub.y = a.y - b.y;
-	  sub.z = a.z - b.z;
-	  return sub;
-	};
-
-	/**
-	 * Add the two provided points, returns a+b
-	 * @param {Point3d} a
-	 * @param {Point3d} b
-	 * @returns {Point3d} a+b
-	 */
-	Point3d.add = function (a, b) {
-	  const sum = new Point3d();
-	  sum.x = a.x + b.x;
-	  sum.y = a.y + b.y;
-	  sum.z = a.z + b.z;
-	  return sum;
-	};
-
-	/**
-	 * Calculate the average of two 3d points
-	 * @param {Point3d} a
-	 * @param {Point3d} b
-	 * @returns {Point3d} The average, (a+b)/2
-	 */
-	Point3d.avg = function (a, b) {
-	  return new Point3d((a.x + b.x) / 2, (a.y + b.y) / 2, (a.z + b.z) / 2);
-	};
-
-	/**
-	 * Scale the provided point by a scalar, returns p*c
-	 * @param {Point3d} p
-	 * @param {number} c
-	 * @returns {Point3d} p*c
-	 */
-	Point3d.scalarProduct = function (p, c) {
-	  return new Point3d(p.x * c, p.y * c, p.z * c);
-	};
-
-	/**
-	 * Calculate the dot product of the two provided points, returns a.b
-	 * Documentation: http://en.wikipedia.org/wiki/Dot_product
-	 * @param {Point3d} a
-	 * @param {Point3d} b
-	 * @returns {Point3d} dot product a.b
-	 */
-	Point3d.dotProduct = function (a, b) {
-	  return a.x * b.x + a.y * b.y + a.z * b.z;
-	};
-
-	/**
-	 * Calculate the cross product of the two provided points, returns axb
-	 * Documentation: http://en.wikipedia.org/wiki/Cross_product
-	 * @param {Point3d} a
-	 * @param {Point3d} b
-	 * @returns {Point3d} cross product axb
-	 */
-	Point3d.crossProduct = function (a, b) {
-	  const crossproduct = new Point3d();
-	  crossproduct.x = a.y * b.z - a.z * b.y;
-	  crossproduct.y = a.z * b.x - a.x * b.z;
-	  crossproduct.z = a.x * b.y - a.y * b.x;
-	  return crossproduct;
-	};
-
-	/**
-	 * Retrieve the length of the vector (or the distance from this point to the origin
-	 * @returns {number}  length
-	 */
-	Point3d.prototype.length = function () {
-	  return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-	};
-
-	/**
-	 * Return a normalized vector pointing in the same direction.
-	 * @returns {Point3d}  normalized
-	 */
-	Point3d.prototype.normalize = function () {
-	  return Point3d.scalarProduct(this, 1 / this.length());
-	};
-
-	/**
-	 * @param {number} [x]
-	 * @param {number} [y]
-	 */
-	function Point2d(x, y) {
-	  this.x = x !== undefined ? x : 0;
-	  this.y = y !== undefined ? y : 0;
-	}
-
-	/**
-	 * An html slider control with start/stop/prev/next buttons
-	 * @function Object() { [native code] } Slider
-	 * @param {Element} container  The element where the slider will be created
-	 * @param {object} options   Available options:
-	 *                 {boolean} visible   If true (default) the
-	 *                           slider is visible.
-	 */
-	function Slider(container, options) {
-	  if (container === undefined) {
-	    throw new Error("No container element defined");
-	  }
-	  this.container = container;
-	  this.visible = options && options.visible != undefined ? options.visible : true;
-	  if (this.visible) {
-	    this.frame = document.createElement("DIV");
-	    //this.frame.style.backgroundColor = '#E5E5E5';
-	    this.frame.style.width = "100%";
-	    this.frame.style.position = "relative";
-	    this.container.appendChild(this.frame);
-	    this.frame.prev = document.createElement("INPUT");
-	    this.frame.prev.type = "BUTTON";
-	    this.frame.prev.value = "Prev";
-	    this.frame.appendChild(this.frame.prev);
-	    this.frame.play = document.createElement("INPUT");
-	    this.frame.play.type = "BUTTON";
-	    this.frame.play.value = "Play";
-	    this.frame.appendChild(this.frame.play);
-	    this.frame.next = document.createElement("INPUT");
-	    this.frame.next.type = "BUTTON";
-	    this.frame.next.value = "Next";
-	    this.frame.appendChild(this.frame.next);
-	    this.frame.bar = document.createElement("INPUT");
-	    this.frame.bar.type = "BUTTON";
-	    this.frame.bar.style.position = "absolute";
-	    this.frame.bar.style.border = "1px solid red";
-	    this.frame.bar.style.width = "100px";
-	    this.frame.bar.style.height = "6px";
-	    this.frame.bar.style.borderRadius = "2px";
-	    this.frame.bar.style.MozBorderRadius = "2px";
-	    this.frame.bar.style.border = "1px solid #7F7F7F";
-	    this.frame.bar.style.backgroundColor = "#E5E5E5";
-	    this.frame.appendChild(this.frame.bar);
-	    this.frame.slide = document.createElement("INPUT");
-	    this.frame.slide.type = "BUTTON";
-	    this.frame.slide.style.margin = "0px";
-	    this.frame.slide.value = " ";
-	    this.frame.slide.style.position = "relative";
-	    this.frame.slide.style.left = "-100px";
-	    this.frame.appendChild(this.frame.slide);
-
-	    // create events
-	    const me = this;
-	    this.frame.slide.onmousedown = function (event) {
-	      me._onMouseDown(event);
-	    };
-	    this.frame.prev.onclick = function (event) {
-	      me.prev(event);
-	    };
-	    this.frame.play.onclick = function (event) {
-	      me.togglePlay(event);
-	    };
-	    this.frame.next.onclick = function (event) {
-	      me.next(event);
-	    };
-	  }
-	  this.onChangeCallback = undefined;
-	  this.values = [];
-	  this.index = undefined;
-	  this.playTimeout = undefined;
-	  this.playInterval = 1000; // milliseconds
-	  this.playLoop = true;
-	}
-
-	/**
-	 * Select the previous index
-	 */
-	Slider.prototype.prev = function () {
-	  let index = this.getIndex();
-	  if (index > 0) {
-	    index--;
-	    this.setIndex(index);
-	  }
-	};
-
-	/**
-	 * Select the next index
-	 */
-	Slider.prototype.next = function () {
-	  let index = this.getIndex();
-	  if (index < _valuesInstanceProperty(this).length - 1) {
-	    index++;
-	    this.setIndex(index);
-	  }
-	};
-
-	/**
-	 * Select the next index
-	 */
-	Slider.prototype.playNext = function () {
-	  const start = new Date();
-	  let index = this.getIndex();
-	  if (index < _valuesInstanceProperty(this).length - 1) {
-	    index++;
-	    this.setIndex(index);
-	  } else if (this.playLoop) {
-	    // jump to the start
-	    index = 0;
-	    this.setIndex(index);
-	  }
-	  const end = new Date();
-	  const diff = end - start;
-
-	  // calculate how much time it to to set the index and to execute the callback
-	  // function.
-	  const interval = Math.max(this.playInterval - diff, 0);
-	  // document.title = diff // TODO: cleanup
-
-	  const me = this;
-	  this.playTimeout = _setTimeout(function () {
-	    me.playNext();
-	  }, interval);
-	};
-
-	/**
-	 * Toggle start or stop playing
-	 */
-	Slider.prototype.togglePlay = function () {
-	  if (this.playTimeout === undefined) {
-	    this.play();
-	  } else {
-	    this.stop();
-	  }
-	};
-
-	/**
-	 * Start playing
-	 */
-	Slider.prototype.play = function () {
-	  // Test whether already playing
-	  if (this.playTimeout) return;
-	  this.playNext();
-	  if (this.frame) {
-	    this.frame.play.value = "Stop";
-	  }
-	};
-
-	/**
-	 * Stop playing
-	 */
-	Slider.prototype.stop = function () {
-	  clearInterval(this.playTimeout);
-	  this.playTimeout = undefined;
-	  if (this.frame) {
-	    this.frame.play.value = "Play";
-	  }
-	};
-
-	/**
-	 * Set a callback function which will be triggered when the value of the
-	 * slider bar has changed.
-	 * @param {Function} callback
-	 */
-	Slider.prototype.setOnChangeCallback = function (callback) {
-	  this.onChangeCallback = callback;
-	};
-
-	/**
-	 * Set the interval for playing the list
-	 * @param {number} interval   The interval in milliseconds
-	 */
-	Slider.prototype.setPlayInterval = function (interval) {
-	  this.playInterval = interval;
-	};
-
-	/**
-	 * Retrieve the current play interval
-	 * @returns {number} interval   The interval in milliseconds
-	 */
-	Slider.prototype.getPlayInterval = function () {
-	  return this.playInterval;
-	};
-
-	/**
-	 * Set looping on or off
-	 * @param {boolean} doLoop  If true, the slider will jump to the start when
-	 *               the end is passed, and will jump to the end
-	 *               when the start is passed.
-	 */
-	Slider.prototype.setPlayLoop = function (doLoop) {
-	  this.playLoop = doLoop;
-	};
-
-	/**
-	 * Execute the onchange callback function
-	 */
-	Slider.prototype.onChange = function () {
-	  if (this.onChangeCallback !== undefined) {
-	    this.onChangeCallback();
-	  }
-	};
-
-	/**
-	 * redraw the slider on the correct place
-	 */
-	Slider.prototype.redraw = function () {
-	  if (this.frame) {
-	    // resize the bar
-	    this.frame.bar.style.top = this.frame.clientHeight / 2 - this.frame.bar.offsetHeight / 2 + "px";
-	    this.frame.bar.style.width = this.frame.clientWidth - this.frame.prev.clientWidth - this.frame.play.clientWidth - this.frame.next.clientWidth - 30 + "px";
-
-	    // position the slider button
-	    const left = this.indexToLeft(this.index);
-	    this.frame.slide.style.left = left + "px";
-	  }
-	};
-
-	/**
-	 * Set the list with values for the slider
-	 * @param {Array} values   A javascript array with values (any type)
-	 */
-	Slider.prototype.setValues = function (values) {
-	  this.values = values;
-	  if (_valuesInstanceProperty(this).length > 0) this.setIndex(0);else this.index = undefined;
-	};
-
-	/**
-	 * Select a value by its index
-	 * @param {number} index
-	 */
-	Slider.prototype.setIndex = function (index) {
-	  if (index < _valuesInstanceProperty(this).length) {
-	    this.index = index;
-	    this.redraw();
-	    this.onChange();
-	  } else {
-	    throw new Error("Index out of range");
-	  }
-	};
-
-	/**
-	 * retrieve the index of the currently selected vaue
-	 * @returns {number} index
-	 */
-	Slider.prototype.getIndex = function () {
-	  return this.index;
-	};
-
-	/**
-	 * retrieve the currently selected value
-	 * @returns {*} value
-	 */
-	Slider.prototype.get = function () {
-	  return _valuesInstanceProperty(this)[this.index];
-	};
-	Slider.prototype._onMouseDown = function (event) {
-	  // only react on left mouse button down
-	  const leftButtonDown = event.which ? event.which === 1 : event.button === 1;
-	  if (!leftButtonDown) return;
-	  this.startClientX = event.clientX;
-	  this.startSlideX = _parseFloat(this.frame.slide.style.left);
-	  this.frame.style.cursor = "move";
-
-	  // add event listeners to handle moving the contents
-	  // we store the function onmousemove and onmouseup in the graph, so we can
-	  // remove the eventlisteners lateron in the function mouseUp()
-	  const me = this;
-	  this.onmousemove = function (event) {
-	    me._onMouseMove(event);
-	  };
-	  this.onmouseup = function (event) {
-	    me._onMouseUp(event);
-	  };
-	  document.addEventListener("mousemove", this.onmousemove);
-	  document.addEventListener("mouseup", this.onmouseup);
-	  preventDefault(event);
-	};
-	Slider.prototype.leftToIndex = function (left) {
-	  const width = _parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
-	  const x = left - 3;
-	  let index = Math.round(x / width * (_valuesInstanceProperty(this).length - 1));
-	  if (index < 0) index = 0;
-	  if (index > _valuesInstanceProperty(this).length - 1) index = _valuesInstanceProperty(this).length - 1;
-	  return index;
-	};
-	Slider.prototype.indexToLeft = function (index) {
-	  const width = _parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
-	  const x = index / (_valuesInstanceProperty(this).length - 1) * width;
-	  const left = x + 3;
-	  return left;
-	};
-	Slider.prototype._onMouseMove = function (event) {
-	  const diff = event.clientX - this.startClientX;
-	  const x = this.startSlideX + diff;
-	  const index = this.leftToIndex(x);
-	  this.setIndex(index);
-	  preventDefault();
-	};
-	Slider.prototype._onMouseUp = function () {
-	  this.frame.style.cursor = "auto";
-
-	  // remove event listeners
-	  document.removeEventListener("mousemove", this.onmousemove);
-	  document.removeEventListener("mouseup", this.onmouseup);
-	  preventDefault();
-	};
-
-	/**
-	 * The class StepNumber is an iterator for Numbers. You provide a start and end
-	 * value, and a best step size. StepNumber itself rounds to fixed values and
-	 * a finds the step that best fits the provided step.
+	 * Helper class to make working with related min and max values easier.
 	 *
-	 * If prettyStep is true, the step size is chosen as close as possible to the
-	 * provided step, but being a round value like 1, 2, 5, 10, 20, 50, ....
+	 * The range is inclusive; a given value is considered part of the range if:
 	 *
-	 * Example usage:
-	 *   var step = new StepNumber(0, 10, 2.5, true);
-	 *   step.start();
-	 *   while (!step.end()) {
-	 *   alert(step.getCurrent());
-	 *   step.next();
-	 *   }
+	 *    this.min <= value <= this.max
+	 */
+	function Range() {
+	  this.min = undefined;
+	  this.max = undefined;
+	}
+
+	/**
+	 * Adjust the range so that the passed value fits in it.
 	 *
-	 * Version: 1.0
-	 * @param {number} start     The start value
-	 * @param {number} end     The end value
-	 * @param {number} step    Optional. Step size. Must be a positive value.
-	 * @param {boolean} prettyStep Optional. If true, the step size is rounded
-	 *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
+	 * If the value is outside of the current extremes, adjust
+	 * the min or max so that the value is within the range.
+	 * @param {number} value Numeric value to fit in range
 	 */
-	function StepNumber(start, end, step, prettyStep) {
-	  // set default values
-	  this._start = 0;
-	  this._end = 0;
-	  this._step = 1;
-	  this.prettyStep = true;
-	  this.precision = 5;
-	  this._current = 0;
-	  this.setRange(start, end, step, prettyStep);
-	}
+	Range.prototype.adjust = function (value) {
+	  if (value === undefined) return;
+	  if (this.min === undefined || this.min > value) {
+	    this.min = value;
+	  }
+	  if (this.max === undefined || this.max < value) {
+	    this.max = value;
+	  }
+	};
 
 	/**
-	 * Check for input values, to prevent disasters from happening
+	 * Adjust the current range so that the passed range fits in it.
+	 * @param {Range} range Range instance to fit in current instance
+	 */
+	Range.prototype.combine = function (range) {
+	  this.add(range.min);
+	  this.add(range.max);
+	};
+
+	/**
+	 * Expand the range by the given value
 	 *
-	 * Source: http://stackoverflow.com/a/1830844
-	 * @param {string} n
-	 * @returns {boolean}
-	 */
-	StepNumber.prototype.isNumeric = function (n) {
-	  return !isNaN(_parseFloat(n)) && isFinite(n);
-	};
-
-	/**
-	 * Set a new range: start, end and step.
-	 * @param {number} start     The start value
-	 * @param {number} end     The end value
-	 * @param {number} step    Optional. Step size. Must be a positive value.
-	 * @param {boolean} prettyStep Optional. If true, the step size is rounded
-	 *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
-	 */
-	StepNumber.prototype.setRange = function (start, end, step, prettyStep) {
-	  if (!this.isNumeric(start)) {
-	    throw new Error("Parameter 'start' is not numeric; value: " + start);
-	  }
-	  if (!this.isNumeric(end)) {
-	    throw new Error("Parameter 'end' is not numeric; value: " + start);
-	  }
-	  if (!this.isNumeric(step)) {
-	    throw new Error("Parameter 'step' is not numeric; value: " + start);
-	  }
-	  this._start = start ? start : 0;
-	  this._end = end ? end : 0;
-	  this.setStep(step, prettyStep);
-	};
-
-	/**
-	 * Set a new step size
-	 * @param {number} step    New step size. Must be a positive value
-	 * @param {boolean} prettyStep Optional. If true, the provided step is rounded
-	 *               to a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
-	 */
-	StepNumber.prototype.setStep = function (step, prettyStep) {
-	  if (step === undefined || step <= 0) return;
-	  if (prettyStep !== undefined) this.prettyStep = prettyStep;
-	  if (this.prettyStep === true) this._step = StepNumber.calculatePrettyStep(step);else this._step = step;
-	};
-
-	/**
-	 * Calculate a nice step size, closest to the desired step size.
-	 * Returns a value in one of the ranges 1*10^n, 2*10^n, or 5*10^n, where n is an
-	 * integer Number. For example 1, 2, 5, 10, 20, 50, etc...
-	 * @param {number}  step  Desired step size
-	 * @returns {number}     Nice step size
-	 */
-	StepNumber.calculatePrettyStep = function (step) {
-	  const log10 = function (x) {
-	    return Math.log(x) / Math.LN10;
-	  };
-
-	  // try three steps (multiple of 1, 2, or 5
-	  const step1 = Math.pow(10, Math.round(log10(step))),
-	    step2 = 2 * Math.pow(10, Math.round(log10(step / 2))),
-	    step5 = 5 * Math.pow(10, Math.round(log10(step / 5)));
-
-	  // choose the best step (closest to minimum step)
-	  let prettyStep = step1;
-	  if (Math.abs(step2 - step) <= Math.abs(prettyStep - step)) prettyStep = step2;
-	  if (Math.abs(step5 - step) <= Math.abs(prettyStep - step)) prettyStep = step5;
-
-	  // for safety
-	  if (prettyStep <= 0) {
-	    prettyStep = 1;
-	  }
-	  return prettyStep;
-	};
-
-	/**
-	 * returns the current value of the step
-	 * @returns {number} current value
-	 */
-	StepNumber.prototype.getCurrent = function () {
-	  return _parseFloat(this._current.toPrecision(this.precision));
-	};
-
-	/**
-	 * returns the current step size
-	 * @returns {number} current step size
-	 */
-	StepNumber.prototype.getStep = function () {
-	  return this._step;
-	};
-
-	/**
-	 * Set the current to its starting value.
+	 * min will be lowered by given value;
+	 * max will be raised by given value
 	 *
-	 * By default, this will be the largest value smaller than start, which
-	 * is a multiple of the step size.
-	 *
-	 * Parameters checkFirst is optional, default false.
-	 * If set to true, move the current value one step if smaller than start.
-	 * @param {boolean} [checkFirst]
+	 * Shrinking by passing a negative value is allowed.
+	 * @param {number} val Amount by which to expand or shrink current range with
 	 */
-	StepNumber.prototype.start = function (checkFirst) {
-	  if (checkFirst === undefined) {
-	    checkFirst = false;
+	Range.prototype.expand = function (val) {
+	  if (val === undefined) {
+	    return;
 	  }
-	  this._current = this._start - this._start % this._step;
-	  if (checkFirst) {
-	    if (this.getCurrent() < this._start) {
-	      this.next();
-	    }
+	  const newMin = this.min - val;
+	  const newMax = this.max + val;
+
+	  // Note that following allows newMin === newMax.
+	  // This should be OK, since method expand() allows this also.
+	  if (newMin > newMax) {
+	    throw new Error("Passed expansion value makes range invalid");
 	  }
+	  this.min = newMin;
+	  this.max = newMax;
 	};
 
 	/**
-	 * Do a step, add the step size to the current value
+	 * Determine the full range width of current instance.
+	 * @returns {num} The calculated width of this range
 	 */
-	StepNumber.prototype.next = function () {
-	  this._current += this._step;
+	Range.prototype.range = function () {
+	  return this.max - this.min;
 	};
 
 	/**
-	 * Returns true whether the end is reached
-	 * @returns {boolean}  True if the current value has passed the end value.
+	 * Determine the central point of current instance.
+	 * @returns {number} the value in the middle of min and max
 	 */
-	StepNumber.prototype.end = function () {
-	  return this._current > this._end;
-	};
-
-	var es_math_sign = {};
-
-	var mathSign;
-	var hasRequiredMathSign;
-
-	function requireMathSign () {
-		if (hasRequiredMathSign) return mathSign;
-		hasRequiredMathSign = 1;
-		// `Math.sign` method implementation
-		// https://tc39.es/ecma262/#sec-math.sign
-		// eslint-disable-next-line es/no-math-sign -- safe
-		mathSign = Math.sign || function sign(x) {
-		  var n = +x;
-		  // eslint-disable-next-line no-self-compare -- NaN check
-		  return n === 0 || n !== n ? n : n < 0 ? -1 : 1;
-		};
-		return mathSign;
-	}
-
-	var hasRequiredEs_math_sign;
-
-	function requireEs_math_sign () {
-		if (hasRequiredEs_math_sign) return es_math_sign;
-		hasRequiredEs_math_sign = 1;
-		var $ = /*@__PURE__*/ require_export();
-		var sign = /*@__PURE__*/ requireMathSign();
-
-		// `Math.sign` method
-		// https://tc39.es/ecma262/#sec-math.sign
-		$({ target: 'Math', stat: true }, {
-		  sign: sign
-		});
-		return es_math_sign;
-	}
-
-	var sign$2;
-	var hasRequiredSign$2;
-
-	function requireSign$2 () {
-		if (hasRequiredSign$2) return sign$2;
-		hasRequiredSign$2 = 1;
-		requireEs_math_sign();
-		var path = /*@__PURE__*/ requirePath();
-
-		sign$2 = path.Math.sign;
-		return sign$2;
-	}
-
-	var sign$1;
-	var hasRequiredSign$1;
-
-	function requireSign$1 () {
-		if (hasRequiredSign$1) return sign$1;
-		hasRequiredSign$1 = 1;
-		var parent = /*@__PURE__*/ requireSign$2();
-
-		sign$1 = parent;
-		return sign$1;
-	}
-
-	var sign;
-	var hasRequiredSign;
-
-	function requireSign () {
-		if (hasRequiredSign) return sign;
-		hasRequiredSign = 1;
-		sign = /*@__PURE__*/ requireSign$1();
-		return sign;
-	}
-
-	var signExports = requireSign();
-	var _Math$sign = /*@__PURE__*/getDefaultExportFromCjs(signExports);
-
-	/**
-	 * The camera is mounted on a (virtual) camera arm. The camera arm can rotate
-	 * The camera is always looking in the direction of the origin of the arm.
-	 * This way, the camera always rotates around one fixed point, the location
-	 * of the camera arm.
-	 *
-	 * Documentation:
-	 * http://en.wikipedia.org/wiki/3D_projection
-	 * @class Camera
-	 */
-	function Camera() {
-	  this.armLocation = new Point3d();
-	  this.armRotation = {};
-	  this.armRotation.horizontal = 0;
-	  this.armRotation.vertical = 0;
-	  this.armLength = 1.7;
-	  this.cameraOffset = new Point3d();
-	  this.offsetMultiplier = 0.6;
-	  this.cameraLocation = new Point3d();
-	  this.cameraRotation = new Point3d(0.5 * Math.PI, 0, 0);
-	  this.calculateCameraOrientation();
-	}
-
-	/**
-	 * Set offset camera in camera coordinates
-	 * @param {number} x offset by camera horisontal
-	 * @param {number} y offset by camera vertical
-	 */
-	Camera.prototype.setOffset = function (x, y) {
-	  const abs = Math.abs,
-	    sign = _Math$sign,
-	    mul = this.offsetMultiplier,
-	    border = this.armLength * mul;
-	  if (abs(x) > border) {
-	    x = sign(x) * border;
-	  }
-	  if (abs(y) > border) {
-	    y = sign(y) * border;
-	  }
-	  this.cameraOffset.x = x;
-	  this.cameraOffset.y = y;
-	  this.calculateCameraOrientation();
-	};
-
-	/**
-	 * Get camera offset by horizontal and vertical
-	 * @returns {number}
-	 */
-	Camera.prototype.getOffset = function () {
-	  return this.cameraOffset;
-	};
-
-	/**
-	 * Set the location (origin) of the arm
-	 * @param {number} x  Normalized value of x
-	 * @param {number} y  Normalized value of y
-	 * @param {number} z  Normalized value of z
-	 */
-	Camera.prototype.setArmLocation = function (x, y, z) {
-	  this.armLocation.x = x;
-	  this.armLocation.y = y;
-	  this.armLocation.z = z;
-	  this.calculateCameraOrientation();
-	};
-
-	/**
-	 * Set the rotation of the camera arm
-	 * @param {number} horizontal   The horizontal rotation, between 0 and 2*PI.
-	 *                Optional, can be left undefined.
-	 * @param {number} vertical   The vertical rotation, between 0 and 0.5*PI
-	 *                if vertical=0.5*PI, the graph is shown from the
-	 *                top. Optional, can be left undefined.
-	 */
-	Camera.prototype.setArmRotation = function (horizontal, vertical) {
-	  if (horizontal !== undefined) {
-	    this.armRotation.horizontal = horizontal;
-	  }
-	  if (vertical !== undefined) {
-	    this.armRotation.vertical = vertical;
-	    if (this.armRotation.vertical < 0) this.armRotation.vertical = 0;
-	    if (this.armRotation.vertical > 0.5 * Math.PI) this.armRotation.vertical = 0.5 * Math.PI;
-	  }
-	  if (horizontal !== undefined || vertical !== undefined) {
-	    this.calculateCameraOrientation();
-	  }
-	};
-
-	/**
-	 * Retrieve the current arm rotation
-	 * @returns {object}   An object with parameters horizontal and vertical
-	 */
-	Camera.prototype.getArmRotation = function () {
-	  const rot = {};
-	  rot.horizontal = this.armRotation.horizontal;
-	  rot.vertical = this.armRotation.vertical;
-	  return rot;
-	};
-
-	/**
-	 * Set the (normalized) length of the camera arm.
-	 * @param {number} length A length between 0.71 and 5.0
-	 */
-	Camera.prototype.setArmLength = function (length) {
-	  if (length === undefined) return;
-	  this.armLength = length;
-
-	  // Radius must be larger than the corner of the graph,
-	  // which has a distance of sqrt(0.5^2+0.5^2) = 0.71 from the center of the
-	  // graph
-	  if (this.armLength < 0.71) this.armLength = 0.71;
-	  if (this.armLength > 5.0) this.armLength = 5.0;
-	  this.setOffset(this.cameraOffset.x, this.cameraOffset.y);
-	  this.calculateCameraOrientation();
-	};
-
-	/**
-	 * Retrieve the arm length
-	 * @returns {number} length
-	 */
-	Camera.prototype.getArmLength = function () {
-	  return this.armLength;
-	};
-
-	/**
-	 * Retrieve the camera location
-	 * @returns {Point3d} cameraLocation
-	 */
-	Camera.prototype.getCameraLocation = function () {
-	  return this.cameraLocation;
-	};
-
-	/**
-	 * Retrieve the camera rotation
-	 * @returns {Point3d} cameraRotation
-	 */
-	Camera.prototype.getCameraRotation = function () {
-	  return this.cameraRotation;
-	};
-
-	/**
-	 * Calculate the location and rotation of the camera based on the
-	 * position and orientation of the camera arm
-	 */
-	Camera.prototype.calculateCameraOrientation = function () {
-	  // calculate location of the camera
-	  this.cameraLocation.x = this.armLocation.x - this.armLength * Math.sin(this.armRotation.horizontal) * Math.cos(this.armRotation.vertical);
-	  this.cameraLocation.y = this.armLocation.y - this.armLength * Math.cos(this.armRotation.horizontal) * Math.cos(this.armRotation.vertical);
-	  this.cameraLocation.z = this.armLocation.z + this.armLength * Math.sin(this.armRotation.vertical);
-
-	  // calculate rotation of the camera
-	  this.cameraRotation.x = Math.PI / 2 - this.armRotation.vertical;
-	  this.cameraRotation.y = 0;
-	  this.cameraRotation.z = -this.armRotation.horizontal;
-	  const xa = this.cameraRotation.x;
-	  const za = this.cameraRotation.z;
-	  const dx = this.cameraOffset.x;
-	  const dy = this.cameraOffset.y;
-	  const sin = Math.sin,
-	    cos = Math.cos;
-	  this.cameraLocation.x = this.cameraLocation.x + dx * cos(za) + dy * -sin(za) * cos(xa);
-	  this.cameraLocation.y = this.cameraLocation.y + dx * sin(za) + dy * cos(za) * cos(xa);
-	  this.cameraLocation.z = this.cameraLocation.z + dy * sin(xa);
+	Range.prototype.center = function () {
+	  return (this.min + this.max) / 2;
 	};
 
 	// enumerate the available styles
@@ -11123,6 +10903,391 @@
 	}
 
 	/**
+	 * Creates a container for all data of one specific 3D-graph.
+	 *
+	 * On construction, the container is totally empty; the data
+	 * needs to be initialized with method initializeData().
+	 * Failure to do so will result in the following exception begin thrown
+	 * on instantiation of Graph3D:
+	 *
+	 * Error: Array, DataSet, or DataView expected
+	 * @function Object() { [native code] } DataGroup
+	 */
+	function DataGroup() {
+	  this.dataTable = null; // The original data table
+	}
+
+	/**
+	 * Initializes the instance from the passed data.
+	 *
+	 * Calculates minimum and maximum values and column index values.
+	 *
+	 * The graph3d instance is used internally to access the settings for
+	 * the given instance.
+	 * TODO: Pass settings only instead.
+	 * @param {vis.Graph3d}  graph3d Reference to the calling Graph3D instance.
+	 * @param {Array | DataSet | DataView} rawData The data containing the items for
+	 *                                             the Graph.
+	 * @param {number}   style   Style Number
+	 * @returns {Array.<object>}
+	 */
+	DataGroup.prototype.initializeData = function (graph3d, rawData, style) {
+	  if (rawData === undefined) return;
+	  if (_Array$isArray(rawData)) {
+	    rawData = new esnext.DataSet(rawData);
+	  }
+	  let data;
+	  if (rawData instanceof esnext.DataSet || rawData instanceof esnext.DataView) {
+	    data = rawData.get();
+	  } else {
+	    throw new Error("Array, DataSet, or DataView expected");
+	  }
+	  if (data.length == 0) return;
+	  this.style = style;
+
+	  // unsubscribe from the dataTable
+	  if (this.dataSet) {
+	    this.dataSet.off("*", this._onChange);
+	  }
+	  this.dataSet = rawData;
+	  this.dataTable = data;
+
+	  // subscribe to changes in the dataset
+	  const me = this;
+	  this._onChange = function () {
+	    graph3d.setData(me.dataSet);
+	  };
+	  this.dataSet.on("*", this._onChange);
+
+	  // determine the location of x,y,z,value,filter columns
+	  this.colX = "x";
+	  this.colY = "y";
+	  this.colZ = "z";
+	  const withBars = graph3d.hasBars(style);
+
+	  // determine barWidth from data
+	  if (withBars) {
+	    if (graph3d.defaultXBarWidth !== undefined) {
+	      this.xBarWidth = graph3d.defaultXBarWidth;
+	    } else {
+	      this.xBarWidth = this.getSmallestDifference(data, this.colX) || 1;
+	    }
+	    if (graph3d.defaultYBarWidth !== undefined) {
+	      this.yBarWidth = graph3d.defaultYBarWidth;
+	    } else {
+	      this.yBarWidth = this.getSmallestDifference(data, this.colY) || 1;
+	    }
+	  }
+
+	  // calculate minima and maxima
+	  this._initializeRange(data, this.colX, graph3d, withBars);
+	  this._initializeRange(data, this.colY, graph3d, withBars);
+	  this._initializeRange(data, this.colZ, graph3d, false);
+	  if (Object.prototype.hasOwnProperty.call(data[0], "style")) {
+	    this.colValue = "style";
+	    const valueRange = this.getColumnRange(data, this.colValue);
+	    this._setRangeDefaults(valueRange, graph3d.defaultValueMin, graph3d.defaultValueMax);
+	    this.valueRange = valueRange;
+	  } else {
+	    this.colValue = "z";
+	    this.valueRange = this.zRange;
+	  }
+
+	  // Initialize data filter if a filter column is provided
+	  const table = this.getDataTable();
+	  if (Object.prototype.hasOwnProperty.call(table[0], "filter")) {
+	    if (this.dataFilter === undefined) {
+	      this.dataFilter = new Filter(this, "filter", graph3d);
+	      this.dataFilter.setOnLoadCallback(function () {
+	        graph3d.redraw();
+	      });
+	    }
+	  }
+	  let dataPoints;
+	  if (this.dataFilter) {
+	    // apply filtering
+	    dataPoints = this.dataFilter._getDataPoints();
+	  } else {
+	    // no filtering. load all data
+	    dataPoints = this._getDataPoints(this.getDataTable());
+	  }
+	  return dataPoints;
+	};
+
+	/**
+	 * Collect the range settings for the given data column.
+	 *
+	 * This internal method is intended to make the range
+	 * initalization more generic.
+	 *
+	 * TODO: if/when combined settings per axis defined, get rid of this.
+	 * @private
+	 * @param {'x'|'y'|'z'} column  The data column to process
+	 * @param {vis.Graph3d} graph3d Reference to the calling Graph3D instance;
+	 *                              required for access to settings
+	 * @returns {object}
+	 */
+	DataGroup.prototype._collectRangeSettings = function (column, graph3d) {
+	  var _context;
+	  const index = _indexOfInstanceProperty(_context = ["x", "y", "z"]).call(_context, column);
+	  if (index == -1) {
+	    throw new Error("Column '" + column + "' invalid");
+	  }
+	  const upper = column.toUpperCase();
+	  return {
+	    barWidth: this[column + "BarWidth"],
+	    min: graph3d["default" + upper + "Min"],
+	    max: graph3d["default" + upper + "Max"],
+	    step: graph3d["default" + upper + "Step"],
+	    range_label: column + "Range",
+	    // Name of instance field to write to
+	    step_label: column + "Step" // Name of instance field to write to
+	  };
+	};
+
+	/**
+	 * Initializes the settings per given column.
+	 *
+	 * TODO: if/when combined settings per axis defined, rewrite this.
+	 * @private
+	 * @param {DataSet | DataView} data     The data containing the items for the Graph
+	 * @param {'x'|'y'|'z'}        column   The data column to process
+	 * @param {vis.Graph3d}        graph3d  Reference to the calling Graph3D instance;
+	 *                                      required for access to settings
+	 * @param {boolean}            withBars True if initializing for bar graph
+	 */
+	DataGroup.prototype._initializeRange = function (data, column, graph3d, withBars) {
+	  const NUMSTEPS = 5;
+	  const settings = this._collectRangeSettings(column, graph3d);
+	  const range = this.getColumnRange(data, column);
+	  if (withBars && column != "z") {
+	    // Safeguard for 'z'; it doesn't have a bar width
+	    range.expand(settings.barWidth / 2);
+	  }
+	  this._setRangeDefaults(range, settings.min, settings.max);
+	  this[settings.range_label] = range;
+	  this[settings.step_label] = settings.step !== undefined ? settings.step : range.range() / NUMSTEPS;
+	};
+
+	/**
+	 * Creates a list with all the different values in the data for the given column.
+	 *
+	 * If no data passed, use the internal data of this instance.
+	 * @param {'x'|'y'|'z'}                column The data column to process
+	 * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
+	 * @returns {Array} All distinct values in the given column data, sorted ascending.
+	 */
+	DataGroup.prototype.getDistinctValues = function (column, data) {
+	  if (data === undefined) {
+	    data = this.dataTable;
+	  }
+	  const values = [];
+	  for (let i = 0; i < data.length; i++) {
+	    const value = data[i][column] || 0;
+	    if (_indexOfInstanceProperty(values).call(values, value) === -1) {
+	      values.push(value);
+	    }
+	  }
+	  return values.toSorted(function (a, b) {
+	    return a - b;
+	  });
+	};
+
+	/**
+	 * Determine the smallest difference between the values for given
+	 * column in the passed data set.
+	 * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
+	 * @param {'x'|'y'|'z'}                column The data column to process
+	 * @returns {number|null} Smallest difference value or
+	 *                        null, if it can't be determined.
+	 */
+	DataGroup.prototype.getSmallestDifference = function (data, column) {
+	  const values = this.getDistinctValues(data, column);
+
+	  // Get all the distinct diffs
+	  // Array values is assumed to be sorted here
+	  let smallest_diff = null;
+	  for (let i = 1; i < values.length; i++) {
+	    const diff = values[i] - values[i - 1];
+	    if (smallest_diff == null || smallest_diff > diff) {
+	      smallest_diff = diff;
+	    }
+	  }
+	  return smallest_diff;
+	};
+
+	/**
+	 * Get the absolute min/max values for the passed data column.
+	 * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
+	 * @param {'x'|'y'|'z'}                column The data column to process
+	 * @returns {Range} A Range instance with min/max members properly set.
+	 */
+	DataGroup.prototype.getColumnRange = function (data, column) {
+	  const range = new Range();
+
+	  // Adjust the range so that it covers all values in the passed data elements.
+	  for (let i = 0; i < data.length; i++) {
+	    const item = data[i][column];
+	    range.adjust(item);
+	  }
+	  return range;
+	};
+
+	/**
+	 * Determines the number of rows in the current data.
+	 * @returns {number}
+	 */
+	DataGroup.prototype.getNumberOfRows = function () {
+	  return this.dataTable.length;
+	};
+
+	/**
+	 * Set default values for range
+	 *
+	 * The default values override the range values, if defined.
+	 *
+	 * Because it's possible that only defaultMin or defaultMax is set, it's better
+	 * to pass in a range already set with the min/max set from the data. Otherwise,
+	 * it's quite hard to process the min/max properly.
+	 * @param {vis.Range} range
+	 * @param {number} [defaultMin]
+	 * @param {number} [defaultMax]
+	 * @private
+	 */
+	DataGroup.prototype._setRangeDefaults = function (range, defaultMin, defaultMax) {
+	  if (defaultMin !== undefined) {
+	    range.min = defaultMin;
+	  }
+	  if (defaultMax !== undefined) {
+	    range.max = defaultMax;
+	  }
+
+	  // This is the original way that the default min/max values were adjusted.
+	  // TODO: Perhaps it's better if an error is thrown if the values do not agree.
+	  //       But this will change the behaviour.
+	  if (range.max <= range.min) range.max = range.min + 1;
+	};
+	DataGroup.prototype.getDataTable = function () {
+	  return this.dataTable;
+	};
+	DataGroup.prototype.getDataSet = function () {
+	  return this.dataSet;
+	};
+
+	/**
+	 * Return all data values as a list of Point3d objects
+	 * @param {Array.<object>} data
+	 * @returns {Array.<object>}
+	 */
+	DataGroup.prototype.getDataPoints = function (data) {
+	  const dataPoints = [];
+	  for (let i = 0; i < data.length; i++) {
+	    const point = new Point3d();
+	    point.x = data[i][this.colX] || 0;
+	    point.y = data[i][this.colY] || 0;
+	    point.z = data[i][this.colZ] || 0;
+	    point.data = data[i];
+	    point.value = data[i][this.colValue] || 0;
+	    const obj = {};
+	    obj.point = point;
+	    obj.bottom = new Point3d(point.x, point.y, this.zRange.min);
+	    obj.trans = undefined;
+	    obj.screen = undefined;
+	    dataPoints.push(obj);
+	  }
+	  return dataPoints;
+	};
+
+	/**
+	 * Copy all values from the data table to a matrix.
+	 *
+	 * The provided values are supposed to form a grid of (x,y) positions.
+	 * @param {Array.<object>} data
+	 * @returns {Array.<object>}
+	 * @private
+	 */
+	DataGroup.prototype.initDataAsMatrix = function (data) {
+	  // TODO: store the created matrix dataPoints in the filters instead of
+	  //       reloading each time.
+	  let x, y, i, obj;
+
+	  // create two lists with all present x and y values
+	  const dataX = this.getDistinctValues(this.colX, data);
+	  const dataY = this.getDistinctValues(this.colY, data);
+	  const dataPoints = this.getDataPoints(data);
+
+	  // create a grid, a 2d matrix, with all values.
+	  const dataMatrix = []; // temporary data matrix
+	  for (i = 0; i < dataPoints.length; i++) {
+	    obj = dataPoints[i];
+
+	    // TODO: implement Array().indexOf() for Internet Explorer
+	    const xIndex = _indexOfInstanceProperty(dataX).call(dataX, obj.point.x);
+	    const yIndex = _indexOfInstanceProperty(dataY).call(dataY, obj.point.y);
+	    if (dataMatrix[xIndex] === undefined) {
+	      dataMatrix[xIndex] = [];
+	    }
+	    dataMatrix[xIndex][yIndex] = obj;
+	  }
+
+	  // fill in the pointers to the neighbors.
+	  for (x = 0; x < dataMatrix.length; x++) {
+	    for (y = 0; y < dataMatrix[x].length; y++) {
+	      if (dataMatrix[x][y]) {
+	        dataMatrix[x][y].pointRight = x < dataMatrix.length - 1 ? dataMatrix[x + 1][y] : undefined;
+	        dataMatrix[x][y].pointTop = y < dataMatrix[x].length - 1 ? dataMatrix[x][y + 1] : undefined;
+	        dataMatrix[x][y].pointCross = x < dataMatrix.length - 1 && y < dataMatrix[x].length - 1 ? dataMatrix[x + 1][y + 1] : undefined;
+	      }
+	    }
+	  }
+	  return dataPoints;
+	};
+
+	/**
+	 * Return common information, if present
+	 * @returns {string}
+	 */
+	DataGroup.prototype.getInfo = function () {
+	  const dataFilter = this.dataFilter;
+	  if (!dataFilter) return undefined;
+	  return dataFilter.getLabel() + ": " + dataFilter.getSelectedValue();
+	};
+
+	/**
+	 * Reload the data
+	 */
+	DataGroup.prototype.reload = function () {
+	  if (this.dataTable) {
+	    this.setData(this.dataTable);
+	  }
+	};
+
+	/**
+	 * Filter the data based on the current filter
+	 * @param   {Array} data
+	 * @returns {Array} dataPoints Array with point objects which can be drawn on
+	 *                             screen
+	 */
+	DataGroup.prototype._getDataPoints = function (data) {
+	  let dataPoints = [];
+	  if (this.style === STYLE.GRID || this.style === STYLE.SURFACE) {
+	    dataPoints = this.initDataAsMatrix(data);
+	  } else {
+	    // 'dot', 'dot-line', etc.
+	    dataPoints = this.getDataPoints(data);
+	    if (this.style === STYLE.LINE) {
+	      // Add next member points for line drawing
+	      for (let i = 0; i < dataPoints.length; i++) {
+	        if (i > 0) {
+	          dataPoints[i - 1].pointNext = dataPoints[i];
+	        }
+	      }
+	    }
+	  }
+	  return dataPoints;
+	};
+
+	/**
 	 * This object contains all possible options. It will check if the types are correct, if required if the option is one
 	 * of the allowed values.
 	 *
@@ -11489,646 +11654,481 @@
 	};
 
 	/**
-	 * Helper class to make working with related min and max values easier.
-	 *
-	 * The range is inclusive; a given value is considered part of the range if:
-	 *
-	 *    this.min <= value <= this.max
+	 * @param {number} [x]
+	 * @param {number} [y]
 	 */
-	function Range() {
-	  this.min = undefined;
-	  this.max = undefined;
+	function Point2d(x, y) {
+	  this.x = x !== undefined ? x : 0;
+	  this.y = y !== undefined ? y : 0;
 	}
 
 	/**
-	 * Adjust the range so that the passed value fits in it.
-	 *
-	 * If the value is outside of the current extremes, adjust
-	 * the min or max so that the value is within the range.
-	 * @param {number} value Numeric value to fit in range
+	 * An html slider control with start/stop/prev/next buttons
+	 * @function Object() { [native code] } Slider
+	 * @param {Element} container  The element where the slider will be created
+	 * @param {object} options   Available options:
+	 *                 {boolean} visible   If true (default) the
+	 *                           slider is visible.
 	 */
-	Range.prototype.adjust = function (value) {
-	  if (value === undefined) return;
-	  if (this.min === undefined || this.min > value) {
-	    this.min = value;
+	function Slider(container, options) {
+	  if (container === undefined) {
+	    throw new Error("No container element defined");
 	  }
-	  if (this.max === undefined || this.max < value) {
-	    this.max = value;
+	  this.container = container;
+	  this.visible = options && options.visible != undefined ? options.visible : true;
+	  if (this.visible) {
+	    this.frame = document.createElement("DIV");
+	    //this.frame.style.backgroundColor = '#E5E5E5';
+	    this.frame.style.width = "100%";
+	    this.frame.style.position = "relative";
+	    this.container.appendChild(this.frame);
+	    this.frame.prev = document.createElement("INPUT");
+	    this.frame.prev.type = "BUTTON";
+	    this.frame.prev.value = "Prev";
+	    this.frame.appendChild(this.frame.prev);
+	    this.frame.play = document.createElement("INPUT");
+	    this.frame.play.type = "BUTTON";
+	    this.frame.play.value = "Play";
+	    this.frame.appendChild(this.frame.play);
+	    this.frame.next = document.createElement("INPUT");
+	    this.frame.next.type = "BUTTON";
+	    this.frame.next.value = "Next";
+	    this.frame.appendChild(this.frame.next);
+	    this.frame.bar = document.createElement("INPUT");
+	    this.frame.bar.type = "BUTTON";
+	    this.frame.bar.style.position = "absolute";
+	    this.frame.bar.style.border = "1px solid red";
+	    this.frame.bar.style.width = "100px";
+	    this.frame.bar.style.height = "6px";
+	    this.frame.bar.style.borderRadius = "2px";
+	    this.frame.bar.style.MozBorderRadius = "2px";
+	    this.frame.bar.style.border = "1px solid #7F7F7F";
+	    this.frame.bar.style.backgroundColor = "#E5E5E5";
+	    this.frame.appendChild(this.frame.bar);
+	    this.frame.slide = document.createElement("INPUT");
+	    this.frame.slide.type = "BUTTON";
+	    this.frame.slide.style.margin = "0px";
+	    this.frame.slide.value = " ";
+	    this.frame.slide.style.position = "relative";
+	    this.frame.slide.style.left = "-100px";
+	    this.frame.appendChild(this.frame.slide);
+
+	    // create events
+	    const me = this;
+	    this.frame.slide.onmousedown = function (event) {
+	      me._onMouseDown(event);
+	    };
+	    this.frame.prev.onclick = function (event) {
+	      me.prev(event);
+	    };
+	    this.frame.play.onclick = function (event) {
+	      me.togglePlay(event);
+	    };
+	    this.frame.next.onclick = function (event) {
+	      me.next(event);
+	    };
 	  }
-	};
-
-	/**
-	 * Adjust the current range so that the passed range fits in it.
-	 * @param {Range} range Range instance to fit in current instance
-	 */
-	Range.prototype.combine = function (range) {
-	  this.add(range.min);
-	  this.add(range.max);
-	};
-
-	/**
-	 * Expand the range by the given value
-	 *
-	 * min will be lowered by given value;
-	 * max will be raised by given value
-	 *
-	 * Shrinking by passing a negative value is allowed.
-	 * @param {number} val Amount by which to expand or shrink current range with
-	 */
-	Range.prototype.expand = function (val) {
-	  if (val === undefined) {
-	    return;
-	  }
-	  const newMin = this.min - val;
-	  const newMax = this.max + val;
-
-	  // Note that following allows newMin === newMax.
-	  // This should be OK, since method expand() allows this also.
-	  if (newMin > newMax) {
-	    throw new Error("Passed expansion value makes range invalid");
-	  }
-	  this.min = newMin;
-	  this.max = newMax;
-	};
-
-	/**
-	 * Determine the full range width of current instance.
-	 * @returns {num} The calculated width of this range
-	 */
-	Range.prototype.range = function () {
-	  return this.max - this.min;
-	};
-
-	/**
-	 * Determine the central point of current instance.
-	 * @returns {number} the value in the middle of min and max
-	 */
-	Range.prototype.center = function () {
-	  return (this.min + this.max) / 2;
-	};
-
-	/**
-	 * @class Filter
-	 * @param {DataGroup} dataGroup the data group
-	 * @param {number}  column             The index of the column to be filtered
-	 * @param {Graph3d} graph              The graph
-	 */
-	function Filter(dataGroup, column, graph) {
-	  this.dataGroup = dataGroup;
-	  this.column = column;
-	  this.graph = graph; // the parent graph
-
+	  this.onChangeCallback = undefined;
+	  this.values = [];
 	  this.index = undefined;
-	  this.value = undefined;
-
-	  // read all distinct values and select the first one
-	  this.values = dataGroup.getDistinctValues(this.column);
-	  if (_valuesInstanceProperty(this).length > 0) {
-	    this.selectValue(0);
-	  }
-
-	  // create an array with the filtered datapoints. this will be loaded afterwards
-	  this.dataPoints = [];
-	  this.loaded = false;
-	  this.onLoadCallback = undefined;
-	  if (graph.animationPreload) {
-	    this.loaded = false;
-	    this.loadInBackground();
-	  } else {
-	    this.loaded = true;
-	  }
+	  this.playTimeout = undefined;
+	  this.playInterval = 1000; // milliseconds
+	  this.playLoop = true;
 	}
 
 	/**
-	 * Return the label
-	 * @returns {string} label
+	 * Select the previous index
 	 */
-	Filter.prototype.isLoaded = function () {
-	  return this.loaded;
-	};
-
-	/**
-	 * Return the loaded progress
-	 * @returns {number} percentage between 0 and 100
-	 */
-	Filter.prototype.getLoadedProgress = function () {
-	  const len = _valuesInstanceProperty(this).length;
-	  let i = 0;
-	  while (this.dataPoints[i]) {
-	    i++;
+	Slider.prototype.prev = function () {
+	  let index = this.getIndex();
+	  if (index > 0) {
+	    index--;
+	    this.setIndex(index);
 	  }
-	  return Math.round(i / len * 100);
 	};
 
 	/**
-	 * Return the label
-	 * @returns {string} label
+	 * Select the next index
 	 */
-	Filter.prototype.getLabel = function () {
-	  return this.graph.filterLabel;
+	Slider.prototype.next = function () {
+	  let index = this.getIndex();
+	  if (index < _valuesInstanceProperty(this).length - 1) {
+	    index++;
+	    this.setIndex(index);
+	  }
 	};
 
 	/**
-	 * Return the columnIndex of the filter
-	 * @returns {number} columnIndex
+	 * Select the next index
 	 */
-	Filter.prototype.getColumn = function () {
-	  return this.column;
+	Slider.prototype.playNext = function () {
+	  const start = new Date();
+	  let index = this.getIndex();
+	  if (index < _valuesInstanceProperty(this).length - 1) {
+	    index++;
+	    this.setIndex(index);
+	  } else if (this.playLoop) {
+	    // jump to the start
+	    index = 0;
+	    this.setIndex(index);
+	  }
+	  const end = new Date();
+	  const diff = end - start;
+
+	  // calculate how much time it to to set the index and to execute the callback
+	  // function.
+	  const interval = Math.max(this.playInterval - diff, 0);
+	  // document.title = diff // TODO: cleanup
+
+	  const me = this;
+	  this.playTimeout = _setTimeout(function () {
+	    me.playNext();
+	  }, interval);
 	};
 
 	/**
-	 * Return the currently selected value. Returns undefined if there is no selection
-	 * @returns {*} value
+	 * Toggle start or stop playing
 	 */
-	Filter.prototype.getSelectedValue = function () {
-	  if (this.index === undefined) return undefined;
-	  return _valuesInstanceProperty(this)[this.index];
-	};
-
-	/**
-	 * Retrieve all values of the filter
-	 * @returns {Array} values
-	 */
-	Filter.prototype.getValues = function () {
-	  return _valuesInstanceProperty(this);
-	};
-
-	/**
-	 * Retrieve one value of the filter
-	 * @param {number}  index
-	 * @returns {*} value
-	 */
-	Filter.prototype.getValue = function (index) {
-	  if (index >= _valuesInstanceProperty(this).length) throw new Error("Index out of range");
-	  return _valuesInstanceProperty(this)[index];
-	};
-
-	/**
-	 * Retrieve the (filtered) dataPoints for the currently selected filter index
-	 * @param {number} [index] (optional)
-	 * @returns {Array} dataPoints
-	 */
-	Filter.prototype._getDataPoints = function (index) {
-	  if (index === undefined) index = this.index;
-	  if (index === undefined) return [];
-	  let dataPoints;
-	  if (this.dataPoints[index]) {
-	    dataPoints = this.dataPoints[index];
+	Slider.prototype.togglePlay = function () {
+	  if (this.playTimeout === undefined) {
+	    this.play();
 	  } else {
-	    const f = {};
-	    f.column = this.column;
-	    f.value = _valuesInstanceProperty(this)[index];
-	    const dataView = new esnext.DataView(this.dataGroup.getDataSet(), {
-	      filter: function (item) {
-	        return item[f.column] == f.value;
-	      }
-	    }).get();
-	    dataPoints = this.dataGroup._getDataPoints(dataView);
-	    this.dataPoints[index] = dataPoints;
+	    this.stop();
 	  }
-	  return dataPoints;
 	};
 
 	/**
-	 * Set a callback function when the filter is fully loaded.
+	 * Start playing
+	 */
+	Slider.prototype.play = function () {
+	  // Test whether already playing
+	  if (this.playTimeout) return;
+	  this.playNext();
+	  if (this.frame) {
+	    this.frame.play.value = "Stop";
+	  }
+	};
+
+	/**
+	 * Stop playing
+	 */
+	Slider.prototype.stop = function () {
+	  clearInterval(this.playTimeout);
+	  this.playTimeout = undefined;
+	  if (this.frame) {
+	    this.frame.play.value = "Play";
+	  }
+	};
+
+	/**
+	 * Set a callback function which will be triggered when the value of the
+	 * slider bar has changed.
 	 * @param {Function} callback
 	 */
-	Filter.prototype.setOnLoadCallback = function (callback) {
-	  this.onLoadCallback = callback;
+	Slider.prototype.setOnChangeCallback = function (callback) {
+	  this.onChangeCallback = callback;
 	};
 
 	/**
-	 * Add a value to the list with available values for this filter
-	 * No double entries will be created.
-	 * @param {number} index
+	 * Set the interval for playing the list
+	 * @param {number} interval   The interval in milliseconds
 	 */
-	Filter.prototype.selectValue = function (index) {
-	  if (index >= _valuesInstanceProperty(this).length) throw new Error("Index out of range");
-	  this.index = index;
-	  this.value = _valuesInstanceProperty(this)[index];
+	Slider.prototype.setPlayInterval = function (interval) {
+	  this.playInterval = interval;
 	};
 
 	/**
-	 * Load all filtered rows in the background one by one
-	 * Start this method without providing an index!
-	 * @param {number} [index]
+	 * Retrieve the current play interval
+	 * @returns {number} interval   The interval in milliseconds
 	 */
-	Filter.prototype.loadInBackground = function (index) {
-	  if (index === undefined) index = 0;
-	  const frame = this.graph.frame;
-	  if (index < _valuesInstanceProperty(this).length) {
-	    // create a progress box
-	    if (frame.progress === undefined) {
-	      frame.progress = document.createElement("DIV");
-	      frame.progress.style.position = "absolute";
-	      frame.progress.style.color = "gray";
-	      frame.appendChild(frame.progress);
-	    }
-	    const progress = this.getLoadedProgress();
-	    frame.progress.innerHTML = "Loading animation... " + progress + "%";
-	    // TODO: this is no nice solution...
-	    frame.progress.style.bottom = 60 + "px"; // TODO: use height of slider
-	    frame.progress.style.left = 10 + "px";
-	    const me = this;
-	    _setTimeout(function () {
-	      me.loadInBackground(index + 1);
-	    }, 10);
-	    this.loaded = false;
-	  } else {
-	    this.loaded = true;
+	Slider.prototype.getPlayInterval = function () {
+	  return this.playInterval;
+	};
 
-	    // remove the progress box
-	    if (frame.progress !== undefined) {
-	      frame.removeChild(frame.progress);
-	      frame.progress = undefined;
-	    }
-	    if (this.onLoadCallback) this.onLoadCallback();
+	/**
+	 * Set looping on or off
+	 * @param {boolean} doLoop  If true, the slider will jump to the start when
+	 *               the end is passed, and will jump to the end
+	 *               when the start is passed.
+	 */
+	Slider.prototype.setPlayLoop = function (doLoop) {
+	  this.playLoop = doLoop;
+	};
+
+	/**
+	 * Execute the onchange callback function
+	 */
+	Slider.prototype.onChange = function () {
+	  if (this.onChangeCallback !== undefined) {
+	    this.onChangeCallback();
 	  }
 	};
 
 	/**
-	 * Creates a container for all data of one specific 3D-graph.
-	 *
-	 * On construction, the container is totally empty; the data
-	 * needs to be initialized with method initializeData().
-	 * Failure to do so will result in the following exception begin thrown
-	 * on instantiation of Graph3D:
-	 *
-	 * Error: Array, DataSet, or DataView expected
-	 * @function Object() { [native code] } DataGroup
+	 * redraw the slider on the correct place
 	 */
-	function DataGroup() {
-	  this.dataTable = null; // The original data table
+	Slider.prototype.redraw = function () {
+	  if (this.frame) {
+	    // resize the bar
+	    this.frame.bar.style.top = this.frame.clientHeight / 2 - this.frame.bar.offsetHeight / 2 + "px";
+	    this.frame.bar.style.width = this.frame.clientWidth - this.frame.prev.clientWidth - this.frame.play.clientWidth - this.frame.next.clientWidth - 30 + "px";
+
+	    // position the slider button
+	    const left = this.indexToLeft(this.index);
+	    this.frame.slide.style.left = left + "px";
+	  }
+	};
+
+	/**
+	 * Set the list with values for the slider
+	 * @param {Array} values   A javascript array with values (any type)
+	 */
+	Slider.prototype.setValues = function (values) {
+	  this.values = values;
+	  if (_valuesInstanceProperty(this).length > 0) this.setIndex(0);else this.index = undefined;
+	};
+
+	/**
+	 * Select a value by its index
+	 * @param {number} index
+	 */
+	Slider.prototype.setIndex = function (index) {
+	  if (index < _valuesInstanceProperty(this).length) {
+	    this.index = index;
+	    this.redraw();
+	    this.onChange();
+	  } else {
+	    throw new Error("Index out of range");
+	  }
+	};
+
+	/**
+	 * retrieve the index of the currently selected vaue
+	 * @returns {number} index
+	 */
+	Slider.prototype.getIndex = function () {
+	  return this.index;
+	};
+
+	/**
+	 * retrieve the currently selected value
+	 * @returns {*} value
+	 */
+	Slider.prototype.get = function () {
+	  return _valuesInstanceProperty(this)[this.index];
+	};
+	Slider.prototype._onMouseDown = function (event) {
+	  // only react on left mouse button down
+	  const leftButtonDown = event.which ? event.which === 1 : event.button === 1;
+	  if (!leftButtonDown) return;
+	  this.startClientX = event.clientX;
+	  this.startSlideX = _parseFloat(this.frame.slide.style.left);
+	  this.frame.style.cursor = "move";
+
+	  // add event listeners to handle moving the contents
+	  // we store the function onmousemove and onmouseup in the graph, so we can
+	  // remove the eventlisteners lateron in the function mouseUp()
+	  const me = this;
+	  this.onmousemove = function (event) {
+	    me._onMouseMove(event);
+	  };
+	  this.onmouseup = function (event) {
+	    me._onMouseUp(event);
+	  };
+	  document.addEventListener("mousemove", this.onmousemove);
+	  document.addEventListener("mouseup", this.onmouseup);
+	  preventDefault(event);
+	};
+	Slider.prototype.leftToIndex = function (left) {
+	  const width = _parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
+	  const x = left - 3;
+	  let index = Math.round(x / width * (_valuesInstanceProperty(this).length - 1));
+	  if (index < 0) index = 0;
+	  if (index > _valuesInstanceProperty(this).length - 1) index = _valuesInstanceProperty(this).length - 1;
+	  return index;
+	};
+	Slider.prototype.indexToLeft = function (index) {
+	  const width = _parseFloat(this.frame.bar.style.width) - this.frame.slide.clientWidth - 10;
+	  const x = index / (_valuesInstanceProperty(this).length - 1) * width;
+	  const left = x + 3;
+	  return left;
+	};
+	Slider.prototype._onMouseMove = function (event) {
+	  const diff = event.clientX - this.startClientX;
+	  const x = this.startSlideX + diff;
+	  const index = this.leftToIndex(x);
+	  this.setIndex(index);
+	  preventDefault();
+	};
+	Slider.prototype._onMouseUp = function () {
+	  this.frame.style.cursor = "auto";
+
+	  // remove event listeners
+	  document.removeEventListener("mousemove", this.onmousemove);
+	  document.removeEventListener("mouseup", this.onmouseup);
+	  preventDefault();
+	};
+
+	/**
+	 * The class StepNumber is an iterator for Numbers. You provide a start and end
+	 * value, and a best step size. StepNumber itself rounds to fixed values and
+	 * a finds the step that best fits the provided step.
+	 *
+	 * If prettyStep is true, the step size is chosen as close as possible to the
+	 * provided step, but being a round value like 1, 2, 5, 10, 20, 50, ....
+	 *
+	 * Example usage:
+	 *   var step = new StepNumber(0, 10, 2.5, true);
+	 *   step.start();
+	 *   while (!step.end()) {
+	 *   alert(step.getCurrent());
+	 *   step.next();
+	 *   }
+	 *
+	 * Version: 1.0
+	 * @param {number} start     The start value
+	 * @param {number} end     The end value
+	 * @param {number} step    Optional. Step size. Must be a positive value.
+	 * @param {boolean} prettyStep Optional. If true, the step size is rounded
+	 *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
+	 */
+	function StepNumber(start, end, step, prettyStep) {
+	  // set default values
+	  this._start = 0;
+	  this._end = 0;
+	  this._step = 1;
+	  this.prettyStep = true;
+	  this.precision = 5;
+	  this._current = 0;
+	  this.setRange(start, end, step, prettyStep);
 	}
 
 	/**
-	 * Initializes the instance from the passed data.
+	 * Check for input values, to prevent disasters from happening
 	 *
-	 * Calculates minimum and maximum values and column index values.
-	 *
-	 * The graph3d instance is used internally to access the settings for
-	 * the given instance.
-	 * TODO: Pass settings only instead.
-	 * @param {vis.Graph3d}  graph3d Reference to the calling Graph3D instance.
-	 * @param {Array | DataSet | DataView} rawData The data containing the items for
-	 *                                             the Graph.
-	 * @param {number}   style   Style Number
-	 * @returns {Array.<object>}
+	 * Source: http://stackoverflow.com/a/1830844
+	 * @param {string} n
+	 * @returns {boolean}
 	 */
-	DataGroup.prototype.initializeData = function (graph3d, rawData, style) {
-	  if (rawData === undefined) return;
-	  if (_Array$isArray(rawData)) {
-	    rawData = new esnext.DataSet(rawData);
-	  }
-	  let data;
-	  if (rawData instanceof esnext.DataSet || rawData instanceof esnext.DataView) {
-	    data = rawData.get();
-	  } else {
-	    throw new Error("Array, DataSet, or DataView expected");
-	  }
-	  if (data.length == 0) return;
-	  this.style = style;
+	StepNumber.prototype.isNumeric = function (n) {
+	  return !isNaN(_parseFloat(n)) && isFinite(n);
+	};
 
-	  // unsubscribe from the dataTable
-	  if (this.dataSet) {
-	    this.dataSet.off("*", this._onChange);
+	/**
+	 * Set a new range: start, end and step.
+	 * @param {number} start     The start value
+	 * @param {number} end     The end value
+	 * @param {number} step    Optional. Step size. Must be a positive value.
+	 * @param {boolean} prettyStep Optional. If true, the step size is rounded
+	 *               To a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
+	 */
+	StepNumber.prototype.setRange = function (start, end, step, prettyStep) {
+	  if (!this.isNumeric(start)) {
+	    throw new Error("Parameter 'start' is not numeric; value: " + start);
 	  }
-	  this.dataSet = rawData;
-	  this.dataTable = data;
+	  if (!this.isNumeric(end)) {
+	    throw new Error("Parameter 'end' is not numeric; value: " + start);
+	  }
+	  if (!this.isNumeric(step)) {
+	    throw new Error("Parameter 'step' is not numeric; value: " + start);
+	  }
+	  this._start = start ? start : 0;
+	  this._end = end ? end : 0;
+	  this.setStep(step, prettyStep);
+	};
 
-	  // subscribe to changes in the dataset
-	  const me = this;
-	  this._onChange = function () {
-	    graph3d.setData(me.dataSet);
+	/**
+	 * Set a new step size
+	 * @param {number} step    New step size. Must be a positive value
+	 * @param {boolean} prettyStep Optional. If true, the provided step is rounded
+	 *               to a pretty step size (like 1, 2, 5, 10, 20, 50, ...)
+	 */
+	StepNumber.prototype.setStep = function (step, prettyStep) {
+	  if (step === undefined || step <= 0) return;
+	  if (prettyStep !== undefined) this.prettyStep = prettyStep;
+	  if (this.prettyStep === true) this._step = StepNumber.calculatePrettyStep(step);else this._step = step;
+	};
+
+	/**
+	 * Calculate a nice step size, closest to the desired step size.
+	 * Returns a value in one of the ranges 1*10^n, 2*10^n, or 5*10^n, where n is an
+	 * integer Number. For example 1, 2, 5, 10, 20, 50, etc...
+	 * @param {number}  step  Desired step size
+	 * @returns {number}     Nice step size
+	 */
+	StepNumber.calculatePrettyStep = function (step) {
+	  const log10 = function (x) {
+	    return Math.log(x) / Math.LN10;
 	  };
-	  this.dataSet.on("*", this._onChange);
 
-	  // determine the location of x,y,z,value,filter columns
-	  this.colX = "x";
-	  this.colY = "y";
-	  this.colZ = "z";
-	  const withBars = graph3d.hasBars(style);
+	  // try three steps (multiple of 1, 2, or 5
+	  const step1 = Math.pow(10, Math.round(log10(step))),
+	    step2 = 2 * Math.pow(10, Math.round(log10(step / 2))),
+	    step5 = 5 * Math.pow(10, Math.round(log10(step / 5)));
 
-	  // determine barWidth from data
-	  if (withBars) {
-	    if (graph3d.defaultXBarWidth !== undefined) {
-	      this.xBarWidth = graph3d.defaultXBarWidth;
-	    } else {
-	      this.xBarWidth = this.getSmallestDifference(data, this.colX) || 1;
-	    }
-	    if (graph3d.defaultYBarWidth !== undefined) {
-	      this.yBarWidth = graph3d.defaultYBarWidth;
-	    } else {
-	      this.yBarWidth = this.getSmallestDifference(data, this.colY) || 1;
-	    }
-	  }
+	  // choose the best step (closest to minimum step)
+	  let prettyStep = step1;
+	  if (Math.abs(step2 - step) <= Math.abs(prettyStep - step)) prettyStep = step2;
+	  if (Math.abs(step5 - step) <= Math.abs(prettyStep - step)) prettyStep = step5;
 
-	  // calculate minima and maxima
-	  this._initializeRange(data, this.colX, graph3d, withBars);
-	  this._initializeRange(data, this.colY, graph3d, withBars);
-	  this._initializeRange(data, this.colZ, graph3d, false);
-	  if (Object.prototype.hasOwnProperty.call(data[0], "style")) {
-	    this.colValue = "style";
-	    const valueRange = this.getColumnRange(data, this.colValue);
-	    this._setRangeDefaults(valueRange, graph3d.defaultValueMin, graph3d.defaultValueMax);
-	    this.valueRange = valueRange;
-	  } else {
-	    this.colValue = "z";
-	    this.valueRange = this.zRange;
+	  // for safety
+	  if (prettyStep <= 0) {
+	    prettyStep = 1;
 	  }
-
-	  // Initialize data filter if a filter column is provided
-	  const table = this.getDataTable();
-	  if (Object.prototype.hasOwnProperty.call(table[0], "filter")) {
-	    if (this.dataFilter === undefined) {
-	      this.dataFilter = new Filter(this, "filter", graph3d);
-	      this.dataFilter.setOnLoadCallback(function () {
-	        graph3d.redraw();
-	      });
-	    }
-	  }
-	  let dataPoints;
-	  if (this.dataFilter) {
-	    // apply filtering
-	    dataPoints = this.dataFilter._getDataPoints();
-	  } else {
-	    // no filtering. load all data
-	    dataPoints = this._getDataPoints(this.getDataTable());
-	  }
-	  return dataPoints;
+	  return prettyStep;
 	};
 
 	/**
-	 * Collect the range settings for the given data column.
+	 * returns the current value of the step
+	 * @returns {number} current value
+	 */
+	StepNumber.prototype.getCurrent = function () {
+	  return _parseFloat(this._current.toPrecision(this.precision));
+	};
+
+	/**
+	 * returns the current step size
+	 * @returns {number} current step size
+	 */
+	StepNumber.prototype.getStep = function () {
+	  return this._step;
+	};
+
+	/**
+	 * Set the current to its starting value.
 	 *
-	 * This internal method is intended to make the range
-	 * initalization more generic.
+	 * By default, this will be the largest value smaller than start, which
+	 * is a multiple of the step size.
 	 *
-	 * TODO: if/when combined settings per axis defined, get rid of this.
-	 * @private
-	 * @param {'x'|'y'|'z'} column  The data column to process
-	 * @param {vis.Graph3d} graph3d Reference to the calling Graph3D instance;
-	 *                              required for access to settings
-	 * @returns {object}
+	 * Parameters checkFirst is optional, default false.
+	 * If set to true, move the current value one step if smaller than start.
+	 * @param {boolean} [checkFirst]
 	 */
-	DataGroup.prototype._collectRangeSettings = function (column, graph3d) {
-	  var _context;
-	  const index = _indexOfInstanceProperty(_context = ["x", "y", "z"]).call(_context, column);
-	  if (index == -1) {
-	    throw new Error("Column '" + column + "' invalid");
+	StepNumber.prototype.start = function (checkFirst) {
+	  if (checkFirst === undefined) {
+	    checkFirst = false;
 	  }
-	  const upper = column.toUpperCase();
-	  return {
-	    barWidth: this[column + "BarWidth"],
-	    min: graph3d["default" + upper + "Min"],
-	    max: graph3d["default" + upper + "Max"],
-	    step: graph3d["default" + upper + "Step"],
-	    range_label: column + "Range",
-	    // Name of instance field to write to
-	    step_label: column + "Step" // Name of instance field to write to
-	  };
-	};
-
-	/**
-	 * Initializes the settings per given column.
-	 *
-	 * TODO: if/when combined settings per axis defined, rewrite this.
-	 * @private
-	 * @param {DataSet | DataView} data     The data containing the items for the Graph
-	 * @param {'x'|'y'|'z'}        column   The data column to process
-	 * @param {vis.Graph3d}        graph3d  Reference to the calling Graph3D instance;
-	 *                                      required for access to settings
-	 * @param {boolean}            withBars True if initializing for bar graph
-	 */
-	DataGroup.prototype._initializeRange = function (data, column, graph3d, withBars) {
-	  const NUMSTEPS = 5;
-	  const settings = this._collectRangeSettings(column, graph3d);
-	  const range = this.getColumnRange(data, column);
-	  if (withBars && column != "z") {
-	    // Safeguard for 'z'; it doesn't have a bar width
-	    range.expand(settings.barWidth / 2);
-	  }
-	  this._setRangeDefaults(range, settings.min, settings.max);
-	  this[settings.range_label] = range;
-	  this[settings.step_label] = settings.step !== undefined ? settings.step : range.range() / NUMSTEPS;
-	};
-
-	/**
-	 * Creates a list with all the different values in the data for the given column.
-	 *
-	 * If no data passed, use the internal data of this instance.
-	 * @param {'x'|'y'|'z'}                column The data column to process
-	 * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
-	 * @returns {Array} All distinct values in the given column data, sorted ascending.
-	 */
-	DataGroup.prototype.getDistinctValues = function (column, data) {
-	  if (data === undefined) {
-	    data = this.dataTable;
-	  }
-	  const values = [];
-	  for (let i = 0; i < data.length; i++) {
-	    const value = data[i][column] || 0;
-	    if (_indexOfInstanceProperty(values).call(values, value) === -1) {
-	      values.push(value);
+	  this._current = this._start - this._start % this._step;
+	  if (checkFirst) {
+	    if (this.getCurrent() < this._start) {
+	      this.next();
 	    }
 	  }
-	  return _sortInstanceProperty(values).call(values, function (a, b) {
-	    return a - b;
-	  });
 	};
 
 	/**
-	 * Determine the smallest difference between the values for given
-	 * column in the passed data set.
-	 * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
-	 * @param {'x'|'y'|'z'}                column The data column to process
-	 * @returns {number|null} Smallest difference value or
-	 *                        null, if it can't be determined.
+	 * Do a step, add the step size to the current value
 	 */
-	DataGroup.prototype.getSmallestDifference = function (data, column) {
-	  const values = this.getDistinctValues(data, column);
-
-	  // Get all the distinct diffs
-	  // Array values is assumed to be sorted here
-	  let smallest_diff = null;
-	  for (let i = 1; i < values.length; i++) {
-	    const diff = values[i] - values[i - 1];
-	    if (smallest_diff == null || smallest_diff > diff) {
-	      smallest_diff = diff;
-	    }
-	  }
-	  return smallest_diff;
+	StepNumber.prototype.next = function () {
+	  this._current += this._step;
 	};
 
 	/**
-	 * Get the absolute min/max values for the passed data column.
-	 * @param {DataSet|DataView|undefined} data   The data containing the items for the Graph
-	 * @param {'x'|'y'|'z'}                column The data column to process
-	 * @returns {Range} A Range instance with min/max members properly set.
+	 * Returns true whether the end is reached
+	 * @returns {boolean}  True if the current value has passed the end value.
 	 */
-	DataGroup.prototype.getColumnRange = function (data, column) {
-	  const range = new Range();
-
-	  // Adjust the range so that it covers all values in the passed data elements.
-	  for (let i = 0; i < data.length; i++) {
-	    const item = data[i][column];
-	    range.adjust(item);
-	  }
-	  return range;
-	};
-
-	/**
-	 * Determines the number of rows in the current data.
-	 * @returns {number}
-	 */
-	DataGroup.prototype.getNumberOfRows = function () {
-	  return this.dataTable.length;
-	};
-
-	/**
-	 * Set default values for range
-	 *
-	 * The default values override the range values, if defined.
-	 *
-	 * Because it's possible that only defaultMin or defaultMax is set, it's better
-	 * to pass in a range already set with the min/max set from the data. Otherwise,
-	 * it's quite hard to process the min/max properly.
-	 * @param {vis.Range} range
-	 * @param {number} [defaultMin]
-	 * @param {number} [defaultMax]
-	 * @private
-	 */
-	DataGroup.prototype._setRangeDefaults = function (range, defaultMin, defaultMax) {
-	  if (defaultMin !== undefined) {
-	    range.min = defaultMin;
-	  }
-	  if (defaultMax !== undefined) {
-	    range.max = defaultMax;
-	  }
-
-	  // This is the original way that the default min/max values were adjusted.
-	  // TODO: Perhaps it's better if an error is thrown if the values do not agree.
-	  //       But this will change the behaviour.
-	  if (range.max <= range.min) range.max = range.min + 1;
-	};
-	DataGroup.prototype.getDataTable = function () {
-	  return this.dataTable;
-	};
-	DataGroup.prototype.getDataSet = function () {
-	  return this.dataSet;
-	};
-
-	/**
-	 * Return all data values as a list of Point3d objects
-	 * @param {Array.<object>} data
-	 * @returns {Array.<object>}
-	 */
-	DataGroup.prototype.getDataPoints = function (data) {
-	  const dataPoints = [];
-	  for (let i = 0; i < data.length; i++) {
-	    const point = new Point3d();
-	    point.x = data[i][this.colX] || 0;
-	    point.y = data[i][this.colY] || 0;
-	    point.z = data[i][this.colZ] || 0;
-	    point.data = data[i];
-	    point.value = data[i][this.colValue] || 0;
-	    const obj = {};
-	    obj.point = point;
-	    obj.bottom = new Point3d(point.x, point.y, this.zRange.min);
-	    obj.trans = undefined;
-	    obj.screen = undefined;
-	    dataPoints.push(obj);
-	  }
-	  return dataPoints;
-	};
-
-	/**
-	 * Copy all values from the data table to a matrix.
-	 *
-	 * The provided values are supposed to form a grid of (x,y) positions.
-	 * @param {Array.<object>} data
-	 * @returns {Array.<object>}
-	 * @private
-	 */
-	DataGroup.prototype.initDataAsMatrix = function (data) {
-	  // TODO: store the created matrix dataPoints in the filters instead of
-	  //       reloading each time.
-	  let x, y, i, obj;
-
-	  // create two lists with all present x and y values
-	  const dataX = this.getDistinctValues(this.colX, data);
-	  const dataY = this.getDistinctValues(this.colY, data);
-	  const dataPoints = this.getDataPoints(data);
-
-	  // create a grid, a 2d matrix, with all values.
-	  const dataMatrix = []; // temporary data matrix
-	  for (i = 0; i < dataPoints.length; i++) {
-	    obj = dataPoints[i];
-
-	    // TODO: implement Array().indexOf() for Internet Explorer
-	    const xIndex = _indexOfInstanceProperty(dataX).call(dataX, obj.point.x);
-	    const yIndex = _indexOfInstanceProperty(dataY).call(dataY, obj.point.y);
-	    if (dataMatrix[xIndex] === undefined) {
-	      dataMatrix[xIndex] = [];
-	    }
-	    dataMatrix[xIndex][yIndex] = obj;
-	  }
-
-	  // fill in the pointers to the neighbors.
-	  for (x = 0; x < dataMatrix.length; x++) {
-	    for (y = 0; y < dataMatrix[x].length; y++) {
-	      if (dataMatrix[x][y]) {
-	        dataMatrix[x][y].pointRight = x < dataMatrix.length - 1 ? dataMatrix[x + 1][y] : undefined;
-	        dataMatrix[x][y].pointTop = y < dataMatrix[x].length - 1 ? dataMatrix[x][y + 1] : undefined;
-	        dataMatrix[x][y].pointCross = x < dataMatrix.length - 1 && y < dataMatrix[x].length - 1 ? dataMatrix[x + 1][y + 1] : undefined;
-	      }
-	    }
-	  }
-	  return dataPoints;
-	};
-
-	/**
-	 * Return common information, if present
-	 * @returns {string}
-	 */
-	DataGroup.prototype.getInfo = function () {
-	  const dataFilter = this.dataFilter;
-	  if (!dataFilter) return undefined;
-	  return dataFilter.getLabel() + ": " + dataFilter.getSelectedValue();
-	};
-
-	/**
-	 * Reload the data
-	 */
-	DataGroup.prototype.reload = function () {
-	  if (this.dataTable) {
-	    this.setData(this.dataTable);
-	  }
-	};
-
-	/**
-	 * Filter the data based on the current filter
-	 * @param   {Array} data
-	 * @returns {Array} dataPoints Array with point objects which can be drawn on
-	 *                             screen
-	 */
-	DataGroup.prototype._getDataPoints = function (data) {
-	  let dataPoints = [];
-	  if (this.style === STYLE.GRID || this.style === STYLE.SURFACE) {
-	    dataPoints = this.initDataAsMatrix(data);
-	  } else {
-	    // 'dot', 'dot-line', etc.
-	    dataPoints = this.getDataPoints(data);
-	    if (this.style === STYLE.LINE) {
-	      // Add next member points for line drawing
-	      for (let i = 0; i < dataPoints.length; i++) {
-	        if (i > 0) {
-	          dataPoints[i - 1].pointNext = dataPoints[i];
-	        }
-	      }
-	    }
-	  }
-	  return dataPoints;
+	StepNumber.prototype.end = function () {
+	  return this._current > this._end;
 	};
 
 	/// enumerate the available styles

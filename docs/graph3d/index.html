@@ -28,7 +28,7 @@
 
     <script type="text/javascript" src="../js/toggleTable.js"></script>
   </head>
-  <body onload="prettyPrint();">
+  <body onload="prettyPrint()">
     <div class="navbar-wrapper">
       <div class="container">
         <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -180,8 +180,7 @@
 &lt;/body&gt;
 &lt;/html&gt;
 
-</pre
-      >
+</pre>
 
       <h2 id="Loading">Loading</h2>
 
@@ -195,8 +194,7 @@
         <a href="#Configuration_Options">Configuration Options</a>.
       </p>
       <pre class="prettyprint lang-js">
-var graph = new vis.Graph3d(container [, data] [, options]);</pre
-      >
+var graph = new vis.Graph3d(container [, data] [, options]);</pre>
 
       <p>
         Data and options can be set or changed later on using the functions
@@ -281,8 +279,7 @@ var options = {
     height: '400px',
     style: 'surface'
 };
-</pre
-      >
+</pre>
 
       <p>The following options are available.</p>
 
@@ -334,7 +331,7 @@ var options = {
 
         <tr
           class="toggle collapsible"
-          onclick="toggleTable('optionTable','backgroundColor', this);"
+          onclick="toggleTable('optionTable', 'backgroundColor', this)"
         >
           <td>
             <span parent="backgroundColor" class="right-caret"></span>
@@ -370,7 +367,7 @@ var options = {
 
         <tr
           class="toggle collapsible"
-          onclick="toggleTable('optionTable','cameraPosition', this);"
+          onclick="toggleTable('optionTable', 'cameraPosition', this)"
         >
           <td>
             <span parent="cameraPosition" class="right-caret"></span>
@@ -412,7 +409,7 @@ var options = {
 
         <tr
           class="toggle collapsible"
-          onclick="toggleTable('optionTable','dataColor', this);"
+          onclick="toggleTable('optionTable', 'dataColor', this)"
         >
           <td>
             <span parent="dataColor" class="right-caret"></span> dataColor
@@ -455,7 +452,7 @@ var options = {
 
         <tr
           class="toggle collapsible"
-          onclick="toggleTable('optionTable','colormap', this);"
+          onclick="toggleTable('optionTable', 'colormap', this)"
         >
           <td><span parent="colormap" class="right-caret"></span> colormap</td>
           <td>array, function</td>
@@ -724,7 +721,7 @@ var options = {
 
         <tr
           class="toggle collapsible"
-          onclick="toggleTable('optionTable','tooltipStyle', this);"
+          onclick="toggleTable('optionTable', 'tooltipStyle', this)"
         >
           <td>
             <span parent="tooltipStyle" class="right-caret"></span> tooltipStyle
@@ -1140,8 +1137,7 @@ function onCameraPositionChange(event) {
 }
 // assuming var graph3d = new vis.Graph3d(document.getElementById('mygraph'));
 graph3d.on('cameraPositionChange', onCameraPositionChange);
-</pre
-      >
+</pre>
 
       <p>The following events are available.</p>
 
