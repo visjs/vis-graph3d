@@ -2,10 +2,42 @@
   "name": "vis-graph3d",
   "version": "0.0.0-no-version",
   "description": "Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.",
-  "browser": "./peer/umd/vis-graph3d.min.cjs",
-  "jsnext": "./esnext/esm/vis-graph3d.mjs",
+  "keywords": [
+    "browser",
+    "browser based",
+    "chart",
+    "graph",
+    "javascript",
+    "vis",
+    "visualization",
+    "web based"
+  ],
+  "homepage": "https://visjs.github.io/vis-graph3d/",
+  "bugs": {
+    "url": "https://github.com/visjs/vis-graph3d/issues"
+  },
+  "license": "(Apache-2.0 OR MIT)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/visjs/vis-graph3d.git"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/visjs"
+  },
+  "files": [
+    "HISTORY.md",
+    "declarations",
+    "dist",
+    "esnext",
+    "peer",
+    "standalone",
+    "styles"
+  ],
+  "type": "module",
   "main": "./peer/umd/vis-graph3d.cjs",
   "module": "./peer/esm/vis-graph3d.mjs",
+  "browser": "./peer/umd/vis-graph3d.min.cjs",
   "types": "./declarations/index.d.ts",
   "exports": {
     ".": {
@@ -141,39 +173,6 @@
       "require": "./dist/vis-graph3d.min.cjs"
     }
   },
-  "homepage": "https://visjs.github.io/vis-graph3d/",
-  "license": "(Apache-2.0 OR MIT)",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/visjs/vis-graph3d.git"
-  },
-  "bugs": {
-    "url": "https://github.com/visjs/vis-graph3d/issues"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/visjs"
-  },
-  "keywords": [
-    "vis",
-    "visualization",
-    "web based",
-    "browser based",
-    "javascript",
-    "chart",
-    "graph",
-    "browser"
-  ],
-  "files": [
-    "HISTORY.md",
-    "declarations",
-    "dist",
-    "esnext",
-    "peer",
-    "standalone",
-    "styles"
-  ],
-  "type": "module",
   "scripts": {
     "test": "BABEL_ENV=test mocha --exit",
     "test-cov": "BABEL_ENV=test-cov nyc --reporter=lcov mocha --exit",
@@ -190,20 +189,6 @@
     "prepublishOnly": "npm run contributors:update && npm run build",
     "contributors:update": "git-authors-cli",
     "prepare": "husky"
-  },
-  "lint-staged": {
-    "*.{js,ts,css,html,json,md,yml,yaml}": "oxfmt --no-error-on-unmatched-pattern",
-    "*.{js,ts}": "oxlint --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --fix",
-    ".*.{js,ts,css,html,json,md,yml,yaml}": "oxfmt --no-error-on-unmatched-pattern",
-    ".*.{js,ts}": "oxlint --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --fix"
-  },
-  "peerDependencies": {
-    "@egjs/hammerjs": "^2.0.0",
-    "component-emitter": "^1.3.0 || ^2.0.0",
-    "keycharm": "^0.2.0 || ^0.3.0 || ^0.4.0",
-    "uuid": "^3.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^13.0.0 || ^14.0.0",
-    "vis-data": ">=8.0.0",
-    "vis-util": ">=6.0.0"
   },
   "devDependencies": {
     "@egjs/hammerjs": "2.0.17",
@@ -228,5 +213,20 @@
     "vis-data": "8.0.4",
     "vis-dev-utils": "6.0.14",
     "vis-util": "6.0.0"
-  }
+  },
+  "peerDependencies": {
+    "@egjs/hammerjs": "^2.0.0",
+    "component-emitter": "^1.3.0 || ^2.0.0",
+    "keycharm": "^0.2.0 || ^0.3.0 || ^0.4.0",
+    "uuid": "^3.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^13.0.0 || ^14.0.0",
+    "vis-data": ">=8.0.0",
+    "vis-util": ">=6.0.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,css,html,json,md,yml,yaml}": "oxfmt --no-error-on-unmatched-pattern",
+    "*.{js,ts}": "oxlint --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --fix",
+    ".*.{js,ts,css,html,json,md,yml,yaml}": "oxfmt --no-error-on-unmatched-pattern",
+    ".*.{js,ts}": "oxlint --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --fix"
+  },
+  "jsnext": "./esnext/esm/vis-graph3d.mjs"
 }

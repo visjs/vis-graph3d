@@ -1,11 +1,10 @@
 import Hammer from "@egjs/hammerjs";
 import keycharm from "keycharm";
-
-import * as util from "vis-util/esnext";
 import { DataSet, DataView, Queue } from "vis-data/esnext";
+import * as util from "vis-util/esnext";
 
-import Camera from "./lib/graph3d/Camera.js";
 import DOMutil from "./lib/DOMutil.js";
+import Camera from "./lib/graph3d/Camera.js";
 import Filter from "./lib/graph3d/Filter.js";
 import Graph3d from "./lib/graph3d/Graph3d.js";
 import Point2d from "./lib/graph3d/Point2d.js";
