@@ -3,7 +3,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 
-import { generateHeader, BABEL_IGNORE_RE } from "vis-dev-utils";
+import { BABEL_IGNORE_RE, generateHeader } from "vis-dev-utils";
 
 const banner = generateHeader();
 
