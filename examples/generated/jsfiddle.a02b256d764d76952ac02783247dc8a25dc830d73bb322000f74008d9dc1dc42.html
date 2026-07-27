@@ -52,8 +52,7 @@ function drawVisualization() {
     var x = pow(random(), 2);
     var y = pow(random(), 2);
     var z = pow(random(), 2);
-    var style =
-      i % 2 == 0 ? sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) : "#00ffff";
+    var style = i % 2 == 0 ? sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2)) : "#00ffff";
 
     data.add({ x: x, y: y, z: z, style: style });
   }
@@ -91,11 +90,7 @@ window.addEventListener("load", () => {
         name="resources"
         value="https://visjs.github.io/vis-graph3d/standalone/umd/vis-graph3d.min.js"
       />
-      <input
-        type="hidden"
-        name="title"
-        value="Graph 3D | Cloud with Colored Dots"
-      />
+      <input type="hidden" name="title" value="Graph 3D | Cloud with Colored Dots" />
       <input type="hidden" name="wrap" value="b" />
       <button id="open" alt="JSFiddle" title="JSFiddle">Open JSFiddle</button>
     </form>

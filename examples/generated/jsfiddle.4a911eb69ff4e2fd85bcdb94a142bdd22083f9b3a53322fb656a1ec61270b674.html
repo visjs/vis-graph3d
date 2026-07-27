@@ -56,13 +56,7 @@ function drawVisualization() {
     // one or multiple dots moving around the center
     for (var dot = 0; dot < dotCount; dot++) {
       var tdot = t + (2 * pi * dot) / dotCount;
-      data.add({
-        x: sin(tdot),
-        y: cos(tdot),
-        z: sin(tdot),
-        filter: tgroup,
-        style: value,
-      });
+      data.add({ x: sin(tdot), y: cos(tdot), z: sin(tdot), filter: tgroup, style: value });
       data.add({
         x: sin(tdot),
         y: -cos(tdot),
@@ -108,11 +102,7 @@ window.addEventListener("load", () => {
         name="resources"
         value="https://visjs.github.io/vis-graph3d/standalone/umd/vis-graph3d.min.js"
       />
-      <input
-        type="hidden"
-        name="title"
-        value="Graph 3D | Animation Moving Dots"
-      />
+      <input type="hidden" name="title" value="Graph 3D | Animation Moving Dots" />
       <input type="hidden" name="wrap" value="b" />
       <button id="open" alt="JSFiddle" title="JSFiddle">Open JSFiddle</button>
     </form>

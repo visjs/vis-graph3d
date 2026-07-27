@@ -49,16 +49,14 @@
 
 <p>
   <label for="xBarWidth">
-    Bar width X:
-    <input type="text" id="xBarWidth" value="" style="width: 50px" /> (only
-    applicable for styles "bar" and "bar-color")
+    Bar width X: <input type="text" id="xBarWidth" value="" style="width: 50px" /> (only applicable
+    for styles "bar" and "bar-color")
   </label>
 </p>
 <p>
   <label for="yBarWidth">
-    Bar width Y:
-    <input type="text" id="yBarWidth" value="" style="width: 50px" /> (only
-    applicable for styles "bar" and "bar-color")
+    Bar width Y: <input type="text" id="yBarWidth" value="" style="width: 50px" /> (only applicable
+    for styles "bar" and "bar-color")
   </label>
 </p>
 
@@ -81,12 +79,9 @@ function custom(x, y) {
 function drawVisualization() {
   var style = document.getElementById("style").value;
   var showPerspective = document.getElementById("perspective").checked;
-  var xBarWidth =
-    parseFloat(document.getElementById("xBarWidth").value) || undefined;
-  var yBarWidth =
-    parseFloat(document.getElementById("yBarWidth").value) || undefined;
-  var withValue =
-    ["bar-color", "bar-size", "dot-size", "dot-color"].indexOf(style) != -1;
+  var xBarWidth = parseFloat(document.getElementById("xBarWidth").value) || undefined;
+  var yBarWidth = parseFloat(document.getElementById("yBarWidth").value) || undefined;
+  var withValue = ["bar-color", "bar-size", "dot-size", "dot-color"].indexOf(style) != -1;
 
   // Create and populate a data table.
   data = [];

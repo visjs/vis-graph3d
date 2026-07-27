@@ -59,8 +59,7 @@ function custom(x, y) {
 // Called when the Visualization API is loaded.
 function drawVisualization() {
   var style = document.getElementById("style").value;
-  var withValue =
-    ["bar-color", "bar-size", "dot-size", "dot-color"].indexOf(style) != -1;
+  var withValue = ["bar-color", "bar-size", "dot-size", "dot-color"].indexOf(style) != -1;
 
   // Create and populate a data table.
   data = new vis.DataSet();
