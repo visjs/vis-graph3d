@@ -38,7 +38,7 @@ globalThis.csv2array = function csv2array(data, delimeter) {
     var c = data.charAt(i);
     var row = 0;
     var col = 0;
-    var array = new Array();
+    var array = [];
 
     while (c != eof) {
         // skip whitespaces
