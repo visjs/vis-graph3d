@@ -163,14 +163,14 @@ function loadCsvMovingDotsExample() {
       //data.addRow([sin(tdot),  cos(tdot), sin(tdot), value, tgroup]);
       //data.addRow([sin(tdot), -cos(tdot), sin(tdot + tmax*1/2), value, tgroup]);
 
-      var x = sin(tdot);
-      var y = cos(tdot);
-      var z = sin(tdot);
+      x = sin(tdot);
+      y = cos(tdot);
+      z = sin(tdot);
       csv += round(x, 2) + ', ' + round(y, 2) + ', ' + round(z, 2) + ', ' + round(value, 2)+ ', ' + round(tgroup, 2) + '\n';
 
-      var x = sin(tdot);
-      var y = -cos(tdot);
-      var z = sin(tdot + tmax*1/2);
+      x = sin(tdot);
+      y = -cos(tdot);
+      z = sin(tdot + tmax*1/2);
       csv += round(x, 2) + ', ' + round(y, 2) + ', ' + round(z, 2) + ', ' + round(value, 2)+ ', ' + round(tgroup, 2) + '\n';
 
     }
