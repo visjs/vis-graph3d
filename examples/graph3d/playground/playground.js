@@ -546,7 +546,9 @@ function drawDatasource() {
   }
 
   // send the request
-  query && query.abort();
+  if (query) {
+    query.abort();
+  }
   query = new google.visualization.Query(url);
   query.send(drawGraph);
 }
