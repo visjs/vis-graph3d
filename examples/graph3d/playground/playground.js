@@ -2,7 +2,7 @@
 var query = null;
 
 
-function load() {
+globalThis.load = function load() {
   selectDataType();
 
   loadCsvExample();
@@ -60,7 +60,7 @@ function loadCsvExample() {
 }
 
 
-function loadCsvAnimationExample() {
+globalThis.loadCsvAnimationExample = function loadCsvAnimationExample() {
   var csv = "";
 
   // headers
@@ -97,7 +97,7 @@ function loadCsvAnimationExample() {
 }
 
 
-function loadCsvLineExample() {
+globalThis.loadCsvLineExample = function loadCsvLineExample() {
   var csv = "";
 
   // headers
@@ -132,7 +132,7 @@ function loadCsvLineExample() {
   drawCsv();
 }
 
-function loadCsvMovingDotsExample() {
+globalThis.loadCsvMovingDotsExample = function loadCsvMovingDotsExample() {
   var csv = "";
 
   // headers
@@ -194,7 +194,7 @@ function loadCsvMovingDotsExample() {
   drawCsv();
 }
 
-function loadCsvColoredDotsExample() {
+globalThis.loadCsvColoredDotsExample = function loadCsvColoredDotsExample() {
   var csv = "";
 
   // headers
@@ -232,7 +232,7 @@ function loadCsvColoredDotsExample() {
   drawCsv();
 }
 
-function loadCsvSizedDotsExample() {
+globalThis.loadCsvSizedDotsExample = function loadCsvSizedDotsExample() {
   var csv = "";
 
   // headers

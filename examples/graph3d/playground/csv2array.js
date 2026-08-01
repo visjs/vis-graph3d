@@ -24,7 +24,7 @@
  * @throw {String} error     The method throws an error when there is an
  *                           error in the provided data.
  */
-function csv2array(data, delimeter) {
+globalThis.csv2array = function csv2array(data, delimeter) {
     // Retrieve the delimeter
     if (delimeter == undefined)
         delimeter = ',';
