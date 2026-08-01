@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Graph 3D | Styling Surface</title>
@@ -21,7 +21,10 @@
       }
     </style>
 
-    <script type="text/javascript" src="../../standalone/umd/vis-graph3d.min.js"></script>
+    <script
+      type="text/javascript"
+      src="../../standalone/umd/vis-graph3d.min.js"
+    ></script>
 
     <script type="text/javascript">
       var data = null;
@@ -35,7 +38,7 @@
       function drawVisualization() {
         var radioButtons = document.getElementsByName("style");
         var selectedRadio = null;
-        radioButtons.forEach(function(radioButton) {
+        radioButtons.forEach(function (radioButton) {
           if (radioButton.checked === true) {
             selectedRadio = radioButton;
           }
@@ -67,20 +70,20 @@
           showShadow: true,
           showSurfaceGrid: false,
           keepAspectRatio: true,
-          verticalRatio: 0.5
+          verticalRatio: 0.5,
         };
 
         if (style === "default") {
           options.colormap = [
-            '#000FFF',
-            '#68E8FB',
-            '#00FF00',
-            '#FFF000',
-            '#FF0000',
+            "#000FFF",
+            "#68E8FB",
+            "#00FF00",
+            "#FFF000",
+            "#FF0000",
           ];
         } else if (style === "function") {
-          options.colormap = function(x) {
-            return {r: 255*x, g: 0, b: 0, a: (1+x)/2};
+          options.colormap = function (x) {
+            return { r: 255 * x, g: 0, b: 0, a: (1 + x) / 2 };
           };
         } else if (style === "hue") {
           options.colormap = {
@@ -89,8 +92,8 @@
               end: -360,
               saturation: 50,
               brightness: 100,
-              colorStops: 8 // How many colour gradients do we want
-            }
+              colorStops: 8, // How many colour gradients do we want
+            },
           };
         } else if (style === "html") {
           options.colormap = ["#000000", "#6A0DAD", "#FFFFFF"];
@@ -103,7 +106,7 @@
     </script>
   </head>
 
-  <body onload="drawVisualization();">
+  <body onload="drawVisualization()">
     <fieldset>
       <legend>Select Style</legend>
       <div>
@@ -113,11 +116,12 @@
           id="defaultStyle"
           value="default"
           checked="checked"
-          onchange="drawVisualization();"
+          onchange="drawVisualization()"
         />
         <label for="defaultStyle">Default Configuration: </label>
         <code>
-          <pre>colormap: [
+          <pre>
+colormap: [
   '#000FFF',
   '#68E8FB',
   '#00FF00',
@@ -133,11 +137,12 @@
           name="style"
           id="functionStyle"
           value="function"
-          onchange="drawVisualization();"
+          onchange="drawVisualization()"
         />
         <label for="functionStyle">Function Configuration:</label>
         <code>
-          <pre>colormap: function(x) {
+          <pre>
+colormap: function(x) {
   return {r: 255*x, g: 0, b: 0, a: (1+x)/2};
 }</pre>
         </code>
@@ -149,11 +154,12 @@
           name="style"
           id="hueStyle"
           value="hue"
-          onchange="drawVisualization();"
+          onchange="drawVisualization()"
         />
         <label for="hueStyle">Hue Configuration:</label>
         <code>
-          <pre>colormap: {
+          <pre>
+colormap: {
   hue: {
     start: 360,
     end: -360,
@@ -171,11 +177,12 @@
           name="style"
           id="htmlStyle"
           value="html"
-          onchange="drawVisualization();"
+          onchange="drawVisualization()"
         />
         <label for="htmlStyle">HTML Hex Configuration:</label>
         <code>
-          <pre>colormap: [
+          <pre>
+colormap: [
   '#000000',
   '#6A0DAD',
   '#FFFFFF',
