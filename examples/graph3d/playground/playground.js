@@ -101,7 +101,7 @@ globalThis.loadCsvLineExample = function loadCsvLineExample() {
   // create some nice looking data with sin/cos
   var steps = 100;
   var tmax = 4 * 2 * Math.PI;
-  for (t = 0; t < tmax; t += tmax / steps) {
+  for (var t = 0; t < tmax; t += tmax / steps) {
     var r = 1;
     var x = r * Math.sin(t);
     var y = r * Math.cos(t);
