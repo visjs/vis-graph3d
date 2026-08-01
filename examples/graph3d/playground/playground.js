@@ -1,15 +1,10 @@
 
-var query = null;
 
 
 globalThis.load = function load() {
   selectDataType();
 
   loadCsvExample();
-  loadJsonExample();
-  loadJavascriptExample();
-  loadGooglespreadsheetExample();
-  loadDatasourceExample();
 
   draw();
 }
@@ -105,9 +100,7 @@ globalThis.loadCsvLineExample = function loadCsvLineExample() {
 
   // create some nice looking data with sin/cos
   var steps = 100;
-  var axisMax = 314;
   var tmax = 4 * 2 * Math.PI;
-  var axisStep = axisMax / steps;
   for (t = 0; t < tmax; t += tmax / steps) {
     var r = 1;
     var x = r * Math.sin(t);
@@ -272,33 +265,13 @@ globalThis.loadCsvSizedDotsExample = function loadCsvSizedDotsExample() {
 }
 
 
-function loadJsonExample() {
-}
-
-
-function loadJavascriptExample() {
-}
-
-function loadJavascriptFunctionExample() {
-}
-
-function loadGooglespreadsheetExample() {
-
-}
-
-
-function loadDatasourceExample() {
-}
 
 
 
-/**
- * Retrieve teh currently selected datatype
- * @return {string} datatype
- */
-function getDataType() {
-  return "csv";
-}
+
+
+
+
 
 
 /**
@@ -351,50 +324,13 @@ function getDataCsv() {
   return data;
 }
 
-/**
- * remove leading and trailing spaces
- */
-function trim(text) {
-  while (text.length && text.charAt(0) == ' ')
-    text = text.substr(1);
-
-  while (text.length && text.charAt(text.length-1) == ' ')
-    text = text.substr(0, text.length-1);
-
-  return text;
-}
-
-/**
- * Retrieve the datatable from the entered contents of the javascript text
- * @return {vis.DataSet}
- */
-function getDataJson() {
-  var json = document.getElementById("jsonTextarea").value;
-  var data = new google.visualization.DataTable(json);
-
-  return data;
-}
 
 
-/**
- * Retrieve the datatable from the entered contents of the javascript text
- * @return {vis.DataSet}
- */
-function getDataJavascript() {
-  var js = document.getElementById("javascriptTextarea").value;
-
-  eval(js);
-
-  return data;
-}
 
 
-/**
- * Retrieve the datatable from the entered contents of the datasource text
- * @return {vis.DataSet}
- */
-function getDataDatasource() {
-}
+
+
+
 
 /**
  * Retrieve a JSON object with all options
@@ -462,93 +398,11 @@ function drawCsv() {
   var options = getOptions();
 
   // Creat a graph
-  var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
-}
-
-function drawJson() {
-  // retrieve data and options
-  var data = getDataJson();
-  var options = getOptions();
-
-  // Creat a graph
-  var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
-}
-
-function drawJavascript() {
-  // retrieve data and options
-  var data = getDataJavascript();
-  var options = getOptions();
-
-  // Creat a graph
-  var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
+  void new vis.Graph3d(document.getElementById('mygraph'), data, options);
 }
 
 
-function drawGooglespreadsheet() {
-  // Instantiate our graph object.
-  drawGraph = function(response) {
-    document.getElementById("draw").disabled = "";
-
-    if (response.isError()) {
-      error = 'Error: ' + response.getMessage();
-      document.getElementById('mygraph').innerHTML =
-          "<span style='color: red; font-weight: bold;'>" + error + "</span>"; ;
-    }
-
-    // retrieve the data from the query response
-    data = response.getDataTable();
-
-    // specify options
-    options = getOptions();
-
-    // Instantiate our graph object.
-    var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
-  }
-
-  url = document.getElementById("googlespreadsheetText").value;
-  document.getElementById("draw").disabled = "disabled";
-
-  // send the request
-  query && query.abort();
-  query = new google.visualization.Query(url);
-  query.send(drawGraph);
-}
 
 
-function drawDatasource() {
-  // Instantiate our graph object.
-  drawGraph = function(response) {
-    document.getElementById("draw").disabled = "";
 
-    if (response.isError()) {
-      error = 'Error: ' + response.getMessage();
-      document.getElementById('mygraph').innerHTML =
-          "<span style='color: red; font-weight: bold;'>" + error + "</span>"; ;
-    }
 
-    // retrieve the data from the query response
-    data = response.getDataTable();
-
-    // specify options
-    options = getOptions();
-
-    // Instantiate our graph object.
-    var graph = new vis.Graph3d(document.getElementById('mygraph'), data, options);
-  };
-
-  url = document.getElementById("datasourceText").value;
-  document.getElementById("draw").disabled = "disabled";
-
-  // if the entered url is a google spreadsheet url, replace the part
-  // "/ccc?" with "/tq?" in order to retrieve a neat data query result
-  if (url.indexOf("/ccc?")) {
-    url.replace("/ccc?", "/tq?");
-  }
-
-  // send the request
-  if (query) {
-    query.abort();
-  }
-  query = new google.visualization.Query(url);
-  query.send(drawGraph);
-}
