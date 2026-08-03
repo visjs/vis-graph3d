@@ -56,7 +56,13 @@ function drawVisualization() {
     // one or multiple dots moving around the center
     for (var dot = 0; dot < dotCount; dot++) {
       var tdot = t + (2 * pi * dot) / dotCount;
-      data.add({ x: sin(tdot), y: cos(tdot), z: sin(tdot), filter: tgroup, style: value });
+      data.add({
+        x: sin(tdot),
+        y: cos(tdot),
+        z: sin(tdot),
+        filter: tgroup,
+        style: value,
+      });
       data.add({
         x: sin(tdot),
         y: -cos(tdot),

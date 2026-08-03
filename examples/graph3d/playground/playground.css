@@ -1,62 +1,63 @@
-body
-{
-  font: 13px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+body {
+  font:
+    13px "Lucida Grande",
+    Tahoma,
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
-h1
-{
+h1 {
   font-size: 180%;
   font-weight: bold;
 
   margin: 1em 0 1em 0;
 }
 
-h2
-{
+h2 {
   font-size: 140%;
   padding: 5px;
   border-bottom: 1px solid #a0c0f0;
-  color: #2B7CE9;
+  color: #2b7ce9;
 }
 
-h3
-{
+h3 {
   font-size: 100%;
 }
 
-hr
-{
+hr {
   border: none 0;
   border-top: 1px solid #a0c0f0;
   height: 1px;
 }
 
-pre.code
-{
+pre.code {
   display: block;
   padding: 8px;
   border: 1px dashed #ccc;
 }
 
-table
-{
+table {
   border-collapse: collapse;
 }
 
-th, td
-{
-  font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+th,
+td {
+  font:
+    12px "Lucida Grande",
+    Tahoma,
+    Arial,
+    Helvetica,
+    sans-serif;
   text-align: left;
   vertical-align: top;
   /*border: 1px solid #888;*/
   padding: 3px;
 }
 
-th
-{
+th {
   font-weight: bold;
 }
-
 
 textarea {
   width: 500px;
@@ -64,13 +65,13 @@ textarea {
   border: 1px solid #888;
 }
 
-input[type=text] {
+input[type="text"] {
   border: 1px solid #888;
 }
 
-#datasourceText, #googlespreadsheetText {
+#datasourceText,
+#googlespreadsheetText {
   width: 500px;
-
 }
 
 .info {
@@ -83,7 +84,6 @@ a {
 a:hover {
   color: red;
 }
-
 
 #mygraph {
   width: 100%;

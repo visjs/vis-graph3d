@@ -48,7 +48,13 @@ function drawVisualization() {
     for (var y = 0; y < axisMax; y += axisStep) {
       var value = custom(x, y);
       var valueRange = value > 67 ? "67-100" : value < 33 ? "0-33" : "33-67";
-      data.push({ x: x, y: y, z: value, filter: valueRange, style: value });
+      data.push({
+        x: x,
+        y: y,
+        z: value,
+        filter: valueRange,
+        style: value,
+      });
     }
   }
 

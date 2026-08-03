@@ -67,7 +67,13 @@ function drawVisualization() {
   // Create and populate a data table.
   var data = new vis.DataSet();
   var extra_content = [];
-  data.add({ id: "c57621e7d6cfb81", x: 0, y: -1, z: 0, extra: extra_content[0] });
+  data.add({
+    id: "c57621e7d6cfb81",
+    x: 0,
+    y: -1,
+    z: 0,
+    extra: extra_content[0],
+  });
   var axis_x = {};
   var axis_y = {};
   var file1 = "world_index_data_small.json?nocache=" + Math.random();

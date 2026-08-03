@@ -92,7 +92,12 @@ function drawVisualization() {
           extra: extra_content[(x * y) % extra_content.length],
         });
       } else {
-        data.add({ x: x, y: y, z: z, extra: extra_content[(x * y) % extra_content.length] });
+        data.add({
+          x: x,
+          y: y,
+          z: z,
+          extra: extra_content[(x * y) % extra_content.length],
+        });
       }
     }
   }
