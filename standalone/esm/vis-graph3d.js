@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2026-08-07T00:30:18.469Z
+ * @date    2026-08-07T06:09:48.834Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -9570,90 +9570,6 @@ function requireSlice () {
 var sliceExports = requireSlice();
 var _sliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sliceExports);
 
-var es_array_reverse = {};
-
-var hasRequiredEs_array_reverse;
-
-function requireEs_array_reverse () {
-	if (hasRequiredEs_array_reverse) return es_array_reverse;
-	hasRequiredEs_array_reverse = 1;
-	var $ = /*@__PURE__*/ require_export();
-	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
-	var isArray = /*@__PURE__*/ requireIsArray$6();
-
-	var nativeReverse = uncurryThis([].reverse);
-	var test = [1, 2];
-
-	// `Array.prototype.reverse` method
-	// https://tc39.es/ecma262/#sec-array.prototype.reverse
-	// fix for Safari 12.0 bug
-	// https://bugs.webkit.org/show_bug.cgi?id=188794
-	$({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()) }, {
-	  reverse: function reverse() {
-	    // eslint-disable-next-line no-self-assign -- dirty hack
-	    if (isArray(this)) this.length = this.length;
-	    return nativeReverse(this);
-	  }
-	});
-	return es_array_reverse;
-}
-
-var reverse$3;
-var hasRequiredReverse$3;
-
-function requireReverse$3 () {
-	if (hasRequiredReverse$3) return reverse$3;
-	hasRequiredReverse$3 = 1;
-	requireEs_array_reverse();
-	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
-
-	reverse$3 = getBuiltInPrototypeMethod('Array', 'reverse');
-	return reverse$3;
-}
-
-var reverse$2;
-var hasRequiredReverse$2;
-
-function requireReverse$2 () {
-	if (hasRequiredReverse$2) return reverse$2;
-	hasRequiredReverse$2 = 1;
-	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
-	var method = /*@__PURE__*/ requireReverse$3();
-
-	var ArrayPrototype = Array.prototype;
-
-	reverse$2 = function (it) {
-	  var own = it.reverse;
-	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.reverse) ? method : own;
-	};
-	return reverse$2;
-}
-
-var reverse$1;
-var hasRequiredReverse$1;
-
-function requireReverse$1 () {
-	if (hasRequiredReverse$1) return reverse$1;
-	hasRequiredReverse$1 = 1;
-	var parent = /*@__PURE__*/ requireReverse$2();
-
-	reverse$1 = parent;
-	return reverse$1;
-}
-
-var reverse;
-var hasRequiredReverse;
-
-function requireReverse () {
-	if (hasRequiredReverse) return reverse;
-	hasRequiredReverse = 1;
-	reverse = /*@__PURE__*/ requireReverse$1();
-	return reverse;
-}
-
-var reverseExports = requireReverse();
-var _reverseInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reverseExports);
-
 var es_object_getPrototypeOf = {};
 
 var hasRequiredEs_object_getPrototypeOf;
@@ -13338,8 +13254,8 @@ Activator$1.current = null;
  */
 Activator$1.prototype.destroy = function () {
   this.deactivate();
-  for (const callback of _reverseInstanceProperty(_context2 = _spliceInstanceProperty(_context3 = this._cleanupQueue).call(_context3, 0)).call(_context2)) {
-    var _context2, _context3;
+  for (const callback of _spliceInstanceProperty(_context2 = this._cleanupQueue).call(_context2, 0).toReversed()) {
+    var _context2;
     callback();
   }
 };
@@ -13495,8 +13411,8 @@ function deepExtend(a, b) {
           copyOrDelete(a, b, prop, allowDeletion);
         }
       } else if (_Array$isArray(b[prop])) {
-        var _context4;
-        a[prop] = _sliceInstanceProperty(_context4 = b[prop]).call(_context4);
+        var _context3;
+        a[prop] = _sliceInstanceProperty(_context3 = b[prop]).call(_context3);
       } else {
         copyOrDelete(a, b, prop, allowDeletion);
       }
@@ -13814,6 +13730,7 @@ let Validator$1 = class Validator {
     let closestMatchPath = [];
     const lowerCaseOption = option.toLowerCase();
     let indexMatch = undefined;
+    // oxlint-disable-next-line guard-for-in -- Options use prototype inheritance to override defaults, parent options, etc.
     for (const op in options) {
       let distance;
       if (options[op].__type__ !== undefined && recursive === true) {
@@ -13825,8 +13742,8 @@ let Validator$1 = class Validator {
           indexMatch = result.indexMatch;
         }
       } else {
-        var _context1;
-        if (_indexOfInstanceProperty(_context1 = op.toLowerCase()).call(_context1, lowerCaseOption) !== -1) {
+        var _context0;
+        if (_indexOfInstanceProperty(_context0 = op.toLowerCase()).call(_context0, lowerCaseOption) !== -1) {
           indexMatch = op;
         }
         distance = Validator.levenshteinDistance(option, op);
@@ -16373,6 +16290,90 @@ Range.prototype.range = function () {
 Range.prototype.center = function () {
   return (this.min + this.max) / 2;
 };
+
+var es_array_reverse = {};
+
+var hasRequiredEs_array_reverse;
+
+function requireEs_array_reverse () {
+	if (hasRequiredEs_array_reverse) return es_array_reverse;
+	hasRequiredEs_array_reverse = 1;
+	var $ = /*@__PURE__*/ require_export();
+	var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+	var isArray = /*@__PURE__*/ requireIsArray$6();
+
+	var nativeReverse = uncurryThis([].reverse);
+	var test = [1, 2];
+
+	// `Array.prototype.reverse` method
+	// https://tc39.es/ecma262/#sec-array.prototype.reverse
+	// fix for Safari 12.0 bug
+	// https://bugs.webkit.org/show_bug.cgi?id=188794
+	$({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()) }, {
+	  reverse: function reverse() {
+	    // eslint-disable-next-line no-self-assign -- dirty hack
+	    if (isArray(this)) this.length = this.length;
+	    return nativeReverse(this);
+	  }
+	});
+	return es_array_reverse;
+}
+
+var reverse$3;
+var hasRequiredReverse$3;
+
+function requireReverse$3 () {
+	if (hasRequiredReverse$3) return reverse$3;
+	hasRequiredReverse$3 = 1;
+	requireEs_array_reverse();
+	var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+	reverse$3 = getBuiltInPrototypeMethod('Array', 'reverse');
+	return reverse$3;
+}
+
+var reverse$2;
+var hasRequiredReverse$2;
+
+function requireReverse$2 () {
+	if (hasRequiredReverse$2) return reverse$2;
+	hasRequiredReverse$2 = 1;
+	var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+	var method = /*@__PURE__*/ requireReverse$3();
+
+	var ArrayPrototype = Array.prototype;
+
+	reverse$2 = function (it) {
+	  var own = it.reverse;
+	  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.reverse) ? method : own;
+	};
+	return reverse$2;
+}
+
+var reverse$1;
+var hasRequiredReverse$1;
+
+function requireReverse$1 () {
+	if (hasRequiredReverse$1) return reverse$1;
+	hasRequiredReverse$1 = 1;
+	var parent = /*@__PURE__*/ requireReverse$2();
+
+	reverse$1 = parent;
+	return reverse$1;
+}
+
+var reverse;
+var hasRequiredReverse;
+
+function requireReverse () {
+	if (hasRequiredReverse) return reverse;
+	hasRequiredReverse = 1;
+	reverse = /*@__PURE__*/ requireReverse$1();
+	return reverse;
+}
+
+var reverseExports = requireReverse();
+var _reverseInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(reverseExports);
 
 // enumerate the available styles
 const STYLE = {
