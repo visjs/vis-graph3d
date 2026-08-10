@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2026-08-09T14:02:30.833Z
+ * @date    2026-08-10T01:07:05.142Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -6735,154 +6735,6 @@
 	var forEachExports = requireForEach();
 	var _forEachInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(forEachExports);
 
-	var es_array_splice = {};
-
-	var deletePropertyOrThrow;
-	var hasRequiredDeletePropertyOrThrow;
-
-	function requireDeletePropertyOrThrow () {
-		if (hasRequiredDeletePropertyOrThrow) return deletePropertyOrThrow;
-		hasRequiredDeletePropertyOrThrow = 1;
-		var tryToString = /*@__PURE__*/ requireTryToString();
-
-		var $TypeError = TypeError;
-
-		deletePropertyOrThrow = function (O, P) {
-		  if (!delete O[P]) throw new $TypeError('Cannot delete property ' + tryToString(P) + ' of ' + tryToString(O));
-		};
-		return deletePropertyOrThrow;
-	}
-
-	var hasRequiredEs_array_splice;
-
-	function requireEs_array_splice () {
-		if (hasRequiredEs_array_splice) return es_array_splice;
-		hasRequiredEs_array_splice = 1;
-		var $ = /*@__PURE__*/ require_export();
-		var toObject = /*@__PURE__*/ requireToObject();
-		var toAbsoluteIndex = /*@__PURE__*/ requireToAbsoluteIndex();
-		var toIntegerOrInfinity = /*@__PURE__*/ requireToIntegerOrInfinity();
-		var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
-		var setArrayLength = /*@__PURE__*/ requireArraySetLength();
-		var doesNotExceedSafeInteger = /*@__PURE__*/ requireDoesNotExceedSafeInteger();
-		var arraySpeciesCreate = /*@__PURE__*/ requireArraySpeciesCreate();
-		var createProperty = /*@__PURE__*/ requireCreateProperty();
-		var deletePropertyOrThrow = /*@__PURE__*/ requireDeletePropertyOrThrow();
-		var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
-
-		var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('splice');
-
-		var max = Math.max;
-		var min = Math.min;
-
-		// `Array.prototype.splice` method
-		// https://tc39.es/ecma262/#sec-array.prototype.splice
-		// with adding support of @@species
-		$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
-		  splice: function splice(start, deleteCount /* , ...items */) {
-		    var O = toObject(this);
-		    var len = lengthOfArrayLike(O);
-		    var actualStart = toAbsoluteIndex(start, len);
-		    var argumentsLength = arguments.length;
-		    var insertCount, actualDeleteCount, A, k, from, to;
-		    if (argumentsLength === 0) {
-		      insertCount = actualDeleteCount = 0;
-		    } else if (argumentsLength === 1) {
-		      insertCount = 0;
-		      actualDeleteCount = len - actualStart;
-		    } else {
-		      insertCount = argumentsLength - 2;
-		      actualDeleteCount = min(max(toIntegerOrInfinity(deleteCount), 0), len - actualStart);
-		    }
-		    doesNotExceedSafeInteger(len + insertCount - actualDeleteCount);
-		    A = arraySpeciesCreate(O, actualDeleteCount);
-		    for (k = 0; k < actualDeleteCount; k++) {
-		      from = actualStart + k;
-		      if (from in O) createProperty(A, k, O[from]);
-		    }
-		    setArrayLength(A, actualDeleteCount);
-		    if (insertCount < actualDeleteCount) {
-		      for (k = actualStart; k < len - actualDeleteCount; k++) {
-		        from = k + actualDeleteCount;
-		        to = k + insertCount;
-		        if (from in O) O[to] = O[from];
-		        else deletePropertyOrThrow(O, to);
-		      }
-		      for (k = len; k > len - actualDeleteCount + insertCount; k--) deletePropertyOrThrow(O, k - 1);
-		    } else if (insertCount > actualDeleteCount) {
-		      for (k = len - actualDeleteCount; k > actualStart; k--) {
-		        from = k + actualDeleteCount - 1;
-		        to = k + insertCount - 1;
-		        if (from in O) O[to] = O[from];
-		        else deletePropertyOrThrow(O, to);
-		      }
-		    }
-		    for (k = 0; k < insertCount; k++) {
-		      O[k + actualStart] = arguments[k + 2];
-		    }
-		    setArrayLength(O, len - actualDeleteCount + insertCount);
-		    return A;
-		  }
-		});
-		return es_array_splice;
-	}
-
-	var splice$3;
-	var hasRequiredSplice$3;
-
-	function requireSplice$3 () {
-		if (hasRequiredSplice$3) return splice$3;
-		hasRequiredSplice$3 = 1;
-		requireEs_array_splice();
-		var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
-
-		splice$3 = getBuiltInPrototypeMethod('Array', 'splice');
-		return splice$3;
-	}
-
-	var splice$2;
-	var hasRequiredSplice$2;
-
-	function requireSplice$2 () {
-		if (hasRequiredSplice$2) return splice$2;
-		hasRequiredSplice$2 = 1;
-		var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
-		var method = /*@__PURE__*/ requireSplice$3();
-
-		var ArrayPrototype = Array.prototype;
-
-		splice$2 = function (it) {
-		  var own = it.splice;
-		  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.splice) ? method : own;
-		};
-		return splice$2;
-	}
-
-	var splice$1;
-	var hasRequiredSplice$1;
-
-	function requireSplice$1 () {
-		if (hasRequiredSplice$1) return splice$1;
-		hasRequiredSplice$1 = 1;
-		var parent = /*@__PURE__*/ requireSplice$2();
-
-		splice$1 = parent;
-		return splice$1;
-	}
-
-	var splice;
-	var hasRequiredSplice;
-
-	function requireSplice () {
-		if (hasRequiredSplice) return splice;
-		hasRequiredSplice = 1;
-		splice = /*@__PURE__*/ requireSplice$1();
-		return splice;
-	}
-
-	var spliceExports = requireSplice();
-	var _spliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(spliceExports);
-
 	var iterator;
 	var hasRequiredIterator;
 
@@ -8555,268 +8407,153 @@
 	var getIteratorExports = requireGetIterator();
 	var _getIterator = /*@__PURE__*/getDefaultExportFromCjs(getIteratorExports);
 
-	var es_array_sort = {};
+	var es_array_splice = {};
 
-	var arraySort;
-	var hasRequiredArraySort;
+	var deletePropertyOrThrow;
+	var hasRequiredDeletePropertyOrThrow;
 
-	function requireArraySort () {
-		if (hasRequiredArraySort) return arraySort;
-		hasRequiredArraySort = 1;
-		var arraySlice = /*@__PURE__*/ requireArraySlice();
+	function requireDeletePropertyOrThrow () {
+		if (hasRequiredDeletePropertyOrThrow) return deletePropertyOrThrow;
+		hasRequiredDeletePropertyOrThrow = 1;
+		var tryToString = /*@__PURE__*/ requireTryToString();
 
-		var floor = Math.floor;
+		var $TypeError = TypeError;
 
-		var sort = function (array, comparefn) {
-		  var length = array.length;
-
-		  if (length < 8) {
-		    // insertion sort
-		    var i = 1;
-		    var element, j;
-
-		    while (i < length) {
-		      j = i;
-		      element = array[i];
-		      while (j && comparefn(array[j - 1], element) > 0) {
-		        array[j] = array[--j];
-		      }
-		      if (j !== i++) array[j] = element;
-		    }
-		  } else {
-		    // merge sort
-		    var middle = floor(length / 2);
-		    var left = sort(arraySlice(array, 0, middle), comparefn);
-		    var right = sort(arraySlice(array, middle), comparefn);
-		    var llength = left.length;
-		    var rlength = right.length;
-		    var lindex = 0;
-		    var rindex = 0;
-
-		    while (lindex < llength || rindex < rlength) {
-		      array[lindex + rindex] = (lindex < llength && rindex < rlength)
-		        ? comparefn(left[lindex], right[rindex]) <= 0 ? left[lindex++] : right[rindex++]
-		        : lindex < llength ? left[lindex++] : right[rindex++];
-		    }
-		  }
-
-		  return array;
+		deletePropertyOrThrow = function (O, P) {
+		  if (!delete O[P]) throw new $TypeError('Cannot delete property ' + tryToString(P) + ' of ' + tryToString(O));
 		};
-
-		arraySort = sort;
-		return arraySort;
+		return deletePropertyOrThrow;
 	}
 
-	var environmentFfVersion;
-	var hasRequiredEnvironmentFfVersion;
+	var hasRequiredEs_array_splice;
 
-	function requireEnvironmentFfVersion () {
-		if (hasRequiredEnvironmentFfVersion) return environmentFfVersion;
-		hasRequiredEnvironmentFfVersion = 1;
-		var userAgent = /*@__PURE__*/ requireEnvironmentUserAgent();
-
-		var firefox = userAgent.match(/firefox\/(\d+)/i);
-
-		environmentFfVersion = !!firefox && +firefox[1];
-		return environmentFfVersion;
-	}
-
-	var environmentIsIeOrEdge;
-	var hasRequiredEnvironmentIsIeOrEdge;
-
-	function requireEnvironmentIsIeOrEdge () {
-		if (hasRequiredEnvironmentIsIeOrEdge) return environmentIsIeOrEdge;
-		hasRequiredEnvironmentIsIeOrEdge = 1;
-		var UA = /*@__PURE__*/ requireEnvironmentUserAgent();
-
-		environmentIsIeOrEdge = /MSIE|Trident/.test(UA);
-		return environmentIsIeOrEdge;
-	}
-
-	var environmentWebkitVersion;
-	var hasRequiredEnvironmentWebkitVersion;
-
-	function requireEnvironmentWebkitVersion () {
-		if (hasRequiredEnvironmentWebkitVersion) return environmentWebkitVersion;
-		hasRequiredEnvironmentWebkitVersion = 1;
-		var userAgent = /*@__PURE__*/ requireEnvironmentUserAgent();
-
-		var webkit = userAgent.match(/AppleWebKit\/(\d+)\./);
-
-		environmentWebkitVersion = !!webkit && +webkit[1];
-		return environmentWebkitVersion;
-	}
-
-	var hasRequiredEs_array_sort;
-
-	function requireEs_array_sort () {
-		if (hasRequiredEs_array_sort) return es_array_sort;
-		hasRequiredEs_array_sort = 1;
+	function requireEs_array_splice () {
+		if (hasRequiredEs_array_splice) return es_array_splice;
+		hasRequiredEs_array_splice = 1;
 		var $ = /*@__PURE__*/ require_export();
-		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
-		var aCallable = /*@__PURE__*/ requireACallable();
 		var toObject = /*@__PURE__*/ requireToObject();
+		var toAbsoluteIndex = /*@__PURE__*/ requireToAbsoluteIndex();
+		var toIntegerOrInfinity = /*@__PURE__*/ requireToIntegerOrInfinity();
 		var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
+		var setArrayLength = /*@__PURE__*/ requireArraySetLength();
+		var doesNotExceedSafeInteger = /*@__PURE__*/ requireDoesNotExceedSafeInteger();
+		var arraySpeciesCreate = /*@__PURE__*/ requireArraySpeciesCreate();
+		var createProperty = /*@__PURE__*/ requireCreateProperty();
 		var deletePropertyOrThrow = /*@__PURE__*/ requireDeletePropertyOrThrow();
-		var toString = /*@__PURE__*/ requireToString();
-		var fails = /*@__PURE__*/ requireFails();
-		var internalSort = /*@__PURE__*/ requireArraySort();
-		var arrayMethodIsStrict = /*@__PURE__*/ requireArrayMethodIsStrict();
-		var FF = /*@__PURE__*/ requireEnvironmentFfVersion();
-		var IE_OR_EDGE = /*@__PURE__*/ requireEnvironmentIsIeOrEdge();
-		var V8 = /*@__PURE__*/ requireEnvironmentV8Version();
-		var WEBKIT = /*@__PURE__*/ requireEnvironmentWebkitVersion();
+		var arrayMethodHasSpeciesSupport = /*@__PURE__*/ requireArrayMethodHasSpeciesSupport();
 
-		var test = [];
-		var nativeSort = uncurryThis(test.sort);
-		var push = uncurryThis(test.push);
+		var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('splice');
 
-		// IE8-
-		var FAILS_ON_UNDEFINED = fails(function () {
-		  test.sort(undefined);
-		});
-		// V8 bug
-		var FAILS_ON_NULL = fails(function () {
-		  test.sort(null);
-		});
-		// Old WebKit
-		var STRICT_METHOD = arrayMethodIsStrict('sort');
+		var max = Math.max;
+		var min = Math.min;
 
-		var STABLE_SORT = !fails(function () {
-		  // feature detection can be too slow, so check engines versions
-		  if (V8) return V8 < 70;
-		  if (FF && FF > 3) return;
-		  if (IE_OR_EDGE) return true;
-		  if (WEBKIT) return WEBKIT < 603;
-
-		  var result = '';
-		  var code, chr, value, index;
-
-		  // generate an array with more 512 elements (Chakra and old V8 fails only in this case)
-		  for (code = 65; code < 76; code++) {
-		    chr = String.fromCharCode(code);
-
-		    switch (code) {
-		      case 66: case 69: case 70: case 72: value = 3; break;
-		      case 68: case 71: value = 4; break;
-		      default: value = 2;
+		// `Array.prototype.splice` method
+		// https://tc39.es/ecma262/#sec-array.prototype.splice
+		// with adding support of @@species
+		$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
+		  splice: function splice(start, deleteCount /* , ...items */) {
+		    var O = toObject(this);
+		    var len = lengthOfArrayLike(O);
+		    var actualStart = toAbsoluteIndex(start, len);
+		    var argumentsLength = arguments.length;
+		    var insertCount, actualDeleteCount, A, k, from, to;
+		    if (argumentsLength === 0) {
+		      insertCount = actualDeleteCount = 0;
+		    } else if (argumentsLength === 1) {
+		      insertCount = 0;
+		      actualDeleteCount = len - actualStart;
+		    } else {
+		      insertCount = argumentsLength - 2;
+		      actualDeleteCount = min(max(toIntegerOrInfinity(deleteCount), 0), len - actualStart);
 		    }
-
-		    for (index = 0; index < 47; index++) {
-		      test.push({ k: chr + index, v: value });
+		    doesNotExceedSafeInteger(len + insertCount - actualDeleteCount);
+		    A = arraySpeciesCreate(O, actualDeleteCount);
+		    for (k = 0; k < actualDeleteCount; k++) {
+		      from = actualStart + k;
+		      if (from in O) createProperty(A, k, O[from]);
 		    }
-		  }
-
-		  test.sort(function (a, b) { return b.v - a.v; });
-
-		  for (index = 0; index < test.length; index++) {
-		    chr = test[index].k.charAt(0);
-		    if (result.charAt(result.length - 1) !== chr) result += chr;
-		  }
-
-		  return result !== 'DGBEFHACIJK';
-		});
-
-		var FORCED = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || !STRICT_METHOD || !STABLE_SORT;
-
-		var getSortCompare = function (comparefn) {
-		  return function (x, y) {
-		    if (y === undefined) return -1;
-		    if (x === undefined) return 1;
-		    if (comparefn !== undefined) return +comparefn(x, y) || 0;
-		    var xString = toString(x);
-		    var yString = toString(y);
-		    return xString === yString ? 0 : xString > yString ? 1 : -1;
-		  };
-		};
-
-		// `Array.prototype.sort` method
-		// https://tc39.es/ecma262/#sec-array.prototype.sort
-		$({ target: 'Array', proto: true, forced: FORCED }, {
-		  sort: function sort(comparefn) {
-		    if (comparefn !== undefined) aCallable(comparefn);
-
-		    var array = toObject(this);
-
-		    if (STABLE_SORT) return comparefn === undefined ? nativeSort(array) : nativeSort(array, comparefn);
-
-		    var items = [];
-		    var arrayLength = lengthOfArrayLike(array);
-		    var itemsLength, index;
-
-		    for (index = 0; index < arrayLength; index++) {
-		      if (index in array) push(items, array[index]);
+		    setArrayLength(A, actualDeleteCount);
+		    if (insertCount < actualDeleteCount) {
+		      for (k = actualStart; k < len - actualDeleteCount; k++) {
+		        from = k + actualDeleteCount;
+		        to = k + insertCount;
+		        if (from in O) O[to] = O[from];
+		        else deletePropertyOrThrow(O, to);
+		      }
+		      for (k = len; k > len - actualDeleteCount + insertCount; k--) deletePropertyOrThrow(O, k - 1);
+		    } else if (insertCount > actualDeleteCount) {
+		      for (k = len - actualDeleteCount; k > actualStart; k--) {
+		        from = k + actualDeleteCount - 1;
+		        to = k + insertCount - 1;
+		        if (from in O) O[to] = O[from];
+		        else deletePropertyOrThrow(O, to);
+		      }
 		    }
-
-		    internalSort(items, getSortCompare(comparefn));
-
-		    itemsLength = lengthOfArrayLike(items);
-		    index = 0;
-
-		    while (index < itemsLength) array[index] = items[index++];
-		    while (index < arrayLength) deletePropertyOrThrow(array, index++);
-
-		    return array;
+		    for (k = 0; k < insertCount; k++) {
+		      O[k + actualStart] = arguments[k + 2];
+		    }
+		    setArrayLength(O, len - actualDeleteCount + insertCount);
+		    return A;
 		  }
 		});
-		return es_array_sort;
+		return es_array_splice;
 	}
 
-	var sort$3;
-	var hasRequiredSort$3;
+	var splice$3;
+	var hasRequiredSplice$3;
 
-	function requireSort$3 () {
-		if (hasRequiredSort$3) return sort$3;
-		hasRequiredSort$3 = 1;
-		requireEs_array_sort();
+	function requireSplice$3 () {
+		if (hasRequiredSplice$3) return splice$3;
+		hasRequiredSplice$3 = 1;
+		requireEs_array_splice();
 		var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
 
-		sort$3 = getBuiltInPrototypeMethod('Array', 'sort');
-		return sort$3;
+		splice$3 = getBuiltInPrototypeMethod('Array', 'splice');
+		return splice$3;
 	}
 
-	var sort$2;
-	var hasRequiredSort$2;
+	var splice$2;
+	var hasRequiredSplice$2;
 
-	function requireSort$2 () {
-		if (hasRequiredSort$2) return sort$2;
-		hasRequiredSort$2 = 1;
+	function requireSplice$2 () {
+		if (hasRequiredSplice$2) return splice$2;
+		hasRequiredSplice$2 = 1;
 		var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
-		var method = /*@__PURE__*/ requireSort$3();
+		var method = /*@__PURE__*/ requireSplice$3();
 
 		var ArrayPrototype = Array.prototype;
 
-		sort$2 = function (it) {
-		  var own = it.sort;
-		  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.sort) ? method : own;
+		splice$2 = function (it) {
+		  var own = it.splice;
+		  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.splice) ? method : own;
 		};
-		return sort$2;
+		return splice$2;
 	}
 
-	var sort$1;
-	var hasRequiredSort$1;
+	var splice$1;
+	var hasRequiredSplice$1;
 
-	function requireSort$1 () {
-		if (hasRequiredSort$1) return sort$1;
-		hasRequiredSort$1 = 1;
-		var parent = /*@__PURE__*/ requireSort$2();
+	function requireSplice$1 () {
+		if (hasRequiredSplice$1) return splice$1;
+		hasRequiredSplice$1 = 1;
+		var parent = /*@__PURE__*/ requireSplice$2();
 
-		sort$1 = parent;
-		return sort$1;
+		splice$1 = parent;
+		return splice$1;
 	}
 
-	var sort;
-	var hasRequiredSort;
+	var splice;
+	var hasRequiredSplice;
 
-	function requireSort () {
-		if (hasRequiredSort) return sort;
-		hasRequiredSort = 1;
-		sort = /*@__PURE__*/ requireSort$1();
-		return sort;
+	function requireSplice () {
+		if (hasRequiredSplice) return splice;
+		hasRequiredSplice = 1;
+		splice = /*@__PURE__*/ requireSplice$1();
+		return splice;
 	}
 
-	var sortExports = requireSort();
-	var _sortInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sortExports);
+	var spliceExports = requireSplice();
+	var _spliceInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(spliceExports);
 
 	var isArray;
 	var hasRequiredIsArray;
@@ -9215,6 +8952,269 @@
 
 	var keysExports = requireKeys();
 	var _Object$keys = /*@__PURE__*/getDefaultExportFromCjs(keysExports);
+
+	var es_array_sort = {};
+
+	var arraySort;
+	var hasRequiredArraySort;
+
+	function requireArraySort () {
+		if (hasRequiredArraySort) return arraySort;
+		hasRequiredArraySort = 1;
+		var arraySlice = /*@__PURE__*/ requireArraySlice();
+
+		var floor = Math.floor;
+
+		var sort = function (array, comparefn) {
+		  var length = array.length;
+
+		  if (length < 8) {
+		    // insertion sort
+		    var i = 1;
+		    var element, j;
+
+		    while (i < length) {
+		      j = i;
+		      element = array[i];
+		      while (j && comparefn(array[j - 1], element) > 0) {
+		        array[j] = array[--j];
+		      }
+		      if (j !== i++) array[j] = element;
+		    }
+		  } else {
+		    // merge sort
+		    var middle = floor(length / 2);
+		    var left = sort(arraySlice(array, 0, middle), comparefn);
+		    var right = sort(arraySlice(array, middle), comparefn);
+		    var llength = left.length;
+		    var rlength = right.length;
+		    var lindex = 0;
+		    var rindex = 0;
+
+		    while (lindex < llength || rindex < rlength) {
+		      array[lindex + rindex] = (lindex < llength && rindex < rlength)
+		        ? comparefn(left[lindex], right[rindex]) <= 0 ? left[lindex++] : right[rindex++]
+		        : lindex < llength ? left[lindex++] : right[rindex++];
+		    }
+		  }
+
+		  return array;
+		};
+
+		arraySort = sort;
+		return arraySort;
+	}
+
+	var environmentFfVersion;
+	var hasRequiredEnvironmentFfVersion;
+
+	function requireEnvironmentFfVersion () {
+		if (hasRequiredEnvironmentFfVersion) return environmentFfVersion;
+		hasRequiredEnvironmentFfVersion = 1;
+		var userAgent = /*@__PURE__*/ requireEnvironmentUserAgent();
+
+		var firefox = userAgent.match(/firefox\/(\d+)/i);
+
+		environmentFfVersion = !!firefox && +firefox[1];
+		return environmentFfVersion;
+	}
+
+	var environmentIsIeOrEdge;
+	var hasRequiredEnvironmentIsIeOrEdge;
+
+	function requireEnvironmentIsIeOrEdge () {
+		if (hasRequiredEnvironmentIsIeOrEdge) return environmentIsIeOrEdge;
+		hasRequiredEnvironmentIsIeOrEdge = 1;
+		var UA = /*@__PURE__*/ requireEnvironmentUserAgent();
+
+		environmentIsIeOrEdge = /MSIE|Trident/.test(UA);
+		return environmentIsIeOrEdge;
+	}
+
+	var environmentWebkitVersion;
+	var hasRequiredEnvironmentWebkitVersion;
+
+	function requireEnvironmentWebkitVersion () {
+		if (hasRequiredEnvironmentWebkitVersion) return environmentWebkitVersion;
+		hasRequiredEnvironmentWebkitVersion = 1;
+		var userAgent = /*@__PURE__*/ requireEnvironmentUserAgent();
+
+		var webkit = userAgent.match(/AppleWebKit\/(\d+)\./);
+
+		environmentWebkitVersion = !!webkit && +webkit[1];
+		return environmentWebkitVersion;
+	}
+
+	var hasRequiredEs_array_sort;
+
+	function requireEs_array_sort () {
+		if (hasRequiredEs_array_sort) return es_array_sort;
+		hasRequiredEs_array_sort = 1;
+		var $ = /*@__PURE__*/ require_export();
+		var uncurryThis = /*@__PURE__*/ requireFunctionUncurryThis();
+		var aCallable = /*@__PURE__*/ requireACallable();
+		var toObject = /*@__PURE__*/ requireToObject();
+		var lengthOfArrayLike = /*@__PURE__*/ requireLengthOfArrayLike();
+		var deletePropertyOrThrow = /*@__PURE__*/ requireDeletePropertyOrThrow();
+		var toString = /*@__PURE__*/ requireToString();
+		var fails = /*@__PURE__*/ requireFails();
+		var internalSort = /*@__PURE__*/ requireArraySort();
+		var arrayMethodIsStrict = /*@__PURE__*/ requireArrayMethodIsStrict();
+		var FF = /*@__PURE__*/ requireEnvironmentFfVersion();
+		var IE_OR_EDGE = /*@__PURE__*/ requireEnvironmentIsIeOrEdge();
+		var V8 = /*@__PURE__*/ requireEnvironmentV8Version();
+		var WEBKIT = /*@__PURE__*/ requireEnvironmentWebkitVersion();
+
+		var test = [];
+		var nativeSort = uncurryThis(test.sort);
+		var push = uncurryThis(test.push);
+
+		// IE8-
+		var FAILS_ON_UNDEFINED = fails(function () {
+		  test.sort(undefined);
+		});
+		// V8 bug
+		var FAILS_ON_NULL = fails(function () {
+		  test.sort(null);
+		});
+		// Old WebKit
+		var STRICT_METHOD = arrayMethodIsStrict('sort');
+
+		var STABLE_SORT = !fails(function () {
+		  // feature detection can be too slow, so check engines versions
+		  if (V8) return V8 < 70;
+		  if (FF && FF > 3) return;
+		  if (IE_OR_EDGE) return true;
+		  if (WEBKIT) return WEBKIT < 603;
+
+		  var result = '';
+		  var code, chr, value, index;
+
+		  // generate an array with more 512 elements (Chakra and old V8 fails only in this case)
+		  for (code = 65; code < 76; code++) {
+		    chr = String.fromCharCode(code);
+
+		    switch (code) {
+		      case 66: case 69: case 70: case 72: value = 3; break;
+		      case 68: case 71: value = 4; break;
+		      default: value = 2;
+		    }
+
+		    for (index = 0; index < 47; index++) {
+		      test.push({ k: chr + index, v: value });
+		    }
+		  }
+
+		  test.sort(function (a, b) { return b.v - a.v; });
+
+		  for (index = 0; index < test.length; index++) {
+		    chr = test[index].k.charAt(0);
+		    if (result.charAt(result.length - 1) !== chr) result += chr;
+		  }
+
+		  return result !== 'DGBEFHACIJK';
+		});
+
+		var FORCED = FAILS_ON_UNDEFINED || !FAILS_ON_NULL || !STRICT_METHOD || !STABLE_SORT;
+
+		var getSortCompare = function (comparefn) {
+		  return function (x, y) {
+		    if (y === undefined) return -1;
+		    if (x === undefined) return 1;
+		    if (comparefn !== undefined) return +comparefn(x, y) || 0;
+		    var xString = toString(x);
+		    var yString = toString(y);
+		    return xString === yString ? 0 : xString > yString ? 1 : -1;
+		  };
+		};
+
+		// `Array.prototype.sort` method
+		// https://tc39.es/ecma262/#sec-array.prototype.sort
+		$({ target: 'Array', proto: true, forced: FORCED }, {
+		  sort: function sort(comparefn) {
+		    if (comparefn !== undefined) aCallable(comparefn);
+
+		    var array = toObject(this);
+
+		    if (STABLE_SORT) return comparefn === undefined ? nativeSort(array) : nativeSort(array, comparefn);
+
+		    var items = [];
+		    var arrayLength = lengthOfArrayLike(array);
+		    var itemsLength, index;
+
+		    for (index = 0; index < arrayLength; index++) {
+		      if (index in array) push(items, array[index]);
+		    }
+
+		    internalSort(items, getSortCompare(comparefn));
+
+		    itemsLength = lengthOfArrayLike(items);
+		    index = 0;
+
+		    while (index < itemsLength) array[index] = items[index++];
+		    while (index < arrayLength) deletePropertyOrThrow(array, index++);
+
+		    return array;
+		  }
+		});
+		return es_array_sort;
+	}
+
+	var sort$3;
+	var hasRequiredSort$3;
+
+	function requireSort$3 () {
+		if (hasRequiredSort$3) return sort$3;
+		hasRequiredSort$3 = 1;
+		requireEs_array_sort();
+		var getBuiltInPrototypeMethod = /*@__PURE__*/ requireGetBuiltInPrototypeMethod();
+
+		sort$3 = getBuiltInPrototypeMethod('Array', 'sort');
+		return sort$3;
+	}
+
+	var sort$2;
+	var hasRequiredSort$2;
+
+	function requireSort$2 () {
+		if (hasRequiredSort$2) return sort$2;
+		hasRequiredSort$2 = 1;
+		var isPrototypeOf = /*@__PURE__*/ requireObjectIsPrototypeOf();
+		var method = /*@__PURE__*/ requireSort$3();
+
+		var ArrayPrototype = Array.prototype;
+
+		sort$2 = function (it) {
+		  var own = it.sort;
+		  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.sort) ? method : own;
+		};
+		return sort$2;
+	}
+
+	var sort$1;
+	var hasRequiredSort$1;
+
+	function requireSort$1 () {
+		if (hasRequiredSort$1) return sort$1;
+		hasRequiredSort$1 = 1;
+		var parent = /*@__PURE__*/ requireSort$2();
+
+		sort$1 = parent;
+		return sort$1;
+	}
+
+	var sort;
+	var hasRequiredSort;
+
+	function requireSort () {
+		if (hasRequiredSort) return sort;
+		hasRequiredSort = 1;
+		sort = /*@__PURE__*/ requireSort$1();
+		return sort;
+	}
+
+	var sortExports = requireSort();
+	var _sortInstanceProperty = /*@__PURE__*/getDefaultExportFromCjs(sortExports);
 
 	var es_date_toJson = {};
 
@@ -13908,7 +13908,7 @@
 	}
 
 	function ownKeys(e, r) { var t = _Object$keys(e); if (_Object$getOwnPropertySymbols) { var o = _Object$getOwnPropertySymbols(e); r && (o = _filterInstanceProperty(o).call(o, function (r) { return _Object$getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-	function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var _context21, _context22; var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? _forEachInstanceProperty(_context21 = ownKeys(Object(t), true)).call(_context21, function (r) { _defineProperty(e, r, t[r]); }) : _Object$getOwnPropertyDescriptors ? _Object$defineProperties(e, _Object$getOwnPropertyDescriptors(t)) : _forEachInstanceProperty(_context22 = ownKeys(Object(t))).call(_context22, function (r) { _Object$defineProperty(e, r, _Object$getOwnPropertyDescriptor(t, r)); }); } return e; }
+	function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var _context20, _context21; var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? _forEachInstanceProperty(_context20 = ownKeys(Object(t), true)).call(_context20, function (r) { _defineProperty(e, r, t[r]); }) : _Object$getOwnPropertyDescriptors ? _Object$defineProperties(e, _Object$getOwnPropertyDescriptors(t)) : _forEachInstanceProperty(_context21 = ownKeys(Object(t))).call(_context21, function (r) { _Object$defineProperty(e, r, _Object$getOwnPropertyDescriptor(t, r)); }); } return e; }
 
 	/**
 	 * Create new data pipe.
@@ -14117,167 +14117,6 @@
 	}
 
 	/**
-	 * A queue.
-	 * @typeParam T - The type of method names to be replaced by queued versions.
-	 */
-	class Queue {
-	  /**
-	   * Construct a new Queue.
-	   * @param options - Queue configuration.
-	   */
-	  constructor(options) {
-	    /** Delay in milliseconds. If defined the queue will be periodically flushed. */
-	    _defineProperty(this, "delay", void 0);
-	    /** Maximum number of entries in the queue before it will be flushed. */
-	    _defineProperty(this, "max", void 0);
-	    _defineProperty(this, "_queue", []);
-	    _defineProperty(this, "_timeout", null);
-	    _defineProperty(this, "_extended", null);
-	    // options
-	    this.delay = null;
-	    this.max = Infinity;
-	    this.setOptions(options);
-	  }
-	  /**
-	   * Update the configuration of the queue.
-	   * @param options - Queue configuration.
-	   */
-	  setOptions(options) {
-	    if (options && typeof options.delay !== "undefined") {
-	      this.delay = options.delay;
-	    }
-	    if (options && typeof options.max !== "undefined") {
-	      this.max = options.max;
-	    }
-	    this._flushIfNeeded();
-	  }
-	  /**
-	   * Extend an object with queuing functionality.
-	   * The object will be extended with a function flush, and the methods provided in options.replace will be replaced with queued ones.
-	   * @param object - The object to be extended.
-	   * @param options - Additional options.
-	   * @returns The created queue.
-	   */
-	  static extend(object, options) {
-	    const queue = new Queue(options);
-	    if (object.flush !== undefined) {
-	      throw new Error("Target object already has a property flush");
-	    }
-	    object.flush = () => {
-	      queue.flush();
-	    };
-	    const methods = [{
-	      name: "flush",
-	      original: undefined
-	    }];
-	    if (options && options.replace) {
-	      for (let i = 0; i < options.replace.length; i++) {
-	        const name = options.replace[i];
-	        methods.push({
-	          name: name,
-	          // @TODO: better solution?
-	          original: object[name]
-	        });
-	        // @TODO: better solution?
-	        queue.replace(object, name);
-	      }
-	    }
-	    queue._extended = {
-	      object: object,
-	      methods: methods
-	    };
-	    return queue;
-	  }
-	  /**
-	   * Destroy the queue. The queue will first flush all queued actions, and in case it has extended an object, will restore the original object.
-	   */
-	  destroy() {
-	    this.flush();
-	    if (this._extended) {
-	      const object = this._extended.object;
-	      const methods = this._extended.methods;
-	      for (let i = 0; i < methods.length; i++) {
-	        const method = methods[i];
-	        if (method.original) {
-	          // @TODO: better solution?
-	          object[method.name] = method.original;
-	        } else {
-	          // @TODO: better solution?
-	          delete object[method.name];
-	        }
-	      }
-	      this._extended = null;
-	    }
-	  }
-	  /**
-	   * Replace a method on an object with a queued version.
-	   * @param object - Object having the method.
-	   * @param method - The method name.
-	   */
-	  replace(object, method) {
-	    /* eslint-disable-next-line @typescript-eslint/no-this-alias -- Function this is necessary in the function bellow, so class this has to be saved into a variable here. */
-	    const me = this;
-	    const original = object[method];
-	    if (!original) {
-	      throw new Error("Method " + method + " undefined");
-	    }
-	    object[method] = function () {
-	      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-	        args[_key] = arguments[_key];
-	      }
-	      // add this call to the queue
-	      me.queue({
-	        args: args,
-	        fn: original,
-	        context: this
-	      });
-	    };
-	  }
-	  /**
-	   * Queue a call.
-	   * @param entry - The function or entry to be queued.
-	   */
-	  queue(entry) {
-	    if (typeof entry === "function") {
-	      this._queue.push({
-	        fn: entry
-	      });
-	    } else {
-	      this._queue.push(entry);
-	    }
-	    this._flushIfNeeded();
-	  }
-	  /**
-	   * Check whether the queue needs to be flushed.
-	   */
-	  _flushIfNeeded() {
-	    // flush when the maximum is exceeded.
-	    if (this._queue.length > this.max) {
-	      this.flush();
-	    }
-	    // flush after a period of inactivity when a delay is configured
-	    if (this._timeout != null) {
-	      clearTimeout(this._timeout);
-	      this._timeout = null;
-	    }
-	    if (this.queue.length > 0 && typeof this.delay === "number") {
-	      this._timeout = _setTimeout(() => {
-	        this.flush();
-	      }, this.delay);
-	    }
-	  }
-	  /**
-	   * Flush all queued calls
-	   */
-	  flush() {
-	    var _context5, _context6;
-	    _forEachInstanceProperty(_context5 = _spliceInstanceProperty(_context6 = this._queue).call(_context6, 0)).call(_context5, entry => {
-	      entry.fn.apply(entry.context || entry.fn, entry.args || []);
-	    });
-	  }
-	}
-
-	/**
 	 * {@link DataSet} code that can be reused in {@link DataView} or other similar implementations of {@link DataInterface}.
 	 * @typeParam Item - Item type that may or may not have an id.
 	 * @typeParam IdProp - Name of the property that contains the id.
@@ -14306,11 +14145,11 @@
 	   * @param senderId - Id of the sender.
 	   */
 	  _trigger(event, payload, senderId) {
-	    var _context7;
+	    var _context5;
 	    if (event === "*") {
 	      throw new Error("Cannot trigger event *");
 	    }
-	    _forEachInstanceProperty(_context7 = [...this._subscribers[event], ...this._subscribers["*"]]).call(_context7, subscriber => {
+	    _forEachInstanceProperty(_context5 = [...this._subscribers[event], ...this._subscribers["*"]]).call(_context5, subscriber => {
 	      subscriber(event, payload, senderId != null ? senderId : null);
 	    });
 	  }
@@ -14333,8 +14172,8 @@
 	   * @param callback - Callback method.
 	   */
 	  off(event, callback) {
-	    var _context8;
-	    this._subscribers[event] = _filterInstanceProperty(_context8 = this._subscribers[event]).call(_context8, subscriber => subscriber !== callback);
+	    var _context6;
+	    this._subscribers[event] = _filterInstanceProperty(_context6 = this._subscribers[event]).call(_context6, subscriber => subscriber !== callback);
 	  }
 	}
 
@@ -14404,8 +14243,8 @@
 	   * @returns The array with all ids from this stream.
 	   */
 	  toIdArray() {
-	    var _context9;
-	    return _mapInstanceProperty(_context9 = [...this._pairs]).call(_context9, pair => pair[0]);
+	    var _context7;
+	    return _mapInstanceProperty(_context7 = [...this._pairs]).call(_context7, pair => pair[0]);
 	  }
 	  /**
 	   * Return an array containing all the items in this stream.
@@ -14414,8 +14253,8 @@
 	   * @returns The array with all items from this stream.
 	   */
 	  toItemArray() {
-	    var _context0;
-	    return _mapInstanceProperty(_context0 = [...this._pairs]).call(_context0, pair => pair[1]);
+	    var _context8;
+	    return _mapInstanceProperty(_context8 = [...this._pairs]).call(_context8, pair => pair[1]);
 	  }
 	  /**
 	   * Return an array containing all the entries in this stream.
@@ -14627,18 +14466,176 @@
 	   */
 	  sort(callback) {
 	    return new DataStream({
-	      [_Symbol$iterator]: () => {
-	        var _context1;
-	        return _getIterator(_sortInstanceProperty(_context1 = [...this._pairs]).call(_context1, (_ref19, _ref20) => {
-	          let _ref21 = _slicedToArray(_ref19, 2),
-	            idA = _ref21[0],
-	            itemA = _ref21[1];
-	          let _ref22 = _slicedToArray(_ref20, 2),
-	            idB = _ref22[0],
-	            itemB = _ref22[1];
-	          return callback(itemA, itemB, idA, idB);
-	        }));
+	      [_Symbol$iterator]: () => _getIterator([...this._pairs].toSorted((_ref19, _ref20) => {
+	        let _ref21 = _slicedToArray(_ref19, 2),
+	          idA = _ref21[0],
+	          itemA = _ref21[1];
+	        let _ref22 = _slicedToArray(_ref20, 2),
+	          idB = _ref22[0],
+	          itemB = _ref22[1];
+	        return callback(itemA, itemB, idA, idB);
+	      }))
+	    });
+	  }
+	}
+
+	/**
+	 * A queue.
+	 * @typeParam T - The type of method names to be replaced by queued versions.
+	 */
+	class Queue {
+	  /**
+	   * Construct a new Queue.
+	   * @param options - Queue configuration.
+	   */
+	  constructor(options) {
+	    /** Delay in milliseconds. If defined the queue will be periodically flushed. */
+	    _defineProperty(this, "delay", void 0);
+	    /** Maximum number of entries in the queue before it will be flushed. */
+	    _defineProperty(this, "max", void 0);
+	    _defineProperty(this, "_queue", []);
+	    _defineProperty(this, "_timeout", null);
+	    _defineProperty(this, "_extended", null);
+	    // options
+	    this.delay = null;
+	    this.max = Infinity;
+	    this.setOptions(options);
+	  }
+	  /**
+	   * Update the configuration of the queue.
+	   * @param options - Queue configuration.
+	   */
+	  setOptions(options) {
+	    if (options && typeof options.delay !== "undefined") {
+	      this.delay = options.delay;
+	    }
+	    if (options && typeof options.max !== "undefined") {
+	      this.max = options.max;
+	    }
+	    this._flushIfNeeded();
+	  }
+	  /**
+	   * Extend an object with queuing functionality.
+	   * The object will be extended with a function flush, and the methods provided in options.replace will be replaced with queued ones.
+	   * @param object - The object to be extended.
+	   * @param options - Additional options.
+	   * @returns The created queue.
+	   */
+	  static extend(object, options) {
+	    const queue = new Queue(options);
+	    if (object.flush !== undefined) {
+	      throw new Error("Target object already has a property flush");
+	    }
+	    object.flush = () => {
+	      queue.flush();
+	    };
+	    const methods = [{
+	      name: "flush",
+	      original: undefined
+	    }];
+	    if (options && options.replace) {
+	      for (let i = 0; i < options.replace.length; i++) {
+	        const name = options.replace[i];
+	        methods.push({
+	          name: name,
+	          // @TODO: better solution?
+	          original: object[name]
+	        });
+	        // @TODO: better solution?
+	        queue.replace(object, name);
 	      }
+	    }
+	    queue._extended = {
+	      object: object,
+	      methods: methods
+	    };
+	    return queue;
+	  }
+	  /**
+	   * Destroy the queue. The queue will first flush all queued actions, and in case it has extended an object, will restore the original object.
+	   */
+	  destroy() {
+	    this.flush();
+	    if (this._extended) {
+	      const object = this._extended.object;
+	      const methods = this._extended.methods;
+	      for (let i = 0; i < methods.length; i++) {
+	        const method = methods[i];
+	        if (method.original) {
+	          // @TODO: better solution?
+	          object[method.name] = method.original;
+	        } else {
+	          // @TODO: better solution?
+	          delete object[method.name];
+	        }
+	      }
+	      this._extended = null;
+	    }
+	  }
+	  /**
+	   * Replace a method on an object with a queued version.
+	   * @param object - Object having the method.
+	   * @param method - The method name.
+	   */
+	  replace(object, method) {
+	    /* eslint-disable-next-line @typescript-eslint/no-this-alias -- Function this is necessary in the function bellow, so class this has to be saved into a variable here. */
+	    const me = this;
+	    const original = object[method];
+	    if (!original) {
+	      throw new Error("Method " + method + " undefined");
+	    }
+	    object[method] = function () {
+	      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+	        args[_key] = arguments[_key];
+	      }
+	      // add this call to the queue
+	      me.queue({
+	        args: args,
+	        fn: original,
+	        context: this
+	      });
+	    };
+	  }
+	  /**
+	   * Queue a call.
+	   * @param entry - The function or entry to be queued.
+	   */
+	  queue(entry) {
+	    if (typeof entry === "function") {
+	      this._queue.push({
+	        fn: entry
+	      });
+	    } else {
+	      this._queue.push(entry);
+	    }
+	    this._flushIfNeeded();
+	  }
+	  /**
+	   * Check whether the queue needs to be flushed.
+	   */
+	  _flushIfNeeded() {
+	    // flush when the maximum is exceeded.
+	    if (this._queue.length > this.max) {
+	      this.flush();
+	    }
+	    // flush after a period of inactivity when a delay is configured
+	    if (this._timeout != null) {
+	      clearTimeout(this._timeout);
+	      this._timeout = null;
+	    }
+	    if (this.queue.length > 0 && typeof this.delay === "number") {
+	      this._timeout = _setTimeout(() => {
+	        this.flush();
+	      }, this.delay);
+	    }
+	  }
+	  /**
+	   * Flush all queued calls
+	   */
+	  flush() {
+	    var _context9, _context0;
+	    _forEachInstanceProperty(_context9 = _spliceInstanceProperty(_context0 = this._queue).call(_context0, 0)).call(_context9, entry => {
+	      entry.fn.apply(entry.context || entry.fn, entry.args || []);
 	    });
 	  }
 	}
@@ -14956,11 +14953,11 @@
 	   * @throws When the supplied data is neither an item nor an array of items, when the ids are missing.
 	   */
 	  updateOnly(data, senderId) {
-	    var _context10;
+	    var _context1;
 	    if (!_Array$isArray(data)) {
 	      data = [data];
 	    }
-	    const updateEventData = _mapInstanceProperty(_context10 = _mapInstanceProperty(data).call(data, update => {
+	    const updateEventData = _mapInstanceProperty(_context1 = _mapInstanceProperty(data).call(data, update => {
 	      const oldData = this._data.get(update[this._idProp]);
 	      if (oldData == null) {
 	        throw new Error("Updating non-existent items is not allowed.");
@@ -14969,7 +14966,7 @@
 	        oldData,
 	        update
 	      };
-	    })).call(_context10, _ref23 => {
+	    })).call(_context1, _ref23 => {
 	      let oldData = _ref23.oldData,
 	        update = _ref23.update;
 	      const id = oldData[this._idProp];
@@ -15054,9 +15051,9 @@
 	        }
 	      }
 	    } else {
-	      var _context11;
+	      var _context10;
 	      // return all items
-	      itemIds = [..._keysInstanceProperty(_context11 = this._data).call(_context11)];
+	      itemIds = [..._keysInstanceProperty(_context10 = this._data).call(_context10)];
 	      for (let i = 0, len = itemIds.length; i < len; i++) {
 	        itemId = itemIds[i];
 	        item = this._data.get(itemId);
@@ -15216,16 +15213,16 @@
 	   * @returns The item without any additional fields.
 	   */
 	  _filterFields(item, fields) {
-	    var _context12;
+	    var _context11;
 	    if (!item) {
 	      // item is null
 	      return item;
 	    }
-	    return _reduceInstanceProperty(_context12 = _Array$isArray(fields) ?
+	    return _reduceInstanceProperty(_context11 = _Array$isArray(fields) ?
 	    // Use the supplied array
 	    fields :
 	    // Use the keys of the supplied object
-	    _Object$keys(fields)).call(_context12, (filteredItem, field) => {
+	    _Object$keys(fields)).call(_context11, (filteredItem, field) => {
 	      filteredItem[field] = item[field];
 	      return filteredItem;
 	    }, {});
@@ -15335,8 +15332,8 @@
 	   * @returns removedIds - The ids of all removed items.
 	   */
 	  clear(senderId) {
-	    var _context13;
-	    const ids = [..._keysInstanceProperty(_context13 = this._data).call(_context13)];
+	    var _context12;
+	    const ids = [..._keysInstanceProperty(_context12 = this._data).call(_context12)];
 	    const items = [];
 	    for (let i = 0, len = ids.length; i < len; i++) {
 	      items.push(this._data.get(ids[i]));
@@ -15357,8 +15354,8 @@
 	  max(field) {
 	    let max = null;
 	    let maxField = null;
-	    for (const item of _valuesInstanceProperty(_context14 = this._data).call(_context14)) {
-	      var _context14;
+	    for (const item of _valuesInstanceProperty(_context13 = this._data).call(_context13)) {
+	      var _context13;
 	      const itemField = item[field];
 	      if (typeof itemField === "number" && (maxField == null || itemField > maxField)) {
 	        max = item;
@@ -15375,8 +15372,8 @@
 	  min(field) {
 	    let min = null;
 	    let minField = null;
-	    for (const item of _valuesInstanceProperty(_context15 = this._data).call(_context15)) {
-	      var _context15;
+	    for (const item of _valuesInstanceProperty(_context14 = this._data).call(_context14)) {
+	      var _context14;
 	      const itemField = item[field];
 	      if (typeof itemField === "number" && (minField == null || itemField < minField)) {
 	        min = item;
@@ -15464,9 +15461,9 @@
 	        }
 	      });
 	    } else {
-	      var _context16;
+	      var _context15;
 	      return new DataStream({
-	        [_Symbol$iterator]: _bindInstanceProperty(_context16 = _entriesInstanceProperty(this._data)).call(_context16, this._data)
+	        [_Symbol$iterator]: _bindInstanceProperty(_context15 = _entriesInstanceProperty(this._data)).call(_context15, this._data)
 	      });
 	    }
 	  }
@@ -15527,7 +15524,7 @@
 	   * @param options - Options to configure this data view.
 	   */
 	  constructor(data, options) {
-	    var _context17;
+	    var _context16;
 	    super();
 	    /** @inheritDoc */
 	    _defineProperty(this, "length", 0);
@@ -15538,7 +15535,7 @@
 	    // ids of the items currently in memory (just contains a boolean true)
 	    _defineProperty(this, "_options", void 0);
 	    this._options = options || {};
-	    this._listener = _bindInstanceProperty(_context17 = this._onEvent).call(_context17, this);
+	    this._listener = _bindInstanceProperty(_context16 = this._onEvent).call(_context16, this);
 	    this.setData(data);
 	  }
 	  // TODO: implement a function .config() to dynamically update things like configured filter
@@ -15702,7 +15699,7 @@
 	  /** @inheritDoc */
 	  forEach(callback, options) {
 	    if (this._data) {
-	      var _context18;
+	      var _context17;
 	      const defaultFilter = _filterInstanceProperty(this._options);
 	      const optionsFilter = options && _filterInstanceProperty(options);
 	      let filter;
@@ -15717,7 +15714,7 @@
 	      } else {
 	        filter = defaultFilter;
 	      }
-	      _forEachInstanceProperty(_context18 = this._data).call(_context18, callback, {
+	      _forEachInstanceProperty(_context17 = this._data).call(_context17, callback, {
 	        filter: filter,
 	        order: options && options.order
 	      });
@@ -15726,7 +15723,7 @@
 	  /** @inheritDoc */
 	  map(callback, options) {
 	    if (this._data) {
-	      var _context19;
+	      var _context18;
 	      const defaultFilter = _filterInstanceProperty(this._options);
 	      const optionsFilter = options && _filterInstanceProperty(options);
 	      let filter;
@@ -15741,7 +15738,7 @@
 	      } else {
 	        filter = defaultFilter;
 	      }
-	      return _mapInstanceProperty(_context19 = this._data).call(_context19, callback, {
+	      return _mapInstanceProperty(_context18 = this._data).call(_context18, callback, {
 	        filter: filter,
 	        order: options && options.order
 	      });
@@ -15755,9 +15752,9 @@
 	  }
 	  /** @inheritDoc */
 	  stream(ids) {
-	    var _context20;
+	    var _context19;
 	    return this._data.stream(ids || {
-	      [_Symbol$iterator]: _bindInstanceProperty(_context20 = _keysInstanceProperty(this._ids)).call(_context20, this._ids)
+	      [_Symbol$iterator]: _bindInstanceProperty(_context19 = _keysInstanceProperty(this._ids)).call(_context19, this._ids)
 	    });
 	  }
 	  /**
