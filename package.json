@@ -204,7 +204,7 @@
     "oxfmt": "0.71.0",
     "oxlint": "1.78.0",
     "oxlint-tsgolint": "7.0.2003",
-    "postcss": "8.5.28",
+    "postcss": "8.5.29",
     "semantic-release": "25.0.9",
     "shx": "0.4.0",
     "sinon": "22.1.0",
