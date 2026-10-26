@@ -203,7 +203,7 @@
     "nyc": "18.0.0",
     "oxfmt": "0.74.0",
     "oxlint": "1.78.0",
-    "oxlint-tsgolint": "7.0.2004",
+    "oxlint-tsgolint": "7.0.2005",
     "postcss": "8.5.31",
     "semantic-release": "25.0.9",
     "shx": "0.4.0",
