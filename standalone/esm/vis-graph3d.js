@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2026-10-28T16:47:23.800Z
+ * @date    2026-10-28T23:56:26.385Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -6179,15 +6179,15 @@ function requireToPrimitive () {
 var toPrimitiveExports = /*@__PURE__*/ requireToPrimitive();
 var _Symbol$toPrimitive = /*@__PURE__*/getDefaultExportFromCjs(toPrimitiveExports);
 
-function toPrimitive(t, r) {
+function toPrimitive(t, e) {
   if ("object" != _typeof(t) || !t) return t;
-  var e = t[_Symbol$toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r);
+  var r;
+  if ("undefined" != typeof _Symbol$1 && void 0 !== (r = t[_Symbol$toPrimitive])) {
+    var i = r.call(t, e);
     if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return ("string" === r ? String : Number)(t);
+  return ("string" === e ? String : Number)(t);
 }
 
 function toPropertyKey(t) {
