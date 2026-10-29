@@ -3,7 +3,7 @@ version: 2.1
 executors:
   node:
     docker:
-      - image: cimg/node:24.22.1-browsers@sha256:3c9cc79d6534b8c14e5097721e7cef12aa7f23ec37436a3cdfe58e31c30a6764
+      - image: cimg/node:24.22.2-browsers@sha256:5117cbd77307eb0392e4ee285a9a5bb05b79b16c7bbd5860389876a52ca76588
     working_directory: ~/repo
     environment:
       GIT_AUTHOR_EMAIL: visjsbot@gmail.com
