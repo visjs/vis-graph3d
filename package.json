@@ -212,7 +212,7 @@
     "test-console": "2.0.0",
     "uuid": "14.0.3",
     "vis-data": "8.0.6",
-    "vis-dev-utils": "7.1.11",
+    "vis-dev-utils": "7.2.0",
     "vis-util": "6.0.3"
   },
   "peerDependencies": {
