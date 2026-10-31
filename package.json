@@ -229,5 +229,8 @@
     ".*.{js,ts,css,html,json,md,yml,yaml}": "oxfmt --no-error-on-unmatched-pattern",
     ".*.{js,ts}": "oxlint --no-error-on-unmatched-pattern --report-unused-disable-directives-severity error --fix"
   },
+  "allowScripts": {
+    "puppeteer": true
+  },
   "jsnext": "./esnext/esm/vis-graph3d.mjs"
 }
