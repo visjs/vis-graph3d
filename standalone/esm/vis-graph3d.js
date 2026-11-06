@@ -5,7 +5,7 @@
  * Create interactive, animated 3d graphs. Surfaces, lines, dots and block styling out of the box.
  *
  * @version 0.0.0-no-version
- * @date    2026-11-01T11:08:07.697Z
+ * @date    2026-11-06T03:58:04.998Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -7015,7 +7015,7 @@ function requireObjectIsExtensible () {
 
 	// eslint-disable-next-line es/no-object-isextensible -- safe
 	var $isExtensible = Object.isExtensible;
-	var FAILS_ON_PRIMITIVES = fails(function () { });
+	var FAILS_ON_PRIMITIVES = fails(function () { $isExtensible(1); });
 
 	// `Object.isExtensible` method
 	// https://tc39.es/ecma262/#sec-object.isextensible
